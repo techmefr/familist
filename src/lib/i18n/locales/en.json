@@ -55,7 +55,12 @@
 		"reminderWeb": "Reminders only arrive on the installed app. In a browser the date still shows, but no notification will be sent.",
 		"reminderDenied": "Notifications declined: the date is saved, but no reminder will be sent. You can allow them again in your phone settings.",
 		"reminderTitle": "{name} is tomorrow",
-		"reminderBody": "Some items are still to buy before {date}."
+		"reminderBody": "Some items are still to buy before {date}.",
+		"kindLabel": "List kind",
+		"kindShopping": "Shopping",
+		"kindMealPlan": "Meal plan",
+		"kindAll": "All",
+		"kindFilterEmpty": "No list of this kind."
 	},
 	"profile": {
 		"title": "Profile",

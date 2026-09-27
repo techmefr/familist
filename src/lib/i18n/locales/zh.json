@@ -54,7 +54,12 @@
 		"reminderDenied": "通知已被拒绝：日期已保存，但不会发出提醒。可在手机设置中重新允许。",
 		"reminderTitle": "{name}就在明天",
 		"reminderBody": "{date}之前还有物品没买。",
-		"mealPlanSuggestion": "想要规划本周食谱吗？"
+		"mealPlanSuggestion": "想要规划本周食谱吗？",
+		"kindLabel": "清单类型",
+		"kindShopping": "购物",
+		"kindMealPlan": "菜单",
+		"kindAll": "全部",
+		"kindFilterEmpty": "没有此类型的清单。"
 	},
 	"profile": {
 		"title": "我的",

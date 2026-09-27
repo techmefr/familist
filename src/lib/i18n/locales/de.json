@@ -55,7 +55,12 @@
 		"reminderDenied": "Benachrichtigungen abgelehnt: das Datum ist gespeichert, aber es kommt keine Erinnerung. In den Telefoneinstellungen wieder erlauben.",
 		"reminderTitle": "{name} ist morgen",
 		"reminderBody": "Vor dem {date} fehlen noch Artikel.",
-		"mealPlanSuggestion": "Möchten Sie die Woche planen?"
+		"mealPlanSuggestion": "Möchten Sie die Woche planen?",
+		"kindLabel": "Listenart",
+		"kindShopping": "Einkauf",
+		"kindMealPlan": "Menüplan",
+		"kindAll": "Alle",
+		"kindFilterEmpty": "Keine Liste dieser Art."
 	},
 	"profile": {
 		"title": "Profil",

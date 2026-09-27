@@ -147,6 +147,16 @@ describe('toList / fromList', () => {
 	it('renvoie une liste partagée à son propre cercle, pas à celui affiché', () => {
 		expect(fromList(toList({ id: 'l1', household_id: 'h2' }, [])).household_id).toBe('h2');
 	});
+
+	it('retombe sur une liste de courses quand le type est absent ou inconnu (#359)', () => {
+		expect(toList({ id: 'l1' }, []).kind).toBe('shopping');
+		expect(toList({ id: 'l1', kind: 'autre' }, []).kind).toBe('shopping');
+	});
+
+	it('reconnait un menu et le renvoie tel quel', () => {
+		expect(toList({ id: 'l1', kind: 'meal-plan' }, []).kind).toBe('meal-plan');
+		expect(fromList(toList({ id: 'l1', kind: 'meal-plan' }, [])).kind).toBe('meal-plan');
+	});
 });
 
 describe('toItem / fromItem', () => {

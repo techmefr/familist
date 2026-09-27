@@ -3,6 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { data } from '$stores/data.svelte';
+	import type { ListKind } from '$db/schema';
 	import { feedback } from '$stores/feedback.svelte';
 	import { motionMs, settings } from '$stores/settings.svelte';
 	import { createIntent } from '$stores/create.svelte';
@@ -27,7 +28,8 @@
 		CalendarDays,
 		Users,
 		Lock,
-		Check
+		Check,
+		UtensilsCrossed
 	} from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
@@ -37,6 +39,13 @@
 	let emoji = $state('🛒');
 	let picker = $state<EmojiPicker | null>(null);
 	let eventDate = $state('');
+	let kind = $state<ListKind>('shopping');
+
+	/** Which lists show on the overview: every one, only the shopping lists, or only the meal plans. */
+	let kindFilter = $state<'all' | ListKind>('all');
+	const visibleLists = $derived(
+		data.lists.filter((list) => kindFilter === 'all' || list.kind === kindFilter)
+	);
 
 	/** Set only after a save, when the person refused notifications. */
 	let reminderRefused = $state(false);
@@ -50,12 +59,13 @@
 	 * The name and the emoji are corrected in the same place they are set: a second form would only have
 	 * repeated the same two fields and the same palette.
 	 */
-	function rename(list: { id: string; name: string; emoji: string; eventDate?: string }) {
+	function rename(list: { id: string; name: string; emoji: string; eventDate?: string; kind: ListKind }) {
 		feedback.play('tap');
 		renamed = list.id;
 		name = list.name;
 		emoji = list.emoji;
 		eventDate = list.eventDate ?? '';
+		kind = list.kind;
 		reminderRefused = false;
 		creating = true;
 
@@ -68,6 +78,7 @@
 		name = '';
 		emoji = '🛒';
 		eventDate = '';
+		kind = 'shopping';
 		reminderRefused = false;
 		creating = false;
 	}
@@ -154,10 +165,10 @@
 
 		if (renamed) {
 			feedback.play('success');
-			data.updateList(renamed, { name, emoji, eventDate });
+			data.updateList(renamed, { name, emoji, eventDate, kind });
 		} else {
 			feedback.play('add');
-			data.addList({ name, emoji, eventDate, color: TINTS[data.lists.length % TINTS.length] });
+			data.addList({ name, emoji, eventDate, kind, color: TINTS[data.lists.length % TINTS.length] });
 		}
 
 		cancel();
@@ -241,6 +252,28 @@
 				{reminderNotice || t('lists.eventDateClear')}
 			</p>
 		</div>
+		<fieldset>
+			<legend class="text-label mb-2 font-medium">{t('lists.kindLabel')}</legend>
+			<div class="flex flex-wrap gap-2" data-test-id="list-kind">
+				{#each [{ id: 'shopping', label: t('lists.kindShopping'), icon: ListChecks }, { id: 'meal-plan', label: t('lists.kindMealPlan'), icon: UtensilsCrossed }] as option (option.id)}
+					{@const Icon = option.icon}
+					<Label
+						class="border-input has-checked:border-primary has-checked:bg-[var(--fl-primary-tint)] has-focus-visible:ring-ring has-focus-visible:ring-2 flex min-h-[max(2.75rem,44px)] cursor-pointer items-center gap-2 rounded-md border px-3 py-2"
+					>
+						<input
+							type="radio"
+							name="list-kind"
+							value={option.id}
+							bind:group={kind}
+							data-test-id="list-kind-{option.id}"
+							class="sr-only"
+						/>
+						<Icon size={16} aria-hidden="true" />
+						{option.label}
+					</Label>
+				{/each}
+			</div>
+		</fieldset>
 		<div class="flex flex-wrap items-stretch gap-2">
 			<Button type="submit" data-test-id="list-create" class="fl-press flex-auto rounded-full">
 				{t('common.save')}
@@ -321,8 +354,30 @@
 		</EmptyState>
 	</div>
 {:else}
-	<ul class="mt-6 space-y-3">
-		{#each data.lists as list, index (list.id)}
+	<div class="mt-6 flex flex-wrap gap-2" data-test-id="lists-kind-filter">
+		{#each [{ id: 'all', label: t('lists.kindAll') }, { id: 'shopping', label: t('lists.kindShopping') }, { id: 'meal-plan', label: t('lists.kindMealPlan') }] as option (option.id)}
+			<button
+				type="button"
+				onclick={() => (kindFilter = option.id as 'all' | ListKind)}
+				aria-pressed={kindFilter === option.id}
+				data-test-id="lists-kind-filter-{option.id}"
+				class="fl-press text-label rounded-full px-3 py-1.5 font-medium {kindFilter === option.id
+					? 'bg-primary text-primary-foreground'
+					: 'bg-muted text-foreground'}"
+			>
+				{option.label}
+			</button>
+		{/each}
+	</div>
+
+	{#if visibleLists.length === 0}
+		<p class="text-muted-foreground text-label mt-6" data-test-id="lists-kind-filter-empty">
+			{t('lists.kindFilterEmpty')}
+		</p>
+	{/if}
+
+	<ul class="mt-3 space-y-3">
+		{#each visibleLists as list, index (list.id)}
 			{@const { total, done } = stats(list.id)}
 			<li
 				class="fl-rise"
@@ -354,6 +409,15 @@
 								<span class="text-muted-foreground text-label block">
 									{t('lists.progress', { done, total })}
 								</span>
+								{#if list.kind === 'meal-plan'}
+									<span
+										class="text-caption text-secondary mt-1.5 mr-1.5 inline-flex items-center gap-1 rounded-full bg-[var(--fl-secondary-tint)] px-2 py-0.5 font-semibold"
+										data-test-class="list-kind-badge"
+									>
+										<UtensilsCrossed size={12} aria-hidden="true" />
+										{t('lists.kindMealPlan')}
+									</span>
+								{/if}
 								{#if list.eventDate && eventLabel(list.eventDate)}
 									<!--
 										The date of a family meal or a birthday: it is what says how long the list is useful for, and it

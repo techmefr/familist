@@ -57,6 +57,8 @@ export interface Aisle {
 	kind?: string;
 }
 
+export type ListKind = 'shopping' | 'meal-plan';
+
 export interface List {
 	id: string;
 	name: string;
@@ -69,6 +71,8 @@ export interface List {
 	 * — the `household_id` column is nullable on the server side for that reason.
 	 */
 	householdId?: string;
+	/** What the list is for (#359): a plain shopping list, or a meal plan. Defaults to `shopping`. */
+	kind: ListKind;
 }
 
 export interface Item {
