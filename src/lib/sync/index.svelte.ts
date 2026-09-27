@@ -29,7 +29,7 @@ import {
 	toHouseholdPerson,
 	toShop
 } from './mapping';
-import { planRealtime, rowKey, type RealtimeEvent } from './realtime';
+import { planRealtime, rowKey, type AppliedRealtimePlan, type RealtimeEvent } from './realtime';
 
 const HOUSEHOLD_KEY = 'familist:household';
 
@@ -104,6 +104,22 @@ class SyncStore {
 
 	/** True after the first subscription: the ones after are recoveries from an outage. */
 	private subscribed = false;
+
+	/**
+	 * Told about every row `receive()` applies straight to Dexie, on the items/messages fast path.
+	 *
+	 * Writing to Dexie is not enough: the screen reads `data.items` and `data.messages`, in-memory arrays
+	 * that only `hydrate()`'s full re-read used to refresh. A tick or a message from another device landed
+	 * in IndexedDB correctly, but stayed invisible until the next re-read — which is what made a shared list
+	 * look unsynced. `data.svelte.ts` subscribes here once, at load, to patch those arrays the same way its
+	 * own mutators already do.
+	 */
+	private appliedListeners = new Set<(plan: AppliedRealtimePlan) => void>();
+
+	onApplied(listener: (plan: AppliedRealtimePlan) => void): () => void {
+		this.appliedListeners.add(listener);
+		return () => this.appliedListeners.delete(listener);
+	}
 
 	/**
 	 * Number of the current cache, incremented by `stop()`.
@@ -875,6 +891,8 @@ class SyncStore {
 		} else {
 			await db.messages.put(plan.row);
 		}
+
+		for (const listener of this.appliedListeners) listener(plan);
 
 		const id = plan.kind === 'delete' ? plan.id : plan.row.id;
 		this.appliedAt.set(rowKey(event.table, id), event.commitTimestamp);
