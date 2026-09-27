@@ -413,7 +413,8 @@
 		"slice": "شريحة",
 		"tray": "طبق",
 		"roll": "لفة",
-		"brick": "كرتون"
+		"brick": "كرتون",
+		"piecePlural": "حبات"
 	},
 	"unitGroup": {
 		"count": "قطع",

@@ -424,7 +424,8 @@
 		"slice": "tranche",
 		"tray": "barquette",
 		"roll": "rouleau",
-		"brick": "brique"
+		"brick": "brique",
+		"piecePlural": "pièces"
 	},
 	"unitGroup": {
 		"count": "Pièces",

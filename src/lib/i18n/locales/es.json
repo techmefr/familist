@@ -409,7 +409,8 @@
 		"slice": "loncha",
 		"tray": "bandeja",
 		"roll": "rollo",
-		"brick": "brik"
+		"brick": "brik",
+		"piecePlural": "unidades"
 	},
 	"unitGroup": {
 		"count": "Piezas",
