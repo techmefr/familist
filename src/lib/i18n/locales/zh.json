@@ -274,7 +274,7 @@
 		"pointsPlaceholder": "120",
 		"delete": "删除会员卡 {name}",
 		"edit": "编辑卡片 {name}",
-		"secretNotice": "会员账户密码永远不会保存在这里。",
+		"secretNotice": "会员账户密码经过加密：只会在完成双重验证后的安全页面中显示。",
 		"loyalty": "会员",
 		"tapHint": "点按卡片可在收银台放大显示。",
 		"nearbyTitle": "你正在接近{shop}",

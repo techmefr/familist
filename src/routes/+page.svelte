@@ -245,17 +245,15 @@
 			<Button type="submit" data-test-id="list-create" class="fl-press flex-auto rounded-full">
 				{t('common.save')}
 			</Button>
-			{#if renamed}
-				<Button
-					type="button"
-					variant="outline"
-					onclick={cancel}
-					data-test-id="list-rename-cancel"
-					class="fl-press rounded-full"
-				>
-					{t('common.cancel')}
-				</Button>
-			{/if}
+			<Button
+				type="button"
+				variant="outline"
+				onclick={cancel}
+				data-test-id="list-form-cancel"
+				class="fl-press rounded-full"
+			>
+				{t('common.cancel')}
+			</Button>
 		</div>
 	</form>
 {/if}

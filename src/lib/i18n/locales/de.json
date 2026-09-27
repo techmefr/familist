@@ -275,7 +275,7 @@
 		"pointsPlaceholder": "120",
 		"delete": "Karte {name} löschen",
 		"edit": "Karte {name} bearbeiten",
-		"secretNotice": "Passwörter von Treuekonten werden hier nie gespeichert.",
+		"secretNotice": "Passwörter von Treuekonten sind verschlüsselt: Sie werden nur auf einem gesicherten Bildschirm nach der Zwei-Faktor-Authentifizierung angezeigt.",
 		"loyalty": "TREUE",
 		"tapHint": "Tippen Sie auf eine Karte, um sie an der Kasse groß anzuzeigen.",
 		"nearbyTitle": "Sie kommen bei {shop} an",

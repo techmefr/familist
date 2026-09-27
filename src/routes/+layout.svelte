@@ -375,7 +375,9 @@
 	const entries = $derived(nav.filter((entry) => !('admin' in entry) || session.isAdmin));
 
 	const isActive = (href: string) =>
-		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
+		href === '/'
+			? page.url.pathname === '/' || page.url.pathname.startsWith('/l/')
+			: page.url.pathname.startsWith(href);
 
 	/**
 	 * Icons-only tabs, on a phone, at the three largest text sizes.
