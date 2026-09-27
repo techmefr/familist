@@ -1,6 +1,6 @@
 {
 	"app": {
-		"name": "FamiList"
+		"name": "Familiste"
 	},
 	"nav": {
 		"lists": "Lists",
@@ -584,7 +584,7 @@
 				"stop": "Stop hands-free",
 				"introTitle": "Follow the recipe by voice",
 				"introBody": "Say “Famy”, then a command: “Famy, next”, “Famy, repeat”, “Famy, read the ingredients”. No need to touch the screen with messy hands.",
-				"introPrivacy": "The microphone only listens in this mode. Recognition is done by your phone or browser, which may use its online service. FamiList records nothing.",
+				"introPrivacy": "The microphone only listens in this mode. Recognition is done by your phone or browser, which may use its online service. Familiste records nothing.",
 				"introAccept": "Turn on the microphone",
 				"introCancel": "Not now",
 				"listening": "Listening. Say “Famy”, then a command.",
@@ -1845,7 +1845,7 @@
 		"remaining": "{time} left for step {rank}.",
 		"none": "No timer running.",
 		"noDuration": "This step has no duration. Add one by editing the recipe.",
-		"webHint": "In a browser, the alarm only rings while FamiList stays open.",
+		"webHint": "In a browser, the alarm only rings while Familiste stays open.",
 		"doneTitle": "Timer done",
 		"doneBody": "{recipe} — {step}",
 		"stopAlarm": "Stop the alarm",
