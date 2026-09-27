@@ -463,7 +463,11 @@
 		"save": "Speichern",
 		"cancel": "Abbrechen",
 		"deleteConfirm": "{name} löschen? Der in diesem Geschäft gelernte Weg geht verloren.",
-		"deleteYes": "Löschen"
+		"deleteYes": "Löschen",
+		"modeSearch": "Suchen",
+		"modeManual": "Manuell eingeben",
+		"brandOther": "Andere Kette",
+		"brandOtherPlaceholder": "Name der Kette"
 	},
 	"prices": {
 		"title": "Preisverlauf",

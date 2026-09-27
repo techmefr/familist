@@ -462,7 +462,11 @@
 		"save": "保存",
 		"cancel": "取消",
 		"deleteConfirm": "删除 {name}？在这家店学到的动线将会丢失。",
-		"deleteYes": "删除"
+		"deleteYes": "删除",
+		"modeSearch": "搜索",
+		"modeManual": "手动输入",
+		"brandOther": "其他连锁店",
+		"brandOtherPlaceholder": "连锁店名称"
 	},
 	"prices": {
 		"title": "价格记录",

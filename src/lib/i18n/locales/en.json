@@ -463,7 +463,11 @@
 		"save": "Save",
 		"cancel": "Cancel",
 		"deleteConfirm": "Delete {name}? The route learned in this shop will be lost.",
-		"deleteYes": "Delete"
+		"deleteYes": "Delete",
+		"modeSearch": "Search",
+		"modeManual": "Enter manually",
+		"brandOther": "Other chain",
+		"brandOtherPlaceholder": "Chain name"
 	},
 	"prices": {
 		"title": "Price history",
