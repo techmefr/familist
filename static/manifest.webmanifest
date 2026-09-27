@@ -1,7 +1,7 @@
 {
 	"id": "/",
-	"name": "FamiList",
-	"short_name": "FamiList",
+	"name": "Familiste",
+	"short_name": "Familiste",
 	"description": "Les listes de courses du foyer, partagées et utilisables sans réseau.",
 	"lang": "fr",
 	"dir": "ltr",

@@ -1,6 +1,6 @@
 {
 	"app": {
-		"name": "FamiList"
+		"name": "Familiste"
 	},
 	"nav": {
 		"lists": "Listas",
@@ -585,7 +585,7 @@
 				"stop": "Detener manos libres",
 				"introTitle": "Seguir la receta con la voz",
 				"introBody": "Di «Famy» y luego una orden: «Famy, siguiente», «Famy, repite», «Famy, lee los ingredientes». Ya no hace falta tocar la pantalla con las manos sucias.",
-				"introPrivacy": "El micrófono solo escucha en este modo. El reconocimiento lo hace tu teléfono o tu navegador, que puede usar su servicio en línea. FamiList no graba nada.",
+				"introPrivacy": "El micrófono solo escucha en este modo. El reconocimiento lo hace tu teléfono o tu navegador, que puede usar su servicio en línea. Familiste no graba nada.",
 				"introAccept": "Activar el micrófono",
 				"introCancel": "Ahora no",
 				"listening": "Escuchando. Di «Famy» y luego una orden.",
@@ -1839,7 +1839,7 @@
 		"remaining": "Quedan {time} para el paso {rank}.",
 		"none": "Ningún temporizador en marcha.",
 		"noDuration": "Este paso no tiene duración. Añádela editando la receta.",
-		"webHint": "En un navegador, la alarma solo suena si FamiList sigue abierto.",
+		"webHint": "En un navegador, la alarma solo suena si Familiste sigue abierto.",
 		"doneTitle": "Temporizador terminado",
 		"doneBody": "{recipe} — {step}",
 		"stopAlarm": "Detener la alarma",

@@ -82,7 +82,7 @@ function describePrivacyRequest(notification: AdminNotification): string {
  * see the note at the top of this file.
  */
 export function buildApprovalMail(appUrl: string): AdminMail {
-	const name = 'FamiList';
+	const name = 'Familiste';
 
 	return {
 		subject: `${name} — votre compte est valide`,
