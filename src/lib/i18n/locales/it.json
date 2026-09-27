@@ -409,7 +409,8 @@
 		"slice": "fetta",
 		"tray": "vaschetta",
 		"roll": "rotolo",
-		"brick": "brick"
+		"brick": "brick",
+		"piecePlural": "pezzi"
 	},
 	"unitGroup": {
 		"count": "Pezzi",

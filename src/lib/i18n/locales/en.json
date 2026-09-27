@@ -409,7 +409,8 @@
 		"slice": "slice",
 		"tray": "tray",
 		"roll": "roll",
-		"brick": "carton"
+		"brick": "carton",
+		"piecePlural": "items"
 	},
 	"unitGroup": {
 		"count": "Pieces",

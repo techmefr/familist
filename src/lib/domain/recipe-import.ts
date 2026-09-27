@@ -133,8 +133,6 @@ const UNMEASURABLE = new Set([
 	'gousses',
 	'brin',
 	'brins',
-	'feuille',
-	'feuilles',
 	'filet',
 	'trait',
 	'poignee',
@@ -285,7 +283,18 @@ export function parseIngredientLine(raw: string): RecipeLine | null {
 
 	const tokens = line.split(' ');
 	const first = toNumber(tokens[0]);
-	if (first === null) return fallback;
+	if (first === null) {
+		// A measure with no quantity in front of it, as somebody types "g lait" meaning "however much milk
+		// this needs" — still worth splitting the unit off the name, with the quantity left blank.
+		const bareMeasure = stripAccents(tokens[0].replace(/[.,]$/, '').toLowerCase());
+		const bareConverted = IMPORT_UNITS[bareMeasure];
+		const bareKnown = bareConverted?.unit ?? resolveUnit(tokens[0]?.replace(/[.,]$/, ''));
+		if (bareKnown) {
+			const name = cleanup(tokens.slice(1).join(' ').replace(LINKERS, ''));
+			if (name) return { name, qty: '', unit: bareKnown };
+		}
+		return fallback;
+	}
 
 	// "1 1/2 litre": a whole number followed by a fraction are added before becoming a quantity.
 	let consumed = 1;
