@@ -55,7 +55,12 @@
 		"reminderDenied": "Notifiche rifiutate: la data è salvata, ma non partirà alcun promemoria. Puoi riattivarle nelle impostazioni del telefono.",
 		"reminderTitle": "{name} è domani",
 		"reminderBody": "Mancano ancora degli articoli prima del {date}.",
-		"mealPlanSuggestion": "Vuoi pianificare la settimana?"
+		"mealPlanSuggestion": "Vuoi pianificare la settimana?",
+		"kindLabel": "Tipo di lista",
+		"kindShopping": "Spesa",
+		"kindMealPlan": "Menù",
+		"kindAll": "Tutte",
+		"kindFilterEmpty": "Nessuna lista di questo tipo."
 	},
 	"profile": {
 		"title": "Profilo",

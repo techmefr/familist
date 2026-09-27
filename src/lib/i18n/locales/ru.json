@@ -57,7 +57,12 @@
 		"reminderDenied": "Уведомления отклонены: дата сохранена, но напоминание не придёт. Разрешить их можно в настройках телефона.",
 		"reminderTitle": "«{name}» — уже завтра",
 		"reminderBody": "До {date} ещё нужно купить часть товаров.",
-		"mealPlanSuggestion": "Хотите составить меню на неделю?"
+		"mealPlanSuggestion": "Хотите составить меню на неделю?",
+		"kindLabel": "Тип списка",
+		"kindShopping": "Покупки",
+		"kindMealPlan": "Меню",
+		"kindAll": "Все",
+		"kindFilterEmpty": "Нет списков этого типа."
 	},
 	"profile": {
 		"title": "Профиль",

@@ -55,7 +55,12 @@
 		"reminderDenied": "Notificaciones rechazadas: la fecha se guarda, pero no se enviará ningún recordatorio. Puedes permitirlas de nuevo en los ajustes del teléfono.",
 		"reminderTitle": "{name} es mañana",
 		"reminderBody": "Aún quedan artículos por comprar antes del {date}.",
-		"mealPlanSuggestion": "¿Quieres planificar la semana?"
+		"mealPlanSuggestion": "¿Quieres planificar la semana?",
+		"kindLabel": "Tipo de lista",
+		"kindShopping": "Compra",
+		"kindMealPlan": "Menú",
+		"kindAll": "Todas",
+		"kindFilterEmpty": "Ninguna lista de este tipo."
 	},
 	"profile": {
 		"title": "Perfil",

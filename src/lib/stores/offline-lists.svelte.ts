@@ -35,6 +35,7 @@ class OfflineListsStore {
 			name: trimmed === '' ? '' : trimmed,
 			emoji: '🛒',
 			color: '#a94008',
+			kind: 'shopping',
 			memberIds: []
 		};
 

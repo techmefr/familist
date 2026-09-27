@@ -55,7 +55,12 @@
 		"reminderDenied": "Notificações recusadas: a data fica guardada, mas nenhum lembrete será enviado. Pode autorizar de novo nas definições do telemóvel.",
 		"reminderTitle": "{name} é amanhã",
 		"reminderBody": "Ainda faltam artigos para comprar antes de {date}.",
-		"mealPlanSuggestion": "Quer planear a semana?"
+		"mealPlanSuggestion": "Quer planear a semana?",
+		"kindLabel": "Tipo de lista",
+		"kindShopping": "Compras",
+		"kindMealPlan": "Menu",
+		"kindAll": "Todas",
+		"kindFilterEmpty": "Nenhuma lista deste tipo."
 	},
 	"profile": {
 		"title": "Perfil",

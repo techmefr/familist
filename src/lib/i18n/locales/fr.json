@@ -55,7 +55,12 @@
 		"reminderWeb": "Les rappels n’arrivent que sur l’application installée. Dans un navigateur, la date reste affichée mais aucune notification ne partira.",
 		"reminderDenied": "Notifications refusées : la date est enregistrée, mais aucun rappel ne partira. À réautoriser dans les réglages du téléphone.",
 		"reminderTitle": "{name}, c’est demain",
-		"reminderBody": "Il reste des articles à prendre avant le {date}."
+		"reminderBody": "Il reste des articles à prendre avant le {date}.",
+		"kindLabel": "Type de liste",
+		"kindShopping": "Courses",
+		"kindMealPlan": "Menu",
+		"kindAll": "Toutes",
+		"kindFilterEmpty": "Aucune liste de ce type."
 	},
 	"profile": {
 		"title": "Profil",

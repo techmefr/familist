@@ -59,7 +59,12 @@
 		"reminderDenied": "رُفضت الإشعارات: التاريخ محفوظ، لكن لن يصل أي تذكير. يمكن السماح بها من جديد في إعدادات الهاتف.",
 		"reminderTitle": "{name} غدا",
 		"reminderBody": "لا تزال هناك أصناف لشرائها قبل {date}.",
-		"mealPlanSuggestion": "هل تريد التخطيط للوجبات هذا الأسبوع؟"
+		"mealPlanSuggestion": "هل تريد التخطيط للوجبات هذا الأسبوع؟",
+		"kindLabel": "نوع القائمة",
+		"kindShopping": "تسوق",
+		"kindMealPlan": "قائمة الوجبات",
+		"kindAll": "الكل",
+		"kindFilterEmpty": "لا توجد قائمة من هذا النوع."
 	},
 	"profile": {
 		"title": "الملف الشخصي",

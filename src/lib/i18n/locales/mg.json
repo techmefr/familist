@@ -55,7 +55,12 @@
 		"reminderDenied": "Lavina ny fampandrenesana : voatahiry ny daty, fa tsy hisy fampahatsiahivana handeha. Azo avela indray ao amin’ny kirakira an’ny finday.",
 		"reminderTitle": "{name}, rahampitso izany",
 		"reminderBody": "Mbola misy entana halaina alohan’ny {date}.",
-		"mealPlanSuggestion": "Te handamina ny sakafo amin'ity herinandro ity ve ianao?"
+		"mealPlanSuggestion": "Te handamina ny sakafo amin'ity herinandro ity ve ianao?",
+		"kindLabel": "Karazana lisitra",
+		"kindShopping": "Fividianana",
+		"kindMealPlan": "Sakafo",
+		"kindAll": "Rehetra",
+		"kindFilterEmpty": "Tsy misy lisitra amin'ity karazana ity."
 	},
 	"profile": {
 		"title": "Mombamomba",
