@@ -1,6 +1,6 @@
 {
 	"app": {
-		"name": "FamiList"
+		"name": "Familiste"
 	},
 	"nav": {
 		"lists": "Lisitra",
@@ -584,7 +584,7 @@
 				"stop": "Ajanony ny tsy mila tanana",
 				"introTitle": "Manaraka ny fomba fahandro amin’ny feo",
 				"introBody": "Lazao hoe « Famy », avy eo baiko iray: « Famy, manaraka », « Famy, avereno », « Famy, vakio ny akora ». Tsy mila mikasika ny efijery amin’ny tanana maloto intsony.",
-				"introPrivacy": "Amin’ity fomba ity ihany no mihaino ny mikro. Ny findainao na ny mpitety tranonkalanao no mamantatra ny feo, ary mety mampiasa ny tolotra an-tserasera izy. Tsy mitahiry na inona na inona FamiList.",
+				"introPrivacy": "Amin’ity fomba ity ihany no mihaino ny mikro. Ny findainao na ny mpitety tranonkalanao no mamantatra ny feo, ary mety mampiasa ny tolotra an-tserasera izy. Tsy mitahiry na inona na inona Familiste.",
 				"introAccept": "Alefaso ny mikro",
 				"introCancel": "Tsy izao",
 				"listening": "Mihaino. Lazao hoe « Famy », avy eo baiko iray.",
@@ -1825,7 +1825,7 @@
 		"remaining": "Mbola {time} sisa ho an’ny dingana {rank}.",
 		"none": "Tsy misy fanisana fotoana mandeha.",
 		"noDuration": "Tsy misy faharetana ity dingana ity. Ampio izany rehefa manova ny fomba fahandro.",
-		"webHint": "Ao amin’ny mpitety tranonkala, maneno ihany ny fanairana raha mbola misokatra FamiList.",
+		"webHint": "Ao amin’ny mpitety tranonkala, maneno ihany ny fanairana raha mbola misokatra Familiste.",
 		"doneTitle": "Tapitra ny fotoana",
 		"doneBody": "{recipe} — {step}",
 		"stopAlarm": "Ajanony ny fanairana",

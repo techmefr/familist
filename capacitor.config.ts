@@ -20,7 +20,7 @@ function freePlugins(): string[] {
 
 const config: CapacitorConfig = {
 	appId: 'fr.techmefr.familist',
-	appName: 'FamiList',
+	appName: 'Familiste',
 	webDir: 'build',
 	android: {
 		adjustMarginsForEdgeToEdge: 'auto',

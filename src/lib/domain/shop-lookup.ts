@@ -23,7 +23,7 @@ export interface ShopLookupResult {
 const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search';
 
 /** Identifies the app to Nominatim, as its usage policy asks. */
-const USER_AGENT = 'FamiList (https://familiste.fr)';
+const USER_AGENT = 'Familiste (https://familiste.fr)';
 
 function text(row: Record<string, unknown>, key: string): string | undefined {
 	const value = row[key];

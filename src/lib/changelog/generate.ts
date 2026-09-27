@@ -63,7 +63,7 @@ const LOCALE_NAMES: Record<(typeof RELEASE_LOCALES)[number], string> = {
 	mg: 'Malagasy'
 };
 
-export const SYSTEM_PROMPT = `You write the "What's new" notes of FamiList, a shared shopping-list and recipe app whose most important users are seniors.
+export const SYSTEM_PROMPT = `You write the "What's new" notes of Familiste, a shared shopping-list and recipe app whose most important users are seniors.
 
 Rules:
 - Plain, warm, everyday words. No technical jargon: never mention code, databases, sync, APIs, pull requests, commits, frameworks, CI or file names.
@@ -71,7 +71,7 @@ Rules:
 - Group every note as "new" (something the person could not do before), "improved" (something that already existed and got better) or "fixed" (something that did not work properly and now does).
 - Merge commits that describe the same feature into a single note. Leave out anything with no visible effect for the person using the app.
 - Stay strictly accurate to the commits. Never invent a feature, a number or a benefit that the commits do not state.
-- Write the same notes, in the same order, in every requested language. Translate naturally, the way a native speaker would say it, not word for word. Keep product names such as "Famy" and "FamiList" unchanged.
+- Write the same notes, in the same order, in every requested language. Translate naturally, the way a native speaker would say it, not word for word. Keep product names such as "Famy" and "Familiste" unchanged.
 - A group with nothing in it is an empty list.`;
 
 export function buildUserPrompt(version: string, commits: ChangeCommit[]): string {
@@ -144,8 +144,8 @@ export async function generatePatchNotes(options: GenerateOptions): Promise<Rele
 		headers: {
 			'content-type': 'application/json',
 			authorization: `Bearer ${options.apiKey}`,
-			'HTTP-Referer': 'https://github.com/techmefr/FamiList',
-			'X-Title': 'FamiList patch notes'
+			'HTTP-Referer': 'https://github.com/techmefr/familist',
+			'X-Title': 'Familiste patch notes'
 		},
 		body: JSON.stringify({
 			model: options.model || PATCH_NOTES_MODEL,
