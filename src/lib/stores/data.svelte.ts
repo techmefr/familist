@@ -256,6 +256,8 @@ class DataStore {
 			this.userIdKnown = true;
 		}
 
+		this.watchRealtimeApply();
+
 		// The cache is shown first, the sync replaces it afterwards. Offline, or while the server answers,
 		// the application stays usable.
 		await this.hydrate();
@@ -265,6 +267,34 @@ class DataStore {
 		// creating it right away would make a second one beside the one the household already owns.
 		await sync.start(() => {
 			void this.hydrate().then(() => this.ensureDefaultShop());
+		});
+	}
+
+	/**
+	 * Patches `items`/`messages` in place for a row `sync` already wrote to Dexie on its fast path — see
+	 * `SyncStore.onApplied`. Without this, a tick or a message from another device sat in IndexedDB but
+	 * never reached the screen until the next full re-read, which is what made a shared list look unsynced.
+	 */
+	private watchRealtimeApply() {
+		sync.onApplied((plan) => {
+			if (plan.table === 'items') {
+				if (plan.kind === 'delete') {
+					this.items = this.items.filter((item) => item.id !== plan.id);
+					return;
+				}
+				const index = this.items.findIndex((item) => item.id === plan.row.id);
+				if (index === -1) this.items = [...this.items, plan.row as Item];
+				else this.items[index] = plan.row as Item;
+				return;
+			}
+
+			if (plan.kind === 'delete') {
+				this.messages = this.messages.filter((message) => message.id !== plan.id);
+				return;
+			}
+			const index = this.messages.findIndex((message) => message.id === plan.row.id);
+			if (index === -1) this.messages = [...this.messages, plan.row as Message];
+			else this.messages[index] = plan.row as Message;
 		});
 	}
 
