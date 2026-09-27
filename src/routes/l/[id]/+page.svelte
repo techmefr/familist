@@ -9,7 +9,7 @@
 	import { motionMs, settings } from '$stores/settings.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { listToMarkdown } from '$domain/list-markdown';
-	import { unitKey } from '$domain/units';
+	import { unitKeyForCount } from '$domain/units';
 	import { PRICE_HISTORY_ENABLED } from '$domain/feature-flags';
 	import { shareText, type ShareOutcome } from '$native/share';
 	import type { Item } from '$db/schema';
@@ -95,8 +95,8 @@
 	let shareStatus = $state<string | null>(null);
 
 	/** Same rule as the item row: an unknown unit is written exactly as it was typed. */
-	function unitLabel(unit: string): string {
-		const key = unitKey(unit);
+	function unitLabel(unit: string, qty: string): string {
+		const key = unitKeyForCount(unit, qty);
 		return key ? t(key) : unit;
 	}
 
@@ -116,7 +116,7 @@
 					items: group.items.map((item) => ({
 						name: item.name,
 						qty: item.qty,
-						unit: unitLabel(item.unit),
+						unit: unitLabel(item.unit, item.qty),
 						checked: item.checked,
 						priority: item.priority,
 						note: item.note

@@ -1,6 +1,6 @@
 {
 	"app": {
-		"name": "FamiList"
+		"name": "Familiste"
 	},
 	"nav": {
 		"lists": "清单",
@@ -408,7 +408,8 @@
 		"slice": "片",
 		"tray": "盘",
 		"roll": "卷",
-		"brick": "利乐包"
+		"brick": "利乐包",
+		"piecePlural": "个"
 	},
 	"unitGroup": {
 		"count": "个数",
@@ -581,7 +582,7 @@
 				"stop": "关闭免提",
 				"introTitle": "用语音跟着食谱做",
 				"introBody": "先说“Famy”，再说一个指令：“Famy，下一步”“Famy，重复”“Famy，读配料”。不用再用脏手碰屏幕。",
-				"introPrivacy": "麦克风只在这个模式下收听。语音识别由你的手机或浏览器完成，可能会使用其在线服务。FamiList 不会录下任何内容。",
+				"introPrivacy": "麦克风只在这个模式下收听。语音识别由你的手机或浏览器完成，可能会使用其在线服务。Familiste 不会录下任何内容。",
 				"introAccept": "打开麦克风",
 				"introCancel": "以后再说",
 				"listening": "正在收听。先说“Famy”，再说指令。",
@@ -1820,7 +1821,7 @@
 		"remaining": "第 {rank} 步还剩 {time}。",
 		"none": "没有正在进行的计时。",
 		"noDuration": "这一步没有设置时长。编辑食谱即可添加。",
-		"webHint": "在浏览器中，只有 FamiList 保持打开时闹钟才会响。",
+		"webHint": "在浏览器中，只有 Familiste 保持打开时闹钟才会响。",
 		"doneTitle": "计时结束",
 		"doneBody": "{recipe} — {step}",
 		"stopAlarm": "关掉闹钟",

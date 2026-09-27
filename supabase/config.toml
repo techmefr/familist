@@ -257,23 +257,23 @@ otp_expiry = 3600
 # Email templates: a single set per project, the recipient's language is unknown at sending time, hence a
 # bilingual French/English body.
 [auth.email.template.confirmation]
-subject = "FamiList — confirmez votre adresse / confirm your address"
+subject = "Familiste — confirmez votre adresse / confirm your address"
 content_path = "./supabase/templates/confirm.html"
 
 [auth.email.template.recovery]
-subject = "FamiList — réinitialiser votre mot de passe / reset your password"
+subject = "Familiste — réinitialiser votre mot de passe / reset your password"
 content_path = "./supabase/templates/recovery.html"
 
 [auth.email.template.invite]
-subject = "FamiList — vous êtes invité / you have been invited"
+subject = "Familiste — vous êtes invité / you have been invited"
 content_path = "./supabase/templates/invite.html"
 
 [auth.email.template.email_change]
-subject = "FamiList — confirmez votre nouvelle adresse / confirm your new address"
+subject = "Familiste — confirmez votre nouvelle adresse / confirm your new address"
 content_path = "./supabase/templates/email_change.html"
 
 [auth.email.template.magic_link]
-subject = "FamiList — votre code de connexion / your sign-in code"
+subject = "Familiste — votre code de connexion / your sign-in code"
 content_path = "./supabase/templates/magic_link.html"
 
 # Uncomment to customize notification email template

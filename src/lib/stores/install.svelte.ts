@@ -24,7 +24,7 @@ interface BeforeInstallPromptEvent extends Event {
  * arises on the web, where Preferences is in any case just an asynchronous wrapper around
  * `localStorage`. The read serves the first render, and an asynchronous round trip would make the banner
  * appear afterwards, under the finger of somebody aiming at something else. These two values also belong
- * to the browser itself — installing FamiList in Chrome says nothing about Firefox — so neither the
+ * to the browser itself — installing Familiste in Chrome says nothing about Firefox — so neither the
  * database nor the synced preferences.
  */
 const STORAGE_KEY = 'familist:install';

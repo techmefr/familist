@@ -1,6 +1,6 @@
 {
 	"app": {
-		"name": "FamiList"
+		"name": "Familiste"
 	},
 	"nav": {
 		"lists": "Listen",
@@ -409,7 +409,8 @@
 		"slice": "Scheibe",
 		"tray": "Schale",
 		"roll": "Rolle",
-		"brick": "Karton"
+		"brick": "Karton",
+		"piecePlural": "Stück"
 	},
 	"unitGroup": {
 		"count": "Stück",
@@ -584,7 +585,7 @@
 				"stop": "Freihändig beenden",
 				"introTitle": "Das Rezept per Stimme verfolgen",
 				"introBody": "Sag „Famy“ und dann einen Befehl: „Famy, weiter“, „Famy, wiederholen“, „Famy, lies die Zutaten“. So musst du den Bildschirm nicht mit schmutzigen Händen berühren.",
-				"introPrivacy": "Das Mikrofon hört nur in diesem Modus zu. Die Erkennung übernimmt dein Telefon oder Browser, der dafür seinen Online-Dienst nutzen kann. FamiList speichert nichts.",
+				"introPrivacy": "Das Mikrofon hört nur in diesem Modus zu. Die Erkennung übernimmt dein Telefon oder Browser, der dafür seinen Online-Dienst nutzen kann. Familiste speichert nichts.",
 				"introAccept": "Mikrofon einschalten",
 				"introCancel": "Nicht jetzt",
 				"listening": "Hört zu. Sag „Famy“ und dann einen Befehl.",
@@ -1834,7 +1835,7 @@
 		"remaining": "Noch {time} für Schritt {rank}.",
 		"none": "Kein Timer läuft.",
 		"noDuration": "Dieser Schritt hat keine Dauer. Füge sie beim Bearbeiten des Rezepts hinzu.",
-		"webHint": "Im Browser klingelt der Alarm nur, solange FamiList geöffnet bleibt.",
+		"webHint": "Im Browser klingelt der Alarm nur, solange Familiste geöffnet bleibt.",
 		"doneTitle": "Timer abgelaufen",
 		"doneBody": "{recipe} — {step}",
 		"stopAlarm": "Alarm stoppen",
