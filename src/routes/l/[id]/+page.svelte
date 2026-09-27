@@ -10,6 +10,7 @@
 	import { i18n, t } from '$i18n/index.svelte';
 	import { listToMarkdown } from '$domain/list-markdown';
 	import { unitKey } from '$domain/units';
+	import { PRICE_HISTORY_ENABLED } from '$domain/feature-flags';
 	import { shareText, type ShareOutcome } from '$native/share';
 	import type { Item } from '$db/schema';
 	import ShopSwitcher from '$components/app/ShopSwitcher.svelte';
@@ -312,16 +313,18 @@
 		<!--
 			Price history is reached from here, and not only from the left column: on a phone the bottom bar is
 			full, and it is while preparing your list that you wonder where to buy — not by opening a dedicated
-			tab.
+			tab. Hidden while the feature stays unfinished (#362).
 		-->
-		<a
-			href="/prices"
-			data-test-id="open-prices"
-			class="text-primary text-label inline-flex items-center gap-2 rounded-md px-2 py-3 underline"
-		>
-			<Tags size={16} aria-hidden="true" />
-			{t('prices.open')}
-		</a>
+		{#if PRICE_HISTORY_ENABLED}
+			<a
+				href="/prices"
+				data-test-id="open-prices"
+				class="text-primary text-label inline-flex items-center gap-2 rounded-md px-2 py-3 underline"
+			>
+				<Tags size={16} aria-hidden="true" />
+				{t('prices.open')}
+			</a>
+		{/if}
 	</div>
 
 	<p class="text-muted-foreground text-caption" data-test-id="share-summary">{sharedWith}</p>

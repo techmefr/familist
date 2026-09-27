@@ -11,7 +11,7 @@ const ROUTES: Array<{ screen: string; path: string; ready: string }> = [
 	{ screen: 'cartes', path: '/cards', ready: 'nav-create' },
 	{ screen: 'recettes', path: '/recipes', ready: 'nav-create' },
 	{ screen: 'creer-une-recette', path: '/recipes/new', ready: 'recipe-sources' },
-	{ screen: 'prix', path: '/prices', ready: 'nav-create' },
+	// Price history is hidden behind PRICE_HISTORY_ENABLED (#362) — /prices only redirects to '/' for now.
 	{ screen: 'foyer', path: '/household', ready: 'nav-create' },
 	{ screen: 'discussion', path: '/chat', ready: 'nav-create' },
 	{ screen: 'profil', path: '/profile', ready: 'profile-categories' },
@@ -233,7 +233,8 @@ test.describe('accessibilite', () => {
 	});
 
 	/** The price screen once something has actually been priced, not only its empty state. */
-	test('prix avec un produit tarife', async ({ signedInPage: page }) => {
+	// Skipped: price history is hidden behind PRICE_HISTORY_ENABLED (#362), the entry point this test uses is gone.
+	test.skip('prix avec un produit tarife', async ({ signedInPage: page }) => {
 		const listName = `A11y prix ${Date.now()}`;
 		const itemName = `A11y prix produit ${Date.now()}`;
 

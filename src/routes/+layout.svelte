@@ -27,6 +27,7 @@
 	import { placeCredentials } from '$stores/place-credentials.svelte';
 	import { navDirection } from '$domain/motion';
 	import { isLegalRoute } from '$domain/legal';
+	import { PRICE_HISTORY_ENABLED } from '$domain/feature-flags';
 	import { releasesSince } from '$domain/changelog';
 	import { RELEASES } from '$lib/changelog/releases';
 	import { version as appVersion } from '../../package.json';
@@ -371,11 +372,19 @@
 		{ href: '/profile', key: 'nav.profile', icon: User, place: 'desktop' }
 	] as const;
 
-	/** Accounts only show for those who can manage them. */
-	const entries = $derived(nav.filter((entry) => !('admin' in entry) || session.isAdmin));
+	/** Accounts only show for those who can manage them; price history stays hidden while unfinished (#362). */
+	const entries = $derived(
+		nav.filter(
+			(entry) =>
+				(!('admin' in entry) || session.isAdmin) &&
+				(entry.href !== '/prices' || PRICE_HISTORY_ENABLED)
+		)
+	);
 
 	const isActive = (href: string) =>
-		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
+		href === '/'
+			? page.url.pathname === '/' || page.url.pathname.startsWith('/l/')
+			: page.url.pathname.startsWith(href);
 
 	/**
 	 * Icons-only tabs, on a phone, at the three largest text sizes.
