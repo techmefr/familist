@@ -414,7 +414,8 @@
 		"slice": "loncha",
 		"tray": "bandeja",
 		"roll": "rollo",
-		"brick": "brik"
+		"brick": "brik",
+		"piecePlural": "unidades"
 	},
 	"unitGroup": {
 		"count": "Piezas",
@@ -467,7 +468,11 @@
 		"save": "Guardar",
 		"cancel": "Cancelar",
 		"deleteConfirm": "¿Eliminar {name}? Se perderá el recorrido aprendido en esta tienda.",
-		"deleteYes": "Eliminar"
+		"deleteYes": "Eliminar",
+		"modeSearch": "Buscar",
+		"modeManual": "Introducir a mano",
+		"brandOther": "Otra cadena",
+		"brandOtherPlaceholder": "Nombre de la cadena"
 	},
 	"prices": {
 		"title": "Historial de precios",

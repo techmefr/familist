@@ -429,7 +429,8 @@
 		"slice": "tranche",
 		"tray": "barquette",
 		"roll": "rouleau",
-		"brick": "brique"
+		"brick": "brique",
+		"piecePlural": "pièces"
 	},
 	"unitGroup": {
 		"count": "Pièces",
@@ -491,7 +492,11 @@
 		"save": "Enregistrer",
 		"cancel": "Annuler",
 		"deleteConfirm": "Supprimer {name} ? Le parcours appris dans ce magasin sera perdu.",
-		"deleteYes": "Supprimer"
+		"deleteYes": "Supprimer",
+		"modeSearch": "Rechercher",
+		"modeManual": "Remplir à la main",
+		"brandOther": "Autre enseigne",
+		"brandOtherPlaceholder": "Nom de l'enseigne"
 	},
 	"prices": {
 		"title": "Historique des prix",

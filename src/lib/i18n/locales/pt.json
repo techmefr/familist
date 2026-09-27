@@ -414,7 +414,8 @@
 		"slice": "fatia",
 		"tray": "bandeja",
 		"roll": "rolo",
-		"brick": "pacote"
+		"brick": "pacote",
+		"piecePlural": "unidades"
 	},
 	"unitGroup": {
 		"count": "Peças",
@@ -467,7 +468,11 @@
 		"save": "Guardar",
 		"cancel": "Cancelar",
 		"deleteConfirm": "Eliminar {name}? O percurso aprendido nesta loja será perdido.",
-		"deleteYes": "Eliminar"
+		"deleteYes": "Eliminar",
+		"modeSearch": "Pesquisar",
+		"modeManual": "Preencher manualmente",
+		"brandOther": "Outra rede",
+		"brandOtherPlaceholder": "Nome da rede"
 	},
 	"prices": {
 		"title": "Histórico de preços",

@@ -125,6 +125,21 @@ export function unitKey(raw: string | null | undefined): string | null {
 }
 
 /**
+ * Translation key of a recognised unit, agreeing with the quantity that goes with it.
+ *
+ * Only "piece" needs this: the other units are already read as invariant words ("g", "ml", a brand name
+ * such as "brique") the way a French label on a package is, so nothing here would change for them. A count
+ * above one, or a fractional one ("1.5"), reads as a plural everywhere this matters ("2 pièces").
+ */
+export function unitKeyForCount(raw: string | null | undefined, qty: string): string | null {
+	const id = resolveUnit(raw);
+	if (!id) return null;
+	const amount = Number(qty.replace(',', '.'));
+	const plural = id === 'piece' && Number.isFinite(amount) && amount !== 1;
+	return plural ? 'units.piecePlural' : `units.${id}`;
+}
+
+/**
  * The same units, grouped by family, to be chosen in two steps.
  *
  * Fifteen entries in a dropdown is fifteen words to read in order to keep one — and on a phone, the list

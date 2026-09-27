@@ -6,6 +6,7 @@ import {
 	resolveUnit,
 	unitGroupOf,
 	unitKey,
+	unitKeyForCount,
 	unitsOf
 } from './units';
 
@@ -100,5 +101,23 @@ describe('unitsOf', () => {
 
 	it('rend toujours une rangée non vide', () => {
 		for (const group of UNIT_GROUPS) expect(unitsOf(group.id).length).toBeGreaterThan(0);
+	});
+});
+
+describe('unitKeyForCount', () => {
+	it('accorde la pièce au pluriel au-delà de un', () => {
+		expect(unitKeyForCount('piece', '1')).toBe('units.piece');
+		expect(unitKeyForCount('piece', '3')).toBe('units.piecePlural');
+		expect(unitKeyForCount('piece', '0.5')).toBe('units.piecePlural');
+		expect(unitKeyForCount('piece', '0')).toBe('units.piecePlural');
+	});
+
+	it('laisse les autres unités invariables', () => {
+		expect(unitKeyForCount('g', '3')).toBe('units.g');
+		expect(unitKeyForCount('slice', '3')).toBe('units.slice');
+	});
+
+	it('rend null pour une unité inconnue', () => {
+		expect(unitKeyForCount('douzaine', '3')).toBeNull();
 	});
 });

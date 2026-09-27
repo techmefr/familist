@@ -414,7 +414,8 @@
 		"slice": "slice",
 		"tray": "tray",
 		"roll": "roll",
-		"brick": "carton"
+		"brick": "carton",
+		"piecePlural": "items"
 	},
 	"unitGroup": {
 		"count": "Pieces",
@@ -467,7 +468,11 @@
 		"save": "Save",
 		"cancel": "Cancel",
 		"deleteConfirm": "Delete {name}? The route learned in this shop will be lost.",
-		"deleteYes": "Delete"
+		"deleteYes": "Delete",
+		"modeSearch": "Search",
+		"modeManual": "Enter manually",
+		"brandOther": "Other chain",
+		"brandOtherPlaceholder": "Chain name"
 	},
 	"prices": {
 		"title": "Price history",
