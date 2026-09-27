@@ -409,7 +409,8 @@
 		"slice": "fatia",
 		"tray": "bandeja",
 		"roll": "rolo",
-		"brick": "pacote"
+		"brick": "pacote",
+		"piecePlural": "unidades"
 	},
 	"unitGroup": {
 		"count": "Peças",

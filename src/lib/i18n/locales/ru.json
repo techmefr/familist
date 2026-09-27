@@ -411,7 +411,8 @@
 		"slice": "ломтик",
 		"tray": "лоток",
 		"roll": "рулон",
-		"brick": "тетрапак"
+		"brick": "тетрапак",
+		"piecePlural": "шт."
 	},
 	"unitGroup": {
 		"count": "Штуки",
