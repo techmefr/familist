@@ -48,7 +48,8 @@ async function addItem(page: Page, name: string) {
 	await expect(page.getByTestId('add-item')).toBeHidden();
 }
 
-test.describe('historique des prix', () => {
+// Skipped: price history is hidden behind PRICE_HISTORY_ENABLED (#362), the route redirects away.
+test.describe.skip('historique des prix', () => {
 	test('enregistrer un prix sur un article coche', async ({ signedInPage: page }) => {
 		const itemName = `Prix e2e ${Date.now()}`;
 		await createList(page, `Liste prix e2e ${Date.now()}`);
