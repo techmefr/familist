@@ -31,7 +31,7 @@ test('renommer une liste, au bouton comme à l appui long', async ({ signedInPag
 	await expect(corrected).toBeVisible();
 
 	// The form closes again, and does not stay in renaming mode.
-	await expect(page.getByTestId('list-rename-cancel')).toHaveCount(0);
+	await expect(page.getByTestId('list-form-cancel')).toHaveCount(0);
 
 	// The long press on the card: the same sheet, prefilled — and it does not follow the link.
 	//
@@ -54,6 +54,22 @@ test('renommer une liste, au bouton comme à l appui long', async ({ signedInPag
 	await expect(page.getByTestId('list-name')).toHaveValue(renamed, { timeout: 10_000 });
 
 	// Giving up leaves the list as it is.
-	await page.getByTestId('list-rename-cancel').click();
+	await page.getByTestId('list-form-cancel').click();
 	await expect(corrected).toBeVisible();
+});
+
+test('cancelling a new list closes the form without creating anything', async ({
+	signedInPage: page
+}) => {
+	const name = `Annulée e2e ${Date.now()}`;
+
+	await page.goto('/');
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-list').click();
+	await page.getByTestId('list-name').fill(name);
+
+	await page.getByTestId('list-form-cancel').click();
+
+	await expect(page.getByTestId('list-name')).toHaveCount(0);
+	await expect(page.locator('[data-test-class="list-card"]').filter({ hasText: name })).toHaveCount(0);
 });

@@ -275,7 +275,7 @@
 		"pointsPlaceholder": "120",
 		"delete": "Delete card {name}",
 		"edit": "Edit card {name}",
-		"secretNotice": "Loyalty account passwords are never stored here.",
+		"secretNotice": "Loyalty account passwords are encrypted: they only show on a secured screen, after two-factor authentication.",
 		"loyalty": "LOYALTY",
 		"tapHint": "Tap a card to show it full screen at the till.",
 		"nearbyTitle": "You are arriving at {shop}",

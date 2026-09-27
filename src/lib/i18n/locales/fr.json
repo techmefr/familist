@@ -275,7 +275,7 @@
 		"pointsPlaceholder": "120",
 		"delete": "Supprimer la carte {name}",
 		"edit": "Modifier la carte {name}",
-		"secretNotice": "Les mots de passe de comptes fidélité ne sont jamais enregistrés ici.",
+		"secretNotice": "Les mots de passe de comptes fidélité sont chiffrés : ils ne s'affichent que sur un écran sécurisé, après la double authentification.",
 		"loyalty": "FIDÉLITÉ",
 		"tapHint": "Touchez une carte pour l’afficher en grand à la caisse.",
 		"nearbyTitle": "Vous arrivez à {shop}",

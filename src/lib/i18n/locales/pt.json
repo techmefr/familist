@@ -275,7 +275,7 @@
 		"pointsPlaceholder": "120",
 		"delete": "Eliminar o cartão {name}",
 		"edit": "Editar o cartão {name}",
-		"secretNotice": "As palavras-passe das contas de fidelidade nunca são guardadas aqui.",
+		"secretNotice": "As palavras-passe das contas de fidelidade são cifradas: só aparecem num ecrã seguro, após a autenticação de dois fatores.",
 		"loyalty": "FIDELIDADE",
 		"tapHint": "Toque num cartão para o mostrar em grande na caixa.",
 		"nearbyTitle": "Está a chegar a {shop}",

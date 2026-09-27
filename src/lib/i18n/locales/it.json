@@ -275,7 +275,7 @@
 		"pointsPlaceholder": "120",
 		"delete": "Elimina la carta {name}",
 		"edit": "Modifica la carta {name}",
-		"secretNotice": "Le password degli account fedeltà non sono mai salvate qui.",
+		"secretNotice": "Le password degli account fedeltà sono cifrate: si vedono solo in una schermata protetta, dopo l'autenticazione a due fattori.",
 		"loyalty": "FEDELTÀ",
 		"tapHint": "Tocca una carta per mostrarla in grande alla cassa.",
 		"nearbyTitle": "Stai arrivando a {shop}",
