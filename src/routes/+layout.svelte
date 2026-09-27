@@ -7,7 +7,7 @@
 		Store,
 		CreditCard,
 		User,
-		ZoomIn,
+		Glasses,
 		Plus,
 		MessagesSquare,
 		Users,
@@ -359,7 +359,7 @@
 	 */
 	const nav = [
 		{ href: '/', key: 'nav.lists', icon: ListChecks, place: 'partout' },
-		{ href: '/magnifier', key: 'nav.magnifier', icon: ZoomIn, place: 'handheld' },
+		{ href: '/magnifier', key: 'nav.magnifier', icon: Glasses, place: 'handheld' },
 		{ href: '/chat', key: 'nav.chat', icon: MessagesSquare, place: 'partout' },
 		{ href: '/cards', key: 'nav.cards', icon: CreditCard, place: 'partout' },
 		{ href: '/recipes', key: 'nav.recipes', icon: CookingPot, place: 'partout' },
