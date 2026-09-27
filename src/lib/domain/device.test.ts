@@ -39,8 +39,15 @@ describe('deviceLabel', () => {
 	});
 
 	it("reconnaît l'application installée", () => {
+		expect(deviceLabel('Familiste/1.0 (Android 14)')).toEqual({
+			browser: 'Familiste',
+			platform: 'Android'
+		});
+	});
+
+	it("reconnaît une session ouverte avant le renommage", () => {
 		expect(deviceLabel('FamiList/1.0 (Android 14)')).toEqual({
-			browser: 'FamiList',
+			browser: 'Familiste',
 			platform: 'Android'
 		});
 	});

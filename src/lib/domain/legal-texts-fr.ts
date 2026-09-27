@@ -11,7 +11,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Éditeur',
 				paragraphs: [
-					'FamiList est édité par Gaëtan Compigni, particulier, à titre non professionnel.',
+					'Familiste est édité par Gaëtan Compigni, particulier, à titre non professionnel.',
 					`Contact : ${CONTACT}.`,
 					'Adresse postale communiquée sur demande à rgpd@familiste.fr.'
 				]
@@ -30,7 +30,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Code source et licence',
 				paragraphs: [
-					'Le code source de FamiList est public et distribué sous licence GNU AGPL-3.0-or-later : github.com/techmefr/FamiList.'
+					'Le code source de Familiste est public et distribué sous licence GNU AGPL-3.0-or-later : github.com/techmefr/familist.'
 				]
 			},
 			{
@@ -46,7 +46,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Objet',
 				paragraphs: [
-					'Les présentes conditions encadrent l’utilisation de FamiList, application de listes de courses partagées, de recettes, de menus et de cartes de fidélité, accessible sur app.familiste.fr et dans l’application mobile. Créer un compte vaut acceptation de ces conditions.'
+					'Les présentes conditions encadrent l’utilisation de Familiste, application de listes de courses partagées, de recettes, de menus et de cartes de fidélité, accessible sur app.familiste.fr et dans l’application mobile. Créer un compte vaut acceptation de ces conditions.'
 				]
 			},
 			{
@@ -155,7 +155,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 					'Fournisseur d’IA choisi par vous (par exemple Anthropic, Google, Mistral, Groq, OpenRouter, DeepSeek) : reçoit le texte de vos demandes, avec votre clé, directement depuis votre appareil.',
 					'Pollinations et Openverse : reçoivent la description ou le nom d’une recette pour générer ou rechercher une image.',
 					'GitHub : un signalement de bug ouvre un ticket qui ne contient que son numéro, sans donnée personnelle.',
-					'Une instance auto-hébergée de FamiList peut activer l’envoi des rapports de plantage à un service tiers ; son exploitant doit alors le déclarer dans sa propre politique.'
+					'Une instance auto-hébergée de Familiste peut activer l’envoi des rapports de plantage à un service tiers ; son exploitant doit alors le déclarer dans sa propre politique.'
 				]
 			},
 			{
@@ -175,7 +175,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Cookies et stockage local',
 				paragraphs: [
-					'FamiList ne dépose aucun cookie publicitaire ni traceur de mesure d’audience. L’application utilise uniquement un stockage technique sur votre appareil : le stockage local du navigateur pour la session et les préférences, et une base IndexedDB (Dexie) pour le fonctionnement hors ligne. Ce stockage est strictement nécessaire au service et ne requiert pas de consentement.'
+					'Familiste ne dépose aucun cookie publicitaire ni traceur de mesure d’audience. L’application utilise uniquement un stockage technique sur votre appareil : le stockage local du navigateur pour la session et les préférences, et une base IndexedDB (Dexie) pour le fonctionnement hors ligne. Ce stockage est strictement nécessaire au service et ne requiert pas de consentement.'
 				]
 			},
 			{
@@ -203,7 +203,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Service gratuit',
 				paragraphs: [
-					'FamiList est aujourd’hui entièrement gratuit. Aucune vente, aucun abonnement et aucun achat intégré ne sont proposés à ce jour.'
+					'Familiste est aujourd’hui entièrement gratuit. Aucune vente, aucun abonnement et aucun achat intégré ne sont proposés à ce jour.'
 				]
 			},
 			{

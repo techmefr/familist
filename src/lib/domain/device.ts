@@ -35,8 +35,13 @@ const PLATFORMS: [RegExp, string][] = [
 	[/\bLinux\b/, 'Linux']
 ];
 
-/** The installed application reports itself: no need to guess its rendering engine. */
-const NATIVE = /\bFamiList\b|\bCapacitor\b/;
+/**
+ * The installed application reports itself: no need to guess its rendering engine.
+ *
+ * Both names: a session opened before the rename still carries "FamiList" in its stored user agent, and
+ * must keep being recognised as the native app rather than falling through to "unknown browser".
+ */
+const NATIVE = /\bFamiliste\b|\bFamiList\b|\bCapacitor\b/;
 
 function match(pairs: [RegExp, string][], agent: string): string {
 	return pairs.find(([pattern]) => pattern.test(agent))?.[1] ?? '';
@@ -54,7 +59,7 @@ export function deviceLabel(userAgent: string | null | undefined): DeviceLabel {
 
 	const platform = match(PLATFORMS, agent);
 
-	if (NATIVE.test(agent)) return { browser: 'FamiList', platform };
+	if (NATIVE.test(agent)) return { browser: 'Familiste', platform };
 
 	return { browser: match(BROWSERS, agent), platform };
 }

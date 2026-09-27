@@ -3,7 +3,7 @@
 </script>
 
 <!--
-	Decorative, therefore silent: the brand is always placed next to the written name, and "FamiList FamiList"
+	Decorative, therefore silent: the brand is always placed next to the written name, and "Familiste Familiste"
 	would serve nobody. The speaking version lives in static/logo.svg.
 
 	Height in `em`, colour in `currentColor`: the drawing follows the neighbouring text, including when the
