@@ -1786,6 +1786,15 @@ button[data-slot='switch'][data-state='checked'] {
 	background: rgb(28 25 23 / 0.5);
 }
 
+/*
+ * The app header sits in normal flow, well above this sheet's own content — a translucent backdrop left it
+ * legible right behind "Add an item", which read as the sheet failing to cover the screen. A form this
+ * central to shopping earns an opaque backdrop instead of the usual dim: nothing behind it competes with it.
+ */
+.fl-sheet-opaque::backdrop {
+	background: var(--color-background);
+}
+
 @media (min-width: 48rem) {
 	.fl-sheet {
 		margin: auto;
