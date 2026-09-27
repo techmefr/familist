@@ -11,7 +11,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Publisher',
 				paragraphs: [
-					'FamiList is published by Gaëtan Compigni, a private individual acting in a non-professional capacity.',
+					'Familiste is published by Gaëtan Compigni, a private individual acting in a non-professional capacity.',
 					`Contact: ${CONTACT}.`,
 					'Postal address available on request at rgpd@familiste.fr.'
 				]
@@ -30,7 +30,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Source code and licence',
 				paragraphs: [
-					'The FamiList source code is public and distributed under the GNU AGPL-3.0-or-later licence: github.com/techmefr/FamiList.'
+					'The Familiste source code is public and distributed under the GNU AGPL-3.0-or-later licence: github.com/techmefr/familist.'
 				]
 			},
 			{
@@ -46,7 +46,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Purpose',
 				paragraphs: [
-					'These terms govern the use of FamiList, an application for shared shopping lists, recipes, meal plans and loyalty cards, available at app.familiste.fr and in the mobile app. Creating an account means you accept these terms.'
+					'These terms govern the use of Familiste, an application for shared shopping lists, recipes, meal plans and loyalty cards, available at app.familiste.fr and in the mobile app. Creating an account means you accept these terms.'
 				]
 			},
 			{
@@ -155,7 +155,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 					'The AI provider you choose (for example Anthropic, Google, Mistral, Groq, OpenRouter, DeepSeek): receives the text of your requests, with your key, directly from your device.',
 					'Pollinations and Openverse: receive a recipe’s description or name to generate or search for an image.',
 					'GitHub: a bug report opens an issue that only contains its number, without personal data.',
-					'A self-hosted FamiList instance may enable sending crash reports to a third-party service; its operator must then declare it in their own policy.'
+					'A self-hosted Familiste instance may enable sending crash reports to a third-party service; its operator must then declare it in their own policy.'
 				]
 			},
 			{
@@ -175,7 +175,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Cookies and local storage',
 				paragraphs: [
-					'FamiList sets no advertising cookie and no audience-measurement tracker. The app only uses technical storage on your device: the browser’s local storage for the session and preferences, and an IndexedDB database (Dexie) for offline use. This storage is strictly necessary for the service and does not require consent.'
+					'Familiste sets no advertising cookie and no audience-measurement tracker. The app only uses technical storage on your device: the browser’s local storage for the session and preferences, and an IndexedDB database (Dexie) for offline use. This storage is strictly necessary for the service and does not require consent.'
 				]
 			},
 			{
@@ -203,7 +203,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Free service',
 				paragraphs: [
-					'FamiList is currently entirely free. No sale, subscription or in-app purchase is offered to date.'
+					'Familiste is currently entirely free. No sale, subscription or in-app purchase is offered to date.'
 				]
 			},
 			{

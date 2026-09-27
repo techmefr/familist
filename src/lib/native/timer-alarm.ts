@@ -2,7 +2,7 @@ import { reminderId } from '$domain/reminder';
 import { remindersSupported, requestReminderPermission } from './reminders';
 
 /**
- * The end of a cook-along timer, rung by the phone itself (#310): with the screen off or FamiList in the
+ * The end of a cook-along timer, rung by the phone itself (#310): with the screen off or Familiste in the
  * background, only the operating system can still sound it. On the web there is no such thing; the timer
  * then rings only while the page is open, and the screen says so.
  *

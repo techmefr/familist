@@ -110,7 +110,7 @@ describe('generatePatchNotes', () => {
 		expect(String(url)).toBe('https://openrouter.ai/api/v1/chat/completions');
 		const headers = new Headers(init?.headers);
 		expect(headers.get('authorization')).toBe('Bearer test-key');
-		expect(headers.get('x-title')).toBe('FamiList patch notes');
+		expect(headers.get('x-title')).toBe('Familiste patch notes');
 		const body = JSON.parse(String(init?.body));
 		expect(body.model).toBe('anthropic/claude-sonnet-5');
 		expect(body.response_format).toEqual({
