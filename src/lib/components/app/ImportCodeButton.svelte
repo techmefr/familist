@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { scanImage, type ScanResult } from '$scan/scanner';
+	import { dominantColor } from '$domain/color-extract';
 	import { feedback } from '$stores/feedback.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { Button } from '$components/ui/button';
@@ -12,8 +13,14 @@
 	 */
 	let {
 		onScanned,
+		onColor,
 		mode = 'image'
-	}: { onScanned: (result: ScanResult) => void; mode?: 'image' | 'photo' } = $props();
+	}: {
+		onScanned: (result: ScanResult) => void;
+		/** The photo's average colour, read alongside the code so the card can suggest its own tint (#368). */
+		onColor?: (hex: string) => void;
+		mode?: 'image' | 'photo';
+	} = $props();
 
 	const photo = $derived(mode === 'photo');
 	const label = $derived(photo ? t('scan.takePhoto') : t('scan.fromImage'));
@@ -34,6 +41,10 @@
 			if (result) {
 				feedback.play('success');
 				onScanned(result);
+				if (onColor) {
+					const hex = await dominantColor(file);
+					if (hex) onColor(hex);
+				}
 			} else {
 				feedback.play('error');
 				error = t('scan.noCodeInImage');

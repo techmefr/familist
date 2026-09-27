@@ -331,6 +331,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "Kaody QR"
+		},
+		"actionsFor": "Hetsika ho an'ny karatra {name}",
+		"sharedCount": {
+			"one": "Zaraina amin'ny tokantrano {count}",
+			"other": "Zaraina amin'ny tokantrano {count}"
 		}
 	},
 	"common": {

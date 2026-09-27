@@ -330,6 +330,10 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "二维码"
+		},
+		"actionsFor": "卡片{name}的操作",
+		"sharedCount": {
+			"other": "已与 {count} 个家庭共享"
 		}
 	},
 	"common": {

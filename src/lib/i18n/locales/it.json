@@ -331,6 +331,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "Codice QR"
+		},
+		"actionsFor": "Azioni per la carta {name}",
+		"sharedCount": {
+			"one": "Condivisa con {count} famiglia",
+			"other": "Condivisa con {count} famiglie"
 		}
 	},
 	"common": {
