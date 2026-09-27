@@ -51,7 +51,7 @@
 {:else}
 	<div
 		data-test-class="recipe-cover-emoji"
-		class="grid aspect-square w-full place-items-center bg-[var(--fl-primary-tint)] text-6xl"
+		class="grid aspect-square w-full place-items-center bg-[var(--fl-primary-tint)] text-4xl"
 		aria-hidden="true"
 	>
 		{emoji}
