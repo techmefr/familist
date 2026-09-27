@@ -466,7 +466,11 @@
 		"save": "حفظ",
 		"cancel": "إلغاء",
 		"deleteConfirm": "حذف {name}؟ سيضيع المسار الذي تعلّمناه في هذا المتجر.",
-		"deleteYes": "حذف"
+		"deleteYes": "حذف",
+		"modeSearch": "بحث",
+		"modeManual": "إدخال يدوي",
+		"brandOther": "سلسلة أخرى",
+		"brandOtherPlaceholder": "اسم السلسلة"
 	},
 	"prices": {
 		"title": "سجل الأسعار",

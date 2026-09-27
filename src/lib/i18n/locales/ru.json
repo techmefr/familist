@@ -464,7 +464,11 @@
 		"save": "Сохранить",
 		"cancel": "Отмена",
 		"deleteConfirm": "Удалить {name}? Изученный маршрут по этому магазину будет потерян.",
-		"deleteYes": "Удалить"
+		"deleteYes": "Удалить",
+		"modeSearch": "Поиск",
+		"modeManual": "Ввести вручную",
+		"brandOther": "Другая сеть",
+		"brandOtherPlaceholder": "Название сети"
 	},
 	"prices": {
 		"title": "История цен",

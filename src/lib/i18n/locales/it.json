@@ -462,7 +462,11 @@
 		"save": "Salva",
 		"cancel": "Annulla",
 		"deleteConfirm": "Eliminare {name}? Il percorso imparato in questo negozio andrà perso.",
-		"deleteYes": "Elimina"
+		"deleteYes": "Elimina",
+		"modeSearch": "Cerca",
+		"modeManual": "Inserisci a mano",
+		"brandOther": "Altra catena",
+		"brandOtherPlaceholder": "Nome della catena"
 	},
 	"prices": {
 		"title": "Storico dei prezzi",

@@ -462,7 +462,11 @@
 		"save": "Tehirizo",
 		"cancel": "Ajanony",
 		"deleteConfirm": "Fafana {name} ? Ho very ny lalana efa hain’ny fivarotana.",
-		"deleteYes": "Fafao"
+		"deleteYes": "Fafao",
+		"modeSearch": "Karohy",
+		"modeManual": "Manoratra manokana",
+		"brandOther": "Antokon-tsena hafa",
+		"brandOtherPlaceholder": "Anaran'ny antoko"
 	},
 	"prices": {
 		"title": "Tantaran'ny vidiny",
