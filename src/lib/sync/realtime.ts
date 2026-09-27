@@ -55,6 +55,9 @@ export type RealtimePlan =
 	| { kind: 'pull' }
 	| { kind: 'skip' };
 
+/** The two kinds `SyncStore.onApplied` ever fires: the fast path never runs for `pull`/`skip`. */
+export type AppliedRealtimePlan = Extract<RealtimePlan, { kind: 'put' } | { kind: 'delete' }>;
+
 export const rowKey = (table: string, id: string) => `${table}:${id}`;
 
 const identifier = (row: Row | undefined) => {

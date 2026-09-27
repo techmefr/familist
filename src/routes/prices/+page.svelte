@@ -1,10 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { formatAmount } from '$domain/price';
 	import { tintForWhiteText } from '$domain/tint';
+	import { PRICE_HISTORY_ENABLED } from '$domain/feature-flags';
 	import * as Card from '$components/ui/card';
 	import EmptyState from '$components/app/EmptyState.svelte';
+
+	// Hidden while unfinished (#362): reachable by a direct URL or a stale link/bookmark, so the route itself
+	// turns away rather than trusting every entry point to have been removed.
+	if (!PRICE_HISTORY_ENABLED) void goto('/');
 
 	const products = $derived(data.pricedProducts);
 

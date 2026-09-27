@@ -97,6 +97,22 @@
 <h1 class="text-h1 font-semibold">{t('ai.title')}</h1>
 <p class="text-muted-foreground mt-1">{t('ai.subtitle')}</p>
 
+<Card.Root class="mt-6">
+	<Card.Header>
+		<Card.Title class="text-h2">{t('ai.beginnerTitle')}</Card.Title>
+	</Card.Header>
+	<Card.Content>
+		<ol class="text-label list-decimal space-y-2 ps-5">
+			<li>{t('ai.beginnerStep1')}</li>
+			<li>{t('ai.beginnerStep2')}</li>
+			<li>{t('ai.beginnerStep3')}</li>
+			<li>{t('ai.beginnerStep4')}</li>
+			<li>{t('ai.beginnerStep5')}</li>
+		</ol>
+		<p class="text-muted-foreground text-label mt-3">{t('ai.freeTierNote')}</p>
+	</Card.Content>
+</Card.Root>
+
 <Card.Root id="setting-ai-privacy" tabindex={-1} class="fl-setting mt-6">
 	<Card.Header>
 		<Card.Title class="text-h2 flex items-center gap-2">
