@@ -127,6 +127,18 @@ describe('parseIngredientLine', () => {
 		it('ne prend pas un zéro pour une quantité', () => {
 			expect(parseIngredientLine('0 g de sucre')?.qty).toBe('');
 		});
+
+		it('sépare quand même une mesure sans quantité devant (#374)', () => {
+			expect(parseIngredientLine('g lait')).toEqual({ name: 'lait', qty: '', unit: 'g' });
+		});
+
+		it('les feuilles se comptent comme des pièces (#374)', () => {
+			expect(parseIngredientLine('3 feuilles de gélatine')).toEqual({
+				name: 'feuilles de gélatine',
+				qty: '3',
+				unit: 'piece'
+			});
+		});
 	});
 
 	it('traite un tiret de tête comme une puce et non comme un signe', () => {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$i18n/index.svelte';
 	import type { SuggestedRecipe } from '$domain/ai-recipe';
-	import { unitKey } from '$domain/units';
+	import { unitKeyForCount } from '$domain/units';
 	import { Button } from '$components/ui/button';
 	import type { Conflict } from '$domain/ai-recipe-chat';
 	import { Users, RotateCcw, TriangleAlert } from '@lucide/svelte';
@@ -51,7 +51,7 @@
 					{#if row.qty}
 						<span class="text-muted-foreground text-caption shrink-0 font-medium">
 							{row.qty}
-							{t(unitKey(row.unit) ?? 'units.piece')}
+							{t(unitKeyForCount(row.unit, row.qty) ?? 'units.piece')}
 						</span>
 					{/if}
 				</li>

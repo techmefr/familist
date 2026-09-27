@@ -409,7 +409,8 @@
 		"slice": "Scheibe",
 		"tray": "Schale",
 		"roll": "Rolle",
-		"brick": "Karton"
+		"brick": "Karton",
+		"piecePlural": "Stück"
 	},
 	"unitGroup": {
 		"count": "Stück",
