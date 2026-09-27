@@ -408,7 +408,8 @@
 		"slice": "片",
 		"tray": "盘",
 		"roll": "卷",
-		"brick": "利乐包"
+		"brick": "利乐包",
+		"piecePlural": "个"
 	},
 	"unitGroup": {
 		"count": "个数",

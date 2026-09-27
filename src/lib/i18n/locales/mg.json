@@ -409,7 +409,8 @@
 		"slice": "sombiny",
 		"tray": "lovia",
 		"roll": "horonana",
-		"brick": "karatona"
+		"brick": "karatona",
+		"piecePlural": "singany"
 	},
 	"unitGroup": {
 		"count": "Isa tsirairay",

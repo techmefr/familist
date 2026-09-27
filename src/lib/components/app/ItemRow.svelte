@@ -3,7 +3,7 @@
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
-	import { unitKey } from '$domain/units';
+	import { unitKeyForCount } from '$domain/units';
 	import { slugify } from '$domain/slug';
 	import { formatAmount } from '$domain/price';
 	import { longpress } from '$components/app/longpress.svelte';
@@ -43,7 +43,7 @@
 	 * list must stay readable, not be replaced by a neighbouring unit.
 	 */
 	const unitLabel = $derived.by(() => {
-		const key = unitKey(item.unit);
+		const key = unitKeyForCount(item.unit, item.qty);
 		return key ? t(key) : item.unit;
 	});
 
