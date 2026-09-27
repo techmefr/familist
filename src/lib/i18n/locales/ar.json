@@ -335,6 +335,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "رمز QR"
+		},
+		"actionsFor": "إجراءات لبطاقة {name}",
+		"sharedCount": {
+			"one": "مشتركة مع {count} عائلة",
+			"other": "مشتركة مع {count} عائلات"
 		}
 	},
 	"common": {

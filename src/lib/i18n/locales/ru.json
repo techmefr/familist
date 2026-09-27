@@ -333,6 +333,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "QR-код"
+		},
+		"actionsFor": "Действия с картой {name}",
+		"sharedCount": {
+			"one": "Доступна {count} семье",
+			"other": "Доступна {count} семьям"
 		}
 	},
 	"common": {

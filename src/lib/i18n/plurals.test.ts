@@ -59,6 +59,7 @@ describe('formes plurielles', () => {
 	it('relève les phrases comptées du français', () => {
 		expect(PATHS).toEqual([
 			'lists.remaining',
+			'cards.sharedCount',
 			'prices.shopCount',
 			'recipes.servingsCount',
 			'recipes.search.count',

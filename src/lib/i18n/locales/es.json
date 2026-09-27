@@ -331,6 +331,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "Código QR"
+		},
+		"actionsFor": "Acciones para la tarjeta {name}",
+		"sharedCount": {
+			"one": "Compartida con {count} hogar",
+			"other": "Compartida con {count} hogares"
 		}
 	},
 	"common": {

@@ -34,6 +34,10 @@ export const shareStatusOf = (
 	shares.find((share) => share.cardId === cardId && share.householdId === householdId)?.status ??
 	'none';
 
+/** How many other households an owned card is shared with and has accepted — a pending request does not count yet. */
+export const acceptedShareCount = (shares: readonly CardShareRow[], cardId: string): number =>
+	shares.filter((share) => share.cardId === cardId && share.status === 'accepted').length;
+
 /** Owned by the active circle, or shared into it and accepted there. A pending share shows nothing yet. */
 export const visibleCards = <T extends CircleScopedCard>(
 	cards: readonly T[],

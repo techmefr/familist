@@ -21,6 +21,11 @@
 	import ScanButton from '$components/app/ScanButton.svelte';
 	import ImportCodeButton from '$components/app/ImportCodeButton.svelte';
 	import NewShopSheet from '$components/app/NewShopSheet.svelte';
+	import ActionSheet from '$components/app/ActionSheet.svelte';
+	import CardShareSheet from '$components/app/CardShareSheet.svelte';
+	import { longpress } from '$components/app/longpress.svelte';
+	import { acceptedShareCount } from '$domain/card-share';
+	import type { Action } from '$domain/action-sheet';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
@@ -38,7 +43,9 @@
 		Search,
 		SlidersHorizontal,
 		X,
-		Users
+		Users,
+		Share2,
+		MoreVertical
 	} from '@lucide/svelte';
 	import CardShareRequests from '$components/app/CardShareRequests.svelte';
 	import IconField from '$components/app/IconField.svelte';
@@ -46,6 +53,55 @@
 
 	let openCardId = $state<string | null>(null);
 	let adding = $state(false);
+
+	/** The card the action menu (long-press, or its "more" button) currently reads about. */
+	let actionsFor = $state<LoyaltyCard | null>(null);
+	let actionSheet = $state<ActionSheet | null>(null);
+	let sharingCard = $state<LoyaltyCard | null>(null);
+	let shareSheet = $state<CardShareSheet | null>(null);
+
+	function openActions(card: LoyaltyCard) {
+		actionsFor = card;
+		actionSheet?.show();
+	}
+
+	// The share sheet only exists once a card has been picked for it: mounting it, then showing it, once
+	// `bind:this` has actually run.
+	$effect(() => {
+		if (sharingCard && shareSheet) shareSheet.show();
+	});
+
+	const cardActions = $derived.by((): Action[] => {
+		if (!actionsFor) return [];
+		const card = actionsFor;
+
+		return [
+			{
+				id: 'edit',
+				label: t('cards.edit', { name: card.name }),
+				icon: Pencil,
+				onSelect: () => editCard(card)
+			},
+			{
+				id: 'share',
+				label: t('cards.share', { name: card.name }),
+				icon: Share2,
+				onSelect: () => {
+					sharingCard = card;
+				}
+			},
+			{
+				id: 'delete',
+				label: t('cards.delete', { name: card.name }),
+				icon: Trash2,
+				destructive: true,
+				onSelect: () => {
+					feedback.play('remove');
+					data.removeCard(card.id);
+				}
+			}
+		];
+	});
 
 	/** `null` means the form, when open, is creating a card. Set, it is rewriting the card of this id. */
 	let editingId = $state<string | null>(null);
@@ -360,6 +416,7 @@
 				>
 					<button
 						type="button"
+						use:longpress={() => own && openActions(card)}
 						onclick={() => {
 							feedback.play('tap');
 							openCardId = card.id;
@@ -367,29 +424,22 @@
 						class="fl-press block h-full w-full text-start"
 						data-test-class="card-open"
 					>
-						<LoyaltyCardFace {card} actions={own} />
+						<LoyaltyCardFace
+							{card}
+							shopName={data.shops.find((shop) => shop.id === card.shopId)?.name}
+							shareCount={acceptedShareCount(data.cardShares, card.id)}
+							actions={own}
+						/>
 					</button>
 					{#if own}
 					<button
 						type="button"
-						onclick={() => editCard(card)}
-						aria-label={t('cards.edit', { name: card.name })}
-						data-test-class="card-edit"
-						class="fl-press absolute end-13 bottom-2 grid size-11 min-w-[44px] place-items-center text-white"
-					>
-						<Pencil size={18} aria-hidden="true" />
-					</button>
-					<button
-						type="button"
-						onclick={() => {
-							feedback.play('remove');
-							data.removeCard(card.id);
-						}}
-						aria-label={t('cards.delete', { name: card.name })}
-						data-test-class="card-delete"
+						onclick={() => openActions(card)}
+						aria-label={t('cards.actionsFor', { name: card.name })}
+						data-test-class="card-actions"
 						class="fl-press absolute end-2 bottom-2 grid size-11 min-w-[44px] place-items-center text-white"
 					>
-						<Trash2 size={18} aria-hidden="true" />
+						<MoreVertical size={18} aria-hidden="true" />
 					</button>
 					{/if}
 				</li>
@@ -564,11 +614,9 @@
 						card={{
 							name: label || t('cards.namePlaceholder'),
 							brand: known?.name ?? brand,
-							num: code.trim() ? `•••• •••• ${code.trim().slice(-4)}` : '•••• •••• ••••',
-							tint,
-							codeType: effectiveType,
-							notes
+							tint
 						}}
+						shopName={shop?.name}
 					/>
 				</div>
 			</div>
@@ -602,6 +650,9 @@
 								code = result.value;
 								if (result.codeType) codeType = result.codeType;
 							}}
+							onColor={(hex) => {
+								if (!known) color = hex;
+							}}
 						/>
 					{/snippet}
 					{#snippet actions()}
@@ -609,6 +660,9 @@
 							onScanned={(result) => {
 								code = result.value;
 								if (result.codeType) codeType = result.codeType;
+							}}
+							onColor={(hex) => {
+								if (!known) color = hex;
 							}}
 						/>
 					{/snippet}
@@ -727,6 +781,16 @@
 
 {#if openCard}
 	<CardFullscreen card={openCard} onClose={() => (openCardId = null)} onEdit={editCard} />
+{/if}
+
+<ActionSheet
+	bind:this={actionSheet}
+	title={actionsFor?.name ?? ''}
+	actions={cardActions}
+/>
+
+{#if sharingCard}
+	<CardShareSheet bind:this={shareSheet} card={sharingCard} />
 {/if}
 
 <!-- The missing shop is created here, and immediately becomes the card's attachment. -->

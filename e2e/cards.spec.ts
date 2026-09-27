@@ -99,8 +99,9 @@ test('la couleur choisie dans la palette est gardee et reproposee a la modificat
 	await page
 		.locator('li')
 		.filter({ has: cardFace(page, name) })
-		.locator('[data-test-class="card-edit"]')
+		.locator('[data-test-class="card-actions"]')
 		.click();
+	await page.getByTestId('action-sheet-edit').click();
 	await expect(page.getByTestId('card-color-teal')).toBeChecked();
 });
 
