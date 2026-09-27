@@ -130,7 +130,7 @@
 	onclick={(event) => {
 		if (event.target === dialog) hide();
 	}}
-	class="fl-sheet"
+	class="fl-sheet fl-sheet-opaque"
 	aria-labelledby="add-title"
 	data-test-id="add-item"
 >
