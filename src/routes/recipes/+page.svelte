@@ -760,7 +760,7 @@
 											maxlength={2}
 											autocomplete="off"
 											data-test-class="recipe-step-hours"
-											class="text-product h-12"
+											class="text-product min-h-12 h-auto"
 										/>
 									</div>
 									<div class="w-32">
@@ -773,7 +773,7 @@
 											maxlength={3}
 											autocomplete="off"
 											data-test-class="recipe-step-minutes"
-											class="text-product h-12"
+											class="text-product min-h-12 h-auto"
 										/>
 									</div>
 								</div>

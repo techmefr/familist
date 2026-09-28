@@ -764,7 +764,7 @@
 			disabled={atLast}
 			onclick={() => go(nextStepIndex(index, total))}
 			data-test-id="cook-along-next"
-			class="fl-press h-16 flex-1 rounded-full bg-[#0b6b3a] text-xl font-semibold text-white hover:bg-[#0b6b3a]/90"
+			class="fl-press min-h-16 h-auto flex-1 rounded-full bg-[#0b6b3a] px-4 py-3 text-xl font-semibold text-white hover:bg-[#0b6b3a]/90"
 		>
 			{t('recipes.cookAlong.next')}
 			<ChevronRight size={24} aria-hidden="true" class="rtl:rotate-180" />
