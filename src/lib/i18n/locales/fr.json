@@ -762,7 +762,8 @@
 						"temps restant",
 						"il reste combien"
 					]
-				}
+				},
+				"longPressHint": "Appui long pour la liste des commandes vocales"
 			}
 		},
 		"stepIngredients": "Ingrédients utilisés à l’étape {rank}",
@@ -842,7 +843,13 @@
 				"one": "{count} actif",
 				"other": "{count} actifs"
 			}
-		}
+		},
+		"openAria": "Ouvrir la recette {name}",
+		"actions": "Plus",
+		"actionsAria": "Plus d'actions pour {name}",
+		"addPhotoAction": "Ajouter une photo",
+		"backToRecipes": "Retour aux recettes",
+		"notFound": "Recette introuvable."
 	},
 	"recipeTags": {
 		"title": "Catégories",

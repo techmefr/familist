@@ -719,7 +719,8 @@
 						"Restzeit",
 						"wie viel Zeit"
 					]
-				}
+				},
+				"longPressHint": "Lange drücken für die Liste der Sprachbefehle"
 			}
 		},
 		"stepIngredients": "Zutaten für Schritt {rank}",
@@ -799,7 +800,13 @@
 				"one": "{count} aktiv",
 				"other": "{count} aktiv"
 			}
-		}
+		},
+		"openAria": "Rezept {name} öffnen",
+		"actions": "Mehr",
+		"actionsAria": "Weitere Aktionen für {name}",
+		"addPhotoAction": "Foto hinzufügen",
+		"backToRecipes": "Zurück zu den Rezepten",
+		"notFound": "Rezept nicht gefunden."
 	},
 	"recipeTags": {
 		"title": "Kategorien",

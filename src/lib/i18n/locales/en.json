@@ -730,7 +730,8 @@
 						"time left",
 						"how much time"
 					]
-				}
+				},
+				"longPressHint": "Long-press for the voice-command list"
 			}
 		},
 		"stepIngredients": "Ingredients used in step {rank}",
@@ -810,7 +811,13 @@
 				"one": "{count} active",
 				"other": "{count} active"
 			}
-		}
+		},
+		"openAria": "Open recipe {name}",
+		"actions": "More",
+		"actionsAria": "More actions for {name}",
+		"addPhotoAction": "Add a photo",
+		"backToRecipes": "Back to recipes",
+		"notFound": "Recipe not found."
 	},
 	"recipeTags": {
 		"title": "Categories",

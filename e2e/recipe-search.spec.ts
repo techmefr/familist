@@ -67,7 +67,8 @@ test.describe('recherche de recettes', () => {
 		await expect(hit).toHaveCount(1);
 		await hit.click();
 
-		await expect(page).toHaveURL(/\/recipes\?recipe=/);
-		await expect(recipeCard(page, name).locator('[data-test-class="recipe-card-panel"]')).toBeVisible();
+		// A hit now opens the recipe's own page (#373) instead of unfolding its card.
+		await expect(page).toHaveURL(/\/recipes\/[^/?]+$/);
+		await expect(page.getByTestId('recipe-detail')).toContainText(name);
 	});
 });

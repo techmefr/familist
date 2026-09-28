@@ -714,7 +714,8 @@
 						"剩余时间",
 						"还有多久"
 					]
-				}
+				},
+				"longPressHint": "长按查看语音指令列表"
 			}
 		},
 		"stepIngredients": "第 {rank} 步用到的食材",
@@ -791,7 +792,13 @@
 			"active": {
 				"other": "{count} 个已启用"
 			}
-		}
+		},
+		"openAria": "打开食谱 {name}",
+		"actions": "更多",
+		"actionsAria": "{name} 的更多操作",
+		"addPhotoAction": "添加照片",
+		"backToRecipes": "返回食谱列表",
+		"notFound": "未找到该食谱。"
 	},
 	"recipeTags": {
 		"title": "分类",

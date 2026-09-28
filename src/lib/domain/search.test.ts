@@ -119,7 +119,7 @@ describe('searchAll', () => {
 
 		const hit = flattenHits(searchAll('poireaux', source))[0];
 		expect(hit?.kind).toBe('recipe');
-		expect(hit?.href).toBe('/recipes?recipe=r1');
+		expect(hit?.href).toBe('/recipes/r1');
 		expect(hit?.icon).toBe('🥣');
 	});
 
