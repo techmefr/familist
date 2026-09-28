@@ -25,6 +25,8 @@
 	} from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
+	import ChatPhoto from '$components/app/ChatPhoto.svelte';
+	import ChatPhotoPicker from '$components/app/ChatPhotoPicker.svelte';
 
 	const listId = $derived(page.params.id!);
 	const list = $derived(data.list(listId));
@@ -89,13 +91,21 @@
 			icon: ImagePlus,
 			onSelect: () => {
 				feedback.play('tap');
-				photoSoon = true;
+				photoPicker?.show();
 			}
 		}
 	]);
 
-	/** Sending a photo (#366) needs its own storage and offline-queue work; the entry point exists, the feature does not yet. */
-	let photoSoon = $state(false);
+	let photoPicker = $state<ChatPhotoPicker | null>(null);
+
+	/**
+	 * A photo needs a connection to upload (#366) — there is no offline queue for it like there is for text.
+	 * Once the upload succeeds, the message it belongs to is created exactly like a text message, through the
+	 * same `sendMessage`.
+	 */
+	function sendPhoto(photoPath: string) {
+		data.sendMessage(listId, '', photoPath);
+	}
 
 	/**
 	 * Parts of a meal: these are the ones the prototype offers, and they cover almost everything. Indexed by
@@ -254,6 +264,10 @@
 						</p>
 					{/if}
 
+					{#if message.photoPath}
+						<ChatPhoto photoPath={message.photoPath} authorName={author?.name ?? t('chat.unknownAuthor')} />
+					{/if}
+
 					{#if poll}
 						<div class="w-full">
 							<PollCard {poll} {listId} />
@@ -308,11 +322,7 @@
 		</form>
 	{/if}
 
-	{#if photoSoon}
-		<p class="text-muted-foreground text-caption mt-4" role="status" data-test-id="chat-photo-soon">
-			{t('chat.composePhotoSoon')}
-		</p>
-	{/if}
+	<ChatPhotoPicker bind:this={photoPicker} scopeId={listId} onUploaded={sendPhoto} />
 
 	<!--
 		At rest, a compact field next to the single button that opens every other action: a date poll, the
@@ -343,7 +353,6 @@
 			type="button"
 			onclick={() => {
 				feedback.play('tap');
-				photoSoon = false;
 				composeSheet?.show();
 			}}
 			aria-haspopup="dialog"

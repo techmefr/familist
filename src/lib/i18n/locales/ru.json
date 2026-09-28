@@ -1357,7 +1357,6 @@
 		"composeApport": "Кто что принесёт?",
 		"composeAi": "Спросить у ИИ рецепт",
 		"composePhoto": "Отправить фото",
-		"composePhotoSoon": "Скоро будет доступно.",
 		"searchOpen": "Поиск в переписке",
 		"searchPlaceholder": "Поиск…",
 		"searchClose": "Закрыть поиск",
@@ -1367,7 +1366,12 @@
 		"listFilterHousehold": "Фильтровать по семье",
 		"listFilterAll": "Все",
 		"listFilterPersonal": "Личные",
-		"listFilterEmpty": "Нет бесед, соответствующих фильтру."
+		"listFilterEmpty": "Нет бесед, соответствующих фильтру.",
+		"photoAlt": "Фото от {name}",
+		"photoView": "Открыть фото на весь экран",
+		"photoUploading": "Отправка фото…",
+		"photoFailed": "Не удалось отправить фото. Попробуйте ещё раз.",
+		"photoTooBig": "Это фото слишком большое."
 	},
 	"household": {
 		"title": "Моя семья",

@@ -268,7 +268,8 @@ export const toMessage = (row: Row): Message => ({
 	userId: text(row.user_id),
 	body: text(row.body),
 	isSystem: flag(row.is_system),
-	createdAt: Date.parse(text(row.created_at)) || 0
+	createdAt: Date.parse(text(row.created_at)) || 0,
+	photoPath: typeof row.photo_path === 'string' ? row.photo_path : undefined
 });
 
 export const fromMessage = (message: Message) => ({
@@ -277,7 +278,8 @@ export const fromMessage = (message: Message) => ({
 	conversation_id: message.conversationId ?? null,
 	user_id: message.userId || null,
 	body: message.body,
-	is_system: message.isSystem
+	is_system: message.isSystem,
+	photo_path: message.photoPath ?? null
 });
 
 /**

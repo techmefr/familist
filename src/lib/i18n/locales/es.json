@@ -1343,7 +1343,6 @@
 		"composeApport": "¿Quién trae qué?",
 		"composeAi": "Pedir una receta a la IA",
 		"composePhoto": "Enviar una foto",
-		"composePhotoSoon": "Próximamente.",
 		"searchOpen": "Buscar en la conversación",
 		"searchPlaceholder": "Buscar…",
 		"searchClose": "Cerrar búsqueda",
@@ -1353,7 +1352,12 @@
 		"listFilterHousehold": "Filtrar por hogar",
 		"listFilterAll": "Todas",
 		"listFilterPersonal": "Personales",
-		"listFilterEmpty": "Ninguna conversación coincide con este filtro."
+		"listFilterEmpty": "Ninguna conversación coincide con este filtro.",
+		"photoAlt": "Foto enviada por {name}",
+		"photoView": "Ver la foto a pantalla completa",
+		"photoUploading": "Enviando la foto…",
+		"photoFailed": "No se pudo enviar la foto. Inténtalo de nuevo.",
+		"photoTooBig": "Esta foto pesa demasiado."
 	},
 	"household": {
 		"title": "Mi hogar",

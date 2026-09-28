@@ -1337,7 +1337,6 @@
 		"composeApport": "Chi porta cosa?",
 		"composeAi": "Chiedi una ricetta all'IA",
 		"composePhoto": "Invia una foto",
-		"composePhotoSoon": "Presto disponibile.",
 		"searchOpen": "Cerca nella conversazione",
 		"searchPlaceholder": "Cerca…",
 		"searchClose": "Chiudi ricerca",
@@ -1347,7 +1346,12 @@
 		"listFilterHousehold": "Filtra per famiglia",
 		"listFilterAll": "Tutte",
 		"listFilterPersonal": "Personali",
-		"listFilterEmpty": "Nessuna conversazione corrisponde a questo filtro."
+		"listFilterEmpty": "Nessuna conversazione corrisponde a questo filtro.",
+		"photoAlt": "Foto inviata da {name}",
+		"photoView": "Visualizza la foto a schermo intero",
+		"photoUploading": "Invio della foto…",
+		"photoFailed": "Invio della foto non riuscito. Riprova.",
+		"photoTooBig": "Questa foto è troppo pesante."
 	},
 	"household": {
 		"title": "La mia casa",
