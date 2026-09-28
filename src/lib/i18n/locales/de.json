@@ -723,7 +723,8 @@
 						"Restzeit",
 						"wie viel Zeit"
 					]
-				}
+				},
+				"longPressHint": "Lange drücken für die Liste der Sprachbefehle"
 			}
 		},
 		"stepIngredients": "Zutaten für Schritt {rank}",
@@ -803,7 +804,13 @@
 				"one": "{count} aktiv",
 				"other": "{count} aktiv"
 			}
-		}
+		},
+		"openAria": "Rezept {name} öffnen",
+		"actions": "Mehr",
+		"actionsAria": "Weitere Aktionen für {name}",
+		"addPhotoAction": "Foto hinzufügen",
+		"backToRecipes": "Zurück zu den Rezepten",
+		"notFound": "Rezept nicht gefunden."
 	},
 	"recipeTags": {
 		"title": "Kategorien",
@@ -1344,7 +1351,23 @@
 		"directFailed": "Das Gespräch konnte nicht geöffnet werden. Bitte erneut versuchen.",
 		"backToChats": "Zurück zu den Gesprächen",
 		"directNotFound": "Dieses Gespräch wurde nicht gefunden.",
-		"someone": "Jemand"
+		"someone": "Jemand",
+		"composeOpen": "Aktionen öffnen",
+		"composeDate": "Termin vorschlagen",
+		"composeApport": "Wer bringt was mit?",
+		"composeAi": "KI nach einem Rezept fragen",
+		"composePhoto": "Foto senden",
+		"composePhotoSoon": "Demnächst verfügbar.",
+		"searchOpen": "In der Unterhaltung suchen",
+		"searchPlaceholder": "Suchen…",
+		"searchClose": "Suche schließen",
+		"searchEmpty": "Keine Nachricht passt.",
+		"listFilterSearch": "Unterhaltungen nach Liste filtern",
+		"listFilterSearchPlaceholder": "Nach Liste filtern…",
+		"listFilterHousehold": "Nach Haushalt filtern",
+		"listFilterAll": "Alle",
+		"listFilterPersonal": "Persönlich",
+		"listFilterEmpty": "Keine Unterhaltung entspricht diesem Filter."
 	},
 	"household": {
 		"title": "Mein Haushalt",

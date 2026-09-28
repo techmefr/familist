@@ -36,8 +36,9 @@ test.describe('ingredients par etape', () => {
 
 		const card = page.locator('[data-test-class="recipe-card"]').filter({ hasText: name });
 		await expect(card).toBeVisible();
+		// A recipe now opens its own page (#373) instead of unfolding inline.
 		await card.locator('[data-test-class="recipe-card-header"]').click();
-		await card.locator('[data-test-class="recipe-cook-along"]').click();
+		await page.locator('[data-test-class="recipe-cook-along"]').click();
 
 		const cookAlong = page.getByTestId('cook-along');
 		const panelLines = cookAlong.locator('[data-test-class="cook-along-ingredient"]');
@@ -66,7 +67,7 @@ test.describe('ingredients par etape', () => {
 		await cookAlong.getByTestId('cook-along-ingredients-close').click();
 		await cookAlong.getByTestId('cook-along-close').click();
 
-		await card.locator('[data-test-class="recipe-edit"]').click();
+		await page.locator('[data-test-class="recipe-edit"]').click();
 		await page.getByTestId('recipe-next').click();
 		await page.getByTestId('recipe-next').click();
 		await expect(links.nth(0).getByRole('checkbox', { name: 'Oeufs' })).toBeChecked();

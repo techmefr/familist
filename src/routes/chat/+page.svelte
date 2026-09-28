@@ -5,6 +5,7 @@
 	import { i18n, t } from '$i18n/index.svelte';
 	import * as Card from '$components/ui/card';
 	import { Button } from '$components/ui/button';
+	import { Input } from '$components/ui/input';
 	import Avatar from '$components/app/Avatar.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
 	import { MessagesSquare, Plus } from '@lucide/svelte';
@@ -15,10 +16,29 @@
 	 * it is the choice that removes the ambiguity of two people who are members of several shared circles,
 	 * and the reason the two do not mix on screen.
 	 */
-	const rows = $derived(
+	const allRows = $derived(
 		data.lists.map((list) => {
 			const messages = data.messagesOf(list.id);
 			return { list, last: messages.at(-1) };
+		})
+	);
+
+	/** Which list conversations show: every one, only personal lists, or one particular household's. */
+	let householdFilter = $state<'all' | 'personal' | string>('all');
+	let listQuery = $state('');
+
+	const rows = $derived(
+		allRows.filter(({ list }) => {
+			if (householdFilter === 'personal' && list.householdId) return false;
+			if (
+				householdFilter !== 'all' &&
+				householdFilter !== 'personal' &&
+				list.householdId !== householdFilter
+			)
+				return false;
+
+			const query = listQuery.trim().toLowerCase();
+			return !query || list.name.toLowerCase().includes(query);
 		})
 	);
 
@@ -153,8 +173,38 @@
 <section aria-labelledby="list-chats-heading" class="mt-10">
 	<h2 id="list-chats-heading" class="text-h2 font-semibold">{t('chat.listSection')}</h2>
 
+	{#if allRows.length > 0}
+		<div class="mt-3 flex flex-wrap gap-2">
+			<Input
+				bind:value={listQuery}
+				aria-label={t('chat.listFilterSearch')}
+				placeholder={t('chat.listFilterSearchPlaceholder')}
+				data-test-id="chat-list-filter-search"
+				class="max-w-xs flex-1"
+			/>
+			{#if data.circles.length > 0}
+				<select
+					bind:value={householdFilter}
+					aria-label={t('chat.listFilterHousehold')}
+					data-test-id="chat-list-filter-household"
+					class="border-input bg-background min-h-[max(2.75rem,44px)] rounded-md border px-3"
+				>
+					<option value="all">{t('chat.listFilterAll')}</option>
+					<option value="personal">{t('chat.listFilterPersonal')}</option>
+					{#each data.circles as circle (circle.id)}
+						<option value={circle.id}>{circle.name}</option>
+					{/each}
+				</select>
+			{/if}
+		</div>
+	{/if}
+
 	{#if rows.length === 0}
-		<EmptyState illustration="chat" text={t('chat.indexEmpty')} testId="chats-empty" />
+		<EmptyState
+			illustration="chat"
+			text={allRows.length === 0 ? t('chat.indexEmpty') : t('chat.listFilterEmpty')}
+			testId={allRows.length === 0 ? 'chats-empty' : 'chat-list-filter-empty'}
+		/>
 	{:else}
 		<ul class="mt-4 space-y-3" data-test-id="chat-list">
 			{#each rows as { list, last }, index (list.id)}

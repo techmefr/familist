@@ -723,7 +723,8 @@
 						"quanto falta",
 						"tempo restante"
 					]
-				}
+				},
+				"longPressHint": "Toque longo para a lista de comandos de voz"
 			}
 		},
 		"stepIngredients": "Ingredientes usados no passo {rank}",
@@ -803,7 +804,13 @@
 				"one": "{count} ativo",
 				"other": "{count} ativos"
 			}
-		}
+		},
+		"openAria": "Abrir receita {name}",
+		"actions": "Mais",
+		"actionsAria": "Mais ações para {name}",
+		"addPhotoAction": "Adicionar uma foto",
+		"backToRecipes": "Voltar às receitas",
+		"notFound": "Receita não encontrada."
 	},
 	"recipeTags": {
 		"title": "Categorias",
@@ -1344,7 +1351,23 @@
 		"directFailed": "Não foi possível abrir a conversa. Tente novamente.",
 		"backToChats": "Voltar às conversas",
 		"directNotFound": "Esta conversa não foi encontrada.",
-		"someone": "Alguém"
+		"someone": "Alguém",
+		"composeOpen": "Abrir ações",
+		"composeDate": "Propor uma data",
+		"composeApport": "Quem traz o quê?",
+		"composeAi": "Pedir uma receita à IA",
+		"composePhoto": "Enviar uma foto",
+		"composePhotoSoon": "Brevemente.",
+		"searchOpen": "Pesquisar na conversa",
+		"searchPlaceholder": "Pesquisar…",
+		"searchClose": "Fechar pesquisa",
+		"searchEmpty": "Nenhuma mensagem corresponde.",
+		"listFilterSearch": "Filtrar conversas por lista",
+		"listFilterSearchPlaceholder": "Filtrar por lista…",
+		"listFilterHousehold": "Filtrar por agregado",
+		"listFilterAll": "Todas",
+		"listFilterPersonal": "Pessoais",
+		"listFilterEmpty": "Nenhuma conversa corresponde a este filtro."
 	},
 	"household": {
 		"title": "A minha casa",

@@ -714,7 +714,8 @@
 						"firy sisa",
 						"ohatrinona ny fotoana sisa"
 					]
-				}
+				},
+				"longPressHint": "Tsindrio ela mba hahitana ny lisitry ny baiko am-peo"
 			}
 		},
 		"stepIngredients": "Akora ampiasaina amin’ny dingana {rank}",
@@ -794,7 +795,13 @@
 				"one": "{count} mandeha",
 				"other": "{count} mandeha"
 			}
-		}
+		},
+		"openAria": "Sokafy ny fomba fahandro {name}",
+		"actions": "Hetsika hafa",
+		"actionsAria": "Hetsika hafa ho an'ny {name}",
+		"addPhotoAction": "Manampy sary",
+		"backToRecipes": "Miverina any amin'ireo fomba fahandro",
+		"notFound": "Tsy hita ny fomba fahandro."
 	},
 	"recipeTags": {
 		"title": "Sokajy",
@@ -1335,7 +1342,23 @@
 		"directFailed": "Tsy afaka nosokafana ny resaka. Andramo indray.",
 		"backToChats": "Hiverina amin’ny resaka",
 		"directNotFound": "Tsy hita io resaka io.",
-		"someone": "Olona iray"
+		"someone": "Olona iray",
+		"composeOpen": "Sokafy ny hetsika",
+		"composeApport": "Iza no mitondra inona?",
+		"composeDate": "Manolotra daty",
+		"composeAi": "Manontany ny AI mikasika ny lasary",
+		"composePhoto": "Mandefa sary",
+		"composePhotoSoon": "Ho avy tsy ho ela.",
+		"searchOpen": "Karohy ao anaty resaka",
+		"searchPlaceholder": "Karohy…",
+		"searchClose": "Hidio ny fikarohana",
+		"searchEmpty": "Tsy misy hafatra mifanaraka.",
+		"listFilterSearch": "Sivano ny resaka araka ny lisitra",
+		"listFilterSearchPlaceholder": "Sivano araka ny lisitra…",
+		"listFilterHousehold": "Sivano araka ny tokantrano",
+		"listFilterAll": "Rehetra",
+		"listFilterPersonal": "Manokana",
+		"listFilterEmpty": "Tsy misy resaka mifanaraka amin'ity sivana ity."
 	},
 	"household": {
 		"title": "Ny ankohonako",

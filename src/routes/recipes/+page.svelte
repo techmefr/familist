@@ -6,7 +6,7 @@
 	import { ai } from '$stores/ai.svelte';
 	import { recipeDraft } from '$stores/recipe-draft.svelte';
 	import { t } from '$i18n/index.svelte';
-	import { motionMs } from '$stores/settings.svelte';
+	import { motionMs, settings } from '$stores/settings.svelte';
 	import { DEFAULT_SERVINGS, MAX_SERVINGS, MIN_SERVINGS, type RecipeLine } from '$domain/recipe';
 	import type { Recipe } from '$db/schema';
 	import { DEFAULT_EMOJI, type RecipeDraft } from '$domain/recipe-draft';
@@ -20,8 +20,6 @@
 	import { Label } from '$components/ui/label';
 	import * as Card from '$components/ui/card';
 	import { tick, untrack } from 'svelte';
-	import { slide } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
 	import EmojiPicker from '$components/app/EmojiPicker.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
 	import IconField from '$components/app/IconField.svelte';
@@ -44,13 +42,10 @@
 		ChevronRight,
 		Check,
 		CalendarDays,
-		Pencil,
-		Share2,
-		Mic,
-		Copy,
-		NotebookPen
+		MoreVertical
 	} from '@lucide/svelte';
-	import CookAlong from '$components/app/CookAlong.svelte';
+	import RecipeActionsSheet from '$components/app/RecipeActionsSheet.svelte';
+	import { longpress } from '$components/app/longpress.svelte';
 
 	/**
 	 * The three stages of typing. A whole recipe rarely fits on a phone screen, and asking everything at
@@ -91,18 +86,27 @@
 
 	let formHeading = $state<HTMLHeadingElement | null>(null);
 
-	/** The recipe whose generation is unfolded, and what is being asked of it. */
+	/** The recipe whose generation dialog is open, and what is being asked of it. */
 	let generatingFor = $state<string | null>(null);
 	let guestCount = $state(DEFAULT_SERVINGS);
 	let target = $state('');
+	let generateDialog = $state<HTMLDialogElement | null>(null);
+	$effect(() => {
+		if (generatingFor) generateDialog?.showModal();
+		else generateDialog?.close();
+	});
+
+	/** The recipe pending a delete confirmation. */
 	let toDelete = $state<string | null>(null);
+	let deleteDialog = $state<HTMLDialogElement | null>(null);
+	$effect(() => {
+		if (toDelete) deleteDialog?.showModal();
+		else deleteDialog?.close();
+	});
 
 	/** The recipe sharing sheet, and which recipe it is currently open for. */
 	let shareSheet = $state<RecipeShareSheet | null>(null);
 	let sharingId = $state('');
-
-	/** The recipe whose "cook-along" mode is currently open, if any. */
-	let cookAlongFor = $state<string | null>(null);
 
 	function share(recipeId: string) {
 		sharingId = recipeId;
@@ -110,20 +114,19 @@
 	}
 
 	/**
-	 * Which cards are unfolded, in the Pinterest grid below. A `Set` and not a single id: unlike the
-	 * generation form or the delete confirmation, which only ever make sense for one recipe at a time,
-	 * reading two recipes open side by side is a normal thing to want in a grid.
+	 * The quick-actions sheet (#373): edit, add a photo, generate a list, delete. A recipe card in the wall
+	 * shows only its photo and its name — the four actions that used to sit under an unfolded card now open
+	 * this sheet instead, reached by a long press on the card or by its visible "more" button.
 	 */
-	let expandedIds = $state(new Set<string>());
+	let actionsSheet = $state<RecipeActionsSheet | null>(null);
+	let actionsRecipe = $state<Recipe | null>(null);
 
-	function toggleExpanded(recipeId: string) {
-		const next = new Set(expandedIds);
-		if (next.has(recipeId)) {
-			next.delete(recipeId);
-		} else {
-			next.add(recipeId);
-		}
-		expandedIds = next;
+	async function openActions(recipe: Recipe) {
+		feedback.play('tap');
+		actionsRecipe = recipe;
+		// The sheet only mounts once `actionsRecipe` is set: `show()` needs the DOM update to have run first.
+		await tick();
+		actionsSheet?.show();
 	}
 
 	/**
@@ -174,24 +177,25 @@
 	}
 
 	/**
-	 * A recipe opened from the household search arrives as `?recipe=<id>`: its card is unfolded and brought
-	 * into view, with the search and the filters emptied so nothing can be hiding it.
+	 * Editing arrives as `?edit=<id>` — from the dedicated recipe page's Edit button, or from this page's own
+	 * long-press sheet: the multi-step form lives only here, so both open it the same way.
 	 */
-	let revealed: string | null = null;
+	let editRequested: string | null = null;
 	$effect(() => {
-		const target = page.url.searchParams.get('recipe');
+		const target = page.url.searchParams.get('edit');
 		if (!target) {
-			revealed = null;
+			editRequested = null;
 			return;
 		}
-		if (target === revealed || !data.recipes.some((recipe) => recipe.id === target)) return;
+		if (target === editRequested) return;
 
-		revealed = target;
+		const recipe = data.recipes.find((candidate) => candidate.id === target);
+		if (!recipe) return;
+
+		editRequested = target;
 		untrack(() => {
-			query = '';
-			selection = emptySelection();
-			expandedIds = new Set([...expandedIds, target]);
-			void revealCard(target);
+			if (recipe.householdId === data.circle) edit(recipe);
+			else editCopy(recipe);
 		});
 	});
 
@@ -434,12 +438,6 @@
 		data.removeRecipe(id);
 		toDelete = null;
 		if (generatingFor === id) generatingFor = null;
-
-		if (expandedIds.has(id)) {
-			const next = new Set(expandedIds);
-			next.delete(id);
-			expandedIds = next;
-		}
 	}
 
 	function toggleGeneration(recipeId: string) {
@@ -486,14 +484,15 @@
 	different gesture from writing one, and folding it in here would push what this page does first further
 	down.
 -->
-<a
+<Button
 	href="/meal-plan"
+	variant="outline"
 	data-test-id="recipes-meal-plan-link"
-	class="text-accent-foreground text-label mt-2 inline-flex items-center gap-1 font-medium"
+	class="fl-press mt-2 w-fit rounded-full"
 >
 	<CalendarDays size={18} aria-hidden="true" />
 	{t('recipes.mealPlanLink')}
-</a>
+</Button>
 
 {#if data.recipes.length > 0}
 	<RecipeSearchBar
@@ -888,28 +887,25 @@
 	-->
 	<ul class="fl-recipe-grid mt-6 columns-2 gap-3.5 full:columns-4">
 		{#each shownRecipes as recipe (recipe.id)}
-			{@const ingredients = data.ingredientsOf(recipe.id)}
-			{@const recipeSteps = data.stepsOf(recipe.id)}
 			{@const owned = recipe.householdId === data.circle}
-			{@const isExpanded = expandedIds.has(recipe.id)}
 			<li id="recipe-card-{recipe.id}" class="mb-3.5 scroll-mt-4 break-inside-avoid">
-				<Card.Root data-test-class="recipe-card" class="fl-home-card overflow-hidden p-0">
+				<Card.Root data-test-class="recipe-card" class="fl-home-card relative overflow-hidden p-0">
 					<!--
-						Collapsed, a card is only its photo (or its emoji, when there is none) and its name: nothing
-						else is worth showing at rest in a wall this dense. The whole header is the summary's own
-						toggle, so a tap anywhere on the photo or the name opens it, not only on a chevron nobody
-						asked for.
+						A card is only its photo (or its emoji, when there is none) and its name: a tap opens the
+						recipe's own page (#373), the dense Pinterest wall has no room to also show everything a
+						recipe holds. `use:longpress` opens the quick-actions sheet without leaving the wall; the
+						visible "more" button does the same for a keyboard or a screen reader, since a gesture
+						nobody can see is a gesture only some people can use — seniors first.
 					-->
-					<button
-						type="button"
-						onclick={() => toggleExpanded(recipe.id)}
-						aria-expanded={isExpanded}
-						aria-controls="recipe-panel-{recipe.id}"
+					<a
+						href="/recipes/{recipe.id}"
+						use:longpress={() => openActions(recipe)}
+						aria-label={t('recipes.openAria', { name: recipe.name })}
 						data-test-class="recipe-card-header"
 						class="fl-press block w-full text-left"
 					>
 						<RecipeCover recipeName={recipe.name} emoji={recipe.emoji} photoPath={recipe.photoPath} />
-						<span class="flex flex-wrap items-start gap-2 p-3">
+						<span class="flex flex-wrap items-start gap-2 p-3 pe-14">
 							<Card.Title class="text-product min-w-0 flex-1 break-words">{recipe.name}</Card.Title>
 							<span
 								class="bg-primary text-primary-foreground text-caption mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 font-semibold"
@@ -927,229 +923,21 @@
 								</span>
 							{/if}
 						</span>
+					</a>
+
+					<button
+						type="button"
+						onclick={() => openActions(recipe)}
+						aria-label={t('recipes.actionsAria', { name: recipe.name })}
+						aria-haspopup="dialog"
+						data-test-class="recipe-card-actions"
+						class="fl-press bg-background/90 text-foreground absolute end-2 top-2 grid min-h-[max(2.75rem,48px)] min-w-[max(2.75rem,48px)] place-items-center rounded-full border shadow-sm"
+					>
+						<MoreVertical size={20} aria-hidden="true" />
 					</button>
 
-					<!-- Outside the toggle: a list has no place inside a button, and the tags read at rest. -->
+					<!-- Outside the link: a list has no place inside an anchor, and the tags read at rest. -->
 					<RecipeTagChips tags={recipe.tags} class="px-3 pb-3" />
-
-					{#if isExpanded}
-						<div
-							id="recipe-panel-{recipe.id}"
-							data-test-class="recipe-card-panel"
-							transition:slide={{ duration: motionMs(220), easing: cubicOut }}
-						>
-							<Card.Content class="border-t pt-4">
-								<RecipePhoto
-									recipeId={recipe.id}
-									recipeName={recipe.name}
-									ingredientNames={ingredients.map((line) => line.name)}
-									photoPath={recipe.photoPath}
-									imagePrompt={recipe.imagePrompt}
-								/>
-
-								{#if ingredients.length}
-									<h3
-										class="text-label text-muted-foreground flex items-center gap-1.5 font-semibold tracking-wide uppercase"
-									>
-										<ShoppingBasket size={14} aria-hidden="true" />
-										{t('recipes.step.ingredients')}
-									</h3>
-									<ul class="text-label mt-2 space-y-1.5">
-										{#each ingredients as ingredient (ingredient.id)}
-											<li
-												data-test-class="recipe-ingredient"
-												class="flex items-baseline gap-2 border-b border-dashed pb-1.5 last:border-0 last:pb-0"
-											>
-												<span class="min-w-0 flex-1">{ingredient.name}</span>
-												{#if ingredient.qty}
-													<span class="text-muted-foreground text-caption shrink-0 font-medium">
-														{ingredient.qty}
-														{t(`units.${ingredient.unit}`)}
-													</span>
-												{/if}
-											</li>
-										{/each}
-									</ul>
-								{/if}
-
-								{#if recipe.notes}
-									<h3
-										class="text-label text-muted-foreground mt-5 flex items-center gap-1.5 font-semibold tracking-wide uppercase"
-									>
-										<NotebookPen size={14} aria-hidden="true" />
-										{t('recipes.notes')}
-									</h3>
-									<p class="text-label mt-2 whitespace-pre-line" data-test-class="recipe-notes-body">
-										{recipe.notes}
-									</p>
-								{/if}
-
-								{#if recipeSteps.length}
-									<h3
-										class="text-label text-muted-foreground mt-5 flex items-center gap-1.5 font-semibold tracking-wide uppercase"
-									>
-										<CookingPot size={14} aria-hidden="true" />
-										{t('recipes.step.steps')}
-									</h3>
-									<!--
-										"Cooking mode" reading: a step is looked at with wet or floury hands, from arm's
-										length, one at a time — so the number carries the weight, not the bullet.
-									-->
-									<ol class="mt-2 space-y-3">
-										{#each recipeSteps as step, index (step.id)}
-											<li data-test-class="recipe-step-body" class="flex items-start gap-3">
-												<span
-													class="bg-muted text-foreground text-label grid size-7 shrink-0 place-items-center rounded-full font-bold"
-													aria-hidden="true"
-												>
-													{index + 1}
-												</span>
-												<span class="text-label pt-0.5">{step.body}</span>
-											</li>
-										{/each}
-									</ol>
-
-									<Button
-										variant="outline"
-										onclick={() => (cookAlongFor = recipe.id)}
-										data-test-class="recipe-cook-along"
-										class="fl-press mt-3"
-									>
-										<Mic size={18} aria-hidden="true" />
-										{t('recipes.cookAlong.start')}
-									</Button>
-								{/if}
-
-						<div class="mt-4 flex flex-wrap items-center gap-3">
-							<Button
-								onclick={() => toggleGeneration(recipe.id)}
-								disabled={ingredients.length === 0}
-								data-test-class="recipe-generate"
-								class="fl-press"
-							>
-								<ShoppingBasket size={18} aria-hidden="true" />
-								{t('recipes.generate')}
-							</Button>
-
-							{#if owned}
-								<Button
-									variant="outline"
-									onclick={() => edit(recipe)}
-									aria-label={t('recipes.edit', { name: recipe.name })}
-									data-test-class="recipe-edit"
-									class="fl-press"
-								>
-									<Pencil size={18} aria-hidden="true" />
-									{t('common.edit')}
-								</Button>
-
-								<Button
-									variant="outline"
-									onclick={() => share(recipe.id)}
-									aria-label={t('recipes.shareAria', { name: recipe.name })}
-									data-test-class="recipe-share"
-									class="fl-press"
-								>
-									<Share2 size={18} aria-hidden="true" />
-									{t('recipes.share')}
-								</Button>
-
-								<Button
-									variant="destructive"
-									onclick={() => (toDelete = toDelete === recipe.id ? null : recipe.id)}
-									aria-label={t('recipes.delete', { name: recipe.name })}
-									data-test-class="recipe-delete"
-									class="fl-press"
-								>
-									<Trash2 size={18} aria-hidden="true" />
-									{t('common.delete')}
-								</Button>
-							{:else}
-								<Button
-									variant="outline"
-									onclick={() => editCopy(recipe)}
-									aria-label={t('recipes.editCopyAria', { name: recipe.name })}
-									data-test-class="recipe-edit-copy"
-									class="fl-press"
-								>
-									<Copy size={18} aria-hidden="true" />
-									{t('recipes.editCopy')}
-								</Button>
-							{/if}
-						</div>
-
-						<!--
-							Generation sits under the recipe it is about, not in a dialog: you read the ingredients again while
-							deciding how many people you are cooking for.
-						-->
-						{#if generatingFor === recipe.id}
-							<div class="mt-4 space-y-3 border-t pt-4" data-test-class="recipe-generate-form">
-								<div>
-									<Label for="generate-people-{recipe.id}">{t('recipes.people')}</Label>
-									<IconField icon={Users}>
-										<Input
-											id="generate-people-{recipe.id}"
-											type="number"
-											bind:value={guestCount}
-											min={MIN_SERVINGS}
-											max={MAX_SERVINGS}
-											data-test-class="generate-people"
-										/>
-									</IconField>
-									<p class="text-muted-foreground text-caption">
-										{t('recipes.peopleHint', { servings: recipe.servings })}
-									</p>
-								</div>
-
-								<div>
-									<Label for="generate-target-{recipe.id}">{t('recipes.target')}</Label>
-									<IconField icon={Hash}>
-										<select
-											id="generate-target-{recipe.id}"
-											bind:value={target}
-											data-test-class="generate-target"
-											class="border-input bg-background min-h-[max(2.75rem,44px)] w-full rounded-md border"
-										>
-											<option value="">{t('recipes.targetNew')}</option>
-											{#each data.lists as list (list.id)}
-												<option value={list.id}>{list.emoji} {list.name}</option>
-											{/each}
-										</select>
-									</IconField>
-								</div>
-
-								<Button
-									onclick={() => generate(recipe.id)}
-									data-test-class="generate-submit"
-									class="fl-press"
-								>
-									<ShoppingBasket size={18} aria-hidden="true" />
-									{t('recipes.generateSubmit')}
-								</Button>
-							</div>
-						{/if}
-
-						{#if toDelete === recipe.id}
-							<div class="mt-4 space-y-3 border-t pt-4">
-								<p class="text-label">{t('recipes.deleteConfirm', { name: recipe.name })}</p>
-								<div class="flex flex-wrap gap-2">
-											<Button
-												variant="destructive"
-												onclick={() => remove(recipe.id)}
-												data-test-class="recipe-delete-confirm"
-												class="fl-press"
-											>
-												{t('recipes.deleteYes')}
-											</Button>
-											<Button variant="outline" onclick={() => (toDelete = null)} class="fl-press">
-												{t('common.cancel')}
-											</Button>
-										</div>
-									</div>
-								{/if}
-							</Card.Content>
-						</div>
-					{/if}
 				</Card.Root>
 			</li>
 		{/each}
@@ -1165,17 +953,124 @@
 
 <RecipeShareSheet bind:this={shareSheet} recipeId={sharingId} />
 
-{#if cookAlongFor}
-	{@const cookAlongRecipe = data.recipes.find((recipe) => recipe.id === cookAlongFor)}
-	{#if cookAlongRecipe}
-		<CookAlong
-			recipeName={cookAlongRecipe.name}
-			steps={data.stepsOf(cookAlongRecipe.id).map((step) => step.body)}
-			ingredients={data.ingredientsOf(cookAlongRecipe.id)}
-			stepIngredientIds={data.stepsOf(cookAlongRecipe.id).map((step) => step.ingredientIds ?? [])}
-			recipeId={cookAlongRecipe.id}
-			stepDurations={data.stepsOf(cookAlongRecipe.id).map((step) => step.durationSeconds ?? null)}
-			onClose={() => (cookAlongFor = null)}
-		/>
-	{/if}
+{#if actionsRecipe}
+	{@const actionsOwned = actionsRecipe.householdId === data.circle}
+	<RecipeActionsSheet
+		bind:this={actionsSheet}
+		recipeName={actionsRecipe.name}
+		owned={actionsOwned}
+		onEdit={() => goto(`/recipes?edit=${actionsRecipe!.id}`)}
+		onPhoto={() => goto(`/recipes?edit=${actionsRecipe!.id}`)}
+		onGenerate={() => toggleGeneration(actionsRecipe!.id)}
+		onDelete={() => (toDelete = actionsRecipe!.id)}
+	/>
 {/if}
+
+<!--
+	Generating a list, and confirming a delete: both used to sit under the card they are about, but a card no
+	longer unfolds (#373). A dialog keeps the same one-recipe-at-a-time shape without needing a whole panel
+	under every tile in the wall.
+-->
+<dialog
+	bind:this={generateDialog}
+	onclick={(event) => {
+		if (event.target === generateDialog) generatingFor = null;
+	}}
+	onclose={() => (generatingFor = null)}
+	class="fl-sheet"
+	aria-labelledby="recipe-generate-title"
+>
+	{#if generatingFor}
+		{@const generatingRecipe = data.recipe(generatingFor)}
+		{#if generatingRecipe}
+			<div
+				class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
+				class:fl-rise={settings.animates}
+				data-test-class="recipe-generate-form"
+			>
+				<h2 id="recipe-generate-title" class="text-h2 font-semibold break-words">{t('recipes.generate')}</h2>
+				<p class="text-muted-foreground text-label mt-1">{generatingRecipe.name}</p>
+
+				<div class="mt-4 space-y-3">
+					<div>
+						<Label for="generate-people">{t('recipes.people')}</Label>
+						<IconField icon={Users}>
+							<Input
+								id="generate-people"
+								type="number"
+								bind:value={guestCount}
+								min={MIN_SERVINGS}
+								max={MAX_SERVINGS}
+								data-test-class="generate-people"
+							/>
+						</IconField>
+						<p class="text-muted-foreground text-caption">
+							{t('recipes.peopleHint', { servings: generatingRecipe.servings })}
+						</p>
+					</div>
+
+					<div>
+						<Label for="generate-target">{t('recipes.target')}</Label>
+						<IconField icon={Hash}>
+							<select
+								id="generate-target"
+								bind:value={target}
+								data-test-class="generate-target"
+								class="border-input bg-background min-h-[max(2.75rem,44px)] w-full rounded-md border"
+							>
+								<option value="">{t('recipes.targetNew')}</option>
+								{#each data.lists as list (list.id)}
+									<option value={list.id}>{list.emoji} {list.name}</option>
+								{/each}
+							</select>
+						</IconField>
+					</div>
+
+					<div class="flex flex-wrap gap-2">
+						<Button onclick={() => generate(generatingFor!)} data-test-class="generate-submit" class="fl-press">
+							<ShoppingBasket size={18} aria-hidden="true" />
+							{t('recipes.generateSubmit')}
+						</Button>
+						<Button variant="outline" onclick={() => (generatingFor = null)} class="fl-press">
+							{t('common.cancel')}
+						</Button>
+					</div>
+				</div>
+			</div>
+		{/if}
+	{/if}
+</dialog>
+
+<dialog
+	bind:this={deleteDialog}
+	onclick={(event) => {
+		if (event.target === deleteDialog) toDelete = null;
+	}}
+	onclose={() => (toDelete = null)}
+	class="fl-sheet"
+	aria-labelledby="recipe-delete-title"
+>
+	{#if toDelete}
+		{@const deletingRecipe = data.recipe(toDelete)}
+		{#if deletingRecipe}
+			<div class="bg-card relative space-y-3 rounded-t-2xl border p-4 md:rounded-2xl" class:fl-rise={settings.animates}>
+				<p id="recipe-delete-title" class="text-label">
+					{t('recipes.deleteConfirm', { name: deletingRecipe.name })}
+				</p>
+				<div class="flex flex-wrap gap-2">
+					<Button
+						variant="destructive"
+						onclick={() => remove(deletingRecipe.id)}
+						data-test-class="recipe-delete-confirm"
+						class="fl-press"
+					>
+						{t('recipes.deleteYes')}
+					</Button>
+					<Button variant="outline" onclick={() => (toDelete = null)} class="fl-press">
+						{t('common.cancel')}
+					</Button>
+				</div>
+			</div>
+		{/if}
+	{/if}
+</dialog>
