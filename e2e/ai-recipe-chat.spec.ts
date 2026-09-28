@@ -189,7 +189,8 @@ test.describe('discussion avec l IA pour creer une recette', () => {
 		await page.getByTestId('open-chat').click();
 		await expect(page).toHaveURL(/\/l\/[^/]+\/chat$/);
 
-		await page.getByTestId('ai-request-open').click();
+		await page.getByTestId('chat-compose-open').click();
+		await page.getByTestId('action-sheet-ai').click();
 		await expect(page).toHaveURL(/\/recipes\/new$/);
 		await expect(page.getByTestId('ai-request-input')).toBeVisible();
 	});

@@ -55,7 +55,12 @@
 		"reminderDenied": "Notifiche rifiutate: la data è salvata, ma non partirà alcun promemoria. Puoi riattivarle nelle impostazioni del telefono.",
 		"reminderTitle": "{name} è domani",
 		"reminderBody": "Mancano ancora degli articoli prima del {date}.",
-		"mealPlanSuggestion": "Vuoi pianificare la settimana?"
+		"mealPlanSuggestion": "Vuoi pianificare la settimana?",
+		"kindLabel": "Tipo di lista",
+		"kindShopping": "Spesa",
+		"kindMealPlan": "Menù",
+		"kindAll": "Tutte",
+		"kindFilterEmpty": "Nessuna lista di questo tipo."
 	},
 	"profile": {
 		"title": "Profilo",
@@ -331,6 +336,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "Codice QR"
+		},
+		"actionsFor": "Azioni per la carta {name}",
+		"sharedCount": {
+			"one": "Condivisa con {count} famiglia",
+			"other": "Condivisa con {count} famiglie"
 		}
 	},
 	"common": {
@@ -463,7 +473,11 @@
 		"save": "Salva",
 		"cancel": "Annulla",
 		"deleteConfirm": "Eliminare {name}? Il percorso imparato in questo negozio andrà perso.",
-		"deleteYes": "Elimina"
+		"deleteYes": "Elimina",
+		"modeSearch": "Cerca",
+		"modeManual": "Inserisci a mano",
+		"brandOther": "Altra catena",
+		"brandOtherPlaceholder": "Nome della catena"
 	},
 	"prices": {
 		"title": "Storico dei prezzi",
@@ -1317,7 +1331,23 @@
 		"directFailed": "Non è stato possibile aprire la conversazione. Riprova.",
 		"backToChats": "Torna alle conversazioni",
 		"directNotFound": "Questa conversazione non è stata trovata.",
-		"someone": "Qualcuno"
+		"someone": "Qualcuno",
+		"composeOpen": "Apri azioni",
+		"composeDate": "Proponi una data",
+		"composeApport": "Chi porta cosa?",
+		"composeAi": "Chiedi una ricetta all'IA",
+		"composePhoto": "Invia una foto",
+		"composePhotoSoon": "Presto disponibile.",
+		"searchOpen": "Cerca nella conversazione",
+		"searchPlaceholder": "Cerca…",
+		"searchClose": "Chiudi ricerca",
+		"searchEmpty": "Nessun messaggio corrisponde.",
+		"listFilterSearch": "Filtra le conversazioni per lista",
+		"listFilterSearchPlaceholder": "Filtra per lista…",
+		"listFilterHousehold": "Filtra per famiglia",
+		"listFilterAll": "Tutte",
+		"listFilterPersonal": "Personali",
+		"listFilterEmpty": "Nessuna conversazione corrisponde a questo filtro."
 	},
 	"household": {
 		"title": "La mia casa",

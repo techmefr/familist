@@ -54,7 +54,12 @@
 		"reminderDenied": "通知已被拒绝：日期已保存，但不会发出提醒。可在手机设置中重新允许。",
 		"reminderTitle": "{name}就在明天",
 		"reminderBody": "{date}之前还有物品没买。",
-		"mealPlanSuggestion": "想要规划本周食谱吗？"
+		"mealPlanSuggestion": "想要规划本周食谱吗？",
+		"kindLabel": "清单类型",
+		"kindShopping": "购物",
+		"kindMealPlan": "菜单",
+		"kindAll": "全部",
+		"kindFilterEmpty": "没有此类型的清单。"
 	},
 	"profile": {
 		"title": "我的",
@@ -330,6 +335,10 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "二维码"
+		},
+		"actionsFor": "卡片{name}的操作",
+		"sharedCount": {
+			"other": "已与 {count} 个家庭共享"
 		}
 	},
 	"common": {
@@ -462,7 +471,11 @@
 		"save": "保存",
 		"cancel": "取消",
 		"deleteConfirm": "删除 {name}？在这家店学到的动线将会丢失。",
-		"deleteYes": "删除"
+		"deleteYes": "删除",
+		"modeSearch": "搜索",
+		"modeManual": "手动输入",
+		"brandOther": "其他连锁店",
+		"brandOtherPlaceholder": "连锁店名称"
 	},
 	"prices": {
 		"title": "价格记录",
@@ -1309,7 +1322,23 @@
 		"directFailed": "无法打开对话，请重试。",
 		"backToChats": "返回对话列表",
 		"directNotFound": "找不到这个对话。",
-		"someone": "某人"
+		"someone": "某人",
+		"composeOpen": "打开操作",
+		"composeDate": "提议日期",
+		"composeApport": "谁带什么?",
+		"composeAi": "向AI询问食谱",
+		"composePhoto": "发送照片",
+		"composePhotoSoon": "即将推出。",
+		"searchOpen": "在对话中搜索",
+		"searchPlaceholder": "搜索…",
+		"searchClose": "关闭搜索",
+		"searchEmpty": "没有匹配的消息。",
+		"listFilterSearch": "按列表筛选对话",
+		"listFilterSearchPlaceholder": "按列表筛选…",
+		"listFilterHousehold": "按家庭筛选",
+		"listFilterAll": "全部",
+		"listFilterPersonal": "个人",
+		"listFilterEmpty": "没有符合该筛选条件的对话。"
 	},
 	"household": {
 		"title": "我的家庭",

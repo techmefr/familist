@@ -7,6 +7,7 @@ import {
 	type Conversation,
 	type Item,
 	type List,
+	type ListKind,
 	type LoyaltyCard,
 	type LoyaltyCardShare,
 	type Member,
@@ -552,13 +553,20 @@ class DataStore {
 		return removed.length;
 	}
 
-	addList(input: { name: string; emoji: string; color: string; eventDate?: string }) {
+	addList(input: {
+		name: string;
+		emoji: string;
+		color: string;
+		eventDate?: string;
+		kind?: ListKind;
+	}) {
 		const list: List = {
 			id: crypto.randomUUID(),
 			name: input.name.trim(),
 			emoji: input.emoji,
 			color: input.color,
 			eventDate: input.eventDate || undefined,
+			kind: input.kind ?? 'shopping',
 			// A list is born personal: it has no circle, and its author is its only member. The
 			// `lists_share_with_household` trigger does the same on the database side; we write it here too so
 			// the display is right before the first sync.
@@ -588,7 +596,7 @@ class DataStore {
 	 * the emoji picked in a hurry at creation says nothing once the list is full, and the meal planned for
 	 * Saturday moves to Sunday.
 	 */
-	updateList(id: string, patch: { name?: string; emoji?: string; eventDate?: string }) {
+	updateList(id: string, patch: { name?: string; emoji?: string; eventDate?: string; kind?: ListKind }) {
 		const list = this.cachedLists.find((candidate) => candidate.id === id);
 		if (!list) return;
 
@@ -596,6 +604,7 @@ class DataStore {
 		if (patch.emoji !== undefined) list.emoji = patch.emoji;
 		// A cleared field removes the date: it is the only gesture available to cancel a reminder.
 		if (patch.eventDate !== undefined) list.eventDate = patch.eventDate || undefined;
+		if (patch.kind !== undefined) list.kind = patch.kind;
 
 		const snapshot = $state.snapshot(list) as List;
 		db.lists.put(snapshot);
@@ -679,6 +688,7 @@ class DataStore {
 			),
 			emoji: source.emoji,
 			color: source.color,
+			kind: source.kind,
 			memberIds: [...source.memberIds],
 			householdId: source.householdId
 		};

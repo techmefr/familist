@@ -59,7 +59,12 @@
 		"reminderDenied": "رُفضت الإشعارات: التاريخ محفوظ، لكن لن يصل أي تذكير. يمكن السماح بها من جديد في إعدادات الهاتف.",
 		"reminderTitle": "{name} غدا",
 		"reminderBody": "لا تزال هناك أصناف لشرائها قبل {date}.",
-		"mealPlanSuggestion": "هل تريد التخطيط للوجبات هذا الأسبوع؟"
+		"mealPlanSuggestion": "هل تريد التخطيط للوجبات هذا الأسبوع؟",
+		"kindLabel": "نوع القائمة",
+		"kindShopping": "تسوق",
+		"kindMealPlan": "قائمة الوجبات",
+		"kindAll": "الكل",
+		"kindFilterEmpty": "لا توجد قائمة من هذا النوع."
 	},
 	"profile": {
 		"title": "الملف الشخصي",
@@ -335,6 +340,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "رمز QR"
+		},
+		"actionsFor": "إجراءات لبطاقة {name}",
+		"sharedCount": {
+			"one": "مشتركة مع {count} عائلة",
+			"other": "مشتركة مع {count} عائلات"
 		}
 	},
 	"common": {
@@ -467,7 +477,11 @@
 		"save": "حفظ",
 		"cancel": "إلغاء",
 		"deleteConfirm": "حذف {name}؟ سيضيع المسار الذي تعلّمناه في هذا المتجر.",
-		"deleteYes": "حذف"
+		"deleteYes": "حذف",
+		"modeSearch": "بحث",
+		"modeManual": "إدخال يدوي",
+		"brandOther": "سلسلة أخرى",
+		"brandOtherPlaceholder": "اسم السلسلة"
 	},
 	"prices": {
 		"title": "سجل الأسعار",
@@ -1355,7 +1369,23 @@
 		"directFailed": "تعذّر فتح المحادثة. حاول مرة أخرى.",
 		"backToChats": "العودة إلى المحادثات",
 		"directNotFound": "لم يتم العثور على هذه المحادثة.",
-		"someone": "شخص ما"
+		"someone": "شخص ما",
+		"composeOpen": "فتح الإجراءات",
+		"composeDate": "اقتراح تاريخ",
+		"composeApport": "من يحضر ماذا؟",
+		"composeAi": "اطلب وصفة من الذكاء الاصطناعي",
+		"composePhoto": "إرسال صورة",
+		"composePhotoSoon": "قريباً.",
+		"searchOpen": "البحث في المحادثة",
+		"searchPlaceholder": "بحث…",
+		"searchClose": "إغلاق البحث",
+		"searchEmpty": "لا توجد رسالة مطابقة.",
+		"listFilterSearch": "تصفية المحادثات حسب القائمة",
+		"listFilterSearchPlaceholder": "تصفية حسب القائمة…",
+		"listFilterHousehold": "تصفية حسب العائلة",
+		"listFilterAll": "الكل",
+		"listFilterPersonal": "شخصية",
+		"listFilterEmpty": "لا توجد محادثة مطابقة لهذا الفلتر."
 	},
 	"household": {
 		"title": "منزلي",

@@ -57,7 +57,12 @@
 		"reminderDenied": "Уведомления отклонены: дата сохранена, но напоминание не придёт. Разрешить их можно в настройках телефона.",
 		"reminderTitle": "«{name}» — уже завтра",
 		"reminderBody": "До {date} ещё нужно купить часть товаров.",
-		"mealPlanSuggestion": "Хотите составить меню на неделю?"
+		"mealPlanSuggestion": "Хотите составить меню на неделю?",
+		"kindLabel": "Тип списка",
+		"kindShopping": "Покупки",
+		"kindMealPlan": "Меню",
+		"kindAll": "Все",
+		"kindFilterEmpty": "Нет списков этого типа."
 	},
 	"profile": {
 		"title": "Профиль",
@@ -333,6 +338,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "QR-код"
+		},
+		"actionsFor": "Действия с картой {name}",
+		"sharedCount": {
+			"one": "Доступна {count} семье",
+			"other": "Доступна {count} семьям"
 		}
 	},
 	"common": {
@@ -465,7 +475,11 @@
 		"save": "Сохранить",
 		"cancel": "Отмена",
 		"deleteConfirm": "Удалить {name}? Изученный маршрут по этому магазину будет потерян.",
-		"deleteYes": "Удалить"
+		"deleteYes": "Удалить",
+		"modeSearch": "Поиск",
+		"modeManual": "Ввести вручную",
+		"brandOther": "Другая сеть",
+		"brandOtherPlaceholder": "Название сети"
 	},
 	"prices": {
 		"title": "История цен",
@@ -1337,7 +1351,23 @@
 		"directFailed": "Не удалось открыть беседу. Попробуйте ещё раз.",
 		"backToChats": "Назад к обсуждениям",
 		"directNotFound": "Эта беседа не найдена.",
-		"someone": "Кто-то"
+		"someone": "Кто-то",
+		"composeOpen": "Открыть действия",
+		"composeDate": "Предложить дату",
+		"composeApport": "Кто что принесёт?",
+		"composeAi": "Спросить у ИИ рецепт",
+		"composePhoto": "Отправить фото",
+		"composePhotoSoon": "Скоро будет доступно.",
+		"searchOpen": "Поиск в переписке",
+		"searchPlaceholder": "Поиск…",
+		"searchClose": "Закрыть поиск",
+		"searchEmpty": "Ничего не найдено.",
+		"listFilterSearch": "Фильтровать беседы по списку",
+		"listFilterSearchPlaceholder": "Фильтр по списку…",
+		"listFilterHousehold": "Фильтровать по семье",
+		"listFilterAll": "Все",
+		"listFilterPersonal": "Личные",
+		"listFilterEmpty": "Нет бесед, соответствующих фильтру."
 	},
 	"household": {
 		"title": "Моя семья",

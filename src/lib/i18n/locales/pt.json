@@ -55,7 +55,12 @@
 		"reminderDenied": "Notificações recusadas: a data fica guardada, mas nenhum lembrete será enviado. Pode autorizar de novo nas definições do telemóvel.",
 		"reminderTitle": "{name} é amanhã",
 		"reminderBody": "Ainda faltam artigos para comprar antes de {date}.",
-		"mealPlanSuggestion": "Quer planear a semana?"
+		"mealPlanSuggestion": "Quer planear a semana?",
+		"kindLabel": "Tipo de lista",
+		"kindShopping": "Compras",
+		"kindMealPlan": "Menu",
+		"kindAll": "Todas",
+		"kindFilterEmpty": "Nenhuma lista deste tipo."
 	},
 	"profile": {
 		"title": "Perfil",
@@ -331,6 +336,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "Código QR"
+		},
+		"actionsFor": "Ações para o cartão {name}",
+		"sharedCount": {
+			"one": "Partilhado com {count} agregado",
+			"other": "Partilhado com {count} agregados"
 		}
 	},
 	"common": {
@@ -463,7 +473,11 @@
 		"save": "Guardar",
 		"cancel": "Cancelar",
 		"deleteConfirm": "Eliminar {name}? O percurso aprendido nesta loja será perdido.",
-		"deleteYes": "Eliminar"
+		"deleteYes": "Eliminar",
+		"modeSearch": "Pesquisar",
+		"modeManual": "Preencher manualmente",
+		"brandOther": "Outra rede",
+		"brandOtherPlaceholder": "Nome da rede"
 	},
 	"prices": {
 		"title": "Histórico de preços",
@@ -1319,7 +1333,23 @@
 		"directFailed": "Não foi possível abrir a conversa. Tente novamente.",
 		"backToChats": "Voltar às conversas",
 		"directNotFound": "Esta conversa não foi encontrada.",
-		"someone": "Alguém"
+		"someone": "Alguém",
+		"composeOpen": "Abrir ações",
+		"composeDate": "Propor uma data",
+		"composeApport": "Quem traz o quê?",
+		"composeAi": "Pedir uma receita à IA",
+		"composePhoto": "Enviar uma foto",
+		"composePhotoSoon": "Brevemente.",
+		"searchOpen": "Pesquisar na conversa",
+		"searchPlaceholder": "Pesquisar…",
+		"searchClose": "Fechar pesquisa",
+		"searchEmpty": "Nenhuma mensagem corresponde.",
+		"listFilterSearch": "Filtrar conversas por lista",
+		"listFilterSearchPlaceholder": "Filtrar por lista…",
+		"listFilterHousehold": "Filtrar por agregado",
+		"listFilterAll": "Todas",
+		"listFilterPersonal": "Pessoais",
+		"listFilterEmpty": "Nenhuma conversa corresponde a este filtro."
 	},
 	"household": {
 		"title": "A minha casa",

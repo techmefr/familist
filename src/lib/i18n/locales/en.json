@@ -55,7 +55,12 @@
 		"reminderWeb": "Reminders only arrive on the installed app. In a browser the date still shows, but no notification will be sent.",
 		"reminderDenied": "Notifications declined: the date is saved, but no reminder will be sent. You can allow them again in your phone settings.",
 		"reminderTitle": "{name} is tomorrow",
-		"reminderBody": "Some items are still to buy before {date}."
+		"reminderBody": "Some items are still to buy before {date}.",
+		"kindLabel": "List kind",
+		"kindShopping": "Shopping",
+		"kindMealPlan": "Meal plan",
+		"kindAll": "All",
+		"kindFilterEmpty": "No list of this kind."
 	},
 	"profile": {
 		"title": "Profile",
@@ -331,6 +336,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "QR code"
+		},
+		"actionsFor": "Actions for card {name}",
+		"sharedCount": {
+			"one": "Shared with {count} household",
+			"other": "Shared with {count} households"
 		}
 	},
 	"common": {
@@ -463,7 +473,11 @@
 		"save": "Save",
 		"cancel": "Cancel",
 		"deleteConfirm": "Delete {name}? The route learned in this shop will be lost.",
-		"deleteYes": "Delete"
+		"deleteYes": "Delete",
+		"modeSearch": "Search",
+		"modeManual": "Enter manually",
+		"brandOther": "Other chain",
+		"brandOtherPlaceholder": "Chain name"
 	},
 	"prices": {
 		"title": "Price history",
@@ -1330,7 +1344,23 @@
 		"directFailed": "The conversation could not be opened. Try again.",
 		"backToChats": "Back to chats",
 		"directNotFound": "This conversation cannot be found.",
-		"someone": "Someone"
+		"someone": "Someone",
+		"composeOpen": "Open actions",
+		"composeDate": "Propose a date",
+		"composeApport": "Who's bringing what?",
+		"composeAi": "Ask the AI for a recipe",
+		"composePhoto": "Send a photo",
+		"composePhotoSoon": "Coming soon.",
+		"searchOpen": "Search in the conversation",
+		"searchPlaceholder": "Search…",
+		"searchClose": "Close search",
+		"searchEmpty": "No message matches.",
+		"listFilterSearch": "Filter conversations by list",
+		"listFilterSearchPlaceholder": "Filter by list…",
+		"listFilterHousehold": "Filter by household",
+		"listFilterAll": "All",
+		"listFilterPersonal": "Personal",
+		"listFilterEmpty": "No conversation matches this filter."
 	},
 	"household": {
 		"title": "My household",

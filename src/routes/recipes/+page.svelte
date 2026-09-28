@@ -39,6 +39,7 @@
 		ShoppingBasket,
 		Trash2,
 		Users,
+		UtensilsCrossed,
 		ChevronLeft,
 		ChevronRight,
 		Check,
@@ -913,9 +914,10 @@
 							<Card.Title class="text-product min-w-0 flex-1 break-words">{recipe.name}</Card.Title>
 							<span
 								class="bg-primary text-primary-foreground text-caption mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 font-semibold"
+								aria-label={t('recipes.servingsCount', { count: recipe.servings })}
 							>
-								<Users size={12} aria-hidden="true" />
-								{recipe.servings}
+								<UtensilsCrossed size={12} aria-hidden="true" />
+								<span aria-hidden="true">{recipe.servings}</span>
 							</span>
 							{#if !owned}
 								<span
