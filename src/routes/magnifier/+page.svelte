@@ -463,8 +463,9 @@
 		background. It goes down to the bottom of the screen to cover what sticks out under the buttons too.
 	-->
 	<div
-		class="absolute inset-x-0 bottom-0 flex flex-wrap items-start justify-center gap-x-4 gap-y-2
+		class="absolute inset-x-0 flex flex-wrap items-start justify-center gap-x-4 gap-y-2
 			bg-gradient-to-t from-black/85 via-black/55 to-transparent px-4 pt-6 pb-[max(1rem,env(safe-area-inset-bottom))]"
+		style="bottom: var(--fl-navbar-h, 0px)"
 	>
 		<button
 			type="button"
