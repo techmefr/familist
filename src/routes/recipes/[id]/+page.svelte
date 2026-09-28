@@ -5,6 +5,7 @@
 	import { feedback } from '$stores/feedback.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { DEFAULT_SERVINGS, MAX_SERVINGS, MIN_SERVINGS } from '$domain/recipe';
+	import { unitKeyForCount } from '$domain/units';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
@@ -131,7 +132,7 @@
 							{#if ingredient.qty}
 								<span class="text-muted-foreground text-caption shrink-0 font-medium">
 									{ingredient.qty}
-									{t(`units.${ingredient.unit}`)}
+									{t(unitKeyForCount(ingredient.unit, ingredient.qty) ?? `units.${ingredient.unit}`)}
 								</span>
 							{/if}
 						</li>
