@@ -60,6 +60,7 @@ describe('formes plurielles', () => {
 		expect(PATHS).toEqual([
 			'lists.remaining',
 			'cards.sharedCount',
+			'common.filtersActive',
 			'add.addedCount',
 			'add.addedAnnounce',
 			'prices.shopCount',

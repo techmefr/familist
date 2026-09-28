@@ -65,7 +65,8 @@
 		"kindFilterEmpty": "Нет списков этого типа.",
 		"scopeLabel": "Кто видит этот список?",
 		"scopePersonal": "Только я",
-		"scopeAll": "Все"
+		"scopeAll": "Все",
+		"actionsFor": "Действия с {name}"
 	},
 	"profile": {
 		"title": "Профиль",
@@ -356,7 +357,15 @@
 		"close": "Закрыть",
 		"edit": "Изменить",
 		"delete": "Удалить",
-		"crashed": "Не удалось отобразить этот экран. Проблема записана."
+		"crashed": "Не удалось отобразить этот экран. Проблема записана.",
+		"filters": "Фильтры",
+		"clear": "Очистить поиск",
+		"filtersActive": {
+			"one": "{count} активен",
+			"few": "{count} активны",
+			"many": "{count} активны",
+			"other": "{count} активны"
+		}
 	},
 	"list": {
 		"shop": "Магазин",
@@ -731,7 +740,8 @@
 						"сколько осталось",
 						"оставшееся время"
 					]
-				}
+				},
+				"longPressHint": "Долгое нажатие — список голосовых команд"
 			}
 		},
 		"stepIngredients": "Ингредиенты для шага {rank}",
@@ -817,7 +827,13 @@
 				"many": "{count} активны",
 				"other": "{count} активны"
 			}
-		}
+		},
+		"openAria": "Открыть рецепт {name}",
+		"actions": "Ещё",
+		"actionsAria": "Другие действия для {name}",
+		"addPhotoAction": "Добавить фото",
+		"backToRecipes": "Назад к рецептам",
+		"notFound": "Рецепт не найден."
 	},
 	"recipeTags": {
 		"title": "Категории",
@@ -1366,7 +1382,23 @@
 		"directFailed": "Не удалось открыть беседу. Попробуйте ещё раз.",
 		"backToChats": "Назад к обсуждениям",
 		"directNotFound": "Эта беседа не найдена.",
-		"someone": "Кто-то"
+		"someone": "Кто-то",
+		"composeOpen": "Открыть действия",
+		"composeDate": "Предложить дату",
+		"composeApport": "Кто что принесёт?",
+		"composeAi": "Спросить у ИИ рецепт",
+		"composePhoto": "Отправить фото",
+		"composePhotoSoon": "Скоро будет доступно.",
+		"searchOpen": "Поиск в переписке",
+		"searchPlaceholder": "Поиск…",
+		"searchClose": "Закрыть поиск",
+		"searchEmpty": "Ничего не найдено.",
+		"listFilterSearch": "Фильтровать беседы по списку",
+		"listFilterSearchPlaceholder": "Фильтр по списку…",
+		"listFilterHousehold": "Фильтровать по семье",
+		"listFilterAll": "Все",
+		"listFilterPersonal": "Личные",
+		"listFilterEmpty": "Нет бесед, соответствующих фильтру."
 	},
 	"household": {
 		"title": "Моя семья",

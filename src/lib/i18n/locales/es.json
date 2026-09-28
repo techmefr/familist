@@ -63,7 +63,8 @@
 		"kindFilterEmpty": "Ninguna lista de este tipo.",
 		"scopeLabel": "¿Quién ve esta lista?",
 		"scopePersonal": "Solo yo",
-		"scopeAll": "Todas"
+		"scopeAll": "Todas",
+		"actionsFor": "Acciones para {name}"
 	},
 	"profile": {
 		"title": "Perfil",
@@ -354,7 +355,13 @@
 		"close": "Cerrar",
 		"edit": "Editar",
 		"delete": "Eliminar",
-		"crashed": "Esta pantalla no se ha podido mostrar. El problema ha quedado registrado."
+		"crashed": "Esta pantalla no se ha podido mostrar. El problema ha quedado registrado.",
+		"filters": "Filtros",
+		"clear": "Borrar la búsqueda",
+		"filtersActive": {
+			"one": "{count} activo",
+			"other": "{count} activos"
+		}
 	},
 	"list": {
 		"shop": "Tienda",
@@ -727,7 +734,8 @@
 						"tiempo restante",
 						"cuánto queda"
 					]
-				}
+				},
+				"longPressHint": "Mantén pulsado para la lista de comandos de voz"
 			}
 		},
 		"stepIngredients": "Ingredientes usados en el paso {rank}",
@@ -807,7 +815,13 @@
 				"one": "{count} activo",
 				"other": "{count} activos"
 			}
-		}
+		},
+		"openAria": "Abrir receta {name}",
+		"actions": "Más",
+		"actionsAria": "Más acciones para {name}",
+		"addPhotoAction": "Añadir una foto",
+		"backToRecipes": "Volver a las recetas",
+		"notFound": "Receta no encontrada."
 	},
 	"recipeTags": {
 		"title": "Categorías",
@@ -1348,7 +1362,23 @@
 		"directFailed": "No se ha podido abrir la conversación. Inténtalo de nuevo.",
 		"backToChats": "Volver a las conversaciones",
 		"directNotFound": "No se encuentra esta conversación.",
-		"someone": "Alguien"
+		"someone": "Alguien",
+		"composeOpen": "Abrir acciones",
+		"composeDate": "Proponer una fecha",
+		"composeApport": "¿Quién trae qué?",
+		"composeAi": "Pedir una receta a la IA",
+		"composePhoto": "Enviar una foto",
+		"composePhotoSoon": "Próximamente.",
+		"searchOpen": "Buscar en la conversación",
+		"searchPlaceholder": "Buscar…",
+		"searchClose": "Cerrar búsqueda",
+		"searchEmpty": "Ningún mensaje coincide.",
+		"listFilterSearch": "Filtrar conversaciones por lista",
+		"listFilterSearchPlaceholder": "Filtrar por lista…",
+		"listFilterHousehold": "Filtrar por hogar",
+		"listFilterAll": "Todas",
+		"listFilterPersonal": "Personales",
+		"listFilterEmpty": "Ninguna conversación coincide con este filtro."
 	},
 	"household": {
 		"title": "Mi hogar",

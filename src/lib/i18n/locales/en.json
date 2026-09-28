@@ -63,7 +63,8 @@
 		"kindFilterEmpty": "No list of this kind.",
 		"scopeLabel": "Who sees this list?",
 		"scopePersonal": "Just me",
-		"scopeAll": "All"
+		"scopeAll": "All",
+		"actionsFor": "Actions for {name}"
 	},
 	"profile": {
 		"title": "Profile",
@@ -354,7 +355,13 @@
 		"close": "Close",
 		"edit": "Edit",
 		"delete": "Delete",
-		"crashed": "This screen could not be displayed. The problem has been logged."
+		"crashed": "This screen could not be displayed. The problem has been logged.",
+		"filters": "Filters",
+		"clear": "Clear the search",
+		"filtersActive": {
+			"one": "{count} active",
+			"other": "{count} active"
+		}
 	},
 	"list": {
 		"shop": "Shop",
@@ -734,7 +741,8 @@
 						"time left",
 						"how much time"
 					]
-				}
+				},
+				"longPressHint": "Long-press for the voice-command list"
 			}
 		},
 		"stepIngredients": "Ingredients used in step {rank}",
@@ -814,7 +822,13 @@
 				"one": "{count} active",
 				"other": "{count} active"
 			}
-		}
+		},
+		"openAria": "Open recipe {name}",
+		"actions": "More",
+		"actionsAria": "More actions for {name}",
+		"addPhotoAction": "Add a photo",
+		"backToRecipes": "Back to recipes",
+		"notFound": "Recipe not found."
 	},
 	"recipeTags": {
 		"title": "Categories",
@@ -1355,7 +1369,23 @@
 		"directFailed": "The conversation could not be opened. Try again.",
 		"backToChats": "Back to chats",
 		"directNotFound": "This conversation cannot be found.",
-		"someone": "Someone"
+		"someone": "Someone",
+		"composeOpen": "Open actions",
+		"composeDate": "Propose a date",
+		"composeApport": "Who's bringing what?",
+		"composeAi": "Ask the AI for a recipe",
+		"composePhoto": "Send a photo",
+		"composePhotoSoon": "Coming soon.",
+		"searchOpen": "Search in the conversation",
+		"searchPlaceholder": "Search…",
+		"searchClose": "Close search",
+		"searchEmpty": "No message matches.",
+		"listFilterSearch": "Filter conversations by list",
+		"listFilterSearchPlaceholder": "Filter by list…",
+		"listFilterHousehold": "Filter by household",
+		"listFilterAll": "All",
+		"listFilterPersonal": "Personal",
+		"listFilterEmpty": "No conversation matches this filter."
 	},
 	"household": {
 		"title": "My household",

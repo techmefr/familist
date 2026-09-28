@@ -67,7 +67,8 @@
 		"kindFilterEmpty": "لا توجد قائمة من هذا النوع.",
 		"scopeLabel": "من يرى هذه القائمة؟",
 		"scopePersonal": "أنا فقط",
-		"scopeAll": "الكل"
+		"scopeAll": "الكل",
+		"actionsFor": "إجراءات {name}"
 	},
 	"profile": {
 		"title": "الملف الشخصي",
@@ -358,7 +359,17 @@
 		"close": "إغلاق",
 		"edit": "تعديل",
 		"delete": "حذف",
-		"crashed": "تعذّر عرض هذه الشاشة. وقد تم تسجيل المشكلة."
+		"crashed": "تعذّر عرض هذه الشاشة. وقد تم تسجيل المشكلة.",
+		"filters": "عوامل التصفية",
+		"clear": "مسح البحث",
+		"filtersActive": {
+			"zero": "لا شيء مفعّل",
+			"one": "واحد مفعّل",
+			"two": "اثنان مفعّلان",
+			"few": "{count} مفعّلة",
+			"many": "{count} مفعّلًا",
+			"other": "{count} مفعّل"
+		}
 	},
 	"list": {
 		"shop": "المتجر",
@@ -739,7 +750,8 @@
 						"كم بقي",
 						"الوقت المتبقي"
 					]
-				}
+				},
+				"longPressHint": "اضغط مطولاً لعرض قائمة الأوامر الصوتية"
 			}
 		},
 		"stepIngredients": "المكونات المستخدمة في الخطوة {rank}",
@@ -831,7 +843,13 @@
 				"many": "{count} مفعّلًا",
 				"other": "{count} مفعّل"
 			}
-		}
+		},
+		"openAria": "فتح الوصفة {name}",
+		"actions": "المزيد",
+		"actionsAria": "المزيد من الإجراءات لـ {name}",
+		"addPhotoAction": "إضافة صورة",
+		"backToRecipes": "العودة إلى الوصفات",
+		"notFound": "الوصفة غير موجودة."
 	},
 	"recipeTags": {
 		"title": "الفئات",
@@ -1388,7 +1406,23 @@
 		"directFailed": "تعذّر فتح المحادثة. حاول مرة أخرى.",
 		"backToChats": "العودة إلى المحادثات",
 		"directNotFound": "لم يتم العثور على هذه المحادثة.",
-		"someone": "شخص ما"
+		"someone": "شخص ما",
+		"composeOpen": "فتح الإجراءات",
+		"composeDate": "اقتراح تاريخ",
+		"composeApport": "من يحضر ماذا؟",
+		"composeAi": "اطلب وصفة من الذكاء الاصطناعي",
+		"composePhoto": "إرسال صورة",
+		"composePhotoSoon": "قريباً.",
+		"searchOpen": "البحث في المحادثة",
+		"searchPlaceholder": "بحث…",
+		"searchClose": "إغلاق البحث",
+		"searchEmpty": "لا توجد رسالة مطابقة.",
+		"listFilterSearch": "تصفية المحادثات حسب القائمة",
+		"listFilterSearchPlaceholder": "تصفية حسب القائمة…",
+		"listFilterHousehold": "تصفية حسب العائلة",
+		"listFilterAll": "الكل",
+		"listFilterPersonal": "شخصية",
+		"listFilterEmpty": "لا توجد محادثة مطابقة لهذا الفلتر."
 	},
 	"household": {
 		"title": "منزلي",

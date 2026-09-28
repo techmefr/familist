@@ -19,7 +19,8 @@ test('dupliquer une liste depuis sa carte', async ({ signedInPage: page }) => {
 	const card = page.locator('[data-test-class="list-card"]').filter({ hasText: name });
 	await expect(card).toBeVisible();
 
-	await card.locator('[data-test-class="list-duplicate"]').click();
+	await card.locator('[data-test-class="list-actions"]').click();
+	await page.getByTestId('action-sheet-duplicate').click();
 
 	const copied = page.locator('[data-test-class="list-card"]').filter({ hasText: `${name} (2)` });
 	await expect(copied).toBeVisible();

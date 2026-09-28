@@ -62,7 +62,7 @@ test.describe('categories de recette', () => {
 		await expect.poll(() => tagsOf(chips)).toEqual(['soup', 'vegetarian', 'winter']);
 
 		await card.locator('[data-test-class="recipe-card-header"]').click();
-		await card.locator('[data-test-class="recipe-edit"]').click();
+		await page.locator('[data-test-class="recipe-edit"]').click();
 
 		await expect(page.getByTestId('recipe-tag-soup')).toBeChecked();
 		await expect(page.getByTestId('recipe-tag-vegetarian')).toBeChecked();

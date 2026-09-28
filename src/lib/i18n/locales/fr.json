@@ -63,7 +63,8 @@
 		"kindFilterEmpty": "Aucune liste de ce type.",
 		"scopeLabel": "Qui voit cette liste ?",
 		"scopePersonal": "Juste moi",
-		"scopeAll": "Toutes"
+		"scopeAll": "Toutes",
+		"actionsFor": "Actions pour {name}"
 	},
 	"profile": {
 		"title": "Profil",
@@ -369,7 +370,13 @@
 		"close": "Fermer",
 		"edit": "Modifier",
 		"delete": "Supprimer",
-		"crashed": "Cet écran n'a pas pu s'afficher. Le problème a été noté."
+		"crashed": "Cet écran n'a pas pu s'afficher. Le problème a été noté.",
+		"filters": "Filtres",
+		"clear": "Effacer la recherche",
+		"filtersActive": {
+			"one": "{count} actif",
+			"other": "{count} actifs"
+		}
 	},
 	"list": {
 		"shop": "Magasin",
@@ -766,7 +773,8 @@
 						"temps restant",
 						"il reste combien"
 					]
-				}
+				},
+				"longPressHint": "Appui long pour la liste des commandes vocales"
 			}
 		},
 		"stepIngredients": "Ingrédients utilisés à l’étape {rank}",
@@ -846,7 +854,13 @@
 				"one": "{count} actif",
 				"other": "{count} actifs"
 			}
-		}
+		},
+		"openAria": "Ouvrir la recette {name}",
+		"actions": "Plus",
+		"actionsAria": "Plus d'actions pour {name}",
+		"addPhotoAction": "Ajouter une photo",
+		"backToRecipes": "Retour aux recettes",
+		"notFound": "Recette introuvable."
 	},
 	"recipeTags": {
 		"title": "Catégories",
@@ -1387,7 +1401,23 @@
 		"directFailed": "La conversation n'a pas pu s'ouvrir. Réessayez.",
 		"backToChats": "Retour aux discussions",
 		"directNotFound": "Cette conversation est introuvable.",
-		"someone": "Quelqu’un"
+		"someone": "Quelqu’un",
+		"composeOpen": "Ouvrir les actions",
+		"composeDate": "Proposer une date",
+		"composeApport": "Qui ramène quoi ?",
+		"composeAi": "Demander une recette à l'IA",
+		"composePhoto": "Envoyer une photo",
+		"composePhotoSoon": "Bientôt disponible.",
+		"searchOpen": "Rechercher dans la discussion",
+		"searchPlaceholder": "Rechercher…",
+		"searchClose": "Fermer la recherche",
+		"searchEmpty": "Aucun message ne correspond.",
+		"listFilterSearch": "Filtrer les discussions par liste",
+		"listFilterSearchPlaceholder": "Filtrer par liste…",
+		"listFilterHousehold": "Filtrer par foyer",
+		"listFilterAll": "Tous",
+		"listFilterPersonal": "Personnelles",
+		"listFilterEmpty": "Aucune discussion ne correspond à ce filtre."
 	},
 	"household": {
 		"title": "Mon foyer",

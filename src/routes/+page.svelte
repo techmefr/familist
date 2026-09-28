@@ -19,7 +19,10 @@
 	import { Label } from '$components/ui/label';
 	import EmojiPicker from '$components/app/EmojiPicker.svelte';
 	import Avatar from '$components/app/Avatar.svelte';
+	import ActionSheet from '$components/app/ActionSheet.svelte';
 	import { longpress } from '$components/app/longpress.svelte';
+	import type { Action } from '$domain/action-sheet';
+	import type { List } from '$db/schema';
 	import {
 		Plus,
 		Trash2,
@@ -30,7 +33,8 @@
 		Users,
 		Lock,
 		Check,
-		UtensilsCrossed
+		UtensilsCrossed,
+		MoreVertical
 	} from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
@@ -86,6 +90,49 @@
 
 	/** The list being renamed. The same form serves to create and to correct. */
 	let renamed = $state<string | null>(null);
+
+	/** The list the action menu (long-press, or its "⋯" button) currently reads about. */
+	let actionsFor = $state<List | null>(null);
+	let actionSheet = $state<ActionSheet | null>(null);
+
+	function openActions(list: List) {
+		feedback.play('tap');
+		actionsFor = list;
+		actionSheet?.show();
+	}
+
+	const listActions = $derived.by((): Action[] => {
+		if (!actionsFor) return [];
+		const list = actionsFor;
+
+		return [
+			{
+				id: 'edit',
+				label: t('lists.rename', { name: list.name }),
+				icon: Pencil,
+				onSelect: () => rename(list)
+			},
+			{
+				id: 'duplicate',
+				label: t('lists.duplicate', { name: list.name }),
+				icon: Copy,
+				onSelect: () => {
+					feedback.play('add');
+					data.duplicateList(list.id);
+				}
+			},
+			{
+				id: 'delete',
+				label: t('lists.delete', { name: list.name }),
+				icon: Trash2,
+				destructive: true,
+				onSelect: () => {
+					feedback.play('remove');
+					data.removeList(list.id);
+				}
+			}
+		];
+	});
 
 	/**
 	 * Opening the form on an existing list, by long-pressing its card.
@@ -510,13 +557,13 @@
 				<Card.Root data-test-class="list-card" class="fl-home-card fl-press ring-0">
 					<Card.Content class="flex flex-wrap items-center gap-x-4 gap-y-3">
 						<!--
-							The long press opens renaming: it is the thumb's gesture, and it avoids adding a third button to a
-							card that already carries some. The keyboard and the screen reader go through the pencil, next to
-							the bin.
+							The long press opens the action menu (#353): Edit, Duplicate, Delete, shared with cards and
+							loyalty cards rather than a menu rebuilt per screen. The "⋯" button below repeats the same
+							menu for the keyboard and the screen reader, which cannot feel a held finger.
 						-->
 						<a
 							href="/l/{list.id}"
-							use:longpress={() => rename(list)}
+							use:longpress={() => openActions(list)}
 							class="flex min-w-0 flex-auto flex-wrap items-center gap-4"
 						>
 							<span
@@ -586,41 +633,13 @@
 							{/if}
 							<button
 								type="button"
-								onclick={() => rename(list)}
-								aria-label={t('lists.rename', { name: list.name })}
-								data-test-class="list-rename"
+								onclick={() => openActions(list)}
+								aria-label={t('lists.actionsFor', { name: list.name })}
+								aria-haspopup="dialog"
+								data-test-class="list-actions"
 								class={actionClass}
 							>
-								<Pencil size={18} aria-hidden="true" />
-							</button>
-							<!--
-								Duplication lives on the card, with the pencil and the bin, and not inside the opened list: this is
-								where you see your lists side by side and recognise the one that comes back every week. The bottom
-								bar carries navigation only.
-							-->
-							<button
-								type="button"
-								onclick={() => {
-									feedback.play('add');
-									data.duplicateList(list.id);
-								}}
-								aria-label={t('lists.duplicate', { name: list.name })}
-								data-test-class="list-duplicate"
-								class={actionClass}
-							>
-								<Copy size={18} aria-hidden="true" />
-							</button>
-							<button
-								type="button"
-								onclick={() => {
-									feedback.play('remove');
-									data.removeList(list.id);
-								}}
-								aria-label={t('lists.delete', { name: list.name })}
-								data-test-class="list-delete"
-								class="{actionClass} hover:text-destructive"
-							>
-								<Trash2 size={18} aria-hidden="true" />
+								<MoreVertical size={18} aria-hidden="true" />
 							</button>
 						</div>
 					</Card.Content>
@@ -680,3 +699,5 @@
 {/if}
 
 <EmojiPicker bind:this={picker} value={emoji} onpick={(choices) => (emoji = choices)} />
+
+<ActionSheet bind:this={actionSheet} title={actionsFor?.name ?? ''} actions={listActions} />

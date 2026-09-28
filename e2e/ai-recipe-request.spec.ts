@@ -142,6 +142,9 @@ test.describe('demande de recette en texte libre', () => {
 		await page.getByTestId('open-chat').click();
 		await expect(page).toHaveURL(/\/l\/[^/]+\/chat$/);
 
-		await expect(page.getByTestId('ai-request-open')).toBeVisible();
+		await page.getByTestId('chat-compose-open').click();
+		await expect(page.getByTestId('action-sheet-ai')).toBeVisible();
+		await page.getByTestId('action-sheet-ai').click();
+		await expect(page).toHaveURL(/\/recipes\/new$/);
 	});
 });
