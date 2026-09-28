@@ -13,6 +13,7 @@
 	import { Button } from '$components/ui/button';
 	import { Label } from '$components/ui/label';
 	import AuthForm from '$components/app/AuthForm.svelte';
+	import WelcomeAnimation from '$components/app/WelcomeAnimation.svelte';
 	import { ArrowRight, Check } from '@lucide/svelte';
 
 	const STEPS = 4;
@@ -95,6 +96,10 @@
 	premium card as the auth screens; the last step hands off to `AuthForm`, which already brings its own
 	card — nesting the two would stack a shadow on a shadow.
 -->
+{#if step === 1}
+	<WelcomeAnimation />
+{/if}
+
 <h1
 	bind:this={heading}
 	tabindex="-1"

@@ -1726,6 +1726,41 @@ button[data-slot='switch'][data-state='checked'] {
 }
 
 /**
+ * The welcome screen's cart animation (#408): three items drop into the cart one after another, then hold
+ * a beat before looping. `fl-welcome-cart-animate` is only applied when `settings.animates` is true, so
+ * without it the items just sit in their landed position - a still drawing, not a stuck-mid-animation one.
+ */
+.fl-welcome-cart-animate .fl-welcome-cart-item {
+	animation: fl-welcome-item-drop 2.4s ease-in-out infinite;
+	animation-delay: var(--fl-item-delay, 0s);
+	transform-origin: center;
+	transform-box: fill-box;
+}
+
+@keyframes fl-welcome-item-drop {
+	0% {
+		opacity: 0;
+		transform: translateY(-14px) scale(0.6);
+	}
+	18% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+	82% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+	92% {
+		opacity: 0;
+		transform: translateY(4px) scale(0.85);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-14px) scale(0.6);
+	}
+}
+
+/**
  * The home screen's surfaces: a list card, and the form that creates one.
  *
  * The same family as `.fl-auth-card` — deep corners, a soft shadow instead of a hairline ring — but one step
