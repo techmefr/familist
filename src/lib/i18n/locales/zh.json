@@ -59,7 +59,8 @@
 		"kindShopping": "购物",
 		"kindMealPlan": "菜单",
 		"kindAll": "全部",
-		"kindFilterEmpty": "没有此类型的清单。"
+		"kindFilterEmpty": "没有此类型的清单。",
+		"actionsFor": "{name}的操作"
 	},
 	"profile": {
 		"title": "我的",
@@ -349,7 +350,12 @@
 		"close": "关闭",
 		"edit": "编辑",
 		"delete": "删除",
-		"crashed": "此页面无法显示。问题已记录。"
+		"crashed": "此页面无法显示。问题已记录。",
+		"filters": "筛选",
+		"clear": "清除搜索",
+		"filtersActive": {
+			"other": "{count} 个已启用"
+		}
 	},
 	"list": {
 		"shop": "门店",

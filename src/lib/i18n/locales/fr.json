@@ -60,7 +60,8 @@
 		"kindShopping": "Courses",
 		"kindMealPlan": "Menu",
 		"kindAll": "Toutes",
-		"kindFilterEmpty": "Aucune liste de ce type."
+		"kindFilterEmpty": "Aucune liste de ce type.",
+		"actionsFor": "Actions pour {name}"
 	},
 	"profile": {
 		"title": "Profil",
@@ -366,7 +367,13 @@
 		"close": "Fermer",
 		"edit": "Modifier",
 		"delete": "Supprimer",
-		"crashed": "Cet écran n'a pas pu s'afficher. Le problème a été noté."
+		"crashed": "Cet écran n'a pas pu s'afficher. Le problème a été noté.",
+		"filters": "Filtres",
+		"clear": "Effacer la recherche",
+		"filtersActive": {
+			"one": "{count} actif",
+			"other": "{count} actifs"
+		}
 	},
 	"list": {
 		"shop": "Magasin",
