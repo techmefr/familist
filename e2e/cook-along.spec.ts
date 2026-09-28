@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const STEPS = ['Couper les légumes', 'Faire revenir dix minutes', 'Servir chaud'];
 
-async function recipeWithSteps(page: import('@playwright/test').Page, name: string) {
+async function openRecipeWithSteps(page: import('@playwright/test').Page, name: string) {
 	await page.goto('/recipes/new');
 	await page.getByTestId('recipe-source-manual').click();
 	await page.getByTestId('recipe-name').fill(name);
@@ -20,34 +20,31 @@ async function recipeWithSteps(page: import('@playwright/test').Page, name: stri
 
 	const card = page.locator('[data-test-class="recipe-card"]').filter({ hasText: name });
 	await expect(card).toBeVisible();
-	return card;
+	// A recipe now opens its own page (#373) instead of unfolding inline.
+	await card.locator('[data-test-class="recipe-card-header"]').click();
+	await expect(page.getByTestId('recipe-detail')).toBeVisible();
 }
 
-/** The stepper of cook-along (#307): position in words, a track to jump from, and the current step marked. */
+/** Cook-along's stepper (#307, streamlined for #375): position in words, and a thin progress bar. */
 test.describe('suivre la recette', () => {
-	test('la piste montre la position et permet de sauter a une etape', async ({ signedInPage: page }) => {
-		const card = await recipeWithSteps(page, `Poêlée e2e ${Date.now()}`);
-		await card.locator('[data-test-class="recipe-card-header"]').click();
-		await card.locator('[data-test-class="recipe-cook-along"]').click();
+	test('la position avance a chaque etape, et le titre suit', async ({ signedInPage: page }) => {
+		await openRecipeWithSteps(page, `Poêlée e2e ${Date.now()}`);
+		await page.locator('[data-test-class="recipe-cook-along"]').click();
 
 		const cookAlong = page.getByTestId('cook-along');
 		const position = cookAlong.getByTestId('cook-along-position');
-		const steps = cookAlong.locator('[data-test-class="cook-along-track-step"]');
+		const bar = cookAlong.getByTestId('cook-along-progress-bar');
 
 		await expect(position).toHaveAttribute('aria-live', 'polite');
-		await expect(steps).toHaveCount(STEPS.length);
-		await expect(steps.nth(0)).toHaveAttribute('aria-current', 'step');
+		await expect(position).toContainText('1');
+		await expect(bar).toBeVisible();
+		await expect(cookAlong.getByTestId('cook-along-step')).toHaveText(STEPS[0]);
 
-		await steps.nth(2).click();
+		await cookAlong.getByTestId('cook-along-next').click();
+		await cookAlong.getByTestId('cook-along-next').click();
 		await expect(cookAlong.getByTestId('cook-along-step')).toHaveText(STEPS[2]);
-		await expect(steps.nth(2)).toHaveAttribute('aria-current', 'step');
-		await expect(steps.nth(0)).toHaveAttribute('data-state', 'done');
-		await expect(steps.nth(0)).not.toHaveAttribute('aria-current', 'step');
 		await expect(position).toContainText('3');
-
-		await cookAlong.getByTestId('cook-along-previous').click();
-		await expect(cookAlong.getByTestId('cook-along-step')).toHaveText(STEPS[1]);
-		await expect(steps.nth(1)).toHaveAttribute('aria-current', 'step');
+		await expect(cookAlong.getByTestId('cook-along-next')).toBeDisabled();
 
 		const results = await new AxeBuilder({ page })
 			.include('[data-test-id="cook-along"]')
@@ -56,11 +53,32 @@ test.describe('suivre la recette', () => {
 		expect(results.violations).toEqual([]);
 	});
 
+	test('les zones de tap avancent et reculent', async ({ signedInPage: page }) => {
+		await openRecipeWithSteps(page, `Poêlée tap e2e ${Date.now()}`);
+		await page.locator('[data-test-class="recipe-cook-along"]').click();
+
+		const cookAlong = page.getByTestId('cook-along');
+		await cookAlong.getByTestId('cook-along-tap-next').click({ force: true });
+		await expect(cookAlong.getByTestId('cook-along-step')).toHaveText(STEPS[1]);
+
+		await cookAlong.getByTestId('cook-along-tap-previous').click({ force: true });
+		await expect(cookAlong.getByTestId('cook-along-step')).toHaveText(STEPS[0]);
+	});
+
+	test('le bouton fermer quitte le mode et revient sur la page de la recette', async ({ signedInPage: page }) => {
+		await openRecipeWithSteps(page, `Poêlée fermer e2e ${Date.now()}`);
+		await page.locator('[data-test-class="recipe-cook-along"]').click();
+
+		const cookAlong = page.getByTestId('cook-along');
+		await cookAlong.getByTestId('cook-along-close').click();
+		await expect(cookAlong).not.toBeVisible();
+		await expect(page.getByTestId('recipe-detail')).toBeVisible();
+	});
+
 	test('de droite a gauche, la fleche de gauche avance', async ({ signedInPage: page }) => {
-		const card = await recipeWithSteps(page, `Poêlée rtl e2e ${Date.now()}`);
-		await card.locator('[data-test-class="recipe-card-header"]').click();
+		await openRecipeWithSteps(page, `Poêlée rtl e2e ${Date.now()}`);
 		await page.evaluate(() => (document.documentElement.dir = 'rtl'));
-		await card.locator('[data-test-class="recipe-cook-along"]').click();
+		await page.locator('[data-test-class="recipe-cook-along"]').click();
 
 		const cookAlong = page.getByTestId('cook-along');
 		await page.keyboard.press('ArrowLeft');

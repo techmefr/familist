@@ -720,7 +720,8 @@
 						"كم بقي",
 						"الوقت المتبقي"
 					]
-				}
+				},
+				"longPressHint": "اضغط مطولاً لعرض قائمة الأوامر الصوتية"
 			}
 		},
 		"stepIngredients": "المكونات المستخدمة في الخطوة {rank}",
@@ -812,7 +813,13 @@
 				"many": "{count} مفعّلًا",
 				"other": "{count} مفعّل"
 			}
-		}
+		},
+		"openAria": "فتح الوصفة {name}",
+		"actions": "المزيد",
+		"actionsAria": "المزيد من الإجراءات لـ {name}",
+		"addPhotoAction": "إضافة صورة",
+		"backToRecipes": "العودة إلى الوصفات",
+		"notFound": "الوصفة غير موجودة."
 	},
 	"recipeTags": {
 		"title": "الفئات",

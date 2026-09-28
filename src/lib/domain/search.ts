@@ -209,8 +209,8 @@ export function searchAll(query: string, source: SearchSource): SearchGroup[] {
 			label: recipe.name,
 			detail: '',
 			icon: recipe.emoji,
-			// The recipes page unfolds and scrolls to the card named by this parameter.
-			href: `/recipes?recipe=${recipe.id}`,
+			// A recipe now opens its own dedicated page (#373) rather than unfolding inline.
+			href: `/recipes/${recipe.id}`,
 			checked: false,
 			score
 		});

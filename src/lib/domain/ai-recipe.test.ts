@@ -335,6 +335,21 @@ describe('stepIngredients (#308)', () => {
 	it('est demande par chaque prompt', () => {
 		expect(recipePrompt(['Oeufs'], { language: 'français', servings: 2 })).toContain('"stepIngredients" contient');
 	});
+
+	it("devine le lien d'une seule etape oubliee sans perdre les liens deja donnes (#375)", () => {
+		const recipe = parseRecipeSuggestion(
+			JSON.stringify({
+				name: 'Bavarois',
+				ingredients: [{ name: 'Gelatine' }, { name: 'Chocolat' }],
+				steps: ['Faire tremper la gelatine', 'Faire fondre le chocolat'],
+				// The model links the second step but leaves the first empty: it must not fall back on the
+				// whole recipe's guess, only on this one step's.
+				stepIngredients: [[], [1]]
+			})
+		);
+
+		expect(recipe?.stepIngredients).toEqual([[0], [1]]);
+	});
 });
 
 describe('imagePrompt (#306)', () => {

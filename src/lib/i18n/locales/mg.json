@@ -703,7 +703,8 @@
 						"firy sisa",
 						"ohatrinona ny fotoana sisa"
 					]
-				}
+				},
+				"longPressHint": "Tsindrio ela mba hahitana ny lisitry ny baiko am-peo"
 			}
 		},
 		"stepIngredients": "Akora ampiasaina amin’ny dingana {rank}",
@@ -783,7 +784,13 @@
 				"one": "{count} mandeha",
 				"other": "{count} mandeha"
 			}
-		}
+		},
+		"openAria": "Sokafy ny fomba fahandro {name}",
+		"actions": "Hetsika hafa",
+		"actionsAria": "Hetsika hafa ho an'ny {name}",
+		"addPhotoAction": "Manampy sary",
+		"backToRecipes": "Miverina any amin'ireo fomba fahandro",
+		"notFound": "Tsy hita ny fomba fahandro."
 	},
 	"recipeTags": {
 		"title": "Sokajy",
