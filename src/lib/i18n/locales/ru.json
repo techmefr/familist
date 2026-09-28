@@ -66,6 +66,12 @@
 		"scopeLabel": "Кто видит этот список?",
 		"scopePersonal": "Только я",
 		"scopeAll": "Все",
+		"search": "Поиск",
+		"searchPlaceholder": "Название списка",
+		"filters": "Фильтры",
+		"kindFilterLabel": "Тип",
+		"scopeFilterLabel": "Кто",
+		"filterApply": "Применить",
 		"actionsFor": "Действия с {name}"
 	},
 	"profile": {

@@ -64,6 +64,12 @@
 		"scopeLabel": "Chi vede questa lista?",
 		"scopePersonal": "Solo io",
 		"scopeAll": "Tutte",
+		"search": "Cerca",
+		"searchPlaceholder": "Nome della lista",
+		"filters": "Filtri",
+		"kindFilterLabel": "Tipo",
+		"scopeFilterLabel": "Chi",
+		"filterApply": "Applica",
 		"actionsFor": "Azioni per {name}"
 	},
 	"profile": {
