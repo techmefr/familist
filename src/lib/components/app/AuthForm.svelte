@@ -349,12 +349,14 @@
 					{t('auth.resend')}
 				</Button>
 			{/if}
-		</form>
 
-		<Button variant="ghost" class="mt-2 w-full" onclick={toggle} data-test-id="auth-use-password">
-			<Lock size={18} aria-hidden="true" />
-			{t('auth.usePassword')}
-		</Button>
+			<div class="border-border/60 -mx-1 border-t"></div>
+
+			<Button variant="ghost" class="w-full" onclick={toggle} data-test-id="auth-use-password">
+				<Lock size={18} aria-hidden="true" />
+				{t('auth.usePassword')}
+			</Button>
+		</form>
 	{:else}
 	<form
 		onsubmit={submit}
@@ -482,12 +484,13 @@
 				{/each}
 			</p>
 		{/if}
-	</form>
 
 		{#if mode === 'signin'}
+			<div class="border-border/60 -mx-1 border-t"></div>
+
 			<Button
 				variant="ghost"
-				class="mt-2 w-full"
+				class="w-full"
 				onclick={toggle}
 				data-test-id="auth-passwordless"
 			>
@@ -495,5 +498,6 @@
 				{t('auth.passwordless')}
 			</Button>
 		{/if}
+	</form>
 	{/if}
 {/if}

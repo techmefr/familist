@@ -1665,11 +1665,11 @@ button[data-slot='switch'][data-state='checked'] {
 .fl-auth-glow::after {
 	content: '';
 	position: absolute;
-	width: 24rem;
-	height: 24rem;
+	width: 26rem;
+	height: 26rem;
 	border-radius: 9999px;
-	filter: blur(70px);
-	opacity: 0.32;
+	filter: blur(64px);
+	opacity: 0.42;
 }
 
 .fl-auth-glow::before {
