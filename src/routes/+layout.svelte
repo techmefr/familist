@@ -527,9 +527,9 @@
 			aria-label={t('nav.main')}
 		>
 			<!-- The household name does not fit in a 5.5rem rail: in portrait it stays in the header. -->
-			<p class="text-h2 hidden items-center gap-2.5 px-6 py-6 font-semibold full:flex">
+			<p class="text-h2 hidden min-w-0 items-center gap-2.5 px-6 py-6 font-semibold full:flex">
 				<Logo />
-				{t('app.name')}
+				<span class="min-w-0 shrink truncate">{t('app.name')}</span>
 			</p>
 
 			<!--
@@ -629,12 +629,12 @@
 				thumb, on the edge.
 			-->
 			<header class="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 pt-3">
-				<p class="text-h2 flex items-center gap-2 font-semibold full:hidden">
+				<p class="text-h2 flex min-w-0 items-center gap-2 font-semibold full:hidden">
 					<Logo />
-					{t('app.name')}
+					<span class="min-w-0 shrink truncate">{t('app.name')}</span>
 				</p>
 
-				<div class="ms-auto flex items-center gap-1">
+				<div class="ms-auto flex shrink-0 items-center gap-1">
 					<!--
 						Search is in the header, next to help, and in the same place at both screen sizes. It does not
 						go in the bottom bar: that one carries destinations, one per tab, and search is not one — it
