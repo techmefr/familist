@@ -1,32 +1,101 @@
 <script lang="ts">
+	import { tick } from 'svelte';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
+	import { feedback } from '$stores/feedback.svelte';
 	import { t, i18n } from '$i18n/index.svelte';
 	import PollCard from '$components/app/PollCard.svelte';
+	import ActionSheet from '$components/app/ActionSheet.svelte';
+	import type { Action } from '$domain/action-sheet';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
 	import {
 		ArrowLeft,
 		Send,
+		Plus,
+		Search,
+		X,
 		CalendarDays,
 		UtensilsCrossed,
 		MessageCircleQuestionMark,
+		ImagePlus,
 		List
 	} from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
-	import AiRecipeEntry from '$components/app/AiRecipeEntry.svelte';
 
 	const listId = $derived(page.params.id!);
 	const list = $derived(data.list(listId));
-	const messages = $derived(data.messagesOf(listId));
+	const allMessages = $derived(data.messagesOf(listId));
+
+	let searchOpen = $state(false);
+	let searchQuery = $state('');
+	let searchInput = $state<HTMLInputElement | null>(null);
+
+	const messages = $derived(
+		searchQuery.trim()
+			? allMessages.filter((message) =>
+					message.body.toLowerCase().includes(searchQuery.trim().toLowerCase())
+				)
+			: allMessages
+	);
+
+	async function toggleSearch() {
+		searchOpen = !searchOpen;
+		if (searchOpen) {
+			await tick();
+			searchInput?.focus();
+		} else {
+			searchQuery = '';
+		}
+	}
 
 	let body = $state('');
+	let bodyFocused = $state(false);
 	let composing = $state<'date' | 'apport' | null>(null);
 	let question = $state('');
 	let choices = $state('');
 	let pollError = $state(false);
+
+	let composeSheet = $state<ActionSheet | null>(null);
+
+	const composeActions = $derived.by((): Action[] => [
+		{
+			id: 'date',
+			label: t('chat.composeDate'),
+			icon: CalendarDays,
+			onSelect: () => openPoll('date')
+		},
+		{
+			id: 'apport',
+			label: t('chat.composeApport'),
+			icon: UtensilsCrossed,
+			onSelect: () => openPoll('apport')
+		},
+		{
+			id: 'ai',
+			label: t('chat.composeAi'),
+			icon: MessageCircleQuestionMark,
+			onSelect: () => {
+				feedback.play('tap');
+				void goto('/recipes/new', { state: { recipeSource: 'ai' } });
+			}
+		},
+		{
+			id: 'photo',
+			label: t('chat.composePhoto'),
+			icon: ImagePlus,
+			onSelect: () => {
+				feedback.play('tap');
+				photoSoon = true;
+			}
+		}
+	]);
+
+	/** Sending a photo (#366) needs its own storage and offline-queue work; the entry point exists, the feature does not yet. */
+	let photoSoon = $state(false);
 
 	/**
 	 * Parts of a meal: these are the ones the prototype offers, and they cover almost everything. Indexed by
@@ -107,10 +176,46 @@
 		{t('chat.backToList')}
 	</a>
 
-	<h1 class="text-h1 mt-2 flex items-center gap-3 font-semibold">
-		<span aria-hidden="true">{list.emoji}</span>
-		{list.name}
-	</h1>
+	<div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+		<h1 class="text-h1 flex items-center gap-3 font-semibold">
+			<span aria-hidden="true">{list.emoji}</span>
+			{list.name}
+		</h1>
+		<button
+			type="button"
+			onclick={toggleSearch}
+			aria-expanded={searchOpen}
+			aria-label={t('chat.searchOpen')}
+			data-test-id="chat-search-toggle"
+			class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
+		>
+			<Search size={18} aria-hidden="true" />
+		</button>
+	</div>
+
+	{#if searchOpen}
+		<div class="mt-3 flex items-center gap-2">
+			<div class="flex-1">
+				<IconField icon={Search}>
+					<Input
+						bind:ref={searchInput}
+						bind:value={searchQuery}
+						data-test-id="chat-search-input"
+						placeholder={t('chat.searchPlaceholder')}
+					/>
+				</IconField>
+			</div>
+			<button
+				type="button"
+				onclick={toggleSearch}
+				aria-label={t('chat.searchClose')}
+				data-test-id="chat-search-close"
+				class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
+			>
+				<X size={18} aria-hidden="true" />
+			</button>
+		</div>
+	{/if}
 
 	{#if list.eventDate}
 		<p
@@ -123,7 +228,11 @@
 	{/if}
 
 	{#if messages.length === 0}
-		<EmptyState illustration="chat" text={t('chat.empty')} testId="chat-empty" />
+		<EmptyState
+			illustration="chat"
+			text={searchQuery.trim() ? t('chat.searchEmpty') : t('chat.empty')}
+			testId={searchQuery.trim() ? 'chat-search-empty' : 'chat-empty'}
+		/>
 	{:else}
 		<ol class="mt-6 space-y-4">
 			{#each messages as message (message.id)}
@@ -197,39 +306,54 @@
 				</Button>
 			</div>
 		</form>
-	{:else}
-		<div class="mt-6 flex flex-wrap gap-2">
-			<Button variant="outline" onclick={() => openPoll('date')} data-test-id="new-poll-date">
-				<CalendarDays size={16} aria-hidden="true" />
-				{t('chat.newDatePoll')}
-			</Button>
-			<Button variant="outline" onclick={() => openPoll('apport')} data-test-id="new-poll-apport">
-				<UtensilsCrossed size={16} aria-hidden="true" />
-				{t('chat.newApportPoll')}
-			</Button>
-		</div>
 	{/if}
 
-	<!-- Only appears if an AI key is set in the settings; otherwise, nothing at all. -->
-	<div class="mt-4">
-		<AiRecipeEntry />
-	</div>
+	{#if photoSoon}
+		<p class="text-muted-foreground text-caption mt-4" role="status" data-test-id="chat-photo-soon">
+			{t('chat.composePhotoSoon')}
+		</p>
+	{/if}
 
 	<!--
-		aria-label and not only the placeholder: the latter is not an accessible name, and it disappears at the
-		first letter typed. min-w-[44px] on the button because it carries only an icon — it was coming out 43 px
-		wide, one pixel under the touch target.
+		At rest, a compact field next to the single button that opens every other action: a date poll, the
+		"who brings what" poll, asking the AI for a recipe, sending a photo. The three buttons this replaces
+		said everything at once, all the time, for something typed a few times per list at most.
+
+		The field grows to the full row on focus — typing a real message deserves the room, the compact
+		width was only ever an at-rest state. `aria-label` and not only the placeholder: the latter is not an
+		accessible name, and it disappears at the first letter typed.
 	-->
-	<form onsubmit={send} class="mt-4 flex gap-2" data-test-id="chat-form">
-		<Input
-			bind:value={body}
-			aria-label={t('chat.messageLabel')}
-			placeholder={t('chat.placeholder')}
-			data-test-id="chat-input"
-			required
-		/>
-		<Button type="submit" class="min-w-[44px]" data-test-id="chat-send" aria-label={t('chat.send')}>
+	<form onsubmit={send} class="mt-4 flex items-center gap-2" data-test-id="chat-form">
+		<div class="min-w-0 flex-1">
+			<Input
+				bind:value={body}
+				onfocus={() => (bodyFocused = true)}
+				onblur={() => (bodyFocused = false)}
+				aria-label={t('chat.messageLabel')}
+				placeholder={t('chat.placeholder')}
+				data-test-id="chat-input"
+				class="transition-all duration-200 {bodyFocused ? '' : 'max-w-[14rem]'}"
+				required
+			/>
+		</div>
+		<Button type="submit" class="min-w-[44px] shrink-0" data-test-id="chat-send" aria-label={t('chat.send')}>
 			<Send size={18} aria-hidden="true" />
 		</Button>
+		<button
+			type="button"
+			onclick={() => {
+				feedback.play('tap');
+				photoSoon = false;
+				composeSheet?.show();
+			}}
+			aria-haspopup="dialog"
+			aria-label={t('chat.composeOpen')}
+			data-test-id="chat-compose-open"
+			class="fl-press bg-primary text-primary-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
+		>
+			<Plus size={20} aria-hidden="true" />
+		</button>
 	</form>
+
+	<ActionSheet bind:this={composeSheet} title={t('chat.composeOpen')} actions={composeActions} />
 {/if}
