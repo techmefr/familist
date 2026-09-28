@@ -317,10 +317,10 @@
 						<span class="text-product min-w-0 flex-1 basis-[8rem] font-medium">{person.name}</span>
 						<Button
 							variant="ghost"
-							size="icon"
 							onclick={() => data.removeHouseholdPerson(person.id)}
 							data-test-id="household-person-remove-{person.id}"
 							aria-label={t('household.personRemove')}
+							class="min-h-[max(2.75rem,44px)] min-w-[44px] p-0"
 						>
 							<Trash2 size={16} aria-hidden="true" />
 						</Button>
