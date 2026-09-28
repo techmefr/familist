@@ -60,7 +60,8 @@
 		"kindShopping": "Fividianana",
 		"kindMealPlan": "Sakafo",
 		"kindAll": "Rehetra",
-		"kindFilterEmpty": "Tsy misy lisitra amin'ity karazana ity."
+		"kindFilterEmpty": "Tsy misy lisitra amin'ity karazana ity.",
+		"actionsFor": "Hetsika ho an'ny {name}"
 	},
 	"profile": {
 		"title": "Mombamomba",
@@ -351,7 +352,13 @@
 		"close": "Hidio",
 		"edit": "Hanova",
 		"delete": "Fafao",
-		"crashed": "Tsy afaka niseho ity pejy ity. Voarakitra ny olana."
+		"crashed": "Tsy afaka niseho ity pejy ity. Voarakitra ny olana.",
+		"filters": "Sivana",
+		"clear": "Fafao ny fikarohana",
+		"filtersActive": {
+			"one": "{count} mandeha",
+			"other": "{count} mandeha"
+		}
 	},
 	"list": {
 		"shop": "Fivarotana",

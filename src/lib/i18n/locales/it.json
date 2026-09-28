@@ -60,7 +60,8 @@
 		"kindShopping": "Spesa",
 		"kindMealPlan": "Menù",
 		"kindAll": "Tutte",
-		"kindFilterEmpty": "Nessuna lista di questo tipo."
+		"kindFilterEmpty": "Nessuna lista di questo tipo.",
+		"actionsFor": "Azioni per {name}"
 	},
 	"profile": {
 		"title": "Profilo",
@@ -351,7 +352,13 @@
 		"close": "Chiudi",
 		"edit": "Modifica",
 		"delete": "Elimina",
-		"crashed": "Questa schermata non è stata visualizzata. Il problema è stato registrato."
+		"crashed": "Questa schermata non è stata visualizzata. Il problema è stato registrato.",
+		"filters": "Filtri",
+		"clear": "Cancella la ricerca",
+		"filtersActive": {
+			"one": "{count} attivo",
+			"other": "{count} attivi"
+		}
 	},
 	"list": {
 		"shop": "Negozio",

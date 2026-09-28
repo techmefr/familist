@@ -861,6 +861,29 @@ textarea {
 }
 
 /*
+ * The app-wide thumb bar (#352): the same rule as the recipes' own bar, generalised under a name that says
+ * nothing about recipes — lists, shops and cards share this bar too.
+ */
+.fl-search-bar-filters {
+	order: 1;
+}
+
+[dir='rtl'] .fl-search-bar-filters,
+[data-hand='left'] .fl-search-bar-filters {
+	order: -1;
+}
+
+[dir='rtl'][data-hand='left'] .fl-search-bar-filters {
+	order: 1;
+}
+
+@media (width < 48rem) {
+	.fl-search-bar[data-keyboard='open'] {
+		inset-block-end: calc(var(--fl-keyboard, 0px) + 0.5rem);
+	}
+}
+
+/*
  * The ground of the floating controls.
  *
  * Laid flat, they had the same weight as the cards scrolling underneath and the eye could no longer tell

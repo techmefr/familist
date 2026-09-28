@@ -60,7 +60,8 @@
 		"kindShopping": "Einkauf",
 		"kindMealPlan": "Menüplan",
 		"kindAll": "Alle",
-		"kindFilterEmpty": "Keine Liste dieser Art."
+		"kindFilterEmpty": "Keine Liste dieser Art.",
+		"actionsFor": "Aktionen für {name}"
 	},
 	"profile": {
 		"title": "Profil",
@@ -351,7 +352,13 @@
 		"close": "Schließen",
 		"edit": "Bearbeiten",
 		"delete": "Löschen",
-		"crashed": "Dieser Bildschirm konnte nicht angezeigt werden. Das Problem wurde erfasst."
+		"crashed": "Dieser Bildschirm konnte nicht angezeigt werden. Das Problem wurde erfasst.",
+		"filters": "Filter",
+		"clear": "Suche löschen",
+		"filtersActive": {
+			"one": "{count} aktiv",
+			"other": "{count} aktiv"
+		}
 	},
 	"list": {
 		"shop": "Geschäft",

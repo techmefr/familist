@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
-	import { tick } from 'svelte';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
 	import { slide } from 'svelte/transition';
@@ -23,6 +22,7 @@
 	import NewShopSheet from '$components/app/NewShopSheet.svelte';
 	import ActionSheet from '$components/app/ActionSheet.svelte';
 	import CardShareSheet from '$components/app/CardShareSheet.svelte';
+	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
 	import { longpress } from '$components/app/longpress.svelte';
 	import { acceptedShareCount } from '$domain/card-share';
 	import type { Action } from '$domain/action-sheet';
@@ -40,12 +40,10 @@
 		Pencil,
 		Globe,
 		Check,
-		Search,
-		SlidersHorizontal,
-		X,
 		Users,
 		Share2,
-		MoreVertical
+		MoreVertical,
+		X
 	} from '@lucide/svelte';
 	import CardShareRequests from '$components/app/CardShareRequests.svelte';
 	import IconField from '$components/app/IconField.svelte';
@@ -172,10 +170,9 @@
 
 	const openCard = $derived(data.cards.find((c) => c.id === openCardId) ?? null);
 
-	let searchOpen = $state(false);
 	let searchQuery = $state('');
-	let searchInput = $state<HTMLInputElement | null>(null);
 	let filterDialog = $state<HTMLDialogElement | null>(null);
+	let barHeight = $state(0);
 	let scopeFilter = $state<'all' | 'own' | 'shared'>('all');
 	let brandFilter = $state('');
 
@@ -202,20 +199,11 @@
 	const filtersActive = $derived(
 		scopeFilter !== 'all' || brandFilter !== '' || searchQuery.trim() !== ''
 	);
+	const activeFilterCount = $derived((scopeFilter !== 'all' ? 1 : 0) + (brandFilter !== '' ? 1 : 0));
 
 	function resetFilters() {
 		scopeFilter = 'all';
 		brandFilter = '';
-	}
-
-	async function toggleSearch() {
-		searchOpen = !searchOpen;
-		if (searchOpen) {
-			await tick();
-			searchInput?.focus();
-		} else {
-			searchQuery = '';
-		}
 	}
 
 	function openFilters() {
@@ -376,30 +364,6 @@
 	{#if data.cards.length === 0}
 		<EmptyState illustration="cards" text={t('cards.empty')} testId="cards-empty" />
 	{:else}
-		{#if searchOpen}
-			<div class="mt-6 flex items-center gap-2" transition:slide={{ duration: motionMs(150), easing: cubicOut }}>
-				<div class="flex-1">
-					<IconField icon={Search}>
-						<Input
-							bind:ref={searchInput}
-							bind:value={searchQuery}
-							data-test-id="cards-search-input"
-							placeholder={t('cards.searchPlaceholder')}
-						/>
-					</IconField>
-				</div>
-				<button
-					type="button"
-					onclick={toggleSearch}
-					aria-label={t('cards.searchClose')}
-					data-test-id="cards-search-close"
-					class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
-				>
-					<X size={18} aria-hidden="true" />
-				</button>
-			</div>
-		{/if}
-
 		{#if filteredCards.length === 0}
 			<p class="text-muted-foreground mt-6 text-center" data-test-id="cards-filter-empty">
 				{t('cards.filterEmpty')}
@@ -447,35 +411,16 @@
 			</ul>
 		{/if}
 
-		<div class="mt-6 flex items-center justify-center gap-3">
-			<button
-				type="button"
-				onclick={toggleSearch}
-				aria-expanded={searchOpen}
-				aria-label={t('cards.searchOpen')}
-				data-test-id="cards-search-toggle"
-				class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] place-items-center rounded-full"
-			>
-				<Search size={18} aria-hidden="true" />
-			</button>
-			<button
-				type="button"
-				onclick={openFilters}
-				aria-label={t('cards.filterOpen')}
-				data-test-id="cards-filter-toggle"
-				class="fl-press relative grid size-11 min-w-[44px] place-items-center rounded-full {filtersActive
-					? 'bg-primary text-primary-foreground'
-					: 'bg-muted text-foreground'}"
-			>
-				<SlidersHorizontal size={18} aria-hidden="true" />
-				{#if filtersActive}
-					<span
-						class="bg-destructive absolute -end-0.5 -top-0.5 size-2.5 rounded-full border-2 border-white"
-						aria-hidden="true"
-					></span>
-				{/if}
-			</button>
-		</div>
+		<SearchFilterBar
+			bind:query={searchQuery}
+			bind:height={barHeight}
+			active={activeFilterCount}
+			onFilters={openFilters}
+			label={t('cards.searchPlaceholder')}
+			placeholder={t('cards.searchPlaceholder')}
+			testPrefix="cards-search"
+		/>
+		<div class="md:hidden" style="height: {barHeight}px" aria-hidden="true"></div>
 	{/if}
 
 	{#if adding}

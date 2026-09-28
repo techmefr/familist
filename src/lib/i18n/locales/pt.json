@@ -60,7 +60,8 @@
 		"kindShopping": "Compras",
 		"kindMealPlan": "Menu",
 		"kindAll": "Todas",
-		"kindFilterEmpty": "Nenhuma lista deste tipo."
+		"kindFilterEmpty": "Nenhuma lista deste tipo.",
+		"actionsFor": "Ações para {name}"
 	},
 	"profile": {
 		"title": "Perfil",
@@ -351,7 +352,13 @@
 		"close": "Fechar",
 		"edit": "Editar",
 		"delete": "Eliminar",
-		"crashed": "Este ecrã não pôde ser apresentado. O problema foi registado."
+		"crashed": "Este ecrã não pôde ser apresentado. O problema foi registado.",
+		"filters": "Filtros",
+		"clear": "Limpar a pesquisa",
+		"filtersActive": {
+			"one": "{count} ativo",
+			"other": "{count} ativos"
+		}
 	},
 	"list": {
 		"shop": "Loja",
