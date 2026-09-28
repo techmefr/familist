@@ -1,5 +1,7 @@
 <script lang="ts">
 	import '../app.css';
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { goto, onNavigate, afterNavigate } from '$app/navigation';
 	import { trackPageview } from '$native/analytics';
@@ -72,6 +74,35 @@
 	 * where the measurement counts.
 	 */
 	let navbarH = $state(0);
+
+	/**
+	 * Hides the header while scrolling down past the first screenful, gives it back on the way up — the
+	 * direction is what matters, not the absolute position, so a person scrolling back to check something
+	 * gets it back immediately instead of having to reach the very top first. Below `headerHideAt` it always
+	 * stays put: hiding it right as the page starts would flicker on the smallest scroll.
+	 */
+	const headerHideAt = 96;
+	let headerHidden = $state(false);
+
+	onMount(() => {
+		if (!browser) return;
+		let lastY = window.scrollY;
+
+		function onScroll() {
+			const y = window.scrollY;
+			if (y <= headerHideAt) {
+				headerHidden = false;
+			} else if (y > lastY) {
+				headerHidden = true;
+			} else if (y < lastY) {
+				headerHidden = false;
+			}
+			lastY = y;
+		}
+
+		window.addEventListener('scroll', onScroll, { passive: true });
+		return () => window.removeEventListener('scroll', onScroll);
+	});
 
 	i18n.init();
 	registerServiceWorker();
@@ -631,7 +662,11 @@
 				and the profile. A setting is looked for at the top of the screen; a round trip is made with the
 				thumb, on the edge.
 			-->
-			<header class="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 pt-3">
+			<header
+				class="bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl items-center
+					justify-between gap-4 px-4 pt-3 pb-1 transition-transform duration-200 ease-out
+					{headerHidden ? '-translate-y-full' : 'translate-y-0'}"
+			>
 				<p class="text-h2 flex min-w-0 items-center gap-2 font-semibold full:hidden">
 					<Logo />
 					<span class="min-w-0 shrink truncate">{t('app.name')}</span>
