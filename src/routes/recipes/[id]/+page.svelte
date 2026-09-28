@@ -175,10 +175,9 @@
 				</ol>
 
 				<Button
-					variant="outline"
 					onclick={() => (cookAlongOpen = true)}
 					data-test-class="recipe-cook-along"
-					class="fl-press mt-3"
+					class="fl-press mt-3 w-full"
 				>
 					<Mic size={18} aria-hidden="true" />
 					{t('recipes.cookAlong.start')}
