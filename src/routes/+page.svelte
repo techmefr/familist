@@ -504,40 +504,50 @@
 		</EmptyState>
 	</div>
 {:else}
-	<div class="mt-6 flex flex-wrap gap-2" data-test-id="lists-kind-filter">
-		{#each [{ id: 'all', label: t('lists.kindAll') }, { id: 'shopping', label: t('lists.kindShopping') }, { id: 'meal-plan', label: t('lists.kindMealPlan') }] as option (option.id)}
-			<button
-				type="button"
-				onclick={() => (kindFilter = option.id as 'all' | ListKind)}
-				aria-pressed={kindFilter === option.id}
-				data-test-id="lists-kind-filter-{option.id}"
-				class="fl-press text-label rounded-full px-3 py-1.5 font-medium {kindFilter === option.id
-					? 'bg-primary text-primary-foreground'
-					: 'bg-muted text-foreground'}"
-			>
-				{option.label}
-			</button>
-		{/each}
-	</div>
-
-	<!-- Personal, a household, or everything: the same split as the choice made at creation, read backwards. -->
-	{#if data.circles.length > 0}
-		<div class="mt-2 flex flex-wrap gap-2" data-test-id="lists-scope-filter">
-			{#each [{ id: 'all', label: t('lists.scopeAll') }, { id: 'mine', label: t('lists.scopePersonal') }, ...data.circles.map((circle) => ({ id: circle.id, label: circle.name }))] as option (option.id)}
+	<!--
+		Same reasoning as the recipes and cards bars (#402): a control used this much has no business at the
+		top of the screen on a phone, where reaching it means changing grip. `fl-above-nav` floats it above
+		the nav bar under 48rem and puts it back at the top of the flow past that width, exactly where it
+		already was.
+	-->
+	<div
+		class="fl-above-nav border-border bg-card/82 mt-6 space-y-2 rounded-2xl border p-2 shadow-[var(--fl-shadow-3)] backdrop-blur-2xl"
+	>
+		<div class="flex flex-wrap gap-2" data-test-id="lists-kind-filter">
+			{#each [{ id: 'all', label: t('lists.kindAll') }, { id: 'shopping', label: t('lists.kindShopping') }, { id: 'meal-plan', label: t('lists.kindMealPlan') }] as option (option.id)}
 				<button
 					type="button"
-					onclick={() => (scopeFilter = option.id)}
-					aria-pressed={scopeFilter === option.id}
-					data-test-id="lists-scope-filter-{option.id}"
-					class="fl-press text-caption rounded-full px-3 py-1 font-medium {scopeFilter === option.id
-						? 'bg-secondary text-secondary-foreground'
+					onclick={() => (kindFilter = option.id as 'all' | ListKind)}
+					aria-pressed={kindFilter === option.id}
+					data-test-id="lists-kind-filter-{option.id}"
+					class="fl-press text-label rounded-full px-3 py-1.5 font-medium {kindFilter === option.id
+						? 'bg-primary text-primary-foreground'
 						: 'bg-muted text-foreground'}"
 				>
 					{option.label}
 				</button>
 			{/each}
 		</div>
-	{/if}
+
+		<!-- Personal, a household, or everything: the same split as the choice made at creation, read backwards. -->
+		{#if data.circles.length > 0}
+			<div class="flex flex-wrap gap-2" data-test-id="lists-scope-filter">
+				{#each [{ id: 'all', label: t('lists.scopeAll') }, { id: 'mine', label: t('lists.scopePersonal') }, ...data.circles.map((circle) => ({ id: circle.id, label: circle.name }))] as option (option.id)}
+					<button
+						type="button"
+						onclick={() => (scopeFilter = option.id)}
+						aria-pressed={scopeFilter === option.id}
+						data-test-id="lists-scope-filter-{option.id}"
+						class="fl-press text-caption rounded-full px-3 py-1 font-medium {scopeFilter === option.id
+							? 'bg-secondary text-secondary-foreground'
+							: 'bg-muted text-foreground'}"
+					>
+						{option.label}
+					</button>
+				{/each}
+			</div>
+		{/if}
+	</div>
 
 	{#if visibleLists.length === 0}
 		<p class="text-muted-foreground text-label mt-6" data-test-id="lists-kind-filter-empty">
