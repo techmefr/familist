@@ -1,4 +1,7 @@
+import { t } from '$i18n/index.svelte';
 import { supabase } from '$db/supabase';
+import { AiRequestQueue, withRetry, type RetryStatus } from '$domain/ai-retry';
+import { toasts } from './toast.svelte';
 import {
 	afterRemoval,
 	buildRequest,
@@ -76,6 +79,16 @@ class AiStore {
 
 	/** Provider -> key, kept apart from `credentials` so the key never has to travel with the list. */
 	#keys = new Map<string, string>();
+
+	/**
+	 * Every AI/image call this store makes runs through here (#382): concurrent requests from the same
+	 * session — a recipe idea asked while a dish photo is still generating — run one after another instead
+	 * of all hitting the provider's rate limit at once and each retrying on top of the others.
+	 */
+	#queue = new AiRequestQueue();
+
+	/** The progress toast shown while a queued request waits for its next try, if one is currently shown. */
+	#retryToastId: number | null = null;
 
 	#active = $derived(resolveActiveCredential(this.credentials));
 
@@ -389,33 +402,76 @@ class AiStore {
 	}
 
 	async #sendText(provider: Provider, request: ProviderRequest): Promise<TextOutcome> {
-		let response: Response;
-		try {
-			response = await fetch(request.url, {
-				method: 'POST',
-				headers: request.headers,
-				body: request.body
-			});
-		} catch {
-			// A CORS refusal arrives here, indistinguishable from a network outage: the browser says nothing more to
-			// the calling code, by design.
-			return { ok: false, reason: 'network', detail: '' };
-		}
+		let lastPayload: unknown = null;
+		let lastStatus: number | undefined;
+		let networkFailed = false;
 
-		const payload: unknown = await response.json().catch(() => null);
+		const outcome = await this.#queue.run(() =>
+			withRetry(async () => {
+				let response: Response;
+				try {
+					response = await fetch(request.url, {
+						method: 'POST',
+						headers: request.headers,
+						body: request.body
+					});
+				} catch {
+					// A CORS refusal arrives here, indistinguishable from a network outage: the browser says nothing
+					// more to the calling code, by design. Not retried: a permanent CORS refusal would just be
+					// retried into the same wall, and a transient outage is what the person's own retry (#error.network)
+					// already covers.
+					networkFailed = true;
+					return { ok: false as const, status: undefined };
+				}
 
-		if (!response.ok) {
+				const payload: unknown = await response.json().catch(() => null);
+				lastPayload = payload;
+				lastStatus = response.status;
+
+				if (!response.ok) return { ok: false as const, status: response.status };
+				return { ok: true as const, value: payload };
+			}, this.#retryOptions())
+		);
+
+		this.#dismissRetryToast();
+
+		if (!outcome.ok) {
+			if (networkFailed) return { ok: false, reason: 'network', detail: '' };
+			if (outcome.reason === 'exhausted') {
+				return { ok: false, reason: 'provider', detail: t('ai.error.retriesExhausted') };
+			}
 			return {
 				ok: false,
 				reason: 'provider',
-				detail: parseError(payload) ?? String(response.status)
+				detail: parseError(lastPayload) ?? String(lastStatus ?? '')
 			};
 		}
 
-		const text = parseReply(provider, payload);
+		const text = parseReply(provider, outcome.value);
 		if (text === null) return { ok: false, reason: 'unreadable', detail: '' };
 
 		return { ok: true, text };
+	}
+
+	/** Shared `withRetry` wiring: shows/updates the "waiting to retry" toast as each attempt is scheduled. */
+	#retryOptions() {
+		return { onRetry: (status: RetryStatus) => this.#reportRetry(status) };
+	}
+
+	#reportRetry(status: RetryStatus) {
+		if (this.#retryToastId !== null) toasts.dismiss(this.#retryToastId);
+
+		const seconds = Math.max(1, Math.round(status.delayMs / 1000));
+		this.#retryToastId = toasts.progress(t('ai.retrying', { seconds }));
+		const total = status.attempt + status.retriesLeft;
+		toasts.setProgress(this.#retryToastId, total > 0 ? status.attempt / total : 0);
+	}
+
+	#dismissRetryToast() {
+		if (this.#retryToastId !== null) {
+			toasts.dismiss(this.#retryToastId);
+			this.#retryToastId = null;
+		}
 	}
 
 	/**
@@ -469,20 +525,40 @@ class AiStore {
 
 		const request = openRouterImageRequest(apiKey, prompt, seed);
 
-		let response: Response;
-		try {
-			response = await fetch(request.url, {
-				method: 'POST',
-				headers: request.headers,
-				body: request.body
-			});
-		} catch {
-			return { ok: false, reason: networkFailure() };
+		let lastStatus: number | undefined;
+		let lastPayload: unknown = null;
+		let networkFailed = false;
+
+		const outcome = await this.#queue.run(() =>
+			withRetry(async () => {
+				let response: Response;
+				try {
+					response = await fetch(request.url, {
+						method: 'POST',
+						headers: request.headers,
+						body: request.body
+					});
+				} catch {
+					networkFailed = true;
+					return { ok: false as const, status: undefined };
+				}
+
+				lastStatus = response.status;
+				if (!response.ok) return { ok: false as const, status: response.status };
+
+				lastPayload = await response.json().catch(() => null);
+				return { ok: true as const, value: lastPayload };
+			}, this.#retryOptions())
+		);
+
+		this.#dismissRetryToast();
+
+		if (!outcome.ok) {
+			if (networkFailed) return { ok: false, reason: networkFailure() };
+			return { ok: false, reason: openRouterFailureOfStatus(lastStatus ?? 0) };
 		}
 
-		if (!response.ok) return { ok: false, reason: openRouterFailureOfStatus(response.status) };
-
-		const url = openRouterImageUrl(await response.json().catch(() => null));
+		const url = openRouterImageUrl(lastPayload);
 		const image = url ? decodeDataUrl(url) : null;
 		if (!image) return { ok: false, reason: 'unreachable' };
 
