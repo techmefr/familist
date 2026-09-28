@@ -601,11 +601,13 @@
 		<div class="bg-card space-y-4 rounded-t-2xl border p-4 md:rounded-2xl">
 			<div>
 				<p class="text-caption text-muted-foreground mb-2 font-medium">{t('lists.kindFilterLabel')}</p>
+				<!-- No "All" pill (#402): tapping the active one again clears it, same as never having tapped it. -->
 				<div class="flex flex-wrap gap-2" data-test-id="lists-kind-filter">
-					{#each [{ id: 'all', label: t('lists.kindAll') }, { id: 'shopping', label: t('lists.kindShopping') }, { id: 'meal-plan', label: t('lists.kindMealPlan') }] as option (option.id)}
+					{#each [{ id: 'shopping', label: t('lists.kindShopping') }, { id: 'meal-plan', label: t('lists.kindMealPlan') }] as option (option.id)}
 						<button
 							type="button"
-							onclick={() => (kindFilter = option.id as 'all' | ListKind)}
+							onclick={() =>
+								(kindFilter = kindFilter === option.id ? 'all' : (option.id as ListKind))}
 							aria-pressed={kindFilter === option.id}
 							data-test-id="lists-kind-filter-{option.id}"
 							class="fl-press text-label rounded-full px-3 py-1.5 font-medium {kindFilter ===
@@ -623,11 +625,12 @@
 			{#if data.circles.length > 0}
 				<div>
 					<p class="text-caption text-muted-foreground mb-2 font-medium">{t('lists.scopeFilterLabel')}</p>
+					<!-- No "All" pill (#402): tapping the active one again clears it. -->
 					<div class="flex flex-wrap gap-2" data-test-id="lists-scope-filter">
-						{#each [{ id: 'all', label: t('lists.scopeAll') }, { id: 'mine', label: t('lists.scopePersonal') }, ...data.circles.map((circle) => ({ id: circle.id, label: circle.name }))] as option (option.id)}
+						{#each [{ id: 'mine', label: t('lists.scopePersonal') }, ...data.circles.map((circle) => ({ id: circle.id, label: circle.name }))] as option (option.id)}
 							<button
 								type="button"
-								onclick={() => (scopeFilter = option.id)}
+								onclick={() => (scopeFilter = scopeFilter === option.id ? 'all' : option.id)}
 								aria-pressed={scopeFilter === option.id}
 								data-test-id="lists-scope-filter-{option.id}"
 								class="fl-press text-caption rounded-full px-3 py-1 font-medium {scopeFilter ===
