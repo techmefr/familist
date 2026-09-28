@@ -600,12 +600,6 @@
 										{eventLabel(list.eventDate)}
 									</span>
 								{/if}
-								<span class="bg-muted mt-1.5 block h-1 overflow-hidden rounded-full" aria-hidden="true">
-									<span
-										class="fl-grow bg-secondary block h-full rounded-full"
-										style="width: {total ? Math.round((done / total) * 100) : 0}%"
-									></span>
-								</span>
 							</span>
 						</a>
 						<!--
@@ -679,24 +673,6 @@
 	</ul>
 {/if}
 
-<!--
-	Adding a list from the end of the stack.
-
-	The button at the top still exists, but you only notice a list is missing after going through the ones
-	you have. The dashed outline tells it from the real ones without making it one more control to ignore;
-	it disappears when the form is already open, so as not to offer the same thing twice.
--->
-{#if data.ready && !creating && data.lists.length > 0}
-	<button
-		type="button"
-		onclick={openCreate}
-		data-test-id="new-list-card"
-		class="fl-press border-input text-primary text-label hover:bg-[var(--fl-primary-tint)] mt-3 flex min-h-[max(3.5rem,56px)] w-full items-center justify-center gap-2 rounded-[1.375rem] border border-dashed font-medium transition-colors"
-	>
-		<Plus size={20} aria-hidden="true" />
-		{t('lists.new')}
-	</button>
-{/if}
 
 <EmojiPicker bind:this={picker} value={emoji} onpick={(choices) => (emoji = choices)} />
 
