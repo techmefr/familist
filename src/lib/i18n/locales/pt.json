@@ -712,7 +712,8 @@
 						"quanto falta",
 						"tempo restante"
 					]
-				}
+				},
+				"longPressHint": "Toque longo para a lista de comandos de voz"
 			}
 		},
 		"stepIngredients": "Ingredientes usados no passo {rank}",
@@ -792,7 +793,13 @@
 				"one": "{count} ativo",
 				"other": "{count} ativos"
 			}
-		}
+		},
+		"openAria": "Abrir receita {name}",
+		"actions": "Mais",
+		"actionsAria": "Mais ações para {name}",
+		"addPhotoAction": "Adicionar uma foto",
+		"backToRecipes": "Voltar às receitas",
+		"notFound": "Receita não encontrada."
 	},
 	"recipeTags": {
 		"title": "Categorias",

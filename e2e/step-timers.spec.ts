@@ -23,10 +23,15 @@ async function createRecipe(page: Page, name: string) {
 	return page.locator('[data-test-class="recipe-card"]').filter({ hasText: name });
 }
 
-async function openCookAlong(card: ReturnType<Page['locator']>) {
-	const start = card.locator('[data-test-class="recipe-cook-along"]');
-	if (!(await start.isVisible())) await card.locator('[data-test-class="recipe-card-header"]').click();
-	await start.click();
+/**
+ * A recipe opens its own page (#373) before cook-along starts. `card` may already be detached from a
+ * previous navigation — that is fine, it is only used to reach the page the first time.
+ */
+async function openCookAlong(page: Page, card: ReturnType<Page['locator']>) {
+	if (!(await page.getByTestId('recipe-detail').isVisible().catch(() => false))) {
+		await card.locator('[data-test-class="recipe-card-header"]').click();
+	}
+	await page.locator('[data-test-class="recipe-cook-along"]').click();
 }
 
 test.describe('minuteurs des étapes', () => {
@@ -39,7 +44,7 @@ test.describe('minuteurs des étapes', () => {
 		await page.reload();
 
 		const card = await createRecipe(page, `Pâtes e2e ${Date.now()}`);
-		await openCookAlong(card);
+		await openCookAlong(page, card);
 
 		const cookAlong = page.getByTestId('cook-along');
 		await expect(cookAlong.getByTestId('cook-along-timer-start')).toHaveCount(0);
@@ -74,7 +79,7 @@ test.describe('minuteurs des étapes', () => {
 		await alarm.locator('[data-test-class="timer-alarm-stop"]').click();
 		await expect(alarm).toBeHidden();
 
-		await openCookAlong(card);
+		await openCookAlong(page, card);
 		await expect(page.getByTestId('cook-along').locator('[data-test-class="cook-along-timer"]')).toHaveCount(0);
 	});
 
@@ -85,20 +90,24 @@ test.describe('minuteurs des étapes', () => {
 		const card = await createRecipe(page, name);
 
 		await card.locator('[data-test-class="recipe-card-header"]').click();
-		await card.locator('[data-test-class="recipe-edit"]').click();
+		await page.locator('[data-test-class="recipe-edit"]').click();
 		await page.getByTestId('recipe-next').click();
 		await page.getByTestId('recipe-next').click();
 		await expect(page.locator('[data-test-class="recipe-step-minutes"]').nth(1)).toHaveValue('2');
 		await expect(page.locator('[data-test-class="recipe-step-minutes"]').first()).toHaveValue('');
 		await page.getByTestId('recipe-next').click();
 
-		await openCookAlong(card);
+		const reopenedCard = page.locator('[data-test-class="recipe-card"]').filter({ hasText: name });
+		await openCookAlong(page, reopenedCard);
 		const cookAlong = page.getByTestId('cook-along');
 		await cookAlong.getByTestId('cook-along-next').click();
 		await cookAlong.getByTestId('cook-along-timer-start').click();
 
-		await page.reload();
-		await openCookAlong(page.locator('[data-test-class="recipe-card"]').filter({ hasText: name }));
+		// Reload the recipe's own page directly (#373) rather than relying on `reload()` landing back on it.
+		const recipeUrl = page.url();
+		await page.goto(recipeUrl);
+		await expect(page.getByTestId('recipe-detail')).toBeVisible();
+		await page.locator('[data-test-class="recipe-cook-along"]').click();
 		const timer = page.getByTestId('cook-along').locator('[data-test-class="cook-along-timer"]');
 		await expect(timer).toHaveCount(1);
 		await timer.locator('[data-test-class="cook-along-timer-stop"]').click();

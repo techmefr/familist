@@ -333,12 +333,21 @@ function suggestedLinks(raw: unknown, allIngredients: RecipeLine[], allSteps: st
 		.map(indices => indices.flatMap(index => (keptIndex.has(index) ? [keptIndex.get(index)!] : [])))
 		.filter((_, step) => allSteps[step] !== '');
 
-	if (given.some(indices => indices.length > 0)) return given;
+	if (given.every(indices => indices.length === 0)) {
+		return guessLinks(
+			allIngredients.filter(line => line.name !== '').map(line => line.name),
+			allSteps.filter(Boolean)
+		);
+	}
 
-	return guessLinks(
+	// The model rarely links every step: one it left empty — often the first, "soak the gelatin" naming no
+	// ingredient by the exact word the model gave it — must not stay empty just because a later step got a
+	// link. Each step falls back to a guess of its own rather than the whole recipe falling back together.
+	const guessed = guessLinks(
 		allIngredients.filter(line => line.name !== '').map(line => line.name),
 		allSteps.filter(Boolean)
 	);
+	return given.map((indices, step) => (indices.length > 0 ? indices : (guessed[step] ?? [])));
 }
 
 export function parseRecipeSuggestion(text: string): SuggestedRecipe | null {
