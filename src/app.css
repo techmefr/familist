@@ -1836,3 +1836,45 @@ button[data-slot='switch'][data-state='checked'] {
 		padding: 1rem;
 	}
 }
+
+/*
+ * The boxed look of a one-time code, without the six separate fields the boxes usually mean (#401): one real
+ * input still takes the whole value, a screen reader still announces it once, a pasted code still lands
+ * whole. The boxes are drawn under the text instead — a striped background whose stripe width matches the
+ * letter-spacing that pushes each character into its own cell.
+ *
+ * Both live in `em`, tied to the field's own font size rather than a fixed pixel width: at the largest text
+ * sizes the boxes grow with the digits inside them instead of clipping the code past the visible edge, which
+ * a fixed `tracking` value used to do.
+ */
+.fl-otp-field {
+	--fl-otp-box: 2.25em;
+	width: 100%;
+	/* Slack past the exact grid math, per character: real glyph advances drift from `1ch`, a plain digit less
+	   than a wide letter like "W" — enough, across ten of them, to scroll the first characters out of view
+	   otherwise. That scroll is the bug this whole thing exists to avoid, so the margin errs wide. */
+	max-width: calc(var(--fl-otp-length, 6) * (var(--fl-otp-box) + 0.45em) + 0.5em);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: calc(var(--fl-otp-box) - 1ch);
+	background-repeat: no-repeat;
+	background-image: repeating-linear-gradient(
+		90deg,
+		var(--border) 0 1px,
+		transparent 1px var(--fl-otp-box)
+	);
+	background-size: calc(var(--fl-otp-length, 6) * var(--fl-otp-box)) 100%;
+}
+
+/*
+ * The base input rule above (#376) sets `padding-inline` outside any `@layer`, so it outranks a plain class
+ * regardless of order. Matched here rather than fought: same element and `:not()` chain, plus this class, so
+ * the padding the boxes need wins the same way the icon indent above does.
+ */
+input.fl-otp-field:not([type='checkbox']):not([type='radio']):not([type='range']) {
+	padding-inline-start: calc((var(--fl-otp-box) - 1ch) / 2);
+	padding-inline-end: 1px;
+}
+
+[dir='rtl'] .fl-otp-field {
+	background-position-x: right;
+}
