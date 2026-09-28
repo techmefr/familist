@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
@@ -45,10 +46,43 @@
 	let eventDate = $state('');
 	let kind = $state<ListKind>('shopping');
 
+	/**
+	 * Personal, or a given household: chosen when the list is born, editable later from the long-press
+	 * menu's Share action. `''` means personal — a household id never is one, so the two cannot collide.
+	 */
+	let scope = $state('');
+
+	const LAST_SCOPE_KEY = 'familist:last-list-scope';
+
+	/**
+	 * Personal by default, unless a household was used last time and still exists, or there is exactly one
+	 * to choose from — then asking would be a step for nothing.
+	 */
+	function defaultScope() {
+		const last = browser ? localStorage.getItem(LAST_SCOPE_KEY) : null;
+		if (last && data.circles.some((circle) => circle.id === last)) return last;
+		if (data.circles.length === 1) return data.circles[0].id;
+		return '';
+	}
+
+	function chooseScope(id: string) {
+		scope = id;
+		if (browser && id) localStorage.setItem(LAST_SCOPE_KEY, id);
+	}
+
 	/** Which lists show on the overview: every one, only the shopping lists, or only the meal plans. */
 	let kindFilter = $state<'all' | ListKind>('all');
+
+	/** Personal, a given household, or every list regardless of who it belongs to. */
+	let scopeFilter = $state('all');
+
 	const visibleLists = $derived(
-		data.lists.filter((list) => kindFilter === 'all' || list.kind === kindFilter)
+		data.lists.filter((list) => {
+			if (kindFilter !== 'all' && list.kind !== kindFilter) return false;
+			if (scopeFilter === 'all') return true;
+			if (scopeFilter === 'mine') return !list.householdId;
+			return list.householdId === scopeFilter;
+		})
 	);
 
 	/** Set only after a save, when the person refused notifications. */
@@ -106,13 +140,21 @@
 	 * The name and the emoji are corrected in the same place they are set: a second form would only have
 	 * repeated the same two fields and the same palette.
 	 */
-	function rename(list: { id: string; name: string; emoji: string; eventDate?: string; kind: ListKind }) {
+	function rename(list: {
+		id: string;
+		name: string;
+		emoji: string;
+		eventDate?: string;
+		kind: ListKind;
+		householdId?: string;
+	}) {
 		feedback.play('tap');
 		renamed = list.id;
 		name = list.name;
 		emoji = list.emoji;
 		eventDate = list.eventDate ?? '';
 		kind = list.kind;
+		scope = list.householdId ?? '';
 		reminderRefused = false;
 		creating = true;
 
@@ -126,6 +168,7 @@
 		emoji = '🛒';
 		eventDate = '';
 		kind = 'shopping';
+		scope = '';
 		reminderRefused = false;
 		creating = false;
 	}
@@ -135,7 +178,10 @@
 	 * without that, the cursor would have no field to land in on arrival.
 	 */
 	$effect(() => {
-		if (createIntent.take('list')) creating = true;
+		if (createIntent.take('list')) {
+			scope = defaultScope();
+			creating = true;
+		}
 	});
 
 	const stats = (listId: string) => {
@@ -215,7 +261,14 @@
 			data.updateList(renamed, { name, emoji, eventDate, kind });
 		} else {
 			feedback.play('add');
-			data.addList({ name, emoji, eventDate, kind, color: TINTS[data.lists.length % TINTS.length] });
+			data.addList({
+				name,
+				emoji,
+				eventDate,
+				kind,
+				householdId: scope || undefined,
+				color: TINTS[data.lists.length % TINTS.length]
+			});
 		}
 
 		cancel();
@@ -239,6 +292,7 @@
 
 	function openCreate() {
 		feedback.play('tap');
+		scope = defaultScope();
 		creating = true;
 	}
 </script>
@@ -321,6 +375,55 @@
 				{/each}
 			</div>
 		</fieldset>
+		<!--
+			Personal or a household, decided as the list is born rather than through a second trip via the
+			long-press menu. Big buttons and faces: a name in a dropdown would ask you to read it, where the
+			avatars are recognised the way the household's own members are, everywhere else in the app.
+		-->
+		{#if !renamed && data.circles.length > 0}
+			<fieldset>
+				<legend class="text-label mb-2 font-medium">{t('lists.scopeLabel')}</legend>
+				<div class="grid grid-cols-1 gap-2 sm:grid-cols-2" data-test-id="list-scope">
+					<Label
+						class="border-input has-checked:border-primary has-checked:bg-[var(--fl-primary-tint)] has-focus-visible:ring-ring has-focus-visible:ring-2 flex min-h-[max(3.5rem,56px)] cursor-pointer items-center gap-2 rounded-lg border px-3 py-2"
+					>
+						<input
+							type="radio"
+							name="list-scope"
+							class="sr-only"
+							checked={scope === ''}
+							onchange={() => chooseScope('')}
+							data-test-id="list-scope-personal"
+						/>
+						<Lock size={16} aria-hidden="true" />
+						<span class="text-label font-medium">{t('lists.scopePersonal')}</span>
+					</Label>
+					{#each data.circles as circle (circle.id)}
+						{@const members = data.membersOf(circle.id)}
+						<Label
+							class="border-input has-checked:border-primary has-checked:bg-[var(--fl-primary-tint)] has-focus-visible:ring-ring has-focus-visible:ring-2 flex min-h-[max(3.5rem,56px)] cursor-pointer items-center gap-2 rounded-lg border px-3 py-2"
+						>
+							<input
+								type="radio"
+								name="list-scope"
+								class="sr-only"
+								checked={scope === circle.id}
+								onchange={() => chooseScope(circle.id)}
+								data-test-id="list-scope-{circle.id}"
+							/>
+							<span class="flex items-center" aria-hidden="true">
+								{#each members.slice(0, 3) as member, rank (member.id)}
+									<span class={rank === 0 ? '' : '-ms-2'}>
+										<Avatar {member} size={22} ring />
+									</span>
+								{/each}
+							</span>
+							<span class="text-label min-w-0 truncate font-medium">{circle.name}</span>
+						</Label>
+					{/each}
+				</div>
+			</fieldset>
+		{/if}
 		<div class="flex flex-wrap items-stretch gap-2">
 			<Button type="submit" data-test-id="list-create" class="fl-press flex-auto rounded-full">
 				{t('common.save')}
@@ -416,6 +519,25 @@
 			</button>
 		{/each}
 	</div>
+
+	<!-- Personal, a household, or everything: the same split as the choice made at creation, read backwards. -->
+	{#if data.circles.length > 0}
+		<div class="mt-2 flex flex-wrap gap-2" data-test-id="lists-scope-filter">
+			{#each [{ id: 'all', label: t('lists.scopeAll') }, { id: 'mine', label: t('lists.scopePersonal') }, ...data.circles.map((circle) => ({ id: circle.id, label: circle.name }))] as option (option.id)}
+				<button
+					type="button"
+					onclick={() => (scopeFilter = option.id)}
+					aria-pressed={scopeFilter === option.id}
+					data-test-id="lists-scope-filter-{option.id}"
+					class="fl-press text-caption rounded-full px-3 py-1 font-medium {scopeFilter === option.id
+						? 'bg-secondary text-secondary-foreground'
+						: 'bg-muted text-foreground'}"
+				>
+					{option.label}
+				</button>
+			{/each}
+		</div>
+	{/if}
 
 	{#if visibleLists.length === 0}
 		<p class="text-muted-foreground text-label mt-6" data-test-id="lists-kind-filter-empty">

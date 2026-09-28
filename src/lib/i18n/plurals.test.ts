@@ -61,6 +61,8 @@ describe('formes plurielles', () => {
 			'lists.remaining',
 			'cards.sharedCount',
 			'common.filtersActive',
+			'add.addedCount',
+			'add.addedAnnounce',
 			'prices.shopCount',
 			'recipes.servingsCount',
 			'recipes.search.count',

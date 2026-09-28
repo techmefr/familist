@@ -61,6 +61,9 @@
 		"kindMealPlan": "Menú",
 		"kindAll": "Todas",
 		"kindFilterEmpty": "Ninguna lista de este tipo.",
+		"scopeLabel": "¿Quién ve esta lista?",
+		"scopePersonal": "Solo yo",
+		"scopeAll": "Todas",
 		"actionsFor": "Acciones para {name}"
 	},
 	"profile": {
@@ -449,7 +452,15 @@
 		"editTitle": "Editar el artículo",
 		"saveEdit": "Guardar",
 		"note": "Detalle (opcional)",
-		"notePlaceholder": "La botella grande, sin azúcar…"
+		"notePlaceholder": "La botella grande, sin azúcar…",
+		"addedCount": {
+			"one": "{count} añadido",
+			"other": "{count} añadidos"
+		},
+		"addedAnnounce": {
+			"one": "{count} añadido: {name}",
+			"other": "{count} añadidos: {name}"
+		}
 	},
 	"shops": {
 		"title": "Tiendas y secciones",

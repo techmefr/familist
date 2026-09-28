@@ -28,6 +28,8 @@ test('modifier un article, au bouton comme à l appui long', async ({ signedInPa
 	await page.getByTestId('empty-add-item').click();
 	await page.getByTestId('add-name').fill('Pommes');
 	await page.getByTestId('add-submit').click();
+	// The sheet stays open for back-to-back adds (#360): closing it here is a separate, explicit gesture.
+	await page.getByTestId('add-close').click();
 
 	const row = page.locator('[data-test-class="item-row"]').filter({ hasText: 'Pommes' });
 	await expect(row).toBeVisible();
