@@ -60,7 +60,10 @@
 		"kindShopping": "Fividianana",
 		"kindMealPlan": "Sakafo",
 		"kindAll": "Rehetra",
-		"kindFilterEmpty": "Tsy misy lisitra amin'ity karazana ity."
+		"kindFilterEmpty": "Tsy misy lisitra amin'ity karazana ity.",
+		"scopeLabel": "Iza no mahita ity lisitra ity?",
+		"scopePersonal": "Izaho irery",
+		"scopeAll": "Rehetra"
 	},
 	"profile": {
 		"title": "Mombamomba",
@@ -442,7 +445,15 @@
 		"editTitle": "Ovay ny entana",
 		"saveEdit": "Tehirizo",
 		"note": "Fanamarihana (tsy voatery)",
-		"notePlaceholder": "Ilay tavoahangy lehibe, tsy misy siramamy…"
+		"notePlaceholder": "Ilay tavoahangy lehibe, tsy misy siramamy…",
+		"addedCount": {
+			"one": "{count} nampidirina",
+			"other": "{count} nampidirina"
+		},
+		"addedAnnounce": {
+			"one": "{count} nampidirina: {name}",
+			"other": "{count} nampidirina: {name}"
+		}
 	},
 	"shops": {
 		"title": "Fivarotana sy faritra",

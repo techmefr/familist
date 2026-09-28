@@ -60,7 +60,10 @@
 		"kindShopping": "Spesa",
 		"kindMealPlan": "Menù",
 		"kindAll": "Tutte",
-		"kindFilterEmpty": "Nessuna lista di questo tipo."
+		"kindFilterEmpty": "Nessuna lista di questo tipo.",
+		"scopeLabel": "Chi vede questa lista?",
+		"scopePersonal": "Solo io",
+		"scopeAll": "Tutte"
 	},
 	"profile": {
 		"title": "Profilo",
@@ -442,7 +445,15 @@
 		"editTitle": "Modifica l’articolo",
 		"saveEdit": "Salva",
 		"note": "Nota (facoltativa)",
-		"notePlaceholder": "La bottiglia grande, senza zucchero…"
+		"notePlaceholder": "La bottiglia grande, senza zucchero…",
+		"addedCount": {
+			"one": "{count} aggiunto",
+			"other": "{count} aggiunti"
+		},
+		"addedAnnounce": {
+			"one": "{count} aggiunto: {name}",
+			"other": "{count} aggiunti: {name}"
+		}
 	},
 	"shops": {
 		"title": "Negozi e reparti",

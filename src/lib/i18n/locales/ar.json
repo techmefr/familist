@@ -64,7 +64,10 @@
 		"kindShopping": "تسوق",
 		"kindMealPlan": "قائمة الوجبات",
 		"kindAll": "الكل",
-		"kindFilterEmpty": "لا توجد قائمة من هذا النوع."
+		"kindFilterEmpty": "لا توجد قائمة من هذا النوع.",
+		"scopeLabel": "من يرى هذه القائمة؟",
+		"scopePersonal": "أنا فقط",
+		"scopeAll": "الكل"
 	},
 	"profile": {
 		"title": "الملف الشخصي",
@@ -446,7 +449,23 @@
 		"editTitle": "تعديل العنصر",
 		"saveEdit": "حفظ",
 		"note": "ملاحظة (اختياري)",
-		"notePlaceholder": "الزجاجة الكبيرة، بدون سكر…"
+		"notePlaceholder": "الزجاجة الكبيرة، بدون سكر…",
+		"addedCount": {
+			"zero": "لم يُضَف شيء",
+			"one": "أُضيف عنصر واحد",
+			"two": "أُضيف عنصران",
+			"few": "أُضيفت {count} عناصر",
+			"many": "أُضيف {count} عنصرًا",
+			"other": "أُضيف {count} عنصر"
+		},
+		"addedAnnounce": {
+			"zero": "لم يُضَف شيء: {name}",
+			"one": "أُضيف عنصر واحد: {name}",
+			"two": "أُضيف عنصران: {name}",
+			"few": "أُضيفت {count} عناصر: {name}",
+			"many": "أُضيف {count} عنصرًا: {name}",
+			"other": "أُضيف {count} عنصر: {name}"
+		}
 	},
 	"shops": {
 		"title": "المتاجر والأقسام",

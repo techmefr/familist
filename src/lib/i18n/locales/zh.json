@@ -59,7 +59,10 @@
 		"kindShopping": "购物",
 		"kindMealPlan": "菜单",
 		"kindAll": "全部",
-		"kindFilterEmpty": "没有此类型的清单。"
+		"kindFilterEmpty": "没有此类型的清单。",
+		"scopeLabel": "谁能看到这个清单？",
+		"scopePersonal": "仅我自己",
+		"scopeAll": "全部"
 	},
 	"profile": {
 		"title": "我的",
@@ -440,7 +443,13 @@
 		"editTitle": "编辑商品",
 		"saveEdit": "保存",
 		"note": "备注（可选）",
-		"notePlaceholder": "大瓶装、无糖……"
+		"notePlaceholder": "大瓶装、无糖……",
+		"addedCount": {
+			"other": "已添加 {count} 件"
+		},
+		"addedAnnounce": {
+			"other": "已添加 {count} 件：{name}"
+		}
 	},
 	"shops": {
 		"title": "门店与货区",

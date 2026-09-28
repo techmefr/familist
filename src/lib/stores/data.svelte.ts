@@ -559,7 +559,18 @@ class DataStore {
 		color: string;
 		eventDate?: string;
 		kind?: ListKind;
+		/** The household the list is born into, if it was not left personal. */
+		householdId?: string;
 	}) {
+		// Sharing into a circle you are not a member of is refused by RLS: fall back to personal rather than
+		// queue a write that will silently fail.
+		const householdId =
+			input.householdId && this.circles.some((circle) => circle.id === input.householdId)
+				? input.householdId
+				: undefined;
+
+		const roster = householdId ? this.membersOf(householdId).map((member) => member.id) : [];
+
 		const list: List = {
 			id: crypto.randomUUID(),
 			name: input.name.trim(),
@@ -567,22 +578,29 @@ class DataStore {
 			color: input.color,
 			eventDate: input.eventDate || undefined,
 			kind: input.kind ?? 'shopping',
+			householdId,
 			// A list is born personal: it has no circle, and its author is its only member. The
 			// `lists_share_with_household` trigger does the same on the database side; we write it here too so
-			// the display is right before the first sync.
-			memberIds: this.userId ? [this.userId] : []
+			// the display is right before the first sync. Born into a household, it starts open to everybody
+			// already there — the same set `setListMember` would reach one toggle at a time.
+			memberIds: householdId
+				? [...new Set([...roster, ...(this.userId ? [this.userId] : [])])]
+				: this.userId
+					? [this.userId]
+					: []
 		};
 
 		this.cachedLists = [...this.cachedLists, list];
 		db.lists.add(list);
 		this.push('lists', list, fromList);
 
-		if (this.userId) {
+		const members = this.userId ? [...new Set([...list.memberIds, this.userId])] : list.memberIds;
+		for (const userId of members) {
 			sync.enqueue({
 				table: 'list_members',
 				op: 'upsert',
-				match: { list_id: list.id, user_id: this.userId },
-				payload: { list_id: list.id, user_id: this.userId }
+				match: { list_id: list.id, user_id: userId },
+				payload: { list_id: list.id, user_id: userId }
 			});
 		}
 

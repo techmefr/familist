@@ -60,7 +60,10 @@
 		"kindShopping": "Compras",
 		"kindMealPlan": "Menu",
 		"kindAll": "Todas",
-		"kindFilterEmpty": "Nenhuma lista deste tipo."
+		"kindFilterEmpty": "Nenhuma lista deste tipo.",
+		"scopeLabel": "Quem vê esta lista?",
+		"scopePersonal": "Só eu",
+		"scopeAll": "Todas"
 	},
 	"profile": {
 		"title": "Perfil",
@@ -442,7 +445,15 @@
 		"editTitle": "Editar o artigo",
 		"saveEdit": "Guardar",
 		"note": "Nota (opcional)",
-		"notePlaceholder": "A garrafa grande, sem açúcar…"
+		"notePlaceholder": "A garrafa grande, sem açúcar…",
+		"addedCount": {
+			"one": "{count} adicionado",
+			"other": "{count} adicionados"
+		},
+		"addedAnnounce": {
+			"one": "{count} adicionado: {name}",
+			"other": "{count} adicionados: {name}"
+		}
 	},
 	"shops": {
 		"title": "Lojas e secções",
