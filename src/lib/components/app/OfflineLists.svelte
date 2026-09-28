@@ -70,22 +70,24 @@
 			<ul class="space-y-2">
 				{#each offlineLists.itemsOf(openList.id) as item (item.id)}
 					<li class="bg-card flex items-center gap-3 rounded-lg border p-3" data-test-class="offline-item">
-						<input
-							type="checkbox"
-							checked={item.checked}
-							onchange={() => offlineLists.toggleItem(item.id)}
-							data-test-class="offline-item-check"
-							class="size-5"
-						/>
-						<span class="flex-1 {item.checked ? 'text-muted-foreground line-through' : ''}"
-							>{item.name}</span
-						>
+						<label class="flex min-h-[max(2.75rem,44px)] min-w-0 flex-1 cursor-pointer items-center gap-3">
+							<input
+								type="checkbox"
+								checked={item.checked}
+								onchange={() => offlineLists.toggleItem(item.id)}
+								data-test-class="offline-item-check"
+								class="accent-primary shrink-0"
+							/>
+							<span class="min-w-0 {item.checked ? 'text-muted-foreground line-through' : ''}"
+								>{item.name}</span
+							>
+						</label>
 						<button
 							type="button"
 							onclick={() => offlineLists.removeItem(item.id)}
 							aria-label={t('cards.delete', { name: item.name })}
 							data-test-class="offline-item-remove"
-							class="fl-press text-muted-foreground grid size-9 place-items-center"
+							class="fl-press text-muted-foreground grid min-h-[max(2.75rem,44px)] min-w-[44px] shrink-0 place-items-center"
 						>
 							<Trash2 size={16} aria-hidden="true" />
 						</button>
@@ -128,7 +130,7 @@
 						onclick={() => offlineLists.removeList(list.id)}
 						aria-label={t('cards.delete', { name: list.name })}
 						data-test-class="offline-list-remove"
-						class="fl-press text-muted-foreground grid size-9 place-items-center"
+						class="fl-press text-muted-foreground grid min-h-[max(2.75rem,44px)] min-w-[44px] shrink-0 place-items-center"
 					>
 						<Trash2 size={16} aria-hidden="true" />
 					</button>
