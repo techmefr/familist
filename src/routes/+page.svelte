@@ -694,10 +694,8 @@
 								{list.emoji}
 							</span>
 							<span class="min-w-0 flex-1 basis-[6rem]">
+								<!-- The "X restants" badge on the right already says this (#401): one number, not two. -->
 								<span class="text-product block font-semibold break-words">{list.name}</span>
-								<span class="text-muted-foreground text-label block">
-									{t('lists.progress', { done, total })}
-								</span>
 								{#if list.kind === 'meal-plan'}
 									<span
 										class="text-caption text-secondary mt-1.5 mr-1.5 inline-flex items-center gap-1 rounded-full bg-[var(--fl-secondary-tint)] px-2 py-0.5 font-semibold"
