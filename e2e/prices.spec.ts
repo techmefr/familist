@@ -4,6 +4,7 @@ import type { Page } from '@playwright/test';
 /** Crée un magasin depuis /shops, comme dans e2e/shops.spec.ts. */
 async function createShop(page: Page, name: string) {
 	await page.goto('/shops');
+	await page.getByTestId('shop-mode-manual').click();
 	await page.getByTestId('shop-name').fill(name);
 	await page.getByTestId('shop-create').click();
 	await expect(

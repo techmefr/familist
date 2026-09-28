@@ -21,6 +21,7 @@ test('créer, modifier puis supprimer un magasin', async ({ signedInPage: page }
 	const short = Date.now().toString(36).slice(-3).toUpperCase();
 
 	await page.goto('/shops');
+	await page.getByTestId('shop-mode-manual').click();
 	await page.getByTestId('shop-name').fill(name);
 	await page.getByTestId('shop-short').fill(short);
 	await page.getByTestId('shop-create').click();
