@@ -1344,7 +1344,6 @@
 		"composeDate": "Manolotra daty",
 		"composeAi": "Manontany ny AI mikasika ny lasary",
 		"composePhoto": "Mandefa sary",
-		"composePhotoSoon": "Ho avy tsy ho ela.",
 		"searchOpen": "Karohy ao anaty resaka",
 		"searchPlaceholder": "Karohy…",
 		"searchClose": "Hidio ny fikarohana",
@@ -1354,7 +1353,12 @@
 		"listFilterHousehold": "Sivano araka ny tokantrano",
 		"listFilterAll": "Rehetra",
 		"listFilterPersonal": "Manokana",
-		"listFilterEmpty": "Tsy misy resaka mifanaraka amin'ity sivana ity."
+		"listFilterEmpty": "Tsy misy resaka mifanaraka amin'ity sivana ity.",
+		"photoAlt": "Sary nalefan'i {name}",
+		"photoView": "Jereo ny sary amin'ny efijery feno",
+		"photoUploading": "Mandefa sary…",
+		"photoFailed": "Tsy nahomby ny fandefasana ny sary. Andramo indray.",
+		"photoTooBig": "Mavesatra loatra io sary io."
 	},
 	"household": {
 		"title": "Ny ankohonako",

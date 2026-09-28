@@ -1393,7 +1393,6 @@
 		"composeApport": "من يحضر ماذا؟",
 		"composeAi": "اطلب وصفة من الذكاء الاصطناعي",
 		"composePhoto": "إرسال صورة",
-		"composePhotoSoon": "قريباً.",
 		"searchOpen": "البحث في المحادثة",
 		"searchPlaceholder": "بحث…",
 		"searchClose": "إغلاق البحث",
@@ -1403,7 +1402,12 @@
 		"listFilterHousehold": "تصفية حسب العائلة",
 		"listFilterAll": "الكل",
 		"listFilterPersonal": "شخصية",
-		"listFilterEmpty": "لا توجد محادثة مطابقة لهذا الفلتر."
+		"listFilterEmpty": "لا توجد محادثة مطابقة لهذا الفلتر.",
+		"photoAlt": "صورة أرسلها {name}",
+		"photoView": "عرض الصورة بملء الشاشة",
+		"photoUploading": "جارٍ إرسال الصورة…",
+		"photoFailed": "فشل إرسال الصورة. حاول مرة أخرى.",
+		"photoTooBig": "حجم هذه الصورة كبير جدًا."
 	},
 	"household": {
 		"title": "منزلي",

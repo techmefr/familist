@@ -4,10 +4,12 @@
 	import { t, i18n } from '$i18n/index.svelte';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
-	import { ArrowLeft, Send } from '@lucide/svelte';
+	import { ArrowLeft, ImagePlus, Send } from '@lucide/svelte';
 	import Avatar from '$components/app/Avatar.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
 	import AiRecipeEntry from '$components/app/AiRecipeEntry.svelte';
+	import ChatPhoto from '$components/app/ChatPhoto.svelte';
+	import ChatPhotoPicker from '$components/app/ChatPhotoPicker.svelte';
 
 	const conversationId = $derived(page.params.id!);
 	const conversation = $derived(data.direct(conversationId));
@@ -15,6 +17,7 @@
 	const messages = $derived(data.messagesOfConversation(conversationId));
 
 	let body = $state('');
+	let photoPicker = $state<ChatPhotoPicker | null>(null);
 
 	async function send(event: SubmitEvent) {
 		event.preventDefault();
@@ -23,6 +26,11 @@
 		const sending = data.sendDirectMessage(conversationId, body);
 		body = '';
 		await sending;
+	}
+
+	/** Same connectivity requirement as the list chat: see the note on ChatPhotoPicker (#366). */
+	async function sendPhoto(photoPath: string) {
+		await data.sendDirectMessage(conversationId, '', photoPath);
 	}
 
 	const time = (at: number) =>
@@ -73,12 +81,18 @@
 						{mine ? t('household.role.self') : otherName} — {time(message.createdAt)}
 					</p>
 
-					<p
-						class="text-product mt-1 max-w-[85%] rounded-md px-4 py-2
-							{mine ? 'bg-[var(--fl-primary-tint)] text-primary' : 'bg-card border'}"
-					>
-						{message.body}
-					</p>
+					{#if message.body}
+						<p
+							class="text-product mt-1 max-w-[85%] rounded-md px-4 py-2
+								{mine ? 'bg-[var(--fl-primary-tint)] text-primary' : 'bg-card border'}"
+						>
+							{message.body}
+						</p>
+					{/if}
+
+					{#if message.photoPath}
+						<ChatPhoto photoPath={message.photoPath} authorName={mine ? t('household.role.self') : otherName} />
+					{/if}
 				</li>
 			{/each}
 		</ol>
@@ -89,7 +103,7 @@
 		<AiRecipeEntry />
 	</div>
 
-	<form onsubmit={send} class="mt-4 flex gap-2" data-test-id="direct-form">
+	<form onsubmit={send} class="mt-4 flex items-center gap-2" data-test-id="direct-form">
 		<Input
 			bind:value={body}
 			aria-label={t('chat.messageLabel')}
@@ -99,11 +113,22 @@
 		/>
 		<Button
 			type="submit"
-			class="min-w-[44px]"
+			class="min-w-[44px] shrink-0"
 			data-test-id="direct-send"
 			aria-label={t('chat.send')}
 		>
 			<Send size={18} aria-hidden="true" />
 		</Button>
+		<button
+			type="button"
+			onclick={() => photoPicker?.show()}
+			aria-label={t('chat.composePhoto')}
+			data-test-id="direct-photo-open"
+			class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
+		>
+			<ImagePlus size={18} aria-hidden="true" />
+		</button>
 	</form>
+
+	<ChatPhotoPicker bind:this={photoPicker} scopeId={conversationId} onUploaded={sendPhoto} />
 {/if}

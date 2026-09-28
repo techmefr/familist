@@ -1341,7 +1341,6 @@
 		"composeApport": "谁带什么?",
 		"composeAi": "向AI询问食谱",
 		"composePhoto": "发送照片",
-		"composePhotoSoon": "即将推出。",
 		"searchOpen": "在对话中搜索",
 		"searchPlaceholder": "搜索…",
 		"searchClose": "关闭搜索",
@@ -1351,7 +1350,12 @@
 		"listFilterHousehold": "按家庭筛选",
 		"listFilterAll": "全部",
 		"listFilterPersonal": "个人",
-		"listFilterEmpty": "没有符合该筛选条件的对话。"
+		"listFilterEmpty": "没有符合该筛选条件的对话。",
+		"photoAlt": "{name} 发送的照片",
+		"photoView": "全屏查看照片",
+		"photoUploading": "正在发送照片…",
+		"photoFailed": "照片发送失败，请重试。",
+		"photoTooBig": "这张照片太大了。"
 	},
 	"household": {
 		"title": "我的家庭",

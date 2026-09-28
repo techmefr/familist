@@ -1396,7 +1396,6 @@
 		"composeApport": "Qui ramène quoi ?",
 		"composeAi": "Demander une recette à l'IA",
 		"composePhoto": "Envoyer une photo",
-		"composePhotoSoon": "Bientôt disponible.",
 		"searchOpen": "Rechercher dans la discussion",
 		"searchPlaceholder": "Rechercher…",
 		"searchClose": "Fermer la recherche",
@@ -1406,7 +1405,12 @@
 		"listFilterHousehold": "Filtrer par foyer",
 		"listFilterAll": "Tous",
 		"listFilterPersonal": "Personnelles",
-		"listFilterEmpty": "Aucune discussion ne correspond à ce filtre."
+		"listFilterEmpty": "Aucune discussion ne correspond à ce filtre.",
+		"photoAlt": "Photo envoyée par {name}",
+		"photoView": "Voir la photo en plein écran",
+		"photoUploading": "Envoi de la photo…",
+		"photoFailed": "L'envoi de la photo a échoué. Réessayez.",
+		"photoTooBig": "Cette photo est trop lourde."
 	},
 	"household": {
 		"title": "Mon foyer",

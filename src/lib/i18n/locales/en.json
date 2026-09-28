@@ -1364,7 +1364,6 @@
 		"composeApport": "Who's bringing what?",
 		"composeAi": "Ask the AI for a recipe",
 		"composePhoto": "Send a photo",
-		"composePhotoSoon": "Coming soon.",
 		"searchOpen": "Search in the conversation",
 		"searchPlaceholder": "Search…",
 		"searchClose": "Close search",
@@ -1374,7 +1373,12 @@
 		"listFilterHousehold": "Filter by household",
 		"listFilterAll": "All",
 		"listFilterPersonal": "Personal",
-		"listFilterEmpty": "No conversation matches this filter."
+		"listFilterEmpty": "No conversation matches this filter.",
+		"photoAlt": "Photo sent by {name}",
+		"photoView": "View photo full screen",
+		"photoUploading": "Sending photo…",
+		"photoFailed": "Sending the photo failed. Try again.",
+		"photoTooBig": "This photo is too big."
 	},
 	"household": {
 		"title": "My household",

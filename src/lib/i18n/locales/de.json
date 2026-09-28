@@ -1353,7 +1353,6 @@
 		"composeApport": "Wer bringt was mit?",
 		"composeAi": "KI nach einem Rezept fragen",
 		"composePhoto": "Foto senden",
-		"composePhotoSoon": "Demnächst verfügbar.",
 		"searchOpen": "In der Unterhaltung suchen",
 		"searchPlaceholder": "Suchen…",
 		"searchClose": "Suche schließen",
@@ -1363,7 +1362,12 @@
 		"listFilterHousehold": "Nach Haushalt filtern",
 		"listFilterAll": "Alle",
 		"listFilterPersonal": "Persönlich",
-		"listFilterEmpty": "Keine Unterhaltung entspricht diesem Filter."
+		"listFilterEmpty": "Keine Unterhaltung entspricht diesem Filter.",
+		"photoAlt": "Foto von {name}",
+		"photoView": "Foto im Vollbild ansehen",
+		"photoUploading": "Foto wird gesendet…",
+		"photoFailed": "Das Foto konnte nicht gesendet werden. Versuchen Sie es erneut.",
+		"photoTooBig": "Dieses Foto ist zu groß."
 	},
 	"household": {
 		"title": "Mein Haushalt",

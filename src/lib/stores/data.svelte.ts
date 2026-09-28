@@ -31,6 +31,7 @@ import {
 } from '$db/schema';
 import { supabase } from '$db/supabase';
 import { initialsFor } from '$domain/avatar';
+import { chatPhotoPath } from '$domain/chat-photo';
 import { clampDuration } from '$domain/step-duration';
 import { accountDecision } from '$domain/account-switch';
 import { guessAisleKind, FALLBACK_AISLE_KIND } from '$domain/guess-aisle';
@@ -1283,20 +1284,49 @@ class DataStore {
 		return session.user?.id ?? this.userId;
 	}
 
-	sendMessage(listId: string, body: string) {
+	sendMessage(listId: string, body: string, photoPath?: string) {
 		const message: Message = {
 			id: crypto.randomUUID(),
 			listId,
 			userId: this.userId,
 			body: body.trim(),
 			isSystem: false,
-			createdAt: Date.now()
+			createdAt: Date.now(),
+			photoPath
 		};
 
 		this.messages = [...this.messages, message];
 		db.messages.add(message);
 		this.push('messages', message, fromMessage);
 		return message;
+	}
+
+	/**
+	 * Uploads a chat photo to its scope's spot in the `chat-photos` bucket. Sending it this way — an upload
+	 * that must succeed before the message is ever created — is what keeps `sendMessage` synchronous and
+	 * offline-first for text: a photo, unlike a typed message, needs a connection (#366), and the caller only
+	 * calls `sendMessage`/`sendDirectMessage` once this has resolved.
+	 */
+	async uploadChatPhoto(
+		scopeId: string,
+		photo: Blob
+	): Promise<{ ok: true; path: string } | { ok: false }> {
+		const messageId = crypto.randomUUID();
+		const path = chatPhotoPath(scopeId, messageId, photo.type || 'image/jpeg');
+
+		let bytes: Uint8Array;
+		try {
+			bytes = new Uint8Array(await photo.arrayBuffer());
+		} catch {
+			return { ok: false };
+		}
+
+		const { error } = await supabase.storage
+			.from('chat-photos')
+			.upload(path, bytes, { contentType: photo.type || 'image/jpeg', upsert: false });
+
+		if (error) return { ok: false };
+		return { ok: true, path };
 	}
 
 	/**
@@ -1338,14 +1368,15 @@ class DataStore {
 	 * A direct message carries no list: it is the other scope column that attaches it, and the database
 	 * refuses it carrying both.
 	 */
-	async sendDirectMessage(conversationId: string, body: string) {
+	async sendDirectMessage(conversationId: string, body: string, photoPath?: string) {
 		const message: Message = {
 			id: crypto.randomUUID(),
 			conversationId,
 			userId: this.me,
 			body: body.trim(),
 			isSystem: false,
-			createdAt: Date.now()
+			createdAt: Date.now(),
+			photoPath
 		};
 
 		this.messages = [...this.messages, message];
