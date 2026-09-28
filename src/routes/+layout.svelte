@@ -415,12 +415,14 @@
 	 * The magnifier takes the whole surface to enlarge a label: nothing floats over it.
 	 *
 	 * A conversation hides it too (#365): its own compose button sits exactly where the floating one would,
-	 * and the two used to overlap.
+	 * and the two used to overlap. Profile hides it as well: it has no create action of its own, and the
+	 * button floated over the settings rows underneath (#412).
 	 */
 	const hidesCreate = $derived(
 		page.url.pathname.startsWith('/magnifier') ||
 			page.url.pathname.startsWith('/chat/d/') ||
-			/^\/l\/[^/]+\/chat/.test(page.url.pathname)
+			/^\/l\/[^/]+\/chat/.test(page.url.pathname) ||
+			page.url.pathname.startsWith('/profile')
 	);
 
 	/**
