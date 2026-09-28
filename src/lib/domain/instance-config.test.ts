@@ -49,6 +49,19 @@ describe('readInstanceConfig', () => {
 		expect(readInstanceConfig({ ...VALID, sentryDsn: '' })).toEqual(VALID);
 		expect(readInstanceConfig({ ...VALID, sentryDsn: '  ' })).toEqual(VALID);
 	});
+
+	it('garde le site GoatCounter quand il est renseigne', () => {
+		expect(readInstanceConfig({ ...VALID, goatcounterSite: 'techmefr' })).toEqual({
+			...VALID,
+			goatcounterSite: 'techmefr'
+		});
+	});
+
+	it('omet le site GoatCounter quand il est absent ou vide', () => {
+		expect(readInstanceConfig(VALID)).toEqual(VALID);
+		expect(readInstanceConfig({ ...VALID, goatcounterSite: '' })).toEqual(VALID);
+		expect(readInstanceConfig({ ...VALID, goatcounterSite: '  ' })).toEqual(VALID);
+	});
 });
 
 describe('readLocalInstanceConfig', () => {
@@ -60,6 +73,10 @@ describe('readLocalInstanceConfig', () => {
 		expect(readLocalInstanceConfig({ ...VALID, sentryDsn: 'https://key@sentry.example/1' })).toEqual(
 			VALID
 		);
+	});
+
+	it('ignore un site GoatCounter glisse dans la source, pour la meme raison', () => {
+		expect(readLocalInstanceConfig({ ...VALID, goatcounterSite: 'techmefr' })).toEqual(VALID);
 	});
 
 	it('rend null sur une valeur incomplete ou invalide, comme readInstanceConfig', () => {

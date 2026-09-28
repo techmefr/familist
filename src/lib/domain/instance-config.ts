@@ -14,6 +14,8 @@ export type InstanceConfig = {
 	anonKey: string;
 	/** DSN Sentry de l'instance, ou absent : le sinistre reste alors uniquement dans `client_errors`. */
 	sentryDsn?: string;
+	/** Code de site GoatCounter (le sous-domaine avant `.goatcounter.com`), ou absent : aucune mesure envoyee. */
+	goatcounterSite?: string;
 };
 
 /**
@@ -40,10 +42,17 @@ export function readInstanceConfig(source: unknown): InstanceConfig | null {
 	if (!url || !anonKey) return null;
 	if (!isHttpUrl(url)) return null;
 
-	// Le DSN Sentry est facultatif : une chaine vide ou un placeholder oublie vaut absence, pas erreur.
+	// Le DSN Sentry et le site GoatCounter sont facultatifs : une chaine vide ou un placeholder oublie vaut
+	// absence, pas erreur.
 	const sentryDsn = clean(raw.sentryDsn);
+	const goatcounterSite = clean(raw.goatcounterSite);
 
-	return sentryDsn ? { url, anonKey, sentryDsn } : { url, anonKey };
+	return {
+		url,
+		anonKey,
+		...(sentryDsn ? { sentryDsn } : {}),
+		...(goatcounterSite ? { goatcounterSite } : {})
+	};
 }
 
 /**
@@ -74,15 +83,17 @@ export function readLocalInstanceConfig(source: unknown): LocalInstanceConfig | 
  * was published. Falling back to the build value keeps every existing Docker deployment working exactly as
  * before: nothing changes for an operator who has never opened the connection screen.
  *
- * The Sentry DSN always comes from the build, never from the local override: it is an operational setting,
- * not something the connection screen exposes.
+ * The Sentry DSN and the GoatCounter site always come from the build, never from the local override: they
+ * are operational settings, not something the connection screen exposes.
  */
 export function resolveInstanceConfig(
 	build: InstanceConfig | null,
 	local: unknown
 ): InstanceConfig | null {
 	const override = readLocalInstanceConfig(local);
-	if (override) return { ...override, sentryDsn: build?.sentryDsn };
+	if (override) {
+		return { ...override, sentryDsn: build?.sentryDsn, goatcounterSite: build?.goatcounterSite };
+	}
 
 	return build;
 }
