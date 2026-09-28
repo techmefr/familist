@@ -20,8 +20,9 @@ test('renommer une liste, au bouton comme à l appui long', async ({ signedInPag
 	const card = page.locator('[data-test-class="list-card"]').filter({ hasText: name });
 	await expect(card).toBeVisible();
 
-	// The pencil: the path of the keyboard and the screen reader.
-	await card.locator('[data-test-class="list-rename"]').click();
+	// The "⋯" button opens the shared action menu: the path of the keyboard and the screen reader.
+	await card.locator('[data-test-class="list-actions"]').click();
+	await page.getByTestId('action-sheet-edit').click();
 	await expect(page.getByTestId('list-name')).toHaveValue(name);
 
 	await page.getByTestId('list-name').fill(renamed);
@@ -33,7 +34,7 @@ test('renommer une liste, au bouton comme à l appui long', async ({ signedInPag
 	// The form closes again, and does not stay in renaming mode.
 	await expect(page.getByTestId('list-form-cancel')).toHaveCount(0);
 
-	// The long press on the card: the same sheet, prefilled — and it does not follow the link.
+	// The long press on the card: the same action menu as the "⋯" button — and it does not follow the link.
 	//
 	// The app's own threshold is 500ms (`LONGPRESS_MS`, `$domain/longpress.ts`). 1500ms keeps the
 	// gesture realistic while leaving three times the threshold as slack against CI scheduling delays.
@@ -51,6 +52,8 @@ test('renommer une liste, au bouton comme à l appui long', async ({ signedInPag
 	await page.mouse.up();
 
 	await expect(page).toHaveURL(/\/$/);
+	await expect(page.getByTestId('action-sheet-edit')).toBeVisible({ timeout: 10_000 });
+	await page.getByTestId('action-sheet-edit').click();
 	await expect(page.getByTestId('list-name')).toHaveValue(renamed, { timeout: 10_000 });
 
 	// Giving up leaves the list as it is.

@@ -60,7 +60,8 @@
 		"kindShopping": "Shopping",
 		"kindMealPlan": "Meal plan",
 		"kindAll": "All",
-		"kindFilterEmpty": "No list of this kind."
+		"kindFilterEmpty": "No list of this kind.",
+		"actionsFor": "Actions for {name}"
 	},
 	"profile": {
 		"title": "Profile",
@@ -351,7 +352,13 @@
 		"close": "Close",
 		"edit": "Edit",
 		"delete": "Delete",
-		"crashed": "This screen could not be displayed. The problem has been logged."
+		"crashed": "This screen could not be displayed. The problem has been logged.",
+		"filters": "Filters",
+		"clear": "Clear the search",
+		"filtersActive": {
+			"one": "{count} active",
+			"other": "{count} active"
+		}
 	},
 	"list": {
 		"shop": "Shop",

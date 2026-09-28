@@ -60,7 +60,8 @@
 		"kindShopping": "Compra",
 		"kindMealPlan": "Menú",
 		"kindAll": "Todas",
-		"kindFilterEmpty": "Ninguna lista de este tipo."
+		"kindFilterEmpty": "Ninguna lista de este tipo.",
+		"actionsFor": "Acciones para {name}"
 	},
 	"profile": {
 		"title": "Perfil",
@@ -351,7 +352,13 @@
 		"close": "Cerrar",
 		"edit": "Editar",
 		"delete": "Eliminar",
-		"crashed": "Esta pantalla no se ha podido mostrar. El problema ha quedado registrado."
+		"crashed": "Esta pantalla no se ha podido mostrar. El problema ha quedado registrado.",
+		"filters": "Filtros",
+		"clear": "Borrar la búsqueda",
+		"filtersActive": {
+			"one": "{count} activo",
+			"other": "{count} activos"
+		}
 	},
 	"list": {
 		"shop": "Tienda",

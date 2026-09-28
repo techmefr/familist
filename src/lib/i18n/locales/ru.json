@@ -62,7 +62,8 @@
 		"kindShopping": "Покупки",
 		"kindMealPlan": "Меню",
 		"kindAll": "Все",
-		"kindFilterEmpty": "Нет списков этого типа."
+		"kindFilterEmpty": "Нет списков этого типа.",
+		"actionsFor": "Действия с {name}"
 	},
 	"profile": {
 		"title": "Профиль",
@@ -353,7 +354,15 @@
 		"close": "Закрыть",
 		"edit": "Изменить",
 		"delete": "Удалить",
-		"crashed": "Не удалось отобразить этот экран. Проблема записана."
+		"crashed": "Не удалось отобразить этот экран. Проблема записана.",
+		"filters": "Фильтры",
+		"clear": "Очистить поиск",
+		"filtersActive": {
+			"one": "{count} активен",
+			"few": "{count} активны",
+			"many": "{count} активны",
+			"other": "{count} активны"
+		}
 	},
 	"list": {
 		"shop": "Магазин",
