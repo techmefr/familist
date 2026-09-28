@@ -761,21 +761,24 @@
 
 		<fieldset class="mt-4">
 			<legend class="text-label mb-2 font-medium">{t('cards.filterScope')}</legend>
+			<!-- No "All" pill (#402): tapping the active one again clears it. -->
 			<div class="flex flex-wrap gap-2" data-test-id="cards-filter-scope">
-				{#each [{ id: 'all', label: t('cards.filterScopeAll') }, { id: 'own', label: t('cards.filterScopeOwn') }, { id: 'shared', label: t('cards.filterScopeShared') }] as option (option.id)}
-					<Label class={swatchClass}>
-						<input
-							type="radio"
-							name="cards-filter-scope"
-							value={option.id}
-							bind:group={scopeFilter}
-							data-test-id="cards-filter-scope-{option.id}"
-							class="sr-only"
-						/>
+				{#each [{ id: 'own', label: t('cards.filterScopeOwn') }, { id: 'shared', label: t('cards.filterScopeShared') }] as option (option.id)}
+					<button
+						type="button"
+						onclick={() =>
+							(scopeFilter = scopeFilter === option.id ? 'all' : (option.id as 'own' | 'shared'))}
+						aria-pressed={scopeFilter === option.id}
+						data-test-id="cards-filter-scope-{option.id}"
+						class="fl-press border-input flex min-h-[max(2.75rem,44px)] items-center gap-2 rounded-md
+							border px-3 py-2 {scopeFilter === option.id
+							? 'border-primary bg-[var(--fl-primary-tint)]'
+							: ''}"
+					>
 						{#if scopeFilter === option.id}<Check size={14} aria-hidden="true" />{/if}
 						{#if option.id === 'shared'}<Users size={14} aria-hidden="true" />{/if}
 						{option.label}
-					</Label>
+					</button>
 				{/each}
 			</div>
 		</fieldset>
