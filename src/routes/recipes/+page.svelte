@@ -560,7 +560,7 @@
 			<div class="space-y-4">
 				<h3 class="text-h2 font-semibold">{t('recipes.step.recipe')}</h3>
 
-				<div class="grid gap-3 sm:grid-cols-[auto_1fr]">
+				<div class="flex flex-wrap items-start gap-3">
 					<div class="w-20">
 						<Label for="recipe-emoji">{t('recipes.emoji')}</Label>
 						<button
@@ -576,7 +576,23 @@
 						</button>
 					</div>
 
-					<div>
+					{#if editingId}
+						{@const editing = data.recipes.find((recipe) => recipe.id === editingId)}
+						{#if editing}
+							<div>
+								<p class="text-label mb-2 font-medium">{t('recipes.photo')}</p>
+								<RecipePhoto
+									compact
+									recipeId={editing.id}
+									recipeName={name || editing.name}
+									ingredientNames={lines.map((line) => line.name).filter(Boolean)}
+									photoPath={editing.photoPath}
+								/>
+							</div>
+						{/if}
+					{/if}
+
+					<div class="min-w-[12rem] flex-1">
 						<Label for="recipe-name">{t('recipes.name')}</Label>
 						<IconField icon={CookingPot}>
 							<Input
@@ -623,21 +639,6 @@
 				</div>
 
 				<RecipeTagPicker bind:tags />
-
-				{#if editingId}
-					{@const editing = data.recipes.find((recipe) => recipe.id === editingId)}
-					{#if editing}
-						<div>
-							<p class="text-label mb-2 font-medium">{t('recipes.photo')}</p>
-							<RecipePhoto
-								recipeId={editing.id}
-								recipeName={name || editing.name}
-								ingredientNames={lines.map((line) => line.name).filter(Boolean)}
-								photoPath={editing.photoPath}
-							/>
-						</div>
-					{/if}
-				{/if}
 			</div>
 		{:else if step === 'ingredients'}
 			<div class="space-y-4">
