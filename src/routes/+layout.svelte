@@ -415,12 +415,14 @@
 	 * The magnifier takes the whole surface to enlarge a label: nothing floats over it.
 	 *
 	 * A conversation hides it too (#365): its own compose button sits exactly where the floating one would,
-	 * and the two used to overlap.
+	 * and the two used to overlap. Profile hides it as well: it has no create action of its own, and the
+	 * button floated over the settings rows underneath (#412).
 	 */
 	const hidesCreate = $derived(
 		page.url.pathname.startsWith('/magnifier') ||
 			page.url.pathname.startsWith('/chat/d/') ||
-			/^\/l\/[^/]+\/chat/.test(page.url.pathname)
+			/^\/l\/[^/]+\/chat/.test(page.url.pathname) ||
+			page.url.pathname.startsWith('/profile')
 	);
 
 	/**
@@ -569,7 +571,7 @@
 				{#each entries as { href, key, icon: Icon, place } (href)}
 					{@const active = isActive(href)}
 					<li
-						class="min-w-fit flex-1 md:flex-none"
+						class="min-w-0 flex-1 md:flex-none"
 						class:full:hidden={place === 'handheld'}
 						class:compact:hidden={place === 'desktop'}
 						class:phone:hidden={place === 'tablet-and-desktop'}
@@ -601,7 +603,9 @@
 							</span>
 							<!-- The weight repeats the active tab: colour must not say it on its own. -->
 							<span
-								class="fl-nav-label relative {active ? 'font-medium' : ''} {iconOnlyNav ? 'phone:sr-only' : ''}"
+								class="fl-nav-label relative w-full text-center [hyphens:auto] [overflow-wrap:break-word] {active
+									? 'font-medium'
+									: ''} {iconOnlyNav ? 'phone:sr-only' : ''}"
 								>{t(key)}</span
 							>
 						</a>
