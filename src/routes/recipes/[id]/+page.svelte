@@ -89,12 +89,12 @@
 	<div class="mt-2 space-y-5" data-test-id="recipe-detail">
 		<div class="flex flex-wrap items-start gap-2">
 			<h1 class="text-h1 min-w-0 flex-1 font-semibold break-words">{recipe.name}</h1>
+			<!-- Explicit ("for 4 people"), not a bare number (#400): the badge is the only place this reads at a glance. -->
 			<span
-				class="bg-primary text-primary-foreground text-caption mt-1 inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 font-semibold"
-				aria-label={t('recipes.servingsCount', { count: recipe.servings })}
+				class="bg-primary text-primary-foreground text-label mt-1 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 font-semibold"
 			>
-				<UtensilsCrossed size={12} aria-hidden="true" />
-				<span aria-hidden="true">{recipe.servings}</span>
+				<UtensilsCrossed size={14} aria-hidden="true" />
+				{t('recipes.servingsCount', { count: recipe.servings })}
 			</span>
 			{#if !owned}
 				<span
@@ -187,16 +187,6 @@
 		{/if}
 
 		<div class="flex flex-wrap items-center gap-3 border-t pt-4">
-			<Button
-				onclick={startGenerate}
-				disabled={ingredients.length === 0}
-				data-test-class="recipe-generate"
-				class="fl-press"
-			>
-				<ShoppingBasket size={18} aria-hidden="true" />
-				{t('recipes.generate')}
-			</Button>
-
 			{#if owned}
 				<Button
 					variant="outline"
@@ -242,6 +232,23 @@
 					{t('recipes.editCopy')}
 				</Button>
 			{/if}
+		</div>
+
+		<!--
+			The one thing this whole screen exists for (#400): everything above is read once, this is pressed
+			every time. Pinned above the nav bar like the other screens' own primary action, in the theme
+			colour, so it never gets lost among Edit/Share/Delete.
+		-->
+		<div class="fl-above-nav">
+			<Button
+				onclick={startGenerate}
+				disabled={ingredients.length === 0}
+				data-test-class="recipe-generate"
+				class="fl-press fl-auth-submit w-full"
+			>
+				<ShoppingBasket size={18} aria-hidden="true" />
+				{t('recipes.generate')}
+			</Button>
 		</div>
 
 		{#if generating}
