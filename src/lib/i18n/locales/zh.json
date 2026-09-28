@@ -1350,7 +1350,6 @@
 		"composeApport": "谁带什么?",
 		"composeAi": "向AI询问食谱",
 		"composePhoto": "发送照片",
-		"composePhotoSoon": "即将推出。",
 		"searchOpen": "在对话中搜索",
 		"searchPlaceholder": "搜索…",
 		"searchClose": "关闭搜索",
@@ -1360,7 +1359,12 @@
 		"listFilterHousehold": "按家庭筛选",
 		"listFilterAll": "全部",
 		"listFilterPersonal": "个人",
-		"listFilterEmpty": "没有符合该筛选条件的对话。"
+		"listFilterEmpty": "没有符合该筛选条件的对话。",
+		"photoAlt": "{name} 发送的照片",
+		"photoView": "全屏查看照片",
+		"photoUploading": "正在发送照片…",
+		"photoFailed": "照片发送失败，请重试。",
+		"photoTooBig": "这张照片太大了。"
 	},
 	"household": {
 		"title": "我的家庭",
@@ -1650,6 +1654,7 @@
 		"sendingTo": "接收方：{provider}。",
 		"sendConfirm": "发送并询问",
 		"asking": "正在询问…",
+		"retrying": "服务商繁忙，{seconds}秒后重试…",
 		"keep": "保留这道菜谱",
 		"retry": "再问一次",
 		"discard": "丢弃",
@@ -1658,6 +1663,7 @@
 			"networkDetail": "请求未能发出：{detail}",
 			"provider": "服务商拒绝了这次请求。",
 			"providerDetail": "服务商拒绝了：{detail}",
+			"retriesExhausted": "多次尝试后服务商仍然繁忙。请稍后重试。",
 			"unreadable": "返回的内容无法使用。请再问一次。",
 			"unreadableDetail": "返回的内容无法使用：{detail}",
 			"unsupported": "该提供商无法读取图片。",

@@ -1364,7 +1364,6 @@
 		"composeApport": "Wer bringt was mit?",
 		"composeAi": "KI nach einem Rezept fragen",
 		"composePhoto": "Foto senden",
-		"composePhotoSoon": "Demnächst verfügbar.",
 		"searchOpen": "In der Unterhaltung suchen",
 		"searchPlaceholder": "Suchen…",
 		"searchClose": "Suche schließen",
@@ -1374,7 +1373,12 @@
 		"listFilterHousehold": "Nach Haushalt filtern",
 		"listFilterAll": "Alle",
 		"listFilterPersonal": "Persönlich",
-		"listFilterEmpty": "Keine Unterhaltung entspricht diesem Filter."
+		"listFilterEmpty": "Keine Unterhaltung entspricht diesem Filter.",
+		"photoAlt": "Foto von {name}",
+		"photoView": "Foto im Vollbild ansehen",
+		"photoUploading": "Foto wird gesendet…",
+		"photoFailed": "Das Foto konnte nicht gesendet werden. Versuchen Sie es erneut.",
+		"photoTooBig": "Dieses Foto ist zu groß."
 	},
 	"household": {
 		"title": "Mein Haushalt",
@@ -1667,6 +1671,7 @@
 		"sendingTo": "Empfänger: {provider}.",
 		"sendConfirm": "Senden und fragen",
 		"asking": "Anfrage läuft …",
+		"retrying": "Anbieter überlastet, neuer Versuch in {seconds}s…",
 		"keep": "Dieses Rezept behalten",
 		"retry": "Noch einmal fragen",
 		"discard": "Verwerfen",
@@ -1675,6 +1680,7 @@
 			"networkDetail": "Die Anfrage konnte nicht gesendet werden: {detail}",
 			"provider": "Der Anbieter hat die Anfrage abgelehnt.",
 			"providerDetail": "Der Anbieter hat abgelehnt: {detail}",
+			"retriesExhausted": "Der Anbieter ist nach mehreren Versuchen weiterhin überlastet. Versuchen Sie es später erneut.",
 			"unreadable": "Die Antwort war nicht verwertbar. Frag noch einmal.",
 			"unreadableDetail": "Die Antwort war nicht verwertbar: {detail}",
 			"unsupported": "Dieser Anbieter kann keine Bilder lesen.",

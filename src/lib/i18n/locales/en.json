@@ -1375,7 +1375,6 @@
 		"composeApport": "Who's bringing what?",
 		"composeAi": "Ask the AI for a recipe",
 		"composePhoto": "Send a photo",
-		"composePhotoSoon": "Coming soon.",
 		"searchOpen": "Search in the conversation",
 		"searchPlaceholder": "Search…",
 		"searchClose": "Close search",
@@ -1385,7 +1384,12 @@
 		"listFilterHousehold": "Filter by household",
 		"listFilterAll": "All",
 		"listFilterPersonal": "Personal",
-		"listFilterEmpty": "No conversation matches this filter."
+		"listFilterEmpty": "No conversation matches this filter.",
+		"photoAlt": "Photo sent by {name}",
+		"photoView": "View photo full screen",
+		"photoUploading": "Sending photo…",
+		"photoFailed": "Sending the photo failed. Try again.",
+		"photoTooBig": "This photo is too big."
 	},
 	"household": {
 		"title": "My household",
@@ -1678,6 +1682,7 @@
 		"sendingTo": "Recipient: {provider}.",
 		"sendConfirm": "Send and ask",
 		"asking": "Asking…",
+		"retrying": "Provider is busy, retrying in {seconds}s…",
 		"keep": "Keep this recipe",
 		"retry": "Ask again",
 		"discard": "Discard",
@@ -1686,6 +1691,7 @@
 			"networkDetail": "The request could not be sent: {detail}",
 			"provider": "The provider refused the request.",
 			"providerDetail": "The provider refused: {detail}",
+			"retriesExhausted": "The provider is still busy after several tries. Try again later.",
 			"unreadable": "The answer was not usable. Ask again.",
 			"unreadableDetail": "The answer was not usable: {detail}",
 			"unsupported": "This provider cannot read images.",

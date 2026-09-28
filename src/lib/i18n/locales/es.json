@@ -1368,7 +1368,6 @@
 		"composeApport": "¿Quién trae qué?",
 		"composeAi": "Pedir una receta a la IA",
 		"composePhoto": "Enviar una foto",
-		"composePhotoSoon": "Próximamente.",
 		"searchOpen": "Buscar en la conversación",
 		"searchPlaceholder": "Buscar…",
 		"searchClose": "Cerrar búsqueda",
@@ -1378,7 +1377,12 @@
 		"listFilterHousehold": "Filtrar por hogar",
 		"listFilterAll": "Todas",
 		"listFilterPersonal": "Personales",
-		"listFilterEmpty": "Ninguna conversación coincide con este filtro."
+		"listFilterEmpty": "Ninguna conversación coincide con este filtro.",
+		"photoAlt": "Foto enviada por {name}",
+		"photoView": "Ver la foto a pantalla completa",
+		"photoUploading": "Enviando la foto…",
+		"photoFailed": "No se pudo enviar la foto. Inténtalo de nuevo.",
+		"photoTooBig": "Esta foto pesa demasiado."
 	},
 	"household": {
 		"title": "Mi hogar",
@@ -1671,6 +1675,7 @@
 		"sendingTo": "Destinatario: {provider}.",
 		"sendConfirm": "Enviar y preguntar",
 		"asking": "Preguntando…",
+		"retrying": "El proveedor está saturado, reintentando en {seconds}s…",
 		"keep": "Guardar esta receta",
 		"retry": "Preguntar de nuevo",
 		"discard": "Descartar",
@@ -1679,6 +1684,7 @@
 			"networkDetail": "La petición no ha podido salir: {detail}",
 			"provider": "El proveedor ha rechazado la petición.",
 			"providerDetail": "El proveedor ha rechazado: {detail}",
+			"retriesExhausted": "El proveedor sigue saturado tras varios intentos. Inténtalo más tarde.",
 			"unreadable": "La respuesta no era utilizable. Pregunta de nuevo.",
 			"unreadableDetail": "La respuesta no era utilizable: {detail}",
 			"unsupported": "Este proveedor no puede leer imágenes.",

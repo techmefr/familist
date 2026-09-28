@@ -1362,7 +1362,6 @@
 		"composeApport": "Chi porta cosa?",
 		"composeAi": "Chiedi una ricetta all'IA",
 		"composePhoto": "Invia una foto",
-		"composePhotoSoon": "Presto disponibile.",
 		"searchOpen": "Cerca nella conversazione",
 		"searchPlaceholder": "Cerca…",
 		"searchClose": "Chiudi ricerca",
@@ -1372,7 +1371,12 @@
 		"listFilterHousehold": "Filtra per famiglia",
 		"listFilterAll": "Tutte",
 		"listFilterPersonal": "Personali",
-		"listFilterEmpty": "Nessuna conversazione corrisponde a questo filtro."
+		"listFilterEmpty": "Nessuna conversazione corrisponde a questo filtro.",
+		"photoAlt": "Foto inviata da {name}",
+		"photoView": "Visualizza la foto a schermo intero",
+		"photoUploading": "Invio della foto…",
+		"photoFailed": "Invio della foto non riuscito. Riprova.",
+		"photoTooBig": "Questa foto è troppo pesante."
 	},
 	"household": {
 		"title": "La mia casa",
@@ -1665,6 +1669,7 @@
 		"sendingTo": "Destinatario: {provider}.",
 		"sendConfirm": "Invia e chiedi",
 		"asking": "Richiesta in corso…",
+		"retrying": "Fornitore sovraccarico, nuovo tentativo tra {seconds}s…",
 		"keep": "Tieni questa ricetta",
 		"retry": "Chiedi di nuovo",
 		"discard": "Scarta",
@@ -1673,6 +1678,7 @@
 			"networkDetail": "La richiesta non è potuta partire: {detail}",
 			"provider": "Il fornitore ha rifiutato la richiesta.",
 			"providerDetail": "Il fornitore ha rifiutato: {detail}",
+			"retriesExhausted": "Il fornitore è ancora sovraccarico dopo diversi tentativi. Riprova più tardi.",
 			"unreadable": "La risposta non era utilizzabile. Chiedi di nuovo.",
 			"unreadableDetail": "La risposta non era utilizzabile: {detail}",
 			"unsupported": "Questo fornitore non può leggere le immagini.",

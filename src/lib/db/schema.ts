@@ -181,6 +181,8 @@ export interface Message {
 	body: string;
 	isSystem: boolean;
 	createdAt: number;
+	/** Path of an attached photo in the `chat-photos` bucket (#366). A message can carry one, the other, or both. */
+	photoPath?: string;
 }
 
 /**

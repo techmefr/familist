@@ -1412,7 +1412,6 @@
 		"composeApport": "من يحضر ماذا؟",
 		"composeAi": "اطلب وصفة من الذكاء الاصطناعي",
 		"composePhoto": "إرسال صورة",
-		"composePhotoSoon": "قريباً.",
 		"searchOpen": "البحث في المحادثة",
 		"searchPlaceholder": "بحث…",
 		"searchClose": "إغلاق البحث",
@@ -1422,7 +1421,12 @@
 		"listFilterHousehold": "تصفية حسب العائلة",
 		"listFilterAll": "الكل",
 		"listFilterPersonal": "شخصية",
-		"listFilterEmpty": "لا توجد محادثة مطابقة لهذا الفلتر."
+		"listFilterEmpty": "لا توجد محادثة مطابقة لهذا الفلتر.",
+		"photoAlt": "صورة أرسلها {name}",
+		"photoView": "عرض الصورة بملء الشاشة",
+		"photoUploading": "جارٍ إرسال الصورة…",
+		"photoFailed": "فشل إرسال الصورة. حاول مرة أخرى.",
+		"photoTooBig": "حجم هذه الصورة كبير جدًا."
 	},
 	"household": {
 		"title": "منزلي",
@@ -1727,6 +1731,7 @@
 		"sendingTo": "المستلم: {provider}.",
 		"sendConfirm": "أرسل واسأل",
 		"asking": "جارٍ الطلب…",
+		"retrying": "المزود مشغول، إعادة المحاولة خلال {seconds} ثانية…",
 		"keep": "الاحتفاظ بهذه الوصفة",
 		"retry": "اسأل مرة أخرى",
 		"discard": "تجاهل",
@@ -1735,6 +1740,7 @@
 			"networkDetail": "تعذّر إرسال الطلب: {detail}",
 			"provider": "رفض المزوّد الطلب.",
 			"providerDetail": "رفض المزوّد: {detail}",
+			"retriesExhausted": "ما زال المزود مشغولاً بعد عدة محاولات. حاول مرة أخرى لاحقاً.",
 			"unreadable": "لم تكن الإجابة قابلة للاستخدام. اسأل مرة أخرى.",
 			"unreadableDetail": "لم تكن الإجابة قابلة للاستخدام: {detail}",
 			"unsupported": "لا يستطيع هذا المزوّد قراءة الصور.",
