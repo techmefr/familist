@@ -9,12 +9,11 @@
 		nextStepIndex,
 		previousStepIndex,
 		speechLangOf,
-		stepPosition,
-		stepTrack
+		stepPosition
 	} from '$domain/cook-along';
 	import { Button } from '$components/ui/button';
-	import { X, Check, ChevronLeft, ChevronRight, Volume2, VolumeX } from '@lucide/svelte';
-	import { ShoppingBasket, Mic, MicOff, CircleHelp, Timer as TimerIcon, Plus } from '@lucide/svelte';
+	import { X, ChevronRight, Volume2 } from '@lucide/svelte';
+	import { ShoppingBasket, Mic, MicOff, Timer as TimerIcon, Plus } from '@lucide/svelte';
 	import { timers } from '$stores/timers.svelte';
 	import { formatClock, splitDuration } from '$domain/step-duration';
 	import { remindersSupported } from '$native/reminders';
@@ -23,6 +22,7 @@
 	import { VOICE_COMMANDS, stepVolume, type VoiceCommand } from '$domain/voice-commands';
 	import { VoiceControl } from '$stores/voice-control.svelte';
 	import { keepScreenOn } from '$native/wake-lock';
+	import { longpress } from '$components/app/longpress.svelte';
 	import type { RecipeIngredient } from '$db/schema';
 
 	let {
@@ -97,27 +97,6 @@
 	const position = $derived(stepPosition(index, total));
 	const atFirst = $derived(isFirstStep(index, total));
 	const atLast = $derived(isLastStep(index, total));
-	const track = $derived(stepTrack(index, total));
-
-	let trackList = $state<HTMLOListElement | null>(null);
-
-	/**
-	 * A long recipe scrolls its track: the current step is brought back to its centre. The track alone is
-	 * scrolled — `scrollIntoView` would also shift the page behind the dialog, which a right-to-left page
-	 * does visibly.
-	 */
-	$effect(() => {
-		void index;
-		const currentStep = trackList?.querySelector<HTMLElement>('[aria-current="step"]');
-		if (!trackList || !currentStep) return;
-
-		const track = trackList.getBoundingClientRect();
-		const step = currentStep.getBoundingClientRect();
-		trackList.scrollBy({
-			left: step.left + step.width / 2 - (track.left + track.width / 2),
-			behavior: motionMs(1) > 0 ? 'smooth' : 'auto'
-		});
-	});
 
 	/** In a right-to-left language the next step sits on the left, so the arrow keys follow it. */
 	function isRtl(): boolean {
@@ -140,12 +119,6 @@
 		utterance.onerror = () => (speaking = false);
 		speaking = true;
 		window.speechSynthesis.speak(utterance);
-	}
-
-	function toggleMute() {
-		muted = !muted;
-		if (muted) stop();
-		else speak(current);
 	}
 
 	function go(to: number) {
@@ -185,13 +158,30 @@
 
 	/** The explanation comes once, before the browser's own permission prompt, not on every opening. */
 	const INTRO_SEEN_KEY = 'familist:voice-intro-seen';
+	/** The full list of commands (#375), shown once on its own — after the intro, before the first use. */
+	const HELP_SEEN_KEY = 'familist:voice-help-seen';
 
-	function introSeen(): boolean {
+	function seen(key: string): boolean {
 		try {
-			return localStorage.getItem(INTRO_SEEN_KEY) === '1';
+			return localStorage.getItem(key) === '1';
 		} catch {
 			return false;
 		}
+	}
+
+	function markSeen(key: string) {
+		try {
+			localStorage.setItem(key, '1');
+		} catch {
+			// private window: the explanation simply comes back next time
+		}
+	}
+
+	/** Shown automatically the first time only; afterwards a long press on the mic button reaches it. */
+	async function maybeShowHelpFirstTime() {
+		if (seen(HELP_SEEN_KEY)) return;
+		markSeen(HELP_SEEN_KEY);
+		await openHelp();
 	}
 
 	async function toggleVoice() {
@@ -200,7 +190,7 @@
 			return;
 		}
 
-		if (!introSeen()) {
+		if (!seen(INTRO_SEEN_KEY)) {
 			introOpen = true;
 			await tick();
 			introHeading?.focus();
@@ -208,18 +198,16 @@
 		}
 
 		void voice.start();
+		void maybeShowHelpFirstTime();
 	}
 
 	async function acceptIntro() {
-		try {
-			localStorage.setItem(INTRO_SEEN_KEY, '1');
-		} catch {
-			// private window: the explanation simply comes back next time
-		}
+		markSeen(INTRO_SEEN_KEY);
 		introOpen = false;
 		await tick();
 		voiceButton?.focus();
 		void voice.start();
+		void maybeShowHelpFirstTime();
 	}
 
 	async function closeIntro() {
@@ -392,35 +380,35 @@
 			onclick={close}
 			aria-label={t('common.close')}
 			data-test-id="cook-along-close"
-			class="grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full border border-white/20 bg-white/10"
+			class="grid size-12 min-w-[48px] shrink-0 place-items-center rounded-full border border-white/20 bg-white/10"
 		>
 			<X size={20} aria-hidden="true" />
 		</button>
 		<p class="text-product min-w-0 flex-1 text-center font-semibold break-words">{recipeName}</p>
 
-		{#if speechAvailable}
+		{#if ingredients.length > 0}
 			<button
+				bind:this={panelButton}
 				type="button"
-				onclick={toggleMute}
-				aria-label={t(muted ? 'recipes.cookAlong.unmute' : 'recipes.cookAlong.mute')}
-				aria-pressed={!muted}
-				data-test-id="cook-along-mute"
-				class="grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full border border-white/20 bg-white/10"
+				onclick={() => openPanel()}
+				aria-expanded={panelOpen}
+				aria-controls="cook-along-ingredients"
+				aria-label={hasStepLines
+					? t('recipes.cookAlong.stepIngredientsCount', { count: stepLines.length })
+					: t('recipes.cookAlong.ingredients')}
+				data-test-id="cook-along-ingredients-open"
+				class="grid size-12 min-w-[48px] shrink-0 place-items-center rounded-full border border-white/20 bg-white/10"
 			>
-				{#if muted}
-					<VolumeX size={20} aria-hidden="true" />
-				{:else}
-					<Volume2 size={20} aria-hidden="true" />
-				{/if}
+				<ShoppingBasket size={20} aria-hidden="true" />
 			</button>
 		{:else}
-			<span class="size-11 min-w-[44px] shrink-0"></span>
+			<span class="size-12 min-w-[48px] shrink-0"></span>
 		{/if}
 	</div>
 
-	<nav aria-label={t('recipes.cookAlong.steps')} class="px-4 pt-2">
+	<nav aria-label={t('recipes.cookAlong.steps')} class="px-6 pt-6">
 		<p
-			class="text-product text-center font-semibold"
+			class="text-product text-center font-semibold text-[#d6d6d6]"
 			aria-live="polite"
 			aria-atomic="true"
 			data-test-id="cook-along-position"
@@ -428,42 +416,22 @@
 			{t('recipes.cookAlong.position', { current: position.current, total: position.total })}
 		</p>
 
-		{#if total > 1}
-			<ol
-				bind:this={trackList}
-				class="mx-auto mt-3 flex w-fit max-w-full gap-2 overflow-x-auto px-1 py-2"
-				data-test-id="cook-along-track"
-			>
-				{#each track as step (step.number)}
-					<li class="shrink-0">
-						<button
-							type="button"
-							onclick={() => go(step.number - 1)}
-							aria-current={step.state === 'current' ? 'step' : undefined}
-							aria-label={t('recipes.cookAlong.goTo', { current: step.number, total })}
-							data-test-class="cook-along-track-step"
-							data-state={step.state}
-							class="fl-press relative grid aspect-square size-[clamp(56px,3.5rem,80px)] place-items-center rounded-full text-lg font-bold
-								{step.state === 'current'
-								? 'border-4 border-white bg-white text-black'
-								: step.state === 'done'
-									? 'border-2 border-white/60 bg-white/15 text-white'
-									: 'border-2 border-dashed border-white/40 text-white/80'}"
-						>
-							{step.number}
-							{#if step.state === 'done'}
-								<span
-									class="bg-secondary absolute -end-0.5 -top-0.5 grid size-[clamp(20px,1.25rem,28px)] place-items-center rounded-full text-white"
-									aria-hidden="true"
-								>
-									<Check size={14} strokeWidth={3} />
-								</span>
-							{/if}
-						</button>
-					</li>
-				{/each}
-			</ol>
-		{/if}
+		<!--
+			A thin progress bar replaces the numbered dots (#375): the dots read well up to six or seven steps,
+			then wrap or shrink past readability on a real recipe. A bar says the same "how far along" at any
+			length, and the text above it already gives the exact step, spoken and written.
+		-->
+		<div
+			class="mx-auto mt-3 h-1.5 max-w-xs overflow-hidden rounded-full bg-white/15"
+			role="progressbar"
+			aria-hidden="true"
+			data-test-id="cook-along-progress-bar"
+		>
+			<div
+				class="h-full rounded-full bg-white transition-[width]"
+				style="width: {(position.current / position.total) * 100}%"
+			></div>
+		</div>
 	</nav>
 
 	<div class="relative flex flex-1 items-center justify-center px-6 py-8">
@@ -578,35 +546,11 @@
 			{timerNotice}
 		</p>
 
-		{#if ingredients.length > 0}
-			<Button
-				bind:ref={panelButton}
-				variant="outline"
-				onclick={() => openPanel()}
-				aria-expanded={panelOpen}
-				aria-controls="cook-along-ingredients"
-				data-test-id="cook-along-ingredients-open"
-				class="fl-press h-auto min-h-14 w-full py-2 whitespace-normal border-white/20 bg-white/10 text-white"
-			>
-				<ShoppingBasket size={22} aria-hidden="true" />
-				{hasStepLines
-					? t('recipes.cookAlong.stepIngredientsCount', { count: stepLines.length })
-					: t('recipes.cookAlong.ingredients')}
-			</Button>
-		{/if}
-
-		<Button
-			variant="outline"
-			onclick={openHelp}
-			aria-expanded={helpOpen}
-			aria-controls="cook-along-voice-help"
-			data-test-id="cook-along-voice-help-open"
-			class="fl-press h-auto min-h-14 w-full py-2 whitespace-normal border-white/20 bg-white/10 text-white"
-		>
-			<CircleHelp size={22} aria-hidden="true" />
-			{t('recipes.cookAlong.voice.help')}
-		</Button>
-
+		<!--
+			Removed compared to before (#375): the full-width "Ingredients" button — the basket icon in the
+			header opens the same panel — and the full-width "Voice commands" button — the help sheet is shown
+			automatically the first time, then reached by a long press on the mic button below.
+		-->
 		<div role="status" aria-live="polite" class="space-y-1 text-center" data-test-id="cook-along-voice-status">
 			{#if voiceNotice}
 				<p
@@ -786,43 +730,39 @@
 		</div>
 	{/if}
 
-	<div class="flex items-center justify-center gap-2 px-6 pb-10">
-		<Button
-			variant="outline"
-			disabled={atFirst}
-			onclick={() => go(previousStepIndex(index, total))}
-			aria-label={t('recipes.cookAlong.previous')}
-			data-test-id="cook-along-previous"
-			class="fl-press h-14 flex-1 border-white/20 bg-white/10 text-white"
-		>
-			<ChevronLeft size={22} aria-hidden="true" class="rtl:rotate-180" />
-			{t('recipes.cookAlong.previous')}
-		</Button>
-
-		<Button
-			bind:ref={voiceButton}
-			variant="outline"
+	<!--
+		Only two controls left (#375): voice mode and "Next". "Previous" is gone — the tap zones over the step
+		text and the arrow keys already go back — and voice mode itself merges what used to be two separate
+		buttons (read-aloud, voice commands) into the one microphone people actually look for.
+	-->
+	<div class="flex items-center justify-center gap-3 px-6 pb-10">
+		<button
+			bind:this={voiceButton}
+			use:longpress={openHelp}
+			type="button"
 			onclick={toggleVoice}
 			aria-pressed={voice.active}
 			aria-label={t(voice.active ? 'recipes.cookAlong.voice.stop' : 'recipes.cookAlong.voice.start')}
+			aria-describedby="cook-along-voice-long-press-hint"
 			data-test-id="cook-along-voice-toggle"
-			class="fl-press h-14 w-14 shrink-0 border-white/20 bg-white/10 text-white aria-pressed:border-white aria-pressed:bg-white/25"
+			class="fl-press grid size-16 shrink-0 place-items-center rounded-full border border-white/20 bg-white/10 aria-pressed:border-white aria-pressed:bg-white/25"
 		>
 			{#if voice.active}
-				<Mic size={22} aria-hidden="true" />
+				<Mic size={26} aria-hidden="true" />
 			{:else}
-				<MicOff size={22} aria-hidden="true" />
+				<MicOff size={26} aria-hidden="true" />
 			{/if}
-		</Button>
+		</button>
+		<span id="cook-along-voice-long-press-hint" class="sr-only">{t('recipes.cookAlong.voice.longPressHint')}</span>
 
 		<Button
 			disabled={atLast}
 			onclick={() => go(nextStepIndex(index, total))}
 			data-test-id="cook-along-next"
-			class="fl-press h-14 flex-1"
+			class="fl-press h-16 flex-1 rounded-full bg-[#0b6b3a] text-xl font-semibold text-white hover:bg-[#0b6b3a]/90"
 		>
 			{t('recipes.cookAlong.next')}
-			<ChevronRight size={22} aria-hidden="true" class="rtl:rotate-180" />
+			<ChevronRight size={24} aria-hidden="true" class="rtl:rotate-180" />
 		</Button>
 	</div>
 </div>

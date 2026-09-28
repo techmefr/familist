@@ -7,44 +7,50 @@ import { test, expect } from './fixtures';
  */
 type Mode = 'ok' | 'denied' | 'missing';
 
-async function fakeRecognition(page: Page, mode: Mode) {
-	await page.addInitScript((mode: Mode) => {
-		localStorage.setItem('familist:locale', 'fr');
-		const voice = { instances: [] as FakeRecognition[] };
-		(window as unknown as { __voice: typeof voice }).__voice = voice;
+async function fakeRecognition(page: Page, mode: Mode, helpAlreadySeen = true) {
+	await page.addInitScript(
+		({ mode, helpAlreadySeen }: { mode: Mode; helpAlreadySeen: boolean }) => {
+			localStorage.setItem('familist:locale', 'fr');
+			// The voice-command help now opens by itself the first time (#375): tests that are not about that
+			// pre-seed it as already seen, so it does not steal focus mid-scenario.
+			if (helpAlreadySeen) localStorage.setItem('familist:voice-help-seen', '1');
+			const voice = { instances: [] as FakeRecognition[] };
+			(window as unknown as { __voice: typeof voice }).__voice = voice;
 
-		class FakeRecognition {
-			onresult: ((event: unknown) => void) | null = null;
-			onerror: ((event: { error: string }) => void) | null = null;
-			onend: (() => void) | null = null;
+			class FakeRecognition {
+				onresult: ((event: unknown) => void) | null = null;
+				onerror: ((event: { error: string }) => void) | null = null;
+				onend: (() => void) | null = null;
 
-			constructor() {
-				voice.instances.push(this);
+				constructor() {
+					voice.instances.push(this);
+				}
+
+				start() {
+					if (mode !== 'denied') return;
+					setTimeout(() => {
+						this.onerror?.({ error: 'not-allowed' });
+						this.onend?.();
+					}, 0);
+				}
+
+				stop() {}
+				abort() {}
 			}
 
-			start() {
-				if (mode !== 'denied') return;
-				setTimeout(() => {
-					this.onerror?.({ error: 'not-allowed' });
-					this.onend?.();
-				}, 0);
-			}
+			const target = window as unknown as Record<string, unknown>;
+			delete target.webkitSpeechRecognition;
+			if (mode === 'missing') delete target.SpeechRecognition;
+			else target.SpeechRecognition = FakeRecognition;
 
-			stop() {}
-			abort() {}
-		}
-
-		const target = window as unknown as Record<string, unknown>;
-		delete target.webkitSpeechRecognition;
-		if (mode === 'missing') delete target.SpeechRecognition;
-		else target.SpeechRecognition = FakeRecognition;
-
-		(window as unknown as { __say: (text: string) => void }).__say = (text: string) => {
-			const recognition = voice.instances.at(-1);
-			const result = Object.assign([{ transcript: text }], { isFinal: true });
-			recognition?.onresult?.({ resultIndex: 0, results: [result] });
-		};
-	}, mode);
+			(window as unknown as { __say: (text: string) => void }).__say = (text: string) => {
+				const recognition = voice.instances.at(-1);
+				const result = Object.assign([{ transcript: text }], { isFinal: true });
+				recognition?.onresult?.({ resultIndex: 0, results: [result] });
+			};
+		},
+		{ mode, helpAlreadySeen }
+	);
 }
 
 const say = (page: Page, text: string) => page.evaluate((text) => (window as unknown as { __say: (t: string) => void }).__say(text), text);
@@ -66,8 +72,9 @@ async function openCookAlong(page: Page) {
 	await page.getByTestId('recipe-next').click();
 
 	const card = page.locator('[data-test-class="recipe-card"]').filter({ hasText: name });
+	// A recipe now opens its own page (#373) instead of unfolding inline.
 	await card.locator('[data-test-class="recipe-card-header"]').click();
-	await card.locator('[data-test-class="recipe-cook-along"]').click();
+	await page.locator('[data-test-class="recipe-cook-along"]').click();
 
 	return page.getByTestId('cook-along');
 }
@@ -136,5 +143,27 @@ test.describe('suivre la recette à la voix', () => {
 
 		await cookAlong.getByTestId('cook-along-voice-toggle').click();
 		await expect(cookAlong.getByTestId('cook-along-voice-notice')).toHaveAttribute('data-test-state', 'unsupported');
+	});
+
+	test('l aide vocale s ouvre seule la premiere fois, puis par appui long (#375)', async ({ signedInPage: page }) => {
+		await fakeRecognition(page, 'ok', false);
+		await page.reload();
+		await page.evaluate(() => localStorage.setItem('familist:voice-intro-seen', '1'));
+		const cookAlong = await openCookAlong(page);
+
+		await cookAlong.getByTestId('cook-along-voice-toggle').click();
+		await expect(cookAlong.getByTestId('cook-along-voice-help')).toBeVisible();
+		await cookAlong.getByTestId('cook-along-voice-help-close').click();
+		await expect(cookAlong.getByTestId('cook-along-voice-help')).toBeHidden();
+
+		// Reachable again afterwards only through a long press on the mic button.
+		const mic = cookAlong.getByTestId('cook-along-voice-toggle');
+		const box = await mic.boundingBox();
+		if (!box) throw new Error('mic button not found');
+		await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+		await page.mouse.down();
+		await page.waitForTimeout(700);
+		await page.mouse.up();
+		await expect(cookAlong.getByTestId('cook-along-voice-help')).toBeVisible();
 	});
 });

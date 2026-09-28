@@ -27,10 +27,15 @@ async function createRecipe(page: import('@playwright/test').Page, name: string)
 	return card;
 }
 
+/**
+ * A recipe's photo now lives on its own page (#373), not on the card that opens it: this both opens the
+ * page and starts the picker from there.
+ */
 async function openPicker(card: import('@playwright/test').Locator) {
+	const page = card.page();
 	await card.locator('[data-test-class="recipe-card-header"]').click();
-	await card.locator('[data-test-class="recipe-photo-button"]').click();
-	const picker = card.page().getByTestId('recipe-image-picker');
+	await page.locator('[data-test-class="recipe-photo-button"]').click();
+	const picker = page.getByTestId('recipe-image-picker');
 	await expect(picker).toBeVisible();
 	return picker;
 }
@@ -154,7 +159,7 @@ test.describe("choisir l'image d'une recette", () => {
 
 			await expect(picker).toBeHidden({ timeout: 15_000 });
 			await expect(page.locator(successToast)).toBeVisible();
-			await expect(card.locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
+			await expect(card.page().locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
 			expect(openRouter.imagePrompts[0]).toContain(DESCRIBED);
 		} finally {
 			await clearAiKeys(page);
@@ -176,7 +181,7 @@ test.describe("choisir l'image d'une recette", () => {
 				'href',
 				'https://openrouter.ai/settings/credits'
 			);
-			await expect(card.locator('[data-test-class="recipe-photo"]')).toHaveCount(0);
+			await expect(card.page().locator('[data-test-class="recipe-photo"]')).toHaveCount(0);
 		} finally {
 			await clearAiKeys(page);
 		}
@@ -198,12 +203,12 @@ test.describe("choisir l'image d'une recette", () => {
 
 		await expect(picker).toBeHidden({ timeout: 15_000 });
 		await expect(page.locator(successToast)).toBeVisible();
-		await expect(card.locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
+		await expect(card.page().locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
 
-		await card.locator('[data-test-class="recipe-photo-button"]').click();
+		await card.page().locator('[data-test-class="recipe-photo-button"]').click();
 		await picker.getByTestId('recipe-image-source-remove').click();
 		await expect(picker).toBeHidden();
-		await expect(card.locator('[data-test-class="recipe-photo"]')).toHaveCount(0);
+		await expect(card.page().locator('[data-test-class="recipe-photo"]')).toHaveCount(0);
 	});
 
 	test("dit quand rien n'est trouve", async ({ signedInPage: page }) => {
@@ -229,7 +234,7 @@ test.describe("choisir l'image d'une recette", () => {
 
 		await expect(picker).toBeHidden({ timeout: 15_000 });
 		await expect(page.locator(successToast)).toBeVisible();
-		await expect(card.locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
+		await expect(card.page().locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
 	});
 
 	test('une cle pexels ajoute ses resultats a ceux d openverse', async ({ signedInPage: page }) => {
