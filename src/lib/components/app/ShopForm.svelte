@@ -61,7 +61,7 @@
 	 * for typing while a search box and its hint sit above it made the whole thing look like an extra step,
 	 * when a shop typed by hand needs none of it. Editing an existing shop has no search to offer at all.
 	 */
-	let mode = $state<'search' | 'manual'>('manual');
+	let mode = $state<'search' | 'manual'>('search');
 
 	let lookupQuery = $state('');
 	let lookupResults = $state<ShopLookupResult[]>([]);
