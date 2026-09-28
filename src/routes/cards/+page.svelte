@@ -420,7 +420,6 @@
 			placeholder={t('cards.searchPlaceholder')}
 			testPrefix="cards-search"
 		/>
-		<div class="md:hidden" style="height: {barHeight}px" aria-hidden="true"></div>
 	{/if}
 
 	{#if adding}
@@ -722,6 +721,18 @@
 	{/if}
 
 	<p class="text-muted-foreground text-caption mt-6">{t('cards.secretNotice')}</p>
+
+	<!--
+		On a phone the search bar floats over the end of the page: this keeps the notice above clear of it.
+		Its own height alone is not enough - `.fl-above-nav` also lifts it `inset-block-end: calc(var(--fl-navbar-h)
+		+ 0.75rem)` above the viewport bottom, so the spacer has to cover that gap too, and it must be the very
+		last element so scrolling to the true bottom actually reveals what is above it.
+	-->
+	<div
+		class="md:hidden"
+		style="height: calc({barHeight}px + var(--fl-navbar-h, 4rem) + 0.75rem)"
+		aria-hidden="true"
+	></div>
 {/if}
 
 {#if openCard}
