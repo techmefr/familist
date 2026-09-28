@@ -907,7 +907,10 @@
 					>
 						<RecipeCover recipeName={recipe.name} emoji={recipe.emoji} photoPath={recipe.photoPath} />
 						<span class="flex flex-wrap items-start gap-2 p-3 pe-14">
-							<Card.Title class="text-product min-w-0 flex-1 break-words">{recipe.name}</Card.Title>
+							<!-- text-body, not text-product, and its own row (#441): at two columns on a phone, sharing
+							the row with the servings badge left the title too little width, wrapping almost one
+							word per line. -->
+						<Card.Title class="text-body min-w-0 basis-full break-words">{recipe.name}</Card.Title>
 							<span
 								class="bg-primary text-primary-foreground text-caption mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 font-semibold"
 								aria-label={t('recipes.servingsCount', { count: recipe.servings })}
