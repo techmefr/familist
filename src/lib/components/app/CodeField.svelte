@@ -33,6 +33,10 @@
 
 	`autocomplete="one-time-code"` is what really counts: on a phone, the code received by SMS or email is
 	offered above the keyboard, and there is nothing left to copy.
+
+	The boxed look people expect comes back through `fl-otp-field` (#401): a striped background under the
+	field, sized in `em` so it grows with the text instead of clipping the far end of the code once the text
+	size is turned up — a fixed `tracking` value used to do exactly that.
 -->
 <Label for={id}>{label}</Label>
 <Input
@@ -53,7 +57,8 @@
 	aria-describedby={hint ? `${id}-hint` : undefined}
 	data-test-id={testId}
 	required
-	class="text-product text-center font-medium tracking-[0.3em]"
+	style="--fl-otp-length: {length}"
+	class="fl-otp-field text-product h-auto px-0 py-2 text-center font-medium"
 />
 
 {#if hint}
