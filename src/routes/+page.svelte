@@ -571,7 +571,7 @@
 			<button
 				type="button"
 				onclick={() => filterSheet?.showModal()}
-				aria-label={t('lists.filters')}
+				aria-haspopup="dialog"
 				data-test-id="lists-filters-open"
 				class="fl-press text-label text-foreground flex min-h-[max(2.75rem,44px)] flex-1 items-center justify-center gap-2 rounded-full font-medium"
 			>
@@ -581,9 +581,11 @@
 					<span
 						class="bg-primary text-primary-foreground text-caption flex size-5 items-center justify-center rounded-full"
 						data-test-id="lists-filters-count"
+						aria-hidden="true"
 					>
 						{activeFilterCount}
 					</span>
+					<span class="sr-only">{t('common.filtersActive', { count: activeFilterCount })}</span>
 				{/if}
 			</button>
 		{/if}
