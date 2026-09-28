@@ -486,14 +486,15 @@
 	different gesture from writing one, and folding it in here would push what this page does first further
 	down.
 -->
-<a
+<Button
 	href="/meal-plan"
+	variant="outline"
 	data-test-id="recipes-meal-plan-link"
-	class="text-accent-foreground text-label mt-2 inline-flex items-center gap-1 font-medium"
+	class="fl-press mt-2 w-fit rounded-full"
 >
 	<CalendarDays size={18} aria-hidden="true" />
 	{t('recipes.mealPlanLink')}
-</a>
+</Button>
 
 {#if data.recipes.length > 0}
 	<RecipeSearchBar
