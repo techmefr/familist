@@ -68,6 +68,12 @@
 		"scopeLabel": "من يرى هذه القائمة؟",
 		"scopePersonal": "أنا فقط",
 		"scopeAll": "الكل",
+		"search": "بحث",
+		"searchPlaceholder": "اسم القائمة",
+		"filters": "التصفية",
+		"kindFilterLabel": "النوع",
+		"scopeFilterLabel": "من",
+		"filterApply": "تطبيق",
 		"actionsFor": "إجراءات {name}"
 	},
 	"profile": {

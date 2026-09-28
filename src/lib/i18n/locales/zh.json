@@ -63,6 +63,12 @@
 		"scopeLabel": "谁能看到这个清单？",
 		"scopePersonal": "仅我自己",
 		"scopeAll": "全部",
+		"search": "搜索",
+		"searchPlaceholder": "清单名称",
+		"filters": "筛选",
+		"kindFilterLabel": "类型",
+		"scopeFilterLabel": "谁",
+		"filterApply": "应用",
 		"actionsFor": "{name}的操作"
 	},
 	"profile": {

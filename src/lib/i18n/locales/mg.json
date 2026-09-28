@@ -64,6 +64,12 @@
 		"scopeLabel": "Iza no mahita ity lisitra ity?",
 		"scopePersonal": "Izaho irery",
 		"scopeAll": "Rehetra",
+		"search": "Karoka",
+		"searchPlaceholder": "Anaran'ny lisitra",
+		"filters": "Sivana",
+		"kindFilterLabel": "Karazana",
+		"scopeFilterLabel": "Iza",
+		"filterApply": "Ampiharina",
 		"actionsFor": "Hetsika ho an'ny {name}"
 	},
 	"profile": {

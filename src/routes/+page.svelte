@@ -34,7 +34,10 @@
 		Lock,
 		Check,
 		UtensilsCrossed,
-		MoreVertical
+		MoreVertical,
+		Search,
+		SlidersHorizontal,
+		X
 	} from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
@@ -76,12 +79,24 @@
 	/** Personal, a given household, or every list regardless of who it belongs to. */
 	let scopeFilter = $state('all');
 
+	/** The name search, folded up behind the search button until tapped. */
+	let searchOpen = $state(false);
+	let searchQuery = $state('');
+
+	let filterSheet = $state<HTMLDialogElement | null>(null);
+	const activeFilterCount = $derived(
+		(kindFilter !== 'all' ? 1 : 0) + (scopeFilter !== 'all' ? 1 : 0)
+	);
+
 	const visibleLists = $derived(
 		data.lists.filter((list) => {
 			if (kindFilter !== 'all' && list.kind !== kindFilter) return false;
-			if (scopeFilter === 'all') return true;
-			if (scopeFilter === 'mine') return !list.householdId;
-			return list.householdId === scopeFilter;
+			if (scopeFilter === 'mine' && list.householdId) return false;
+			if (scopeFilter !== 'all' && scopeFilter !== 'mine' && list.householdId !== scopeFilter)
+				return false;
+			if (searchQuery.trim() && !list.name.toLowerCase().includes(searchQuery.trim().toLowerCase()))
+				return false;
+			return true;
 		})
 	);
 
@@ -509,45 +524,138 @@
 		top of the screen on a phone, where reaching it means changing grip. `fl-above-nav` floats it above
 		the nav bar under 48rem and puts it back at the top of the flow past that width, exactly where it
 		already was.
+
+		A search button and a filter button, not a permanent panel of pills: the pills stayed on screen at
+		all times whether or not anyone cared, eating space above every list. Search unfolds in place;
+		filters (kind, and scope down to one specific household) live in a sheet opened on demand.
 	-->
 	<div
-		class="fl-above-nav border-border bg-card/82 mt-6 space-y-2 rounded-2xl border p-2 shadow-[var(--fl-shadow-3)] backdrop-blur-2xl"
+		class="fl-above-nav border-border bg-card/82 mt-6 flex items-center gap-2 rounded-full border p-2 shadow-[var(--fl-shadow-3)] backdrop-blur-2xl"
 	>
-		<div class="flex flex-wrap gap-2" data-test-id="lists-kind-filter">
-			{#each [{ id: 'all', label: t('lists.kindAll') }, { id: 'shopping', label: t('lists.kindShopping') }, { id: 'meal-plan', label: t('lists.kindMealPlan') }] as option (option.id)}
-				<button
-					type="button"
-					onclick={() => (kindFilter = option.id as 'all' | ListKind)}
-					aria-pressed={kindFilter === option.id}
-					data-test-id="lists-kind-filter-{option.id}"
-					class="fl-press text-label rounded-full px-3 py-1.5 font-medium {kindFilter === option.id
-						? 'bg-primary text-primary-foreground'
-						: 'bg-muted text-foreground'}"
-				>
-					{option.label}
-				</button>
-			{/each}
-		</div>
-
-		<!-- Personal, a household, or everything: the same split as the choice made at creation, read backwards. -->
-		{#if data.circles.length > 0}
-			<div class="flex flex-wrap gap-2" data-test-id="lists-scope-filter">
-				{#each [{ id: 'all', label: t('lists.scopeAll') }, { id: 'mine', label: t('lists.scopePersonal') }, ...data.circles.map((circle) => ({ id: circle.id, label: circle.name }))] as option (option.id)}
-					<button
-						type="button"
-						onclick={() => (scopeFilter = option.id)}
-						aria-pressed={scopeFilter === option.id}
-						data-test-id="lists-scope-filter-{option.id}"
-						class="fl-press text-caption rounded-full px-3 py-1 font-medium {scopeFilter === option.id
-							? 'bg-secondary text-secondary-foreground'
-							: 'bg-muted text-foreground'}"
-					>
-						{option.label}
-					</button>
-				{/each}
+		{#if searchOpen}
+			<div class="min-w-0 flex-1">
+				<IconField icon={Search}>
+					<Input
+						bind:value={searchQuery}
+						placeholder={t('lists.searchPlaceholder')}
+						autofocus
+						data-test-id="lists-search-input"
+					/>
+				</IconField>
 			</div>
+			<button
+				type="button"
+				onclick={() => {
+					searchOpen = false;
+					searchQuery = '';
+				}}
+				aria-label={t('common.close')}
+				data-test-id="lists-search-close"
+				class="fl-press text-muted-foreground flex size-11 shrink-0 items-center justify-center"
+			>
+				<X size={20} aria-hidden="true" />
+			</button>
+		{:else}
+			<button
+				type="button"
+				onclick={() => (searchOpen = true)}
+				aria-label={t('lists.search')}
+				data-test-id="lists-search-open"
+				class="fl-press text-foreground flex size-11 shrink-0 items-center justify-center rounded-full"
+			>
+				<Search size={20} aria-hidden="true" />
+			</button>
+
+			<span class="bg-border h-6 w-px shrink-0"></span>
+
+			<button
+				type="button"
+				onclick={() => filterSheet?.showModal()}
+				aria-label={t('lists.filters')}
+				data-test-id="lists-filters-open"
+				class="fl-press text-label text-foreground flex min-h-[max(2.75rem,44px)] flex-1 items-center justify-center gap-2 rounded-full font-medium"
+			>
+				<SlidersHorizontal size={18} aria-hidden="true" />
+				{t('lists.filters')}
+				{#if activeFilterCount > 0}
+					<span
+						class="bg-primary text-primary-foreground text-caption flex size-5 items-center justify-center rounded-full"
+						data-test-id="lists-filters-count"
+					>
+						{activeFilterCount}
+					</span>
+				{/if}
+			</button>
 		{/if}
 	</div>
+
+	<dialog
+		bind:this={filterSheet}
+		onclick={(event) => {
+			if (event.target === filterSheet) filterSheet?.close();
+		}}
+		class="fl-sheet"
+		aria-label={t('lists.filters')}
+		data-test-id="lists-filter-sheet"
+	>
+		<div class="bg-card space-y-4 rounded-t-2xl border p-4 md:rounded-2xl">
+			<div>
+				<p class="text-caption text-muted-foreground mb-2 font-medium">{t('lists.kindFilterLabel')}</p>
+				<!-- No "All" pill (#402): tapping the active one again clears it, same as never having tapped it. -->
+				<div class="flex flex-wrap gap-2" data-test-id="lists-kind-filter">
+					{#each [{ id: 'shopping', label: t('lists.kindShopping') }, { id: 'meal-plan', label: t('lists.kindMealPlan') }] as option (option.id)}
+						<button
+							type="button"
+							onclick={() =>
+								(kindFilter = kindFilter === option.id ? 'all' : (option.id as ListKind))}
+							aria-pressed={kindFilter === option.id}
+							data-test-id="lists-kind-filter-{option.id}"
+							class="fl-press text-label rounded-full px-3 py-1.5 font-medium {kindFilter ===
+							option.id
+								? 'bg-primary text-primary-foreground'
+								: 'bg-muted text-foreground'}"
+						>
+							{option.label}
+						</button>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Personal, a household, or everything: the same split as the choice made at creation, read backwards. -->
+			{#if data.circles.length > 0}
+				<div>
+					<p class="text-caption text-muted-foreground mb-2 font-medium">{t('lists.scopeFilterLabel')}</p>
+					<!-- No "All" pill (#402): tapping the active one again clears it. -->
+					<div class="flex flex-wrap gap-2" data-test-id="lists-scope-filter">
+						{#each [{ id: 'mine', label: t('lists.scopePersonal') }, ...data.circles.map((circle) => ({ id: circle.id, label: circle.name }))] as option (option.id)}
+							<button
+								type="button"
+								onclick={() => (scopeFilter = scopeFilter === option.id ? 'all' : option.id)}
+								aria-pressed={scopeFilter === option.id}
+								data-test-id="lists-scope-filter-{option.id}"
+								class="fl-press text-caption rounded-full px-3 py-1 font-medium {scopeFilter ===
+								option.id
+									? 'bg-secondary text-secondary-foreground'
+									: 'bg-muted text-foreground'}"
+							>
+								{option.label}
+							</button>
+						{/each}
+					</div>
+				</div>
+			{/if}
+
+			<Button
+				type="button"
+				variant="ghost"
+				class="w-full"
+				onclick={() => filterSheet?.close()}
+				data-test-id="lists-filter-apply"
+			>
+				{t('lists.filterApply')}
+			</Button>
+		</div>
+	</dialog>
 
 	{#if visibleLists.length === 0}
 		<p class="text-muted-foreground text-label mt-6" data-test-id="lists-kind-filter-empty">
