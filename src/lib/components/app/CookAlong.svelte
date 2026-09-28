@@ -2,6 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { motionMs } from '$stores/settings.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
+	import { unitKeyForCount } from '$domain/units';
 	import {
 		clampStepIndex,
 		isFirstStep,
@@ -59,7 +60,9 @@
 	const shownLines = $derived(hasStepLines && !showAll ? stepLines : ingredients);
 
 	const lineText = (line: RecipeIngredient) =>
-		line.qty ? `${line.qty} ${t(`units.${line.unit}`)} ${line.name}` : line.name;
+		line.qty
+			? `${line.qty} ${t(unitKeyForCount(line.unit, line.qty) ?? `units.${line.unit}`)} ${line.name}`
+			: line.name;
 
 	async function openPanel(all = false) {
 		panelOpen = true;
@@ -689,7 +692,9 @@
 					>
 						<span class="min-w-0 break-words">{line.name}</span>
 						{#if line.qty}
-							<span class="shrink-0 font-semibold">{line.qty} {t(`units.${line.unit}`)}</span>
+							<span class="shrink-0 font-semibold">
+							{line.qty} {t(unitKeyForCount(line.unit, line.qty) ?? `units.${line.unit}`)}
+						</span>
 						{/if}
 					</li>
 				{/each}

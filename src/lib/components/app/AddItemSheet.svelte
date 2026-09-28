@@ -9,6 +9,7 @@
 		DEFAULT_UNIT_GROUP,
 		UNIT_GROUPS,
 		unitGroupOf,
+		unitKeyForCount,
 		unitsOf,
 		type UnitGroupId,
 		type UnitId
@@ -301,7 +302,7 @@
 			-->
 			<div>
 				<Label for="item-qty" data-test-id="add-qty-label">
-					{t('add.qty')} ({t(`units.${unit}`)})
+					{t('add.qty')} ({t(unitKeyForCount(unit, qty) ?? `units.${unit}`)})
 				</Label>
 				<IconField icon={Hash}>
 					<Input
