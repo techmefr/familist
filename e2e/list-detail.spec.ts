@@ -30,6 +30,8 @@ async function addItem(page: Page, name: string) {
 	await expect(page.getByTestId('add-item')).toBeVisible();
 	await page.getByTestId('add-name').fill(name);
 	await page.getByTestId('add-submit').click();
+	// The sheet now stays open for back-to-back adds (#360): closing it is a separate, explicit gesture.
+	await page.getByTestId('add-close').click();
 	await expect(page.getByTestId('add-item')).toBeHidden();
 }
 

@@ -61,6 +61,9 @@
 		"kindMealPlan": "Menu",
 		"kindAll": "Toutes",
 		"kindFilterEmpty": "Aucune liste de ce type.",
+		"scopeLabel": "Qui voit cette liste ?",
+		"scopePersonal": "Juste moi",
+		"scopeAll": "Toutes",
 		"actionsFor": "Actions pour {name}"
 	},
 	"profile": {
@@ -464,7 +467,15 @@
 		"editTitle": "Modifier l’article",
 		"saveEdit": "Enregistrer",
 		"note": "Précision (facultatif)",
-		"notePlaceholder": "La grande bouteille, sans sucre…"
+		"notePlaceholder": "La grande bouteille, sans sucre…",
+		"addedCount": {
+			"one": "{count} ajouté",
+			"other": "{count} ajoutés"
+		},
+		"addedAnnounce": {
+			"one": "{count} ajouté : {name}",
+			"other": "{count} ajoutés : {name}"
+		}
 	},
 	"shops": {
 		"title": "Magasins et rayons",

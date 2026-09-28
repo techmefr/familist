@@ -13,6 +13,7 @@
 		type UnitGroupId,
 		type UnitId
 	} from '$domain/units';
+	import { lastUsedFor } from '$domain/item-defaults';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
@@ -35,6 +36,50 @@
 	let editing = $state<Item | null>(null);
 
 	/**
+	 * How many items were added since the sheet opened, for the running counter (#360). Reset every time
+	 * `show()` opens a fresh session, never while it stays open across consecutive adds.
+	 */
+	let addedCount = $state(0);
+
+	/**
+	 * "N added, milk" briefly, for whoever cannot see the list grow behind the sheet. Cleared a moment
+	 * later so a screen reader parked here does not read the same sentence again on the next add.
+	 */
+	let announcement = $state('');
+	let announceTimer: ReturnType<typeof setTimeout> | undefined;
+
+	function announce(itemName: string) {
+		announcement = t('add.addedAnnounce', { count: addedCount, name: itemName });
+		clearTimeout(announceTimer);
+		announceTimer = setTimeout(() => (announcement = ''), 2000);
+	}
+
+	/**
+	 * "2 milk" or "milk x2": a quantity said alongside the name rather than typed twice. Only a bare
+	 * leading/trailing integer counts — "2%" or a product genuinely named "7up" must reach the name field
+	 * untouched.
+	 */
+	function parseInlineQty(raw: string): { name: string; qty: string } {
+		const leading = raw.match(/^(\d+)\s+(.+)$/);
+		if (leading) return { name: leading[2].trim(), qty: leading[1] };
+
+		const trailing = raw.match(/^(.+?)\s*[xX×]\s*(\d+)$/);
+		if (trailing) return { name: trailing[1].trim(), qty: trailing[2] };
+
+		return { name: raw.trim(), qty };
+	}
+
+	/** The unit/aisle last used for this product, across every list of the household. */
+	function applyRememberedDefaults(typedName: string) {
+		const remembered = lastUsedFor(data.items, typedName);
+		if (!remembered) return;
+
+		aisleId = remembered.aisleId;
+		chooseGroup(unitGroupOf(remembered.unit));
+		unit = unitsOf(group).find((id) => id === remembered.unit) ?? unit;
+	}
+
+	/**
 	 * Same contract as the other sheets: `showModal()` and nothing else, never a boolean alongside. Escape
 	 * closes without going through us, and a mirror of the state always ends up lying.
 	 *
@@ -48,6 +93,8 @@
 	 */
 	export async function show(item?: Item) {
 		editing = item ?? null;
+		addedCount = 0;
+		announcement = '';
 
 		if (item) {
 			name = item.name;
@@ -99,21 +146,45 @@
 		note = '';
 	}
 
-	function submit(event: SubmitEvent) {
+	/**
+	 * As soon as the name matches something added before, the unit and aisle jump to what was chosen last
+	 * time (#376) — while editing an existing item, its own saved values stay untouched.
+	 */
+	$effect(() => {
+		if (editing) return;
+		if (name.trim().length < 2) return;
+		applyRememberedDefaults(name);
+	});
+
+	async function submit(event: SubmitEvent) {
 		event.preventDefault();
 		if (!name.trim()) return;
 
 		if (editing) {
 			feedback.play('success');
 			data.updateItem(editing.id, { name, qty, unit, aisleId: effectiveAisle, note });
-		} else {
-			feedback.play('add');
-			data.addItem(listId, { name, qty, unit, aisleId: effectiveAisle, note });
+			editing = null;
+			reset();
+			hide();
+			return;
 		}
 
-		editing = null;
-		reset();
-		hide();
+		const parsed = parseInlineQty(name);
+		feedback.play('add');
+		data.addItem(listId, { name: parsed.name, qty: parsed.qty, unit, aisleId: effectiveAisle, note });
+
+		// Back-to-back adds (#360): the field clears and keeps focus and the keyboard stays open, so "milk,
+		// eggs, bread" go in one after another without reopening the sheet each time. Only the name, quantity
+		// and note reset — the unit and aisle usually repeat across a small run of items ("2 apples, 3
+		// oranges"), and the next product's own remembered defaults take over as soon as something is typed.
+		addedCount += 1;
+		announce(parsed.name);
+		name = '';
+		qty = '1';
+		note = '';
+
+		await tick();
+		field?.focus();
 	}
 </script>
 
@@ -141,6 +212,24 @@
 		<h2 id="add-title" class="text-h2 pe-12 font-semibold">
 			{editing ? t('add.editTitle') : t('create.item')}
 		</h2>
+
+		<!--
+			The running total while items go in one after another (#360). It only shows once something has been
+			added — an empty sheet has nothing to count yet — and it is announced through the same live region
+			rather than a second one, so a screen reader hears one sentence per add, not two.
+		-->
+		{#if !editing && addedCount > 0}
+			<p
+				class="text-secondary text-label mt-1 font-medium"
+				class:fl-rise={settings.animates}
+				data-test-id="add-counter"
+			>
+				{t('add.addedCount', { count: addedCount })}
+			</p>
+		{/if}
+		<p class="sr-only" role="status" aria-live="polite" data-test-id="add-announcement">
+			{announcement}
+		</p>
 
 		<form onsubmit={submit} class="mt-4 space-y-5">
 			<div>

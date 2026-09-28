@@ -61,6 +61,9 @@
 		"kindMealPlan": "Menüplan",
 		"kindAll": "Alle",
 		"kindFilterEmpty": "Keine Liste dieser Art.",
+		"scopeLabel": "Wer sieht diese Liste?",
+		"scopePersonal": "Nur ich",
+		"scopeAll": "Alle",
 		"actionsFor": "Aktionen für {name}"
 	},
 	"profile": {
@@ -449,7 +452,15 @@
 		"editTitle": "Artikel bearbeiten",
 		"saveEdit": "Speichern",
 		"note": "Hinweis (optional)",
-		"notePlaceholder": "Die große Flasche, ohne Zucker…"
+		"notePlaceholder": "Die große Flasche, ohne Zucker…",
+		"addedCount": {
+			"one": "{count} hinzugefügt",
+			"other": "{count} hinzugefügt"
+		},
+		"addedAnnounce": {
+			"one": "{count} hinzugefügt: {name}",
+			"other": "{count} hinzugefügt: {name}"
+		}
 	},
 	"shops": {
 		"title": "Geschäfte und Abteilungen",

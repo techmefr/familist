@@ -223,6 +223,8 @@ test.describe('creer une recette avec l IA', () => {
 		await page.getByTestId('empty-add-item').click();
 		await page.getByTestId('add-name').fill(product);
 		await page.getByTestId('add-submit').click();
+		// The sheet stays open for back-to-back adds (#360): closing it here is a separate, explicit gesture.
+		await page.getByTestId('add-close').click();
 
 		const row = page.locator('[data-test-class="item-row"]').filter({ hasText: product });
 		await expect(row).toBeVisible();

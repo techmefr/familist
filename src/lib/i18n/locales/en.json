@@ -61,6 +61,9 @@
 		"kindMealPlan": "Meal plan",
 		"kindAll": "All",
 		"kindFilterEmpty": "No list of this kind.",
+		"scopeLabel": "Who sees this list?",
+		"scopePersonal": "Just me",
+		"scopeAll": "All",
 		"actionsFor": "Actions for {name}"
 	},
 	"profile": {
@@ -449,7 +452,15 @@
 		"editTitle": "Edit item",
 		"saveEdit": "Save",
 		"note": "Note (optional)",
-		"notePlaceholder": "The large bottle, sugar-free…"
+		"notePlaceholder": "The large bottle, sugar-free…",
+		"addedCount": {
+			"one": "{count} added",
+			"other": "{count} added"
+		},
+		"addedAnnounce": {
+			"one": "{count} added: {name}",
+			"other": "{count} added: {name}"
+		}
 	},
 	"shops": {
 		"title": "Shops and aisles",

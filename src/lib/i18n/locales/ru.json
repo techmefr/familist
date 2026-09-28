@@ -63,6 +63,9 @@
 		"kindMealPlan": "Меню",
 		"kindAll": "Все",
 		"kindFilterEmpty": "Нет списков этого типа.",
+		"scopeLabel": "Кто видит этот список?",
+		"scopePersonal": "Только я",
+		"scopeAll": "Все",
 		"actionsFor": "Действия с {name}"
 	},
 	"profile": {
@@ -453,7 +456,19 @@
 		"editTitle": "Изменить товар",
 		"saveEdit": "Сохранить",
 		"note": "Уточнение (необязательно)",
-		"notePlaceholder": "Большая бутылка, без сахара…"
+		"notePlaceholder": "Большая бутылка, без сахара…",
+		"addedCount": {
+			"one": "добавлен {count}",
+			"few": "добавлено {count}",
+			"many": "добавлено {count}",
+			"other": "добавлено {count}"
+		},
+		"addedAnnounce": {
+			"one": "добавлен {count}: {name}",
+			"few": "добавлено {count}: {name}",
+			"many": "добавлено {count}: {name}",
+			"other": "добавлено {count}: {name}"
+		}
 	},
 	"shops": {
 		"title": "Магазины и отделы",
