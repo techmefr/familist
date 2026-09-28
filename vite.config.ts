@@ -24,7 +24,10 @@ function instanceConfig(mode: string): Plugin {
 			url: env.PUBLIC_SUPABASE_URL ?? '',
 			anonKey: env.PUBLIC_SUPABASE_ANON_KEY ?? '',
 			// Facultatif : DSN Sentry propre a cette instance. Absent partout ailleurs, il ne change rien.
-			sentryDsn: env.PUBLIC_SENTRY_DSN ?? ''
+			sentryDsn: env.PUBLIC_SENTRY_DSN ?? '',
+			// Facultatif : site GoatCounter propre a cette instance (mesure d'audience sans cookies ni donnees
+			// personnelles). Absent partout ailleurs, il ne change rien.
+			goatcounterSite: env.PUBLIC_GOATCOUNTER_SITE ?? ''
 		})};\n`;
 	};
 

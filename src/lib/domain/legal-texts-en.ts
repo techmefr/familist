@@ -175,7 +175,8 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Cookies and local storage',
 				paragraphs: [
-					'Familiste sets no advertising cookie and no audience-measurement tracker. The app only uses technical storage on your device: the browser’s local storage for the session and preferences, and an IndexedDB database (Dexie) for offline use. This storage is strictly necessary for the service and does not require consent.'
+					'Familiste sets no advertising cookie and no advertising tracker. The app uses technical storage on your device: the browser’s local storage for the session and preferences, and an IndexedDB database (Dexie) for offline use. This storage is strictly necessary for the service and does not require consent.',
+					'Depending on the instance, an audience-measurement tool may be active (GoatCounter). It sets no cookie and keeps no IP address, no identity and no identifier that would follow you between visits: only aggregate statistics per page, day, browser and country are kept, with no way to link them together. Not requiring consent under GDPR, it remains something the instance operator can turn off.'
 				]
 			},
 			{

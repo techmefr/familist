@@ -20,4 +20,6 @@ services:
       PUBLIC_SUPABASE_ANON_KEY: ${PUBLIC_SUPABASE_ANON_KEY}
       # Optional: leave empty to change nothing, no other instance is affected.
       PUBLIC_SENTRY_DSN: ${PUBLIC_SENTRY_DSN:-}
+      # Optional: your own GoatCounter site code, cookie-free audience measurement. Leave empty for none.
+      PUBLIC_GOATCOUNTER_SITE: ${PUBLIC_GOATCOUNTER_SITE:-}
     restart: unless-stopped

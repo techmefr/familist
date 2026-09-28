@@ -175,7 +175,8 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 			{
 				heading: 'Cookies et stockage local',
 				paragraphs: [
-					'Familiste ne dépose aucun cookie publicitaire ni traceur de mesure d’audience. L’application utilise uniquement un stockage technique sur votre appareil : le stockage local du navigateur pour la session et les préférences, et une base IndexedDB (Dexie) pour le fonctionnement hors ligne. Ce stockage est strictement nécessaire au service et ne requiert pas de consentement.'
+					'Familiste ne dépose aucun cookie publicitaire ni traceur publicitaire. L’application utilise un stockage technique sur votre appareil : le stockage local du navigateur pour la session et les préférences, et une base IndexedDB (Dexie) pour le fonctionnement hors ligne. Ce stockage est strictement nécessaire au service et ne requiert pas de consentement.',
+					'Selon l’instance, une mesure d’audience peut être active (GoatCounter). Elle ne dépose aucun cookie et ne conserve ni votre adresse IP, ni votre identité, ni aucun identifiant qui vous suivrait d’une visite à l’autre : seules des statistiques agrégées par page, jour, navigateur et pays sont conservées, sans lien possible entre elles. Ne requérant pas de consentement au sens du RGPD, elle reste désactivable par l’opérateur de l’instance.'
 				]
 			},
 			{

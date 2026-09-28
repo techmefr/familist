@@ -1,7 +1,8 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
-	import { goto, onNavigate } from '$app/navigation';
+	import { goto, onNavigate, afterNavigate } from '$app/navigation';
+	import { trackPageview } from '$native/analytics';
 	import {
 		ListChecks,
 		Store,
@@ -434,6 +435,13 @@
 	 * The slide direction is set on <html> before starting: the CSS only has to read it. Without browser
 	 * support, or with motion refused, navigation stays instant.
 	 */
+	// Cookie-free audience counting (#GoatCounter), a no-op wherever the instance never set a site — see
+	// $native/analytics. `afterNavigate` fires once on mount as well as on every later route change, which
+	// is what a single-page app needs since there is no full page load per screen to count on its own.
+	afterNavigate((navigation) => {
+		if (navigation.to?.url) trackPageview(navigation.to.url.pathname);
+	});
+
 	onNavigate((navigation) => {
 		if (!settings.animates || !document.startViewTransition) return;
 		if (!navigation.to?.url) return;
