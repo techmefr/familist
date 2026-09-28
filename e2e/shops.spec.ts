@@ -6,6 +6,7 @@ test('créer un magasin et lui ajouter un rayon', async ({ signedInPage: page })
 	const name = shopName();
 
 	await page.goto('/shops');
+	await page.getByTestId('shop-mode-manual').click();
 	await page.getByTestId('shop-name').fill(name);
 	await page.getByTestId('shop-create').click();
 
