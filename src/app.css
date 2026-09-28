@@ -332,6 +332,18 @@
 	grid-template-columns: minmax(0, 1fr);
 }
 
+/*
+ * The recipe wall, past medium text: a name and its badges no longer fit two columns without wrapping onto
+ * three or four lines, which defeats the whole point of a photo-first wall. One column keeps every card
+ * readable at the size chosen, at the cost of scrolling a little further.
+ */
+[data-scale='lg'] .fl-recipe-grid,
+[data-scale='xl'] .fl-recipe-grid,
+[data-scale='xxl'] .fl-recipe-grid,
+[data-scale='comfort'] .fl-recipe-grid {
+	columns: 1;
+}
+
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);

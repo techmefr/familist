@@ -95,7 +95,8 @@ export const toList = (row: Row, memberIds: string[]): List => ({
 	color: text(row.color, DEFAULT_TINT),
 	memberIds,
 	eventDate: typeof row.event_date === 'string' ? row.event_date : undefined,
-	householdId: typeof row.household_id === 'string' ? row.household_id : undefined
+	householdId: typeof row.household_id === 'string' ? row.household_id : undefined,
+	kind: row.kind === 'meal-plan' ? 'meal-plan' : 'shopping'
 });
 
 /**
@@ -108,7 +109,8 @@ export const fromList = (list: List) => ({
 	name: list.name,
 	emoji: list.emoji,
 	color: list.color,
-	event_date: list.eventDate ?? null
+	event_date: list.eventDate ?? null,
+	kind: list.kind
 });
 
 /**

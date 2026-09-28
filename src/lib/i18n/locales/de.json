@@ -55,7 +55,12 @@
 		"reminderDenied": "Benachrichtigungen abgelehnt: das Datum ist gespeichert, aber es kommt keine Erinnerung. In den Telefoneinstellungen wieder erlauben.",
 		"reminderTitle": "{name} ist morgen",
 		"reminderBody": "Vor dem {date} fehlen noch Artikel.",
-		"mealPlanSuggestion": "Möchten Sie die Woche planen?"
+		"mealPlanSuggestion": "Möchten Sie die Woche planen?",
+		"kindLabel": "Listenart",
+		"kindShopping": "Einkauf",
+		"kindMealPlan": "Menüplan",
+		"kindAll": "Alle",
+		"kindFilterEmpty": "Keine Liste dieser Art."
 	},
 	"profile": {
 		"title": "Profil",
@@ -331,6 +336,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "QR-Code"
+		},
+		"actionsFor": "Aktionen für die Karte {name}",
+		"sharedCount": {
+			"one": "Mit {count} Haushalt geteilt",
+			"other": "Mit {count} Haushalten geteilt"
 		}
 	},
 	"common": {
@@ -463,7 +473,11 @@
 		"save": "Speichern",
 		"cancel": "Abbrechen",
 		"deleteConfirm": "{name} löschen? Der in diesem Geschäft gelernte Weg geht verloren.",
-		"deleteYes": "Löschen"
+		"deleteYes": "Löschen",
+		"modeSearch": "Suchen",
+		"modeManual": "Manuell eingeben",
+		"brandOther": "Andere Kette",
+		"brandOtherPlaceholder": "Name der Kette"
 	},
 	"prices": {
 		"title": "Preisverlauf",

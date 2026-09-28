@@ -55,7 +55,12 @@
 		"reminderDenied": "Lavina ny fampandrenesana : voatahiry ny daty, fa tsy hisy fampahatsiahivana handeha. Azo avela indray ao amin’ny kirakira an’ny finday.",
 		"reminderTitle": "{name}, rahampitso izany",
 		"reminderBody": "Mbola misy entana halaina alohan’ny {date}.",
-		"mealPlanSuggestion": "Te handamina ny sakafo amin'ity herinandro ity ve ianao?"
+		"mealPlanSuggestion": "Te handamina ny sakafo amin'ity herinandro ity ve ianao?",
+		"kindLabel": "Karazana lisitra",
+		"kindShopping": "Fividianana",
+		"kindMealPlan": "Sakafo",
+		"kindAll": "Rehetra",
+		"kindFilterEmpty": "Tsy misy lisitra amin'ity karazana ity."
 	},
 	"profile": {
 		"title": "Mombamomba",
@@ -331,6 +336,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "Kaody QR"
+		},
+		"actionsFor": "Hetsika ho an'ny karatra {name}",
+		"sharedCount": {
+			"one": "Zaraina amin'ny tokantrano {count}",
+			"other": "Zaraina amin'ny tokantrano {count}"
 		}
 	},
 	"common": {
@@ -463,7 +473,11 @@
 		"save": "Tehirizo",
 		"cancel": "Ajanony",
 		"deleteConfirm": "Fafana {name} ? Ho very ny lalana efa hain’ny fivarotana.",
-		"deleteYes": "Fafao"
+		"deleteYes": "Fafao",
+		"modeSearch": "Karohy",
+		"modeManual": "Manoratra manokana",
+		"brandOther": "Antokon-tsena hafa",
+		"brandOtherPlaceholder": "Anaran'ny antoko"
 	},
 	"prices": {
 		"title": "Tantaran'ny vidiny",

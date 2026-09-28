@@ -56,6 +56,13 @@
 	let captured = $state(false);
 	let gpsError = $state('');
 
+	/**
+	 * Search and manual entry as two modes, not two blocks stacked on the same screen: reading a form meant
+	 * for typing while a search box and its hint sit above it made the whole thing look like an extra step,
+	 * when a shop typed by hand needs none of it. Editing an existing shop has no search to offer at all.
+	 */
+	let mode = $state<'search' | 'manual'>('manual');
+
 	let lookupQuery = $state('');
 	let lookupResults = $state<ShopLookupResult[]>([]);
 	let lookupBusy = $state(false);
@@ -92,11 +99,17 @@
 		lng = result.lng;
 
 		const match = findBrand(result.name);
-		if (match) brand = match.name;
+		if (match) {
+			brand = match.name;
+			brandChoice = brands.includes(match.name) ? match.name : OTHER_BRAND;
+		}
 
 		lookupResults = [];
 		lookupSearched = false;
 		lookupQuery = '';
+		// The rest of the form is where the picked result is reviewed and corrected before saving: staying on
+		// the search tab would hide the very fields that just got filled in.
+		mode = 'manual';
 	}
 
 	const located = $derived(lat !== undefined && lng !== undefined);
@@ -157,6 +170,23 @@
 		])
 	]);
 
+	const OTHER_BRAND = '__other__';
+
+	/**
+	 * The picker shows a known chain, or "Other" with its own text field — never a blank text box pretending
+	 * to be a list. `brand` itself stays the source of truth the rest of the form (and the submit) reads;
+	 * this only decides which control is on screen for it.
+	 */
+	let brandChoice = $state(
+		untrack(() => (editing?.brand && !brands.includes(editing.brand) ? OTHER_BRAND : (editing?.brand ?? '')))
+	);
+
+	function pickBrandChoice(value: string) {
+		brandChoice = value;
+		if (value !== OTHER_BRAND) brand = value;
+		else if (brands.includes(brand)) brand = '';
+	}
+
 	/** What the badge will carry if nobody fills the field. */
 	const suggested = $derived(data.proposedShort({ brand, name, address }, editing?.id));
 
@@ -208,18 +238,49 @@
 		});
 
 		brand = '';
+		brandChoice = '';
 		name = '';
 		address = '';
 		short = '';
 		lat = undefined;
 		lng = undefined;
 		gpsError = '';
+		mode = 'manual';
 		oncreated?.(shop);
 	}
 </script>
 
 <form onsubmit={submit} class="space-y-3" data-test-id="add-shop">
 	{#if !editing}
+		<!--
+			Two modes, not a search box floating above a form that also always shows: someone typing a shop
+			by hand should see exactly that, and nothing about a network search they are not going to use.
+		-->
+		<div
+			role="tablist"
+			aria-label={t('shops.new')}
+			class="bg-muted grid grid-cols-2 gap-1 rounded-md p-1"
+			data-test-id="shop-mode-tabs"
+		>
+			{#each [{ id: 'search', label: t('shops.modeSearch') }, { id: 'manual', label: t('shops.modeManual') }] as option (option.id)}
+				<button
+					type="button"
+					role="tab"
+					aria-selected={mode === option.id}
+					onclick={() => (mode = option.id as 'search' | 'manual')}
+					data-test-id="shop-mode-{option.id}"
+					class="text-label min-h-[max(2.5rem,44px)] rounded-md px-3 py-1.5 font-medium transition-colors {mode ===
+					option.id
+						? 'bg-card shadow-sm'
+						: 'text-muted-foreground'}"
+				>
+					{option.label}
+				</button>
+			{/each}
+		</div>
+	{/if}
+
+	{#if !editing && mode === 'search'}
 		<div class="space-y-2">
 			<Label for="{prefix}-lookup">{t('shops.lookup')}</Label>
 			<div class="flex gap-2">
@@ -275,28 +336,41 @@
 		</div>
 	{/if}
 
+	{#if editing || mode === 'manual'}
 	<div class="grid gap-3 sm:grid-cols-2">
 		<!--
 			The brand first, because it is what opens the three-letter code and what will carry the card.
 			Optional and announced as such: a hairdresser has none, and the form must not give the impression
 			that one is needed.
+
+			A picker over the known chains, not free text: "Other" is its own choice, revealing a plain field
+			for the chain the catalogue does not carry rather than pretending the list is complete.
 		-->
 		<div>
 			<Label for="{prefix}-brand">{t('shops.brand')}</Label>
 			<IconField icon={Building2}>
-				<Input
+				<select
 					id="{prefix}-brand"
-					bind:value={brand}
+					value={brandChoice}
+					onchange={(event) => pickBrandChoice(event.currentTarget.value)}
 					data-test-id="shop-brand"
-					list="{prefix}-brands"
-					placeholder={t('shops.brandPlaceholder')}
-				/>
+					class="border-input bg-background min-h-[max(2.75rem,44px)] w-full rounded-md border"
+				>
+					<option value="">{t('shops.brandPlaceholder')}</option>
+					{#each brands as option (option)}
+						<option value={option}>{option}</option>
+					{/each}
+					<option value={OTHER_BRAND}>{t('shops.brandOther')}</option>
+				</select>
 			</IconField>
-			<datalist id="{prefix}-brands">
-				{#each brands as brand (brand)}
-					<option value={brand}></option>
-				{/each}
-			</datalist>
+			{#if brandChoice === OTHER_BRAND}
+				<Input
+					bind:value={brand}
+					data-test-id="shop-brand-other"
+					placeholder={t('shops.brandOtherPlaceholder')}
+					class="mt-2"
+				/>
+			{/if}
 		</div>
 		<div>
 			<Label for="{prefix}-name">{t('shops.name')}</Label>
@@ -405,6 +479,7 @@
 			{t('shops.shortTaken')}
 		</p>
 	{/if}
+	{/if}
 
 	{#if editing}
 		<div class="flex flex-wrap items-stretch gap-2">
@@ -416,7 +491,7 @@
 				{t('shops.cancel')}
 			</Button>
 		</div>
-	{:else}
+	{:else if mode === 'manual'}
 		<Button type="submit" disabled={attendSynchro} data-test-id="shop-create">
 			<Plus size={18} aria-hidden="true" />
 			{t('shops.new')}

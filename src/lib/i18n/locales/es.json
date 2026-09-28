@@ -55,7 +55,12 @@
 		"reminderDenied": "Notificaciones rechazadas: la fecha se guarda, pero no se enviará ningún recordatorio. Puedes permitirlas de nuevo en los ajustes del teléfono.",
 		"reminderTitle": "{name} es mañana",
 		"reminderBody": "Aún quedan artículos por comprar antes del {date}.",
-		"mealPlanSuggestion": "¿Quieres planificar la semana?"
+		"mealPlanSuggestion": "¿Quieres planificar la semana?",
+		"kindLabel": "Tipo de lista",
+		"kindShopping": "Compra",
+		"kindMealPlan": "Menú",
+		"kindAll": "Todas",
+		"kindFilterEmpty": "Ninguna lista de este tipo."
 	},
 	"profile": {
 		"title": "Perfil",
@@ -331,6 +336,11 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "Código QR"
+		},
+		"actionsFor": "Acciones para la tarjeta {name}",
+		"sharedCount": {
+			"one": "Compartida con {count} hogar",
+			"other": "Compartida con {count} hogares"
 		}
 	},
 	"common": {
@@ -463,7 +473,11 @@
 		"save": "Guardar",
 		"cancel": "Cancelar",
 		"deleteConfirm": "¿Eliminar {name}? Se perderá el recorrido aprendido en esta tienda.",
-		"deleteYes": "Eliminar"
+		"deleteYes": "Eliminar",
+		"modeSearch": "Buscar",
+		"modeManual": "Introducir a mano",
+		"brandOther": "Otra cadena",
+		"brandOtherPlaceholder": "Nombre de la cadena"
 	},
 	"prices": {
 		"title": "Historial de precios",

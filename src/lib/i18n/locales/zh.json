@@ -54,7 +54,12 @@
 		"reminderDenied": "通知已被拒绝：日期已保存，但不会发出提醒。可在手机设置中重新允许。",
 		"reminderTitle": "{name}就在明天",
 		"reminderBody": "{date}之前还有物品没买。",
-		"mealPlanSuggestion": "想要规划本周食谱吗？"
+		"mealPlanSuggestion": "想要规划本周食谱吗？",
+		"kindLabel": "清单类型",
+		"kindShopping": "购物",
+		"kindMealPlan": "菜单",
+		"kindAll": "全部",
+		"kindFilterEmpty": "没有此类型的清单。"
 	},
 	"profile": {
 		"title": "我的",
@@ -330,6 +335,10 @@
 			"ean_8": "EAN-8",
 			"itf": "ITF",
 			"qr_code": "二维码"
+		},
+		"actionsFor": "卡片{name}的操作",
+		"sharedCount": {
+			"other": "已与 {count} 个家庭共享"
 		}
 	},
 	"common": {
@@ -462,7 +471,11 @@
 		"save": "保存",
 		"cancel": "取消",
 		"deleteConfirm": "删除 {name}？在这家店学到的动线将会丢失。",
-		"deleteYes": "删除"
+		"deleteYes": "删除",
+		"modeSearch": "搜索",
+		"modeManual": "手动输入",
+		"brandOther": "其他连锁店",
+		"brandOtherPlaceholder": "连锁店名称"
 	},
 	"prices": {
 		"title": "价格记录",
