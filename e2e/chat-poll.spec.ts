@@ -49,7 +49,8 @@ test('proposer des dates, voter, et fixer la date retenue', async ({ signedInPag
 	const name = listName();
 	await createList(page, name);
 
-	await page.getByTestId('new-poll-date').click();
+	await page.getByTestId('chat-compose-open').click();
+	await page.getByTestId('action-sheet-date').click();
 	await page.getByTestId('poll-question').fill('Quel soir ?');
 	await page.getByTestId('poll-choices').fill('Vendredi\nSamedi');
 	await page.getByTestId('poll-create').click();
@@ -84,7 +85,8 @@ test('un sondage sans choix est refusé sans fermer le formulaire', async ({
 	const name = listName();
 	await createList(page, name);
 
-	await page.getByTestId('new-poll-date').click();
+	await page.getByTestId('chat-compose-open').click();
+	await page.getByTestId('action-sheet-date').click();
 	await page.getByTestId('poll-question').fill('Quel soir ?');
 	await page.getByTestId('poll-choices').fill('   \n  ');
 	await page.getByTestId('poll-create').click();

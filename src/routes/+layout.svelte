@@ -410,8 +410,17 @@
 		void search?.show();
 	}
 
-	/** The magnifier takes the whole surface to enlarge a label: nothing floats over it. */
-	const hidesCreate = $derived(page.url.pathname.startsWith('/magnifier'));
+	/**
+	 * The magnifier takes the whole surface to enlarge a label: nothing floats over it.
+	 *
+	 * A conversation hides it too (#365): its own compose button sits exactly where the floating one would,
+	 * and the two used to overlap.
+	 */
+	const hidesCreate = $derived(
+		page.url.pathname.startsWith('/magnifier') ||
+			page.url.pathname.startsWith('/chat/d/') ||
+			/^\/l\/[^/]+\/chat/.test(page.url.pathname)
+	);
 
 	/**
 	 * Page transition through the View Transitions API: the browser photographs the screen, lets
