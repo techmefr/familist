@@ -944,8 +944,16 @@
 	</ul>
 {/if}
 
-<!-- On a phone the bar floats over the end of the wall: this keeps the last card clear of it. -->
-<div class="md:hidden" style="height: {barHeight}px" aria-hidden="true"></div>
+<!--
+	On a phone the bar floats over the end of the wall: this keeps the last card clear of it. Its own
+	height alone is not enough — `.fl-above-nav` also lifts it `inset-block-end: calc(var(--fl-navbar-h) +
+	0.75rem)` above the viewport bottom, so the spacer has to cover that gap too.
+-->
+<div
+	class="md:hidden"
+	style="height: calc({barHeight}px + var(--fl-navbar-h, 4rem) + 0.75rem)"
+	aria-hidden="true"
+></div>
 
 <RecipeFilterSheet bind:this={filterSheet} bind:selection recipes={filterable} {query} />
 
