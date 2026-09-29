@@ -84,6 +84,7 @@
 	let searchQuery = $state('');
 
 	let filterSheet = $state<HTMLDialogElement | null>(null);
+	let barHeight = $state(0);
 	const activeFilterCount = $derived(
 		(kindFilter !== 'all' ? 1 : 0) + (scopeFilter !== 'all' ? 1 : 0)
 	);
@@ -530,6 +531,7 @@
 		filters (kind, and scope down to one specific household) live in a sheet opened on demand.
 	-->
 	<div
+		bind:clientHeight={barHeight}
 		class="fl-above-nav border-border bg-card/82 mt-6 flex items-center gap-2 rounded-full border p-2 shadow-[var(--fl-shadow-3)] backdrop-blur-2xl"
 	>
 		{#if searchOpen}
@@ -789,6 +791,18 @@
 			</li>
 		{/each}
 	</ul>
+
+	<!--
+		On a phone the bar floats over the end of the wall: this keeps the last card clear of it. Its own
+		height alone is not enough - `.fl-above-nav` also lifts it `inset-block-end: calc(var(--fl-navbar-h) +
+		0.75rem)` above the viewport bottom, so the spacer has to cover that gap too, and it must be the very
+		last element so scrolling to the true bottom actually reveals what is above it.
+	-->
+	<div
+		class="md:hidden"
+		style="height: calc({barHeight}px + var(--fl-navbar-h, 4rem) + 0.75rem)"
+		aria-hidden="true"
+	></div>
 {/if}
 
 
