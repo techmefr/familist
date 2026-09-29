@@ -664,8 +664,8 @@
 			-->
 			<header
 				inert={headerHidden}
-				class="bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl items-center
-					justify-between gap-4 px-4 pt-3 pb-1 transition-transform duration-200 ease-out
+				class="bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl flex-wrap items-center
+					justify-between gap-x-4 gap-y-1 px-4 pt-3 pb-1 transition-transform duration-200 ease-out
 					{headerHidden ? '-translate-y-full' : 'translate-y-0'}"
 			>
 				<p class="text-h2 flex min-w-0 items-center gap-2 font-semibold full:hidden">
