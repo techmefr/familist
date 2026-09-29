@@ -673,7 +673,7 @@
 					<span class="min-w-0 shrink truncate">{t('app.name')}</span>
 				</p>
 
-				<div class="ms-auto flex shrink-0 items-center gap-1">
+				<div class="ms-auto flex shrink-0 items-center gap-0.5">
 					<!--
 						Search is in the header, next to help, and in the same place at both screen sizes. It does not
 						go in the bottom bar: that one carries destinations, one per tab, and search is not one — it
