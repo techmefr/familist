@@ -72,3 +72,13 @@ export function parseStoredTimers(raw: unknown, now: number): Timer[] {
 		];
 	});
 }
+
+/**
+ * How much of the ring is still to go, from 0 (done) to 1 (just started). A timer extended past its first
+ * duration ("+1 min") stays full until it catches up, rather than showing more than a whole turn.
+ */
+export function ringFraction(timer: Pick<Timer, 'durationSeconds' | 'endsAt'>, now: number): number {
+	if (timer.durationSeconds <= 0) return 0;
+	const left = Math.max(0, (timer.endsAt - now) / 1000);
+	return Math.min(1, left / timer.durationSeconds);
+}
