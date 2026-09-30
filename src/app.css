@@ -16,6 +16,19 @@
 @import '@fontsource/schibsted-grotesk/600.css';
 @import '@fontsource/schibsted-grotesk/700.css';
 
+/*
+ * Token reference. Components read these and never a literal value.
+ *
+ * Colour  — semantic variables only (--background, --foreground, --card, --primary, --secondary, --muted,
+ *   --accent, --destructive, --border, --input, --ring and the --fl-* family). Their values per palette live
+ *   in this file (the default, cream-forest) and in themes.css (the nine other presets); a palette made in
+ *   the creator sets the same names inline. themes.test.ts holds every set to 4.5:1 for text and 3:1 for UI.
+ * Radius  — --radius (0.75rem, the creator can change it) and the --radius-sm/md/lg/xl steps derived from it.
+ * Shadow  — --fl-shadow-1 (resting) to --fl-shadow-4 (modal), used as shadow-fl-1..4.
+ * Type    — the --text-* steps, scaled by data-scale (xs to comfort, x2.3), in the font chosen by data-font.
+ * Motion  — --fl-ease and the --fl-dur-* steps, mirrored in $domain/motion-tokens.
+ */
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*

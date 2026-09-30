@@ -146,7 +146,7 @@
 		</div>
 
 		{#if tab === 'card'}
-			<div class="fl-rise rounded-lg bg-white p-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)]">
+			<div class="fl-rise rounded-lg bg-white p-5 shadow-fl-4">
 				<p class="text-caption text-center font-bold tracking-widest text-neutral-900">
 					{t('cards.showAtCheckout')}
 				</p>

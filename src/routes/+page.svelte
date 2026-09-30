@@ -10,6 +10,7 @@
 	import { createIntent } from '$stores/create.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { TINTS, DEFAULT_TINT } from '$domain/tint';
+	import { themedTint } from '$domain/theme-tints';
 	import { reminderStatus } from '$domain/reminder';
 	import { remindersSupported, requestReminderPermission } from '$native/reminders';
 	import * as Card from '$components/ui/card';
@@ -532,7 +533,7 @@
 	-->
 	<div
 		bind:clientHeight={barHeight}
-		class="fl-above-nav border-border bg-card/82 mt-6 flex items-center gap-2 rounded-full border p-2 shadow-[var(--fl-shadow-3)] backdrop-blur-2xl"
+		class="fl-above-nav border-border bg-card/82 mt-6 flex items-center gap-2 rounded-full border p-2 shadow-fl-3 backdrop-blur-2xl"
 	>
 		{#if searchOpen}
 			<div class="min-w-0 flex-1">
@@ -690,7 +691,7 @@
 						>
 							<span
 								class="fl-home-emoji text-h1"
-								style="--fl-home-tint: {list.color || DEFAULT_TINT}"
+								style="--fl-home-tint: {themedTint(list.color || DEFAULT_TINT, settings.themeId)}"
 								aria-hidden="true"
 							>
 								{list.emoji}
