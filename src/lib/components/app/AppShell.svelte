@@ -217,7 +217,7 @@
 				full:justify-start full:gap-3
 				{hidesCreate ? 'phone:hidden' : ''}"
 		>
-			<AnimatedIcon name="plus" size={26} />
+			<span class="fl-create-icon"><AnimatedIcon name="plus" size={26} /></span>
 			<span class="text-label sr-only font-medium full:not-sr-only">{t('nav.create')}</span>
 		</button>
 

@@ -2,6 +2,7 @@
 	import type { Item } from '$db/schema';
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { unitKeyForCount } from '$domain/units';
 	import { slugify } from '$domain/slug';
@@ -48,9 +49,17 @@
 	});
 
 	/** `item.checked` is still the previous state: ticking goes up, unticking goes down. */
+	/** Ticking pops the box for a moment: a small confirmation, nothing that loops. */
+	let isPopping = $state(false);
+
 	function toggle() {
-		feedback.play(item.checked ? 'uncheck' : 'check');
+		const isChecking = !item.checked;
+		feedback.play(isChecking ? 'check' : 'uncheck');
 		data.toggleItem(item.id);
+
+		if (!isChecking) return;
+		isPopping = true;
+		setTimeout(() => (isPopping = false), DURATION.in);
 	}
 
 	/**
@@ -122,7 +131,7 @@
 			checked={item.checked}
 			onchange={toggle}
 			data-test-class="item-check"
-			class="accent-primary shrink-0"
+			class="accent-primary shrink-0 {isPopping ? 'fl-check-pop' : ''}"
 		/>
 
 		<span class="min-w-0">

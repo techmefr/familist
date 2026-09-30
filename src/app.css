@@ -2032,3 +2032,33 @@ html[data-motion='none'] .fl-mascot-eyes {
 		animation: none;
 	}
 }
+
+/*
+ * Secondary motion (#460, #461). Native CSS only, inside the global guards above: with motion off, in the app
+ * or in the system, none of it plays.
+ */
+@keyframes fl-check-pop {
+	0% {
+		transform: scale(1);
+	}
+	45% {
+		transform: scale(1.35);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.fl-check-pop {
+	animation: fl-check-pop var(--fl-dur-in) var(--fl-ease);
+}
+
+/* The + turns into a cross while its sheet is open: the browser's own open state, no mirror in JavaScript. */
+.fl-create-icon {
+	display: inline-flex;
+	transition: rotate var(--fl-dur-tap) var(--fl-ease);
+}
+
+html:has(dialog[data-test-id='create-menu'][open]) .fl-create-icon {
+	rotate: 45deg;
+}
