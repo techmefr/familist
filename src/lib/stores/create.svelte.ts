@@ -7,7 +7,7 @@
  * (`recipeDraft`), since what unfolds there is already a draft. Hence this relay, rather than a URL
  * parameter that would stay in the address bar and reopen the form on every reload.
  */
-export type CreateKind = 'item' | 'list' | 'aisle' | 'shop' | 'card' | 'recipe' | 'mealPlan';
+export type CreateKind = 'item' | 'list' | 'aisle' | 'shop' | 'card' | 'recipe' | 'mealPlan' | 'direct';
 
 class CreateIntent {
 	#kind = $state<CreateKind | null>(null);

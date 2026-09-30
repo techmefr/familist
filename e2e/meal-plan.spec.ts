@@ -30,7 +30,7 @@ test.describe('menu de la semaine', () => {
 		await expect(page.getByTestId('create-menu')).toBeVisible();
 
 		await page.getByTestId('create-mealPlan').click();
-		await expect(page).toHaveURL(/\/meal-plan$/);
+		await expect(page).toHaveURL(/\/meal-plan\/[^/]+$/);
 	});
 
 	test('creer un plan, y ajouter des recettes, les editer et generer la liste', async ({
@@ -44,10 +44,8 @@ test.describe('menu de la semaine', () => {
 		await createRecipe(page, secondRecipe, 'Riz', '300');
 
 		await page.goto('/recipes');
-		await page.getByTestId('recipes-meal-plan-link').click();
-		await expect(page).toHaveURL(/\/meal-plan$/);
-
-		await page.getByTestId('meal-plan-create').click();
+		await page.getByTestId('nav-create').click();
+		await page.getByTestId('create-mealPlan').click();
 		await expect(page).toHaveURL(/\/meal-plan\/[^/]+$/);
 
 		await page.getByTestId('meal-plan-pick').click();

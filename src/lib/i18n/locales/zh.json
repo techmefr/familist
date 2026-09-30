@@ -26,7 +26,8 @@
 		"shop": "新建门店",
 		"card": "新建会员卡",
 		"recipe": "新建食谱",
-		"mealPlan": "新建本周菜单"
+		"mealPlan": "新建本周菜单",
+		"direct": "新对话"
 	},
 	"lists": {
 		"title": "我的清单",
@@ -1374,7 +1375,11 @@
 		"photoView": "全屏查看照片",
 		"photoUploading": "正在发送照片…",
 		"photoFailed": "照片发送失败，请重试。",
-		"photoTooBig": "这张照片太大了。"
+		"photoTooBig": "这张照片太大了。",
+		"assistantName": "Familiste 助手",
+		"assistantPreview": "询问食谱、菜单或点子",
+		"assistantTitle": "Familiste 助手",
+		"assistantBack": "对话"
 	},
 	"household": {
 		"title": "我的家庭",

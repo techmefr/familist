@@ -26,7 +26,8 @@
 		"shop": "متجر جديد",
 		"card": "بطاقة ولاء جديدة",
 		"recipe": "وصفة جديدة",
-		"mealPlan": "خطة وجبات أسبوعية جديدة"
+		"mealPlan": "خطة وجبات أسبوعية جديدة",
+		"direct": "محادثة جديدة"
 	},
 	"lists": {
 		"title": "قوائمي",
@@ -1436,7 +1437,11 @@
 		"photoView": "عرض الصورة بملء الشاشة",
 		"photoUploading": "جارٍ إرسال الصورة…",
 		"photoFailed": "فشل إرسال الصورة. حاول مرة أخرى.",
-		"photoTooBig": "حجم هذه الصورة كبير جدًا."
+		"photoTooBig": "حجم هذه الصورة كبير جدًا.",
+		"assistantName": "مساعد Familiste",
+		"assistantPreview": "اطلب وصفة أو قائمة أو فكرة",
+		"assistantTitle": "مساعد Familiste",
+		"assistantBack": "المحادثات"
 	},
 	"household": {
 		"title": "منزلي",

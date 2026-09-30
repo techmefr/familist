@@ -26,7 +26,8 @@
 		"shop": "New shop",
 		"card": "New loyalty card",
 		"recipe": "New recipe",
-		"mealPlan": "New meal plan"
+		"mealPlan": "New meal plan",
+		"direct": "New conversation"
 	},
 	"lists": {
 		"title": "My lists",
@@ -1399,7 +1400,11 @@
 		"photoView": "View photo full screen",
 		"photoUploading": "Sending photo…",
 		"photoFailed": "Sending the photo failed. Try again.",
-		"photoTooBig": "This photo is too big."
+		"photoTooBig": "This photo is too big.",
+		"assistantName": "Familiste assistant",
+		"assistantPreview": "Ask for a recipe, a menu or an idea",
+		"assistantTitle": "Familiste assistant",
+		"assistantBack": "Discussions"
 	},
 	"household": {
 		"title": "My household",

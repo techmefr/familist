@@ -26,7 +26,8 @@
 		"shop": "Nueva tienda",
 		"card": "Nueva tarjeta de fidelidad",
 		"recipe": "Nueva receta",
-		"mealPlan": "Nuevo plan de comida semanal"
+		"mealPlan": "Nuevo plan de comida semanal",
+		"direct": "Nueva conversación"
 	},
 	"lists": {
 		"title": "Mis listas",
@@ -1392,7 +1393,11 @@
 		"photoView": "Ver la foto a pantalla completa",
 		"photoUploading": "Enviando la foto…",
 		"photoFailed": "No se pudo enviar la foto. Inténtalo de nuevo.",
-		"photoTooBig": "Esta foto pesa demasiado."
+		"photoTooBig": "Esta foto pesa demasiado.",
+		"assistantName": "Asistente Familiste",
+		"assistantPreview": "Pide una receta, un menú o una idea",
+		"assistantTitle": "Asistente Familiste",
+		"assistantBack": "Conversaciones"
 	},
 	"household": {
 		"title": "Mi hogar",

@@ -26,7 +26,8 @@
 		"shop": "Fivarotana vaovao",
 		"card": "Karatra vaovao",
 		"recipe": "Recettes vaovao",
-		"mealPlan": "Drafitra sakafo vaovao"
+		"mealPlan": "Drafitra sakafo vaovao",
+		"direct": "Resaka vaovao"
 	},
 	"lists": {
 		"title": "Ny lisitro",
@@ -1379,7 +1380,11 @@
 		"photoView": "Jereo ny sary amin'ny efijery feno",
 		"photoUploading": "Mandefa sary…",
 		"photoFailed": "Tsy nahomby ny fandefasana ny sary. Andramo indray.",
-		"photoTooBig": "Mavesatra loatra io sary io."
+		"photoTooBig": "Mavesatra loatra io sary io.",
+		"assistantName": "Mpanampy Familiste",
+		"assistantPreview": "Angataho fomba fahandrahoana, menio na hevitra",
+		"assistantTitle": "Mpanampy Familiste",
+		"assistantBack": "Resaka"
 	},
 	"household": {
 		"title": "Ny ankohonako",
