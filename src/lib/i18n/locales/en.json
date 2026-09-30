@@ -1171,7 +1171,9 @@
 		"resetInvalidTitle": "Invalid or expired link",
 		"resetInvalidBody": "This reset link is no longer valid. Ask for a new one from the sign-in screen.",
 		"resetDoneTitle": "Password updated",
-		"resetDoneBody": "You can now sign in with your new password."
+		"resetDoneBody": "You can now sign in with your new password.",
+		"moreProviders": "More sign-in options",
+		"fewerProviders": "Fewer options"
 	},
 	"welcome": {
 		"title": "Welcome",

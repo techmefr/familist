@@ -1164,7 +1164,9 @@
 		"resetInvalidTitle": "Enlace no válido o caducado",
 		"resetInvalidBody": "Este enlace de restablecimiento ya no es válido. Solicita uno nuevo desde la pantalla de inicio de sesión.",
 		"resetDoneTitle": "Contraseña actualizada",
-		"resetDoneBody": "Ya puedes iniciar sesión con tu nueva contraseña."
+		"resetDoneBody": "Ya puedes iniciar sesión con tu nueva contraseña.",
+		"moreProviders": "Más formas de acceder",
+		"fewerProviders": "Menos opciones"
 	},
 	"welcome": {
 		"title": "Bienvenido",

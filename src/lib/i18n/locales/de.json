@@ -1160,7 +1160,9 @@
 		"resetInvalidTitle": "Ungültiger oder abgelaufener Link",
 		"resetInvalidBody": "Dieser Link zum Zurücksetzen ist nicht mehr gültig. Fordern Sie einen neuen über die Anmeldeseite an.",
 		"resetDoneTitle": "Passwort aktualisiert",
-		"resetDoneBody": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden."
+		"resetDoneBody": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden.",
+		"moreProviders": "Weitere Anmeldearten",
+		"fewerProviders": "Weniger Optionen"
 	},
 	"welcome": {
 		"title": "Willkommen",

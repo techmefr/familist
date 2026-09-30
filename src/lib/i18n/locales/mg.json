@@ -1151,7 +1151,9 @@
 		"resetInvalidTitle": "Rohy tsy mety na efa lany daty",
 		"resetInvalidBody": "Tsy mihatra intsony io rohy famerenana io. Mangataha rohy vaovao eo amin'ny efijery fidirana.",
 		"resetDoneTitle": "Voavaozina ny tenimiafina",
-		"resetDoneBody": "Afaka miditra amin ny tenimiafina vaovao ianao izao."
+		"resetDoneBody": "Afaka miditra amin ny tenimiafina vaovao ianao izao.",
+		"moreProviders": "Fomba hafa hiditra",
+		"fewerProviders": "Tsy dia be loatra"
 	},
 	"welcome": {
 		"title": "Tongasoa",

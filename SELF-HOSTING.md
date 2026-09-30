@@ -203,3 +203,19 @@ approval in `/admin`.
 
 **A reloaded page returns a 404.** You are not going through the provided container, and the host
 does not rewrite to `index.html`.
+
+
+## Sign in with Google, Apple and other services
+
+Email and password work out of the box. To offer other services:
+
+1. At each provider, create an OAuth application. The return URL to declare is
+   `https://<your-project>.supabase.co/auth/v1/callback`.
+2. In Supabase, Authentication, Sign In / Providers: enable the provider and paste its client id and secret.
+3. Set `PUBLIC_OAUTH_PROVIDERS` (for example `google,apple,github`) and restart the container. No rebuild
+   is needed: the list is read from `config.js` when the page opens.
+
+The first service shown is the platform's own (Google on Android, Apple on iOS, Google then Apple on the
+web); the others are behind a "More" button. An id that is listed here but not enabled in Supabase shows a
+button that fails, so keep the two lists equal. Apple is required by the App Store as soon as another social
+sign-in is offered in the iOS app.

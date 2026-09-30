@@ -27,7 +27,9 @@ function instanceConfig(mode: string): Plugin {
 			sentryDsn: env.PUBLIC_SENTRY_DSN ?? '',
 			// Facultatif : site GoatCounter propre a cette instance (mesure d'audience sans cookies ni donnees
 			// personnelles). Absent partout ailleurs, il ne change rien.
-			goatcounterSite: env.PUBLIC_GOATCOUNTER_SITE ?? ''
+			goatcounterSite: env.PUBLIC_GOATCOUNTER_SITE ?? '',
+			// Facultatif : fournisseurs de connexion proposes, separes par des virgules (`google,apple`).
+			oauthProviders: env.PUBLIC_OAUTH_PROVIDERS ?? ''
 		})};\n`;
 	};
 

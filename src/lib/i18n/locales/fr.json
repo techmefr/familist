@@ -1203,7 +1203,9 @@
 		"resetInvalidTitle": "Lien invalide ou expiré",
 		"resetInvalidBody": "Ce lien de réinitialisation n'est plus valable. Demandez-en un nouveau depuis l'écran de connexion.",
 		"resetDoneTitle": "Mot de passe mis à jour",
-		"resetDoneBody": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
+		"resetDoneBody": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+		"moreProviders": "Autres moyens de connexion",
+		"fewerProviders": "Moins d’options"
 	},
 	"welcome": {
 		"title": "Bienvenue",

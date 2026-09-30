@@ -112,3 +112,21 @@ describe('resolveInstanceConfig', () => {
 		expect(resolveInstanceConfig(buildWithoutDsn, LOCAL)).toEqual(LOCAL);
 	});
 });
+
+describe('oauthProviders', () => {
+	const base = { url: 'https://x.supabase.co', anonKey: 'key' };
+
+	it('reads the configured providers and drops unknown ones', () => {
+		expect(readInstanceConfig({ ...base, oauthProviders: 'google, apple,nope' })?.oauthProviders).toEqual(['google', 'apple']);
+	});
+
+	it('is absent when nothing valid is configured', () => {
+		expect(readInstanceConfig({ ...base, oauthProviders: 'nope' })?.oauthProviders).toBeUndefined();
+		expect(readInstanceConfig(base)?.oauthProviders).toBeUndefined();
+	});
+
+	it('survives a local connection override', () => {
+		const build = readInstanceConfig({ ...base, oauthProviders: 'google' });
+		expect(resolveInstanceConfig(build, { url: 'https://y.supabase.co', anonKey: 'k2' })?.oauthProviders).toEqual(['google']);
+	});
+});

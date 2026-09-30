@@ -1160,7 +1160,9 @@
 		"resetInvalidTitle": "Link inválido ou expirado",
 		"resetInvalidBody": "Este link de redefinição já não é válido. Peça um novo na tela de login.",
 		"resetDoneTitle": "Senha atualizada",
-		"resetDoneBody": "Agora você pode entrar com a sua nova senha."
+		"resetDoneBody": "Agora você pode entrar com a sua nova senha.",
+		"moreProviders": "Mais formas de entrar",
+		"fewerProviders": "Menos opções"
 	},
 	"welcome": {
 		"title": "Bem-vindo",

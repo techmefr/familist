@@ -1158,7 +1158,9 @@
 		"resetInvalidTitle": "Link non valido o scaduto",
 		"resetInvalidBody": "Questo link di reimpostazione non è più valido. Richiedine uno nuovo dalla schermata di accesso.",
 		"resetDoneTitle": "Password aggiornata",
-		"resetDoneBody": "Ora puoi accedere con la tua nuova password."
+		"resetDoneBody": "Ora puoi accedere con la tua nuova password.",
+		"moreProviders": "Altri modi di accedere",
+		"fewerProviders": "Meno opzioni"
 	},
 	"welcome": {
 		"title": "Benvenuto",
