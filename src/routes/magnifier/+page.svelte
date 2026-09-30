@@ -386,7 +386,7 @@
 		find the line to read.
 	-->
 	{#if frozen}
-		<div class="pointer-events-none absolute inset-x-3 top-[4.25rem] flex flex-col items-center gap-2">
+		<div class="pointer-events-none absolute inset-x-3 flex flex-col items-center gap-2" style="top: calc(var(--fl-header-h, 4rem) + 4rem)">
 			<p
 				class="text-caption flex items-center gap-2 rounded-full bg-black/60 px-4 py-2 font-semibold text-white backdrop-blur-md"
 				data-test-id="magnifier-frozen-badge"
@@ -409,7 +409,7 @@
 			{/if}
 		</div>
 	{:else if status === 'live' && !touched}
-		<div class="pointer-events-none absolute inset-x-3 top-[4.25rem] flex justify-center">
+		<div class="pointer-events-none absolute inset-x-3 flex justify-center" style="top: calc(var(--fl-header-h, 4rem) + 4rem)">
 			<p
 				class="text-label max-w-sm rounded-2xl bg-black/60 px-4 py-3 text-center text-white backdrop-blur-md"
 				data-test-id="magnifier-hint"

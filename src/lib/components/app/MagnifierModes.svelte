@@ -16,9 +16,10 @@
 <nav
 	aria-label={t('product.modes')}
 	class="z-20 flex gap-1 rounded-full border p-1 {overlay
-		? 'absolute start-1/2 top-3 -translate-x-1/2 bg-black/60 text-white backdrop-blur-md'
+		? 'absolute start-1/2 -translate-x-1/2 bg-black/60 text-white backdrop-blur-md'
 		: 'bg-card mx-auto w-fit'}"
 	data-test-id="magnifier-modes"
+	style={overlay ? 'top: calc(var(--fl-header-h, 4rem) + 0.5rem)' : undefined}
 >
 	{#each MODES as mode (mode.id)}
 		<a
