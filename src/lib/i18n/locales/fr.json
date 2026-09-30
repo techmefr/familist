@@ -2183,7 +2183,11 @@
 			"removed": "Retiré.",
 			"invalid": "Adresse refusée : utilisez une adresse https qui se termine par un sujet de 8 à 64 lettres ou chiffres.",
 			"failed": "Enregistrement impossible. Réessayez."
-		}
+		},
+		"backgroundSwitch": "Rester connecté en arrière-plan",
+		"backgroundHint": "Android uniquement, sans Google : l’appli garde sa propre connexion ouverte et vous prévient des nouveaux messages et changements de liste. Android affiche une notification permanente et cela consomme un peu plus de batterie. Si votre téléphone l’arrête, excluez Familiste de l’économie de batterie.",
+		"backgroundTitle": "Familiste est à l’écoute",
+		"backgroundBody": "Les nouveaux messages et changements de liste vous seront signalés."
 	},
 	"product": {
 		"title": "Scanner un produit",

@@ -2128,7 +2128,11 @@
 			"removed": "Voafafa.",
 			"invalid": "Nolavina ny adiresy: ampiasao adiresy https misy lohahevitra litera na isa 8 ka hatramin’ny 64.",
 			"failed": "Tsy afaka voatahiry. Andramo indray."
-		}
+		},
+		"backgroundSwitch": "Hijanona mifandray any aoriana",
+		"backgroundHint": "Android ihany, tsy misy Google: mitazona ny fifandraisana ny app ary manoro anao ny hafatra sy ny fiovan’ny lisitra. Mampiseho fampandrenesana maharitra ny Android ary mihinana batterie kokoa kely. Raha ajanony ny findainao, esory ny Familiste amin’ny fitsitsiana batterie.",
+		"backgroundTitle": "Familiste mihaino",
+		"backgroundBody": "Ho fantarinao ny hafatra vaovao sy ny fiovan’ny lisitra."
 	},
 	"product": {
 		"title": "Hijery vokatra",

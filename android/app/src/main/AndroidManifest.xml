@@ -34,6 +34,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+        <receiver android:name="io.capawesome.capacitorjs.plugins.foregroundservice.NotificationActionBroadcastReceiver" />
+        <service
+            android:name="io.capawesome.capacitorjs.plugins.foregroundservice.AndroidForegroundService"
+            android:foregroundServiceType="remoteMessaging" />
     </application>
 
     <!-- Permissions -->
@@ -48,6 +52,11 @@
     <!-- Rappel de la date limite d'une liste. Demandee seulement quand une date est posee, et
          refusable : la date reste enregistree et affichee, c'est le rappel seul qui manque. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- The background listener (no Google services): a foreground service of the remote-messaging type, which
+         Android does not time out, keeps the connection to the server open and shows its one permanent notice. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- Micro, pour le mode mains libres de « Suivre la recette ». Le greffon de reconnaissance
          vocale declare RECORD_AUDIO ; il n est demande qu au premier « Mains libres », apres une

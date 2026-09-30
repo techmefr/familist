@@ -2116,7 +2116,11 @@
 			"removed": "已移除。",
 			"invalid": "地址被拒绝：请使用以 8 到 64 位字母或数字主题结尾的 https 地址。",
 			"failed": "无法保存，请重试。"
-		}
+		},
+		"backgroundSwitch": "在后台保持连接",
+		"backgroundHint": "仅限 Android，无需 Google：应用保持自己的连接，并在有新消息和清单变化时通知你。Android 会显示一条常驻通知，耗电略多。若手机将其停止，请将 Familiste 从省电限制中排除。",
+		"backgroundTitle": "Familiste 正在监听",
+		"backgroundBody": "新消息和清单变化会通知你。"
 	},
 	"product": {
 		"title": "扫描商品",

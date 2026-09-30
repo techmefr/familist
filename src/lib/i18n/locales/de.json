@@ -2137,7 +2137,11 @@
 			"removed": "Entfernt.",
 			"invalid": "Adresse nicht akzeptiert: https-Adresse mit einem Thema aus 8 bis 64 Buchstaben oder Ziffern verwenden.",
 			"failed": "Speichern nicht möglich. Erneut versuchen."
-		}
+		},
+		"backgroundSwitch": "Im Hintergrund verbunden bleiben",
+		"backgroundHint": "Nur Android, ohne Google: Die App hält ihre eigene Verbindung offen und meldet neue Nachrichten und Listenänderungen. Android zeigt einen dauerhaften Hinweis, und es verbraucht etwas mehr Akku. Stoppt Ihr Telefon sie, nehmen Sie Familiste vom Energiesparen aus.",
+		"backgroundTitle": "Familiste hört zu",
+		"backgroundBody": "Neue Nachrichten und Listenänderungen werden gemeldet."
 	},
 	"product": {
 		"title": "Produkt scannen",
