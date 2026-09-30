@@ -170,7 +170,8 @@
 				"hint": "账号、反馈、崩溃",
 				"keywords": "批准、审核、角色、管理员、演示、反馈、崩溃、数据请求"
 			}
-		}
+		},
+		"palette": "配色主题"
 	},
 	"theme": {
 		"light": "浅色",
@@ -1285,7 +1286,7 @@
 	},
 	"sync": {
 		"offline": "离线 — 网络恢复后将同步你的更改",
-		"error": "目前无法同步",
+		"error": "已保存在此设备，将在可能时同步",
 		"rejected": {
 			"message": "无法在服务器上保存{what}",
 			"retry": "重试",
@@ -1299,7 +1300,10 @@
 				"message": "这条消息",
 				"other": "这项更改"
 			}
-		}
+		},
+		"retryNow": "重试",
+		"details": "详情",
+		"retrying": "正在重试…"
 	},
 	"chat": {
 		"title": "讨论",
@@ -1810,7 +1814,12 @@
 		"generateSubmit": "生成清单",
 		"delete": "删除计划",
 		"deleteConfirm": "删除{name}？已生成的清单不会改变。",
-		"deleteYes": "删除"
+		"deleteYes": "删除",
+		"search": "搜索菜单",
+		"searchPlaceholder": "搜索菜单",
+		"filtersTitle": "筛选菜单",
+		"filterWithRecipes": "仅含食谱的菜单",
+		"noMatch": "没有匹配的菜单。"
 	},
 	"recipeShare": {
 		"title": "分享此食谱",
@@ -1897,5 +1906,61 @@
 		"seconds": {
 			"other": "{count} 秒"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "浅色",
+			"dark": "深色"
+		},
+		"creamForest": "奶油与森林",
+		"pastel": "粉彩",
+		"foret": "森林",
+		"marine": "海军蓝与沙色",
+		"corail": "珊瑚与桃色",
+		"lavande": "薰衣草",
+		"ardoise": "石板与柠檬",
+		"draculaLight": "Dracula Light（灵感）",
+		"night": "夜晚",
+		"dracula": "Dracula",
+		"create": "创建我的主题",
+		"intro": "选择主色，其余颜色由它推算并调整，确保一切清晰可读。",
+		"name": "名称",
+		"base": "基调",
+		"seed": "主色",
+		"hex": "颜色代码",
+		"seedInvalid": "请输入如 #4ea674 的颜色。",
+		"tone": "背景色调",
+		"radius": "圆角",
+		"preview": "预览",
+		"checks": "可读性检查",
+		"pass": "通过",
+		"fail": "未通过",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "保存主题",
+		"cancel": "取消",
+		"saved": "主题已保存。",
+		"refused": "此主题可读性不足，无法保存。",
+		"full": "最多可保存 {max} 个主题。",
+		"mine": "我的主题（{count}/{max}）",
+		"edit": "编辑",
+		"delete": "删除",
+		"export": "导出为 JSON",
+		"import": "导入文件",
+		"imported": "已导入 {count} 个主题。",
+		"importEmpty": "无法从该文件导入任何内容。"
 	}
 }

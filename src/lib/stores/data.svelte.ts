@@ -228,9 +228,8 @@ class DataStore {
 	/**
 	 * Tracks Dexie writes still in flight — see `$domain/pending-writes`. A mutator updates the in-memory
 	 * cache synchronously and writes to Dexie without awaiting it; `hydrate()` re-reads the whole table on
-	 * every sync round-trip and would otherwise wholesale-clobber a write that has not landed yet. Only
-	 * `addCard` reports through it for now — see `hydrate()`'s `cachedCards` guard for why wiring the other
-	 * mutators is cheap here but not on the `hydrate()` side.
+	 * every sync round-trip and would otherwise wholesale-clobber a write that has not landed yet. Every
+	 * optimistic list, item and card write reports through it — see `hydrate()`'s guards.
 	 */
 	#pendingWrites = new PendingWrites();
 
@@ -351,8 +350,12 @@ class DataStore {
 
 		this.cachedShops = shops;
 		this.cachedAisles = aisles;
-		this.cachedLists = lists;
-		this.items = items;
+		// Same guard as the cards below: `addList` and `addItem` write to Dexie without awaiting it, so a hydrate
+		// that reads while a write is in flight would replace the optimistic row with a snapshot that lacks it.
+		if (this.#pendingWrites.count === 0) {
+			this.cachedLists = lists;
+			this.items = items;
+		}
 
 		// `addCard` writes to Dexie without awaiting it, so a card can be in-memory-visible while its write is
 		// still on its way. If a write is still in flight, this read of `db.cards` may have missed it — replacing
@@ -479,7 +482,7 @@ class DataStore {
 		if (!item) return;
 
 		item.checked = !item.checked;
-		db.items.update(id, { checked: item.checked });
+		void this.#pendingWrites.track(db.items.update(id, { checked: item.checked }));
 		this.push('items', $state.snapshot(item), fromItem);
 	}
 
@@ -501,7 +504,7 @@ class DataStore {
 		};
 
 		this.items = [...this.items, item];
-		db.items.add(item);
+		void this.#pendingWrites.track(db.items.add(item));
 		this.push('items', item, fromItem);
 		return item;
 	}
@@ -527,13 +530,13 @@ class DataStore {
 		if (patch.note !== undefined) item.note = patch.note.trim() || undefined;
 
 		const snapshot = $state.snapshot(item) as Item;
-		db.items.put(snapshot);
+		void this.#pendingWrites.track(db.items.put(snapshot));
 		this.push('items', snapshot, fromItem);
 	}
 
 	removeItem(id: string) {
 		this.items = this.items.filter((i) => i.id !== id);
-		db.items.delete(id);
+		void this.#pendingWrites.track(db.items.delete(id));
 		sync.enqueue({ table: 'items', op: 'delete', match: { id } });
 	}
 
@@ -542,14 +545,14 @@ class DataStore {
 		if (!item) return;
 
 		item.priority = !item.priority;
-		db.items.update(id, { priority: item.priority });
+		void this.#pendingWrites.track(db.items.update(id, { priority: item.priority }));
 		this.push('items', $state.snapshot(item), fromItem);
 	}
 
 	clearChecked(listId: string) {
 		const removed = this.items.filter((i) => i.listId === listId && i.checked).map((i) => i.id);
 		this.items = this.items.filter((i) => !removed.includes(i.id));
-		db.items.bulkDelete(removed);
+		void this.#pendingWrites.track(db.items.bulkDelete(removed));
 		removed.forEach((id) => sync.enqueue({ table: 'items', op: 'delete', match: { id } }));
 		return removed.length;
 	}
@@ -592,7 +595,7 @@ class DataStore {
 		};
 
 		this.cachedLists = [...this.cachedLists, list];
-		db.lists.add(list);
+		void this.#pendingWrites.track(db.lists.add(list));
 		this.push('lists', list, fromList);
 
 		const members = this.userId ? [...new Set([...list.memberIds, this.userId])] : list.memberIds;
@@ -626,7 +629,7 @@ class DataStore {
 		if (patch.kind !== undefined) list.kind = patch.kind;
 
 		const snapshot = $state.snapshot(list) as List;
-		db.lists.put(snapshot);
+		void this.#pendingWrites.track(db.lists.put(snapshot));
 		this.push('lists', snapshot, fromList);
 	}
 
@@ -662,7 +665,7 @@ class DataStore {
 
 		const next = { ...list, memberIds, householdId: cercle || undefined };
 		this.cachedLists = this.cachedLists.map((l) => (l.id === listId ? next : l));
-		db.lists.put(next);
+		void this.#pendingWrites.track(db.lists.put(next));
 
 		if (shared && cercle) this.push('lists', next, fromList);
 
@@ -723,8 +726,8 @@ class DataStore {
 
 		this.cachedLists = [...this.cachedLists, copied];
 		this.items = [...this.items, ...articles];
-		db.lists.add(copied);
-		db.items.bulkAdd(articles);
+		void this.#pendingWrites.track(db.lists.add(copied));
+		void this.#pendingWrites.track(db.items.bulkAdd(articles));
 
 		this.push('lists', copied, fromList);
 		for (const article of articles) this.push('items', article, fromItem);
@@ -748,8 +751,8 @@ class DataStore {
 		const items = this.itemsOf(id).map((i) => i.id);
 		this.cachedLists = this.cachedLists.filter((l) => l.id !== id);
 		this.items = this.items.filter((i) => i.listId !== id);
-		db.lists.delete(id);
-		db.items.bulkDelete(items);
+		void this.#pendingWrites.track(db.lists.delete(id));
+		void this.#pendingWrites.track(db.items.bulkDelete(items));
 
 		// Items go with the list on the server side (on delete cascade): a single deletion to push.
 		sync.enqueue({ table: 'lists', op: 'delete', match: { id } });
@@ -1549,7 +1552,7 @@ class DataStore {
 
 		item.assignedTo = userId;
 		this.push('items', $state.snapshot(item), fromItem);
-		db.items.update(id, { assignedTo: userId });
+		void this.#pendingWrites.track(db.items.update(id, { assignedTo: userId }));
 	}
 
 	setEventDate(listId: string, eventDate: string) {
@@ -1559,7 +1562,7 @@ class DataStore {
 		list.eventDate = eventDate;
 
 		const snapshot = $state.snapshot(list) as List;
-		db.lists.put(snapshot);
+		void this.#pendingWrites.track(db.lists.put(snapshot));
 		this.push('lists', snapshot, fromList);
 	}
 

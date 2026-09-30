@@ -8,12 +8,26 @@
  * Neither covers Cyrillic or Arabic: Russian and Arabic fall back on the system stack, hence the importance
  * of keeping it complete in --fl-font-system.
  */
+@import './themes.css';
 @import '@fontsource/atkinson-hyperlegible/400.css';
 @import '@fontsource/atkinson-hyperlegible/700.css';
 @import '@fontsource/schibsted-grotesk/400.css';
 @import '@fontsource/schibsted-grotesk/500.css';
 @import '@fontsource/schibsted-grotesk/600.css';
 @import '@fontsource/schibsted-grotesk/700.css';
+
+/*
+ * Token reference. Components read these and never a literal value.
+ *
+ * Colour  — semantic variables only (--background, --foreground, --card, --primary, --secondary, --muted,
+ *   --accent, --destructive, --border, --input, --ring and the --fl-* family). Their values per palette live
+ *   in this file (the default, cream-forest) and in themes.css (the nine other presets); a palette made in
+ *   the creator sets the same names inline. themes.test.ts holds every set to 4.5:1 for text and 3:1 for UI.
+ * Radius  — --radius (0.75rem, the creator can change it) and the --radius-sm/md/lg/xl steps derived from it.
+ * Shadow  — --fl-shadow-1 (resting) to --fl-shadow-4 (modal), used as shadow-fl-1..4.
+ * Type    — the --text-* steps, scaled by data-scale (xs to comfort, x2.3), in the font chosen by data-font.
+ * Motion  — --fl-ease and the --fl-dur-* steps, mirrored in $domain/motion-tokens.
+ */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -40,7 +54,8 @@
 @custom-variant full (@media (width >= 48rem) and (orientation: landscape));
 @custom-variant compact (@media not ((width >= 48rem) and (orientation: landscape)));
 
-:root {
+:root,
+[data-theme-preview='cream-forest'] {
 	--background: #f1ede5;
 	--foreground: #1c1917;
 	--card: #ffffff;
@@ -65,7 +80,7 @@
 	--secondary-foreground: #ffffff;
 	--muted: #e5e0d5;
 	--muted-foreground: #57534e;
-	--accent: #d8d2c5;
+	--accent: #e2ddd1;
 	--accent-foreground: #1c1917;
 	--destructive: #b91c1c;
 	--destructive-foreground: #ffffff;
@@ -831,38 +846,15 @@ textarea {
 }
 
 /*
- * The recipes' search bar (#315): the Filters button goes to the thumb's side, the field takes the rest.
+ * The one search bar of the application (#352, #402): lists, recipes, menus, conversations and cards all use it.
  *
- * Flex order speaks in `start` and `end`, which flip with Arabic; the thumb does not. So the side is set
- * from both settings at once: last in a left-to-right row puts it on the right, first in a right-to-left
- * row does too. A left hand reverses both.
+ * The Filters button goes to the thumb's side, the field takes the rest. Flex order speaks in `start` and
+ * `end`, which flip with Arabic; the thumb does not. So the side is set from both settings at once: last in
+ * a left-to-right row puts it on the right, first in a right-to-left row does too. A left hand reverses both.
  *
  * When a software keyboard covers the bottom of the page, the bar rises above it rather than above a
  * navigation bar now hidden underneath: the bar measures what is covered through `visualViewport` and
  * publishes it as `--fl-keyboard`.
- */
-.fl-recipe-bar-filters {
-	order: 1;
-}
-
-[dir='rtl'] .fl-recipe-bar-filters,
-[data-hand='left'] .fl-recipe-bar-filters {
-	order: -1;
-}
-
-[dir='rtl'][data-hand='left'] .fl-recipe-bar-filters {
-	order: 1;
-}
-
-@media (width < 48rem) {
-	.fl-recipe-bar[data-keyboard='open'] {
-		inset-block-end: calc(var(--fl-keyboard, 0px) + 0.5rem);
-	}
-}
-
-/*
- * The app-wide thumb bar (#352): the same rule as the recipes' own bar, generalised under a name that says
- * nothing about recipes — lists, shops and cards share this bar too.
  */
 .fl-search-bar-filters {
 	order: 1;
@@ -1208,8 +1200,11 @@ textarea {
 :root {
 	--fl-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 	--fl-dur-tap: 180ms;
-	--fl-dur-in: 340ms;
+	--fl-dur-enter: 220ms;
+	--fl-dur-leave: 280ms;
 	--fl-dur-page: 320ms;
+	--fl-dur-in: 340ms;
+	--fl-dur-panel: 380ms;
 	--fl-dur-rise: 440ms;
 }
 
@@ -1912,4 +1907,128 @@ input.fl-otp-field:not([type='checkbox']):not([type='radio']):not([type='range']
 
 [dir='rtl'] .fl-otp-field {
 	background-position-x: right;
+}
+
+/*
+ * The create button, outside the app bar.
+ *
+ * On a phone it floats above the bar (`--fl-navbar-h` is the bar's measured height) on the thumb's side;
+ * the side itself comes from `.fl-thumb-side`. From 48rem on the bar is a column and the button sits at its
+ * top: under the logo in the full column (`--fl-logo-h`), at the top edge in the rail. The column reserves
+ * the room with a margin on its list of destinations.
+ */
+.fl-create {
+	position: fixed;
+	z-index: 11;
+	inline-size: 58px;
+	block-size: 58px;
+	inset-block-end: calc(var(--fl-navbar-h, 4rem) + 1rem);
+	border: 4px solid var(--background);
+}
+
+@media (width >= 48rem) {
+	.fl-create {
+		inset-block-end: auto;
+		inset-block-start: calc(var(--fl-logo-h, 0px) + 0.75rem);
+		block-size: max(2.75rem, 44px);
+		inline-size: calc(var(--fl-rail-w) - 1.5rem);
+		border: 0;
+		border-radius: var(--radius-lg);
+		box-shadow: none;
+		padding-inline: 0.75rem;
+	}
+
+	.fl-navbar > ul {
+		margin-block-start: calc(max(2.75rem, 44px) + 1.5rem);
+	}
+}
+
+@media (width >= 48rem) and (orientation: landscape) {
+	.fl-create {
+		inline-size: calc(16rem - 1.5rem);
+		inset-inline-start: 0.75rem;
+	}
+}
+
+@media (width >= 48rem) and (orientation: portrait) {
+	.fl-create {
+		right: 0.75rem;
+		left: auto;
+	}
+
+	[data-hand='left'] .fl-create {
+		right: auto;
+		left: 0.75rem;
+	}
+}
+
+/*
+ * The content scrolls under the bars with a thin scrollbar in the theme's colour. Always present but
+ * discreet: hiding it on motion settings would make the page's extent unreadable for those who turned
+ * animations off.
+ */
+html {
+	scrollbar-width: thin;
+	scrollbar-color: var(--primary) transparent;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--primary);
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/*
+ * Moving Icons play a keyframe animation on hover by themselves. With motion off, in the app's setting or in
+ * the system's, they stay still.
+ */
+html[data-motion='none'] .fl-anim-icon *,
+html[data-motion='none'] .fl-anim-icon {
+	animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html[data-motion='system'] .fl-anim-icon *,
+	html[data-motion='system'] .fl-anim-icon {
+		animation: none !important;
+	}
+}
+
+/*
+ * The mascot's idle blink: the eyes close for a moment every few seconds. It is the one ambient loop besides
+ * a running timer, and it is still whenever motion is off, in the app or in the system.
+ */
+.fl-mascot-eyes {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: fl-blink 5s var(--fl-ease) infinite;
+}
+
+@keyframes fl-blink {
+	0%,
+	92%,
+	100% {
+		transform: scaleY(1);
+	}
+	96% {
+		transform: scaleY(0.1);
+	}
+}
+
+html[data-motion='none'] .fl-mascot-eyes {
+	animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html[data-motion='system'] .fl-mascot-eyes {
+		animation: none;
+	}
 }

@@ -53,7 +53,7 @@ test('sur tablette en portrait, le bouton de création est dans le rail et ne fl
 }) => {
 	await page.goto('/');
 
-	// From 48rem the button rejoins the flow (Tailwind's `md:static`) instead of floating as a disc
+	// From 48rem the button is pinned at the top of the rail (`.fl-create`) instead of floating as a disc
 	// above the bar — that floating behaviour is phone-only, verified separately in `mobile.spec.ts`.
 	const button = page.getByTestId('nav-create');
 	await expect(button).toBeVisible();

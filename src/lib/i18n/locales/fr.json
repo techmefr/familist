@@ -171,7 +171,8 @@
 				"hint": "Comptes, signalements, plantages",
 				"keywords": "valider, approuver, rôle, administrateur, démo, signalement, plantage, demande RGPD"
 			}
-		}
+		},
+		"palette": "Thème de couleurs"
 	},
 	"theme": {
 		"light": "Clair",
@@ -1340,7 +1341,7 @@
 	},
 	"sync": {
 		"offline": "Hors connexion — vos modifications partiront au retour du réseau",
-		"error": "Synchronisation impossible pour le moment",
+		"error": "Enregistré sur cet appareil, synchronisation dès que possible",
 		"rejected": {
 			"message": "Impossible d'enregistrer {what} sur le serveur",
 			"retry": "Réessayer",
@@ -1354,7 +1355,10 @@
 				"message": "ce message",
 				"other": "cette modification"
 			}
-		}
+		},
+		"retryNow": "Réessayer",
+		"details": "Détails",
+		"retrying": "Nouvel essai…"
 	},
 	"chat": {
 		"title": "Discussion",
@@ -1870,7 +1874,12 @@
 		"generateSubmit": "Générer la liste",
 		"delete": "Supprimer le menu",
 		"deleteConfirm": "Supprimer {name} ? Les listes déjà générées ne changeront pas.",
-		"deleteYes": "Supprimer"
+		"deleteYes": "Supprimer",
+		"search": "Rechercher un menu",
+		"searchPlaceholder": "Rechercher un menu",
+		"filtersTitle": "Filtrer les menus",
+		"filterWithRecipes": "Seulement les menus avec des recettes",
+		"noMatch": "Aucun menu ne correspond."
 	},
 	"recipeShare": {
 		"title": "Partager cette recette",
@@ -1964,5 +1973,61 @@
 			"one": "{count} seconde",
 			"other": "{count} secondes"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Clairs",
+			"dark": "Sombres"
+		},
+		"creamForest": "Crème & Forêt",
+		"pastel": "Pastel",
+		"foret": "Forêt",
+		"marine": "Marine & Sable",
+		"corail": "Corail & Pêche",
+		"lavande": "Lavande",
+		"ardoise": "Ardoise & Citron",
+		"draculaLight": "Dracula Light (inspiré)",
+		"night": "Nuit",
+		"dracula": "Dracula",
+		"create": "Créer mon thème",
+		"intro": "Choisissez une couleur principale. Les autres sont calculées à partir d’elle et ajustées pour que tout reste lisible.",
+		"name": "Nom",
+		"base": "Base",
+		"seed": "Couleur principale",
+		"hex": "Code couleur",
+		"seedInvalid": "Saisissez une couleur comme #4ea674.",
+		"tone": "Teinte du fond",
+		"radius": "Arrondi des coins",
+		"preview": "Aperçu",
+		"checks": "Contrôles de lisibilité",
+		"pass": "Réussi",
+		"fail": "Échec",
+		"check": {
+			"text": "Texte sur le fond",
+			"textOnCard": "Texte sur les cartes",
+			"mutedText": "Texte secondaire",
+			"mutedTextOnCard": "Texte secondaire sur les cartes",
+			"textOnButton": "Texte sur les boutons",
+			"textOnSecondary": "Texte sur les boutons secondaires",
+			"accentText": "Texte d’accent",
+			"accentOnSoft": "Accent sur fond doux",
+			"textOnSoft": "Texte sur fond doux",
+			"danger": "Texte d’erreur",
+			"icon": "Icônes",
+			"focusRing": "Anneau de focus",
+			"mutedIcon": "Icônes atténuées"
+		},
+		"save": "Enregistrer le thème",
+		"cancel": "Annuler",
+		"saved": "Thème enregistré.",
+		"refused": "Ce thème n’est pas assez lisible pour être enregistré.",
+		"full": "Vous pouvez garder jusqu’à {max} thèmes.",
+		"mine": "Mes thèmes ({count}/{max})",
+		"edit": "Modifier",
+		"delete": "Supprimer",
+		"export": "Exporter en JSON",
+		"import": "Importer un fichier",
+		"imported": "{count} thème(s) importé(s).",
+		"importEmpty": "Rien n’a pu être importé depuis ce fichier."
 	}
 }

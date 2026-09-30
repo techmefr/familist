@@ -103,3 +103,56 @@ test('une liste créée survit à un cache local vidé', async ({ signedInPage: 
 		timeout: 20_000
 	});
 });
+
+test('une liste créée hors ligne reste affichée, y compris après rechargement', async ({
+	signedInPage: page,
+	context
+}) => {
+	const name = listName();
+
+	await page.goto('/');
+	// The session must have resolved before the network goes: offline from the first frame, the app never
+	// leaves its loading screen and there is no create button to press.
+	await expect(page.getByTestId('nav-create')).toBeVisible();
+	await context.setOffline(true);
+
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-list').click();
+	await page.getByTestId('list-name').fill(name);
+	await page.getByTestId('list-create').click();
+
+	const card = page.locator('[data-test-class="list-card"]').filter({ hasText: name });
+	await expect(card).toBeVisible();
+
+	await page.waitForTimeout(1500);
+	await expect(card).toBeVisible();
+
+	await context.setOffline(false);
+	await page.reload();
+	await expect(card).toBeVisible();
+});
+
+test('le bandeau de synchronisation flotte, propose de réessayer et détaille l’erreur', async ({
+	signedInPage: page,
+	context
+}) => {
+	await page.goto('/');
+	await expect(page.getByTestId('nav-create')).toBeVisible();
+	await context.route('**/rest/v1/**', route => route.fulfill({ status: 503, body: '{"message":"down"}' }));
+
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-list').click();
+	await page.getByTestId('list-name').fill(listName());
+	await page.getByTestId('list-create').click();
+
+	const banner = page.getByTestId('sync-status');
+	await expect(banner).toBeVisible();
+	expect(await banner.evaluate(el => getComputedStyle(el.parentElement as HTMLElement).position)).toBe('fixed');
+
+	await page.getByTestId('sync-details-toggle').click();
+	await expect(page.getByTestId('sync-details')).not.toBeEmpty();
+
+	await context.unroute('**/rest/v1/**');
+	await page.getByTestId('sync-retry').click();
+	await expect(banner).toHaveCount(0);
+});

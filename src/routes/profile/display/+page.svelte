@@ -10,12 +10,18 @@
 	import { i18n, t, LOCALES, type Locale } from '$i18n/index.svelte';
 	import { flagForLocale } from '$i18n/flags';
 	import { categoryById } from '$domain/settings-categories';
+	import ThemePicker from '$components/app/ThemePicker.svelte';
+	import { THEME_PRESETS } from '$domain/themes';
 	import * as Card from '$components/ui/card';
 	import { Label } from '$components/ui/label';
 	import { Check } from '@lucide/svelte';
 
 	const category = categoryById('display');
 	const themes: Theme[] = ['light', 'dark', 'system'];
+
+	const isAdaptive = $derived(
+		THEME_PRESETS.find(preset => preset.id === settings.themeId)?.mode === 'adaptive'
+	);
 </script>
 
 <svelte:head>
@@ -78,6 +84,9 @@
 			<p class="text-muted-foreground text-caption mt-2">{t('profile.fontNote')}</p>
 		</fieldset>
 
+		<ThemePicker />
+
+		{#if isAdaptive}
 		<fieldset id="setting-theme" tabindex="-1" class="fl-setting">
 			<legend class="text-label mb-2 font-medium">{t('profile.theme')}</legend>
 			<div class="flex flex-wrap gap-2">
@@ -98,6 +107,9 @@
 			</div>
 		</fieldset>
 
+		{/if}
+
+		{#if isAdaptive}
 		<fieldset id="setting-accent" tabindex="-1" class="fl-setting">
 			<legend class="text-label mb-2 font-medium">{t('profile.accent')}</legend>
 			<div class="flex flex-wrap gap-2">
@@ -126,6 +138,7 @@
 				{/each}
 			</div>
 		</fieldset>
+		{/if}
 
 		<!--
 			The dominant hand is a display setting: it changes nothing about what the application does, only

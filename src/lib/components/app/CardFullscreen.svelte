@@ -3,6 +3,7 @@
 	import type { LoyaltyCard } from '$db/schema';
 	import { data } from '$stores/data.svelte';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { t } from '$i18n/index.svelte';
 	import CodeImage from './CodeImage.svelte';
 	import CardShareSheet from './CardShareSheet.svelte';
@@ -72,7 +73,7 @@
 	sharp straight away.
 -->
 <div
-	transition:fade={{ duration: motionMs(180) }}
+	transition:fade={{ duration: motionMs(DURATION.tap) }}
 	class="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-black"
 	role="dialog"
 	aria-modal="true"
@@ -146,7 +147,7 @@
 		</div>
 
 		{#if tab === 'card'}
-			<div class="fl-rise rounded-lg bg-white p-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)]">
+			<div class="fl-rise rounded-lg bg-white p-5 shadow-fl-4">
 				<p class="text-caption text-center font-bold tracking-widest text-neutral-900">
 					{t('cards.showAtCheckout')}
 				</p>

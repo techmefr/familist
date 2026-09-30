@@ -171,7 +171,8 @@
 				"hint": "Cuentas, informes, fallos",
 				"keywords": "aprobar, validar, rol, administrador, demo, informe, fallo, solicitud RGPD"
 			}
-		}
+		},
+		"palette": "Tema de color"
 	},
 	"theme": {
 		"light": "Claro",
@@ -1301,7 +1302,7 @@
 	},
 	"sync": {
 		"offline": "Sin conexión — tus cambios se enviarán al volver la red",
-		"error": "No se puede sincronizar ahora mismo",
+		"error": "Guardado en este dispositivo, se sincronizará en cuanto sea posible",
 		"rejected": {
 			"message": "No se pudo guardar {what} en el servidor",
 			"retry": "Reintentar",
@@ -1315,7 +1316,10 @@
 				"message": "este mensaje",
 				"other": "este cambio"
 			}
-		}
+		},
+		"retryNow": "Reintentar",
+		"details": "Detalles",
+		"retrying": "Reintentando…"
 	},
 	"chat": {
 		"title": "Conversación",
@@ -1832,7 +1836,12 @@
 		"generateSubmit": "Generar la lista",
 		"delete": "Eliminar el plan",
 		"deleteConfirm": "¿Eliminar {name}? Las listas ya generadas no cambiarán.",
-		"deleteYes": "Eliminar"
+		"deleteYes": "Eliminar",
+		"search": "Buscar menús",
+		"searchPlaceholder": "Buscar menús",
+		"filtersTitle": "Filtrar menús",
+		"filterWithRecipes": "Solo menús con recetas",
+		"noMatch": "Ningún menú coincide."
 	},
 	"recipeShare": {
 		"title": "Compartir esta receta",
@@ -1922,5 +1931,61 @@
 			"one": "{count} segundo",
 			"other": "{count} segundos"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Claros",
+			"dark": "Oscuros"
+		},
+		"creamForest": "Crema y bosque",
+		"pastel": "Pastel",
+		"foret": "Bosque",
+		"marine": "Marino y arena",
+		"corail": "Coral y melocotón",
+		"lavande": "Lavanda",
+		"ardoise": "Pizarra y limón",
+		"draculaLight": "Dracula Light (inspirado)",
+		"night": "Noche",
+		"dracula": "Dracula",
+		"create": "Crear mi tema",
+		"intro": "Elige un color principal. Los demás se calculan a partir de él y se ajustan para que todo siga siendo legible.",
+		"name": "Nombre",
+		"base": "Base",
+		"seed": "Color principal",
+		"hex": "Código de color",
+		"seedInvalid": "Introduce un color como #4ea674.",
+		"tone": "Tono del fondo",
+		"radius": "Redondeo de esquinas",
+		"preview": "Vista previa",
+		"checks": "Comprobaciones de legibilidad",
+		"pass": "Correcto",
+		"fail": "Falla",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "Guardar tema",
+		"cancel": "Cancelar",
+		"saved": "Tema guardado.",
+		"refused": "Este tema no es lo bastante legible para guardarse.",
+		"full": "Puedes guardar hasta {max} temas.",
+		"mine": "Mis temas ({count}/{max})",
+		"edit": "Editar",
+		"delete": "Eliminar",
+		"export": "Exportar como JSON",
+		"import": "Importar un archivo",
+		"imported": "{count} tema(s) importado(s).",
+		"importEmpty": "No se pudo importar nada de este archivo."
 	}
 }

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { LoyaltyCard } from '$db/schema';
 	import { tintForWhiteText, DEFAULT_TINT } from '$domain/tint';
+	import { themedTint } from '$domain/theme-tints';
+	import { settings } from '$stores/settings.svelte';
 	import { t } from '$i18n/index.svelte';
 	import BrandMark from './BrandMark.svelte';
 	import { Users } from '@lucide/svelte';
@@ -27,10 +29,10 @@
 </script>
 
 <article
-	class="relative flex h-full min-h-[7.5rem] flex-col gap-3 rounded-lg p-4 text-white shadow-[var(--fl-shadow-2)] {actions
+	class="relative flex h-full min-h-[7.5rem] flex-col gap-3 rounded-lg p-4 text-white shadow-fl-2 {actions
 		? 'pb-14'
 		: ''}"
-	style="background: {tintForWhiteText(card.tint || DEFAULT_TINT)}"
+	style="background: {tintForWhiteText(themedTint(card.tint || DEFAULT_TINT, settings.themeId))}"
 	data-test-class="loyalty-card"
 	data-tint={card.tint}
 >

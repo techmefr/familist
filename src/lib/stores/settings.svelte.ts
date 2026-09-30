@@ -1,5 +1,20 @@
 import { browser } from '$app/environment';
 import { localWins as arbitrate, type AppearanceRow } from '$domain/appearance';
+import {
+	buildTheme,
+	exportThemes,
+	importThemes,
+	isCustomThemeId,
+	MAX_CUSTOM_THEMES,
+	nextThemeId,
+	parseCustomThemes,
+	validateInput,
+	type CustomTheme,
+	type CustomThemeInput,
+	type ThemeProblem
+} from '$domain/custom-theme';
+import { DEFAULT_THEME_ID, THEME_PRESETS } from '$domain/themes';
+import { applyCustomTokens } from './theme-dom';
 import { isHand, type Hand } from '$domain/hand';
 import { animates, isMotionPreference, type MotionPreference } from '$domain/motion';
 import {
@@ -28,6 +43,8 @@ const THEMES: Theme[] = ['light', 'dark', 'system'];
 
 class Settings {
 	theme = $state<Theme>('system');
+	themeId = $state<string>(DEFAULT_THEME_ID);
+	customThemes = $state<CustomTheme[]>([]);
 	accentId = $state<string>(DEFAULT_ACCENT);
 	fontScaleId = $state<string>(DEFAULT_FONT_SCALE);
 	fontId = $state<string>(DEFAULT_FONT);
@@ -68,7 +85,20 @@ class Settings {
 	#syncedAt = 0;
 	#syncedFor: string | null = null;
 
-	isDark = $derived(this.theme === 'dark' || (this.theme === 'system' && this.#prefersDark));
+	activeCustomTheme = $derived(this.customThemes.find(theme => theme.id === this.themeId) ?? null);
+
+	/**
+	 * A fixed palette decides by itself whether it is dark; only the default, adaptive one follows the
+	 * Light / Dark / System switch.
+	 */
+	isDark = $derived.by(() => {
+		if (this.activeCustomTheme) return this.activeCustomTheme.base === 'dark';
+
+		const preset = THEME_PRESETS.find(candidate => candidate.id === this.themeId);
+		if (preset && preset.mode !== 'adaptive') return preset.mode === 'dark';
+
+		return this.theme === 'dark' || (this.theme === 'system' && this.#prefersDark);
+	});
 
 	/**
 	 * The only place answering "do we animate". Svelte transitions receive a duration computed in
@@ -83,6 +113,8 @@ class Settings {
 		try {
 			const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}');
 			if (saved.theme) this.theme = saved.theme;
+			this.customThemes = parseCustomThemes(saved.customThemes);
+			if (this.#knowsTheme(saved.themeId)) this.themeId = saved.themeId;
 			if (saved.accentId) this.accentId = saved.accentId;
 			if (saved.fontScaleId) this.fontScaleId = saved.fontScaleId;
 			if (saved.fontId) this.fontId = saved.fontId;
@@ -119,6 +151,8 @@ class Settings {
 				const root = document.documentElement;
 
 				root.classList.toggle('dark', this.isDark);
+				root.dataset.theme = this.activeCustomTheme ? 'custom' : this.themeId;
+				applyCustomTokens(root, this.activeCustomTheme);
 				root.dataset.accent = this.accentId;
 				root.dataset.scale = this.fontScaleId;
 				root.dataset.font = this.fontId;
@@ -128,12 +162,14 @@ class Settings {
 				// The system status bar follows the chosen theme, not the device's.
 				document
 					.querySelector('meta[name="theme-color"]')
-					?.setAttribute('content', this.isDark ? THEME_COLORS.dark : THEME_COLORS.light);
+					?.setAttribute('content', this.#statusBarColor());
 
 				localStorage.setItem(
 					STORAGE_KEY,
 					JSON.stringify({
 						theme: this.theme,
+						themeId: this.themeId,
+						customThemes: this.customThemes,
 						accentId: this.accentId,
 						fontScaleId: this.fontScaleId,
 						fontId: this.fontId,
@@ -154,6 +190,20 @@ class Settings {
 		});
 	}
 
+	#knowsTheme(id: unknown): id is string {
+		if (typeof id !== 'string') return false;
+		return THEME_PRESETS.some(preset => preset.id === id) || this.customThemes.some(t => t.id === id);
+	}
+
+	#statusBarColor(): string {
+		if (this.activeCustomTheme) return this.activeCustomTheme.tokens.background;
+
+		const preset = THEME_PRESETS.find(candidate => candidate.id === this.themeId);
+		if (preset && preset.mode !== 'adaptive') return preset.themeColor;
+
+		return this.isDark ? THEME_COLORS.dark : THEME_COLORS.light;
+	}
+
 	/** Every change coming from the interface goes through here, to date the change. */
 	#touch() {
 		this.#changedAt = Date.now();
@@ -163,6 +213,56 @@ class Settings {
 		if (!THEMES.includes(theme)) return;
 		this.#touch();
 		this.theme = theme;
+	}
+
+	setThemeId(id: string) {
+		if (!this.#knowsTheme(id)) return;
+		this.#touch();
+		this.themeId = id;
+	}
+
+	/**
+	 * Saves a theme made in the creator, a new one or a replacement for `id`. Refuses, and says why, when the
+	 * input is unsound, when it reads below the contrast thresholds or when five themes already exist.
+	 */
+	saveCustomTheme(input: CustomThemeInput, id: string | null = null): ThemeProblem[] | 'full' {
+		const problems = validateInput(input);
+		if (problems.length > 0) return problems;
+
+		const isNew = id === null || !this.customThemes.some(theme => theme.id === id);
+		if (isNew && this.customThemes.length >= MAX_CUSTOM_THEMES) return 'full';
+
+		const themeId = id ?? nextThemeId(this.customThemes);
+		const theme = buildTheme(themeId, input);
+		if (!theme) return ['contrast'];
+
+		this.#touch();
+		this.customThemes = isNew
+			? [...this.customThemes, theme]
+			: this.customThemes.map(existing => (existing.id === themeId ? theme : existing));
+		this.themeId = themeId;
+		return [];
+	}
+
+	deleteCustomTheme(id: string) {
+		if (!isCustomThemeId(id)) return;
+		this.#touch();
+		this.customThemes = this.customThemes.filter(theme => theme.id !== id);
+		if (this.themeId === id) this.themeId = DEFAULT_THEME_ID;
+	}
+
+	exportCustomThemes(): string {
+		return exportThemes(this.customThemes);
+	}
+
+	/** Returns how many themes the file added. */
+	importCustomThemes(json: string): number {
+		const added = importThemes(json, this.customThemes);
+		if (added.length === 0) return 0;
+
+		this.#touch();
+		this.customThemes = [...this.customThemes, ...added];
+		return added.length;
 	}
 
 	setAccent(id: string) {
@@ -252,6 +352,8 @@ class Settings {
 	snapshot(): AppearanceRow {
 		return {
 			theme: this.theme,
+			theme_id: this.themeId,
+			custom_themes: this.customThemes.map(({ tokens: _tokens, ...inputs }) => inputs),
 			accent_id: this.accentId,
 			type_scale: this.fontScaleId,
 			font_id: this.fontId,
@@ -271,6 +373,10 @@ class Settings {
 	 */
 	adoptRemote(row: Partial<AppearanceRow>, userId: string) {
 		if (THEMES.includes(row.theme as Theme)) this.theme = row.theme as Theme;
+		if (Array.isArray(row.custom_themes)) this.customThemes = parseCustomThemes(row.custom_themes);
+		if (this.#knowsTheme(row.theme_id)) this.themeId = row.theme_id;
+		else if (this.themeId !== DEFAULT_THEME_ID && !this.#knowsTheme(this.themeId))
+			this.themeId = DEFAULT_THEME_ID;
 		if (ACCENT_PRESETS.some((a) => a.id === row.accent_id)) this.accentId = row.accent_id as string;
 		if (FONT_SCALE_PRESETS.some((f) => f.id === row.type_scale))
 			this.fontScaleId = row.type_scale as string;

@@ -7,6 +7,7 @@
 	import { SCAN_SUGGEST_MS, scanOutcome } from '$domain/scan-timing';
 	import { feedback } from '$stores/feedback.svelte';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { t } from '$i18n/index.svelte';
 	import { Button } from '$components/ui/button';
 	import { ScanLine, X, Zap } from '@lucide/svelte';
@@ -129,7 +130,7 @@
 -->
 <div class="mt-2 flex flex-wrap items-stretch gap-2">
 	{#if scanning}
-		<div class="w-full" transition:slide={{ duration: motionMs(200), easing: cubicOut }}>
+		<div class="w-full" transition:slide={{ duration: motionMs(DURATION.tap), easing: cubicOut }}>
 			<div class="relative overflow-hidden rounded-md">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				<video
@@ -166,7 +167,7 @@
 			{#if suggest}
 				<div
 					class="mt-2 flex flex-wrap items-stretch gap-2"
-					transition:slide={{ duration: motionMs(200), easing: cubicOut }}
+					transition:slide={{ duration: motionMs(DURATION.tap), easing: cubicOut }}
 				>
 					<p class="text-muted-foreground text-caption w-full" data-test-id="scan-suggest">
 						{t('scan.stillSearching')}

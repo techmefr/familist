@@ -110,7 +110,7 @@ test.describe('filtres de recettes', () => {
 		await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
 		await expect(page.locator('html')).toHaveAttribute('data-hand', 'left');
 
-		const bar = page.getByTestId('recipe-search-bar');
+		const bar = page.getByTestId('recipe-bar');
 		const filters = page.getByTestId('recipe-filters-open');
 		const create = page.getByTestId('nav-create');
 		for (const target of [bar, filters, page.getByTestId('recipe-search')]) {

@@ -46,3 +46,16 @@ test('la page des cartes montre une barre de recherche et filtres en bas, sans b
 	await expect(page.getByTestId('cards-search-search')).toBeVisible();
 	await expect(page.getByTestId('cards-search-filters-open')).toBeVisible();
 });
+
+test('le bouton « + » est hors de la barre de navigation, et la loupe garde un en-tête minimal', async ({
+	signedInPage: page
+}) => {
+	await page.goto('/');
+
+	await expect(page.getByTestId('nav-create')).toBeVisible();
+	await expect(page.getByRole('navigation').getByTestId('nav-create')).toHaveCount(0);
+	await expect(page.getByTestId('header-search')).toBeVisible();
+
+	await page.goto('/magnifier');
+	await expect(page.getByTestId('header-search')).toHaveCount(0);
+});

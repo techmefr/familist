@@ -1,4 +1,5 @@
 <script lang="ts">
+	import AnimatedIcon from '$components/app/AnimatedIcon.svelte';
 	import { tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -13,7 +14,6 @@
 	import { Label } from '$components/ui/label';
 	import {
 		ArrowLeft,
-		Send,
 		Plus,
 		Search,
 		X,
@@ -347,7 +347,7 @@
 			/>
 		</div>
 		<Button type="submit" class="min-w-[44px] shrink-0" data-test-id="chat-send" aria-label={t('chat.send')}>
-			<Send size={18} aria-hidden="true" />
+			<AnimatedIcon name="send" size={18} />
 		</Button>
 		<button
 			type="button"

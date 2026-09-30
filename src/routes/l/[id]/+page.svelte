@@ -7,6 +7,7 @@
 	import { createIntent } from '$stores/create.svelte';
 	import { feedback } from '$stores/feedback.svelte';
 	import { motionMs, settings } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { listToMarkdown } from '$domain/list-markdown';
 	import { unitKeyForCount } from '$domain/units';
@@ -443,7 +444,7 @@
 					data-held={aisleReorder.index === aisleIndex}
 					class="fl-reorder-row rounded-xl"
 					animate:flip={{
-						duration: aisleReorder.busy ? 0 : motionMs(380),
+						duration: aisleReorder.busy ? 0 : motionMs(DURATION.panel),
 						easing: cubicOut
 					}}
 				>
@@ -471,11 +472,11 @@
 										? 'ring-primary ring-2 ring-offset-2'
 										: ''}"
 									animate:flip={{
-										duration: itemReorder.busy ? 0 : motionMs(280),
+										duration: itemReorder.busy ? 0 : motionMs(DURATION.leave),
 										easing: cubicOut
 									}}
-									in:fly={{ y: 10, duration: motionMs(220), easing: cubicOut }}
-									out:slide={{ duration: motionMs(180), easing: cubicOut }}
+									in:fly={{ y: 10, duration: motionMs(DURATION.enter), easing: cubicOut }}
+									out:slide={{ duration: motionMs(DURATION.tap), easing: cubicOut }}
 								>
 									<!--
 										The swipe doubles the row's buttons, it does not replace them: it is the quick gesture of the

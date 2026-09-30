@@ -17,7 +17,7 @@ test.describe('recherche de recettes', () => {
 		await createRecipe(page, { name: crumble, ingredient: 'Pommes', tags: ['dessert'] });
 
 		const field = page.getByTestId('recipe-search');
-		await expect(page.getByTestId('recipe-search-bar')).toBeVisible();
+		await expect(page.getByTestId('recipe-bar')).toBeVisible();
 
 		await field.fill(`VELOUTE ${stamp}`);
 		await expect(recipeCard(page, soup)).toBeVisible();

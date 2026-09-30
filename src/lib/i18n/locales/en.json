@@ -171,7 +171,8 @@
 				"hint": "Accounts, reports, crashes",
 				"keywords": "approve, validate, role, administrator, demo, report, crash, GDPR request"
 			}
-		}
+		},
+		"palette": "Colour theme"
 	},
 	"theme": {
 		"light": "Light",
@@ -1308,7 +1309,7 @@
 	},
 	"sync": {
 		"offline": "Offline — your changes will sync when the network is back",
-		"error": "Cannot sync right now",
+		"error": "Saved on this device, will sync when possible",
 		"rejected": {
 			"message": "Could not save {what} on the server",
 			"retry": "Retry",
@@ -1322,7 +1323,10 @@
 				"message": "this message",
 				"other": "this change"
 			}
-		}
+		},
+		"retryNow": "Retry",
+		"details": "Details",
+		"retrying": "Retrying…"
 	},
 	"chat": {
 		"title": "Chat",
@@ -1839,7 +1843,12 @@
 		"generateSubmit": "Generate the list",
 		"delete": "Delete the meal plan",
 		"deleteConfirm": "Delete {name}? Lists already generated will not change.",
-		"deleteYes": "Delete"
+		"deleteYes": "Delete",
+		"search": "Search menus",
+		"searchPlaceholder": "Search menus",
+		"filtersTitle": "Filter menus",
+		"filterWithRecipes": "Only menus with recipes",
+		"noMatch": "No menu matches."
 	},
 	"recipeShare": {
 		"title": "Share this recipe",
@@ -1929,5 +1938,61 @@
 			"one": "{count} second",
 			"other": "{count} seconds"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Light",
+			"dark": "Dark"
+		},
+		"creamForest": "Cream & Forest",
+		"pastel": "Pastel",
+		"foret": "Forest",
+		"marine": "Navy & Sand",
+		"corail": "Coral & Peach",
+		"lavande": "Lavender",
+		"ardoise": "Slate & Lemon",
+		"draculaLight": "Dracula Light (inspired)",
+		"night": "Night",
+		"dracula": "Dracula",
+		"create": "Create my theme",
+		"intro": "Pick a main colour. The other colours are worked out from it and adjusted until everything stays readable.",
+		"name": "Name",
+		"base": "Base",
+		"seed": "Main colour",
+		"hex": "Colour code",
+		"seedInvalid": "Enter a colour like #4ea674.",
+		"tone": "Background tint",
+		"radius": "Corner roundness",
+		"preview": "Preview",
+		"checks": "Readability checks",
+		"pass": "Passes",
+		"fail": "Fails",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "Save theme",
+		"cancel": "Cancel",
+		"saved": "Theme saved.",
+		"refused": "This theme is not readable enough to be saved.",
+		"full": "You can keep up to {max} themes.",
+		"mine": "My themes ({count}/{max})",
+		"edit": "Edit",
+		"delete": "Delete",
+		"export": "Export as JSON",
+		"import": "Import a file",
+		"imported": "{count} theme(s) imported.",
+		"importEmpty": "Nothing could be imported from this file."
 	}
 }
