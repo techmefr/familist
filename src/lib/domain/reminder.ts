@@ -27,12 +27,15 @@ export interface ReminderCandidate {
 }
 
 export interface ReminderPlan {
+	/** The list, or the menu, this reminder is about. */
 	listId: string;
 	/** Integer id required by local notifications, derived from the list id. */
 	id: number;
 	name: string;
 	eventDate: string;
 	at: Date;
+	/** Ready-made text, for reminders that are not about a list's date (the menu of the day). */
+	text?: { title: string; body: string };
 }
 
 export function isEventDate(value: string | null | undefined): value is string {
@@ -130,4 +133,55 @@ export function reminderStatus(
 
 	const at = reminderAt(eventDate, now);
 	return at ? { status: 'planned', at } : { status: 'late', at: null };
+}
+
+/** The menu of the day is announced at breakfast time, in the device timezone. */
+export const MENU_REMINDER_HOUR = 8;
+export const MENU_REMINDER_DAYS = 7;
+
+export interface MenuEntry {
+	planId: string;
+	planName: string;
+	/** 0 is Monday, as in the meal plan screen. */
+	dayIndex: number;
+	recipeName: string;
+}
+
+const pad = (value: number) => String(value).padStart(2, '0');
+
+/**
+ * One reminder per day that has something planned, for the coming week: "Today: pasta, salad". Like the
+ * list reminders it is computed whole and replayed on every change, so a recipe moved to another day or
+ * removed simply stops being returned. A day whose hour has already gone by is left out.
+ */
+export function menuReminderPlans(
+	entries: readonly MenuEntry[],
+	now: Date,
+	title: (planName: string) => string
+): ReminderPlan[] {
+	const plans: ReminderPlan[] = [];
+
+	for (let offset = 0; offset < MENU_REMINDER_DAYS; offset++) {
+		const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset, MENU_REMINDER_HOUR, 0, 0, 0);
+		if (day.getTime() <= now.getTime()) continue;
+
+		const weekday = (day.getDay() + 6) % 7;
+		const todays = entries.filter(entry => entry.dayIndex === weekday);
+
+		for (const planId of new Set(todays.map(entry => entry.planId))) {
+			const ofPlan = todays.filter(entry => entry.planId === planId);
+			const date = `${day.getFullYear()}-${pad(day.getMonth() + 1)}-${pad(day.getDate())}`;
+
+			plans.push({
+				listId: planId,
+				id: reminderId(`menu:${planId}:${date}`),
+				name: ofPlan[0].planName,
+				eventDate: date,
+				at: day,
+				text: { title: title(ofPlan[0].planName), body: ofPlan.map(entry => entry.recipeName).join(', ') }
+			});
+		}
+	}
+
+	return plans;
 }

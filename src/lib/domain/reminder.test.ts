@@ -163,3 +163,38 @@ describe('reminderStatus', () => {
 		expect(reminderStatus('2026-02-14', le('2026-02-14T08:00:00')).status).toBe('late');
 	});
 });
+
+import { menuReminderPlans } from './reminder';
+
+describe('menuReminderPlans', () => {
+	// Wednesday 2026-09-30, 07:00 local: today's 8 o'clock is still ahead.
+	const now = new Date(2026, 8, 30, 7, 0, 0);
+	const entry = (dayIndex: number, recipeName: string, planId = 'p1') => ({ planId, planName: 'Week', dayIndex, recipeName });
+	const title = () => 'Today’s menu';
+
+	it('announces today’s dishes at 8 and keeps the week’s other days', () => {
+		const plans = menuReminderPlans([entry(2, 'Pasta'), entry(2, 'Salad'), entry(4, 'Fish')], now, title);
+
+		expect(plans.map(plan => [plan.eventDate, plan.text?.body])).toEqual([
+			['2026-09-30', 'Pasta, Salad'],
+			['2026-10-02', 'Fish']
+		]);
+		expect(plans[0].at.getHours()).toBe(8);
+	});
+
+	it('leaves out a day whose hour has gone by, and looks no further than a week ahead', () => {
+		const late = new Date(2026, 8, 30, 9, 0, 0);
+		expect(menuReminderPlans([entry(2, 'Pasta')], late, title)).toEqual([]);
+		expect(menuReminderPlans([entry(3, 'Fish')], late, title).map(plan => plan.eventDate)).toEqual(['2026-10-01']);
+	});
+
+	it('gives distinct stable ids per plan and day', () => {
+		const plans = menuReminderPlans([entry(2, 'A', 'p1'), entry(2, 'B', 'p2')], now, title);
+		expect(new Set(plans.map(plan => plan.id)).size).toBe(2);
+		expect(menuReminderPlans([entry(2, 'A', 'p1')], now, title)[0].id).toBe(plans[0].id);
+	});
+
+	it('says nothing for a menu with no planned day', () => {
+		expect(menuReminderPlans([], now, title)).toEqual([]);
+	});
+});

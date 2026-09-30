@@ -21,7 +21,7 @@
 	import { registerPush } from '$native/push';
 	import { watchCrashes } from '$crash/reporter';
 	import { install } from '$stores/install.svelte';
-	import { reminderPlans } from '$domain/reminder';
+	import { menuReminderPlans, reminderPlans } from '$domain/reminder';
 	import { applyReminders } from '$native/reminders';
 	import { applyNearbyWatch } from '$native/nearby';
 	import AppShell from '$components/app/AppShell.svelte';
@@ -92,7 +92,23 @@
 			new Date()
 		);
 
-		void applyReminders(plans, (plan) => ({
+		const menuPlans = menuReminderPlans(
+			data.mealPlans.flatMap(plan =>
+				data.recipesInPlan(plan.id).flatMap(entry => {
+					const recipe = data.recipes.find(candidate => candidate.id === entry.recipeId);
+					return recipe && entry.dayIndex !== undefined
+						? [{ planId: plan.id, planName: plan.name, dayIndex: entry.dayIndex, recipeName: recipe.name }]
+						: [];
+				})
+			),
+			new Date(),
+			() => t('mealPlan.reminderTitle')
+		);
+
+		// Turning reminders off in the notification settings removes every one of them from the device.
+		const allowed = settings.notifications.types.reminder ? [...plans, ...menuPlans] : [];
+
+		void applyReminders(allowed, (plan) => ({
 			title: t('lists.reminderTitle', { name: plan.name }),
 			body: t('lists.reminderBody', {
 				date: new Intl.DateTimeFormat(i18n.locale, { dateStyle: 'long' }).format(

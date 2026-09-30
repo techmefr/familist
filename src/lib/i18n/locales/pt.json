@@ -16,7 +16,8 @@
 		"create": "Criar",
 		"chat": "Conversas",
 		"prices": "Preços",
-		"recipes": "Receitas"
+		"recipes": "Receitas",
+		"unread": "{count} conversa(s) por ler"
 	},
 	"create": {
 		"title": "O que quer criar?",
@@ -866,7 +867,8 @@
 			"waitLabel": "O que espera",
 			"caption": "Legenda",
 			"toVerify": "a verificar"
-		}
+		},
+		"adaptForTable": "Adaptar à minha mesa"
 	},
 	"recipeTags": {
 		"title": "Categorias",
@@ -1436,7 +1438,9 @@
 		"assistantTitle": "Assistente Familiste",
 		"assistantBack": "Conversas",
 		"muteList": "Silenciar esta conversa",
-		"unmuteList": "Reativar o som desta conversa"
+		"unmuteList": "Reativar o som desta conversa",
+		"unreadOne": "Por ler",
+		"adaptRequest": "Adapta a receita «{name}» (ingredientes: {ingredients}) às pessoas à minha mesa."
 	},
 	"household": {
 		"title": "A minha casa",
@@ -1885,7 +1889,8 @@
 		"searchPlaceholder": "Pesquisar menus",
 		"filtersTitle": "Filtrar menus",
 		"filterWithRecipes": "Apenas menus com receitas",
-		"noMatch": "Nenhum menu corresponde."
+		"noMatch": "Nenhum menu corresponde.",
+		"reminderTitle": "Menu de hoje"
 	},
 	"recipeShare": {
 		"title": "Partilhar esta receita",
@@ -2123,5 +2128,26 @@
 			"reminders": "Lembretes",
 			"timers": "Temporizadores"
 		}
+	},
+	"product": {
+		"title": "Ler um produto",
+		"modes": "Ferramentas da lupa",
+		"modeLoupe": "Lupa",
+		"modeProduct": "Produto",
+		"intro": "Leia um código de barras para ver o que um produto contém, na sua língua.",
+		"manual": "Ou escreva o código de barras",
+		"search": "Procurar",
+		"loading": "A procurar…",
+		"unknown": "Este produto ainda não está no Open Food Facts.",
+		"offline": "Está offline: a pesquisa precisa de ligação.",
+		"error": "A pesquisa falhou. Tente novamente daqui a pouco.",
+		"allergens": "Alergénios",
+		"noAllergens": "Nenhum declarado.",
+		"traces": "Pode conter vestígios de",
+		"ingredients": "Ingredientes",
+		"addTo": "Adicionar a uma lista",
+		"add": "Adicionar",
+		"added": "Adicionado a {list}.",
+		"attribution": "Dados do produto de"
 	}
 }

@@ -16,7 +16,8 @@
 		"create": "Create",
 		"chat": "Chats",
 		"prices": "Prices",
-		"recipes": "Recipes"
+		"recipes": "Recipes",
+		"unread": "{count} unread conversation(s)"
 	},
 	"create": {
 		"title": "What would you like to create?",
@@ -877,7 +878,8 @@
 			"waitLabel": "What is waiting",
 			"caption": "Caption",
 			"toVerify": "to verify"
-		}
+		},
+		"adaptForTable": "Adapt for my table"
 	},
 	"recipeTags": {
 		"title": "Categories",
@@ -1447,7 +1449,9 @@
 		"assistantTitle": "Familiste assistant",
 		"assistantBack": "Discussions",
 		"muteList": "Mute this chat",
-		"unmuteList": "Turn this chat’s sound back on"
+		"unmuteList": "Turn this chat’s sound back on",
+		"unreadOne": "Unread",
+		"adaptRequest": "Adapt the recipe “{name}” (ingredients: {ingredients}) for the people at my table."
 	},
 	"household": {
 		"title": "My household",
@@ -1896,7 +1900,8 @@
 		"searchPlaceholder": "Search menus",
 		"filtersTitle": "Filter menus",
 		"filterWithRecipes": "Only menus with recipes",
-		"noMatch": "No menu matches."
+		"noMatch": "No menu matches.",
+		"reminderTitle": "Today’s menu"
 	},
 	"recipeShare": {
 		"title": "Share this recipe",
@@ -2134,5 +2139,26 @@
 			"reminders": "Reminders",
 			"timers": "Timers"
 		}
+	},
+	"product": {
+		"title": "Scan a product",
+		"modes": "Loupe tools",
+		"modeLoupe": "Magnifier",
+		"modeProduct": "Product",
+		"intro": "Scan a barcode to see what is in a product, in your language.",
+		"manual": "Or type the barcode",
+		"search": "Look up",
+		"loading": "Looking it up…",
+		"unknown": "This product is not in Open Food Facts yet.",
+		"offline": "You are offline: the lookup needs a connection.",
+		"error": "The lookup failed. Try again in a moment.",
+		"allergens": "Allergens",
+		"noAllergens": "None declared.",
+		"traces": "May contain traces of",
+		"ingredients": "Ingredients",
+		"addTo": "Add to a list",
+		"add": "Add",
+		"added": "Added to {list}.",
+		"attribution": "Product data from"
 	}
 }

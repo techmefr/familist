@@ -82,7 +82,7 @@ export async function applyReminders(
 
 		await LocalNotifications.schedule({
 			notifications: plans.map((plan) => {
-				const { title, body } = texts(plan);
+				const { title, body } = plan.text ?? texts(plan);
 
 				return {
 					id: plan.id,

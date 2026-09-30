@@ -16,7 +16,8 @@
 		"create": "Créer",
 		"chat": "Discussions",
 		"prices": "Prix",
-		"recipes": "Recettes"
+		"recipes": "Recettes",
+		"unread": "{count} discussion(s) non lue(s)"
 	},
 	"create": {
 		"title": "Que voulez-vous créer ?",
@@ -909,7 +910,8 @@
 			"waitLabel": "Ce qui attend",
 			"caption": "Légende",
 			"toVerify": "à vérifier"
-		}
+		},
+		"adaptForTable": "Adapter pour ma table"
 	},
 	"recipeTags": {
 		"title": "Catégories",
@@ -1479,7 +1481,9 @@
 		"assistantTitle": "Assistant Familiste",
 		"assistantBack": "Discussions",
 		"muteList": "Couper le son de cette discussion",
-		"unmuteList": "Réactiver le son de cette discussion"
+		"unmuteList": "Réactiver le son de cette discussion",
+		"unreadOne": "Non lue",
+		"adaptRequest": "Adapte la recette « {name} » (ingrédients : {ingredients}) aux personnes à ma table."
 	},
 	"household": {
 		"title": "Mon foyer",
@@ -1927,7 +1931,8 @@
 		"searchPlaceholder": "Rechercher un menu",
 		"filtersTitle": "Filtrer les menus",
 		"filterWithRecipes": "Seulement les menus avec des recettes",
-		"noMatch": "Aucun menu ne correspond."
+		"noMatch": "Aucun menu ne correspond.",
+		"reminderTitle": "Au menu aujourd’hui"
 	},
 	"recipeShare": {
 		"title": "Partager cette recette",
@@ -2169,5 +2174,26 @@
 			"reminders": "Rappels",
 			"timers": "Minuteurs"
 		}
+	},
+	"product": {
+		"title": "Scanner un produit",
+		"modes": "Outils de la loupe",
+		"modeLoupe": "Loupe",
+		"modeProduct": "Produit",
+		"intro": "Scannez un code-barres pour voir ce que contient un produit, dans votre langue.",
+		"manual": "Ou saisissez le code-barres",
+		"search": "Rechercher",
+		"loading": "Recherche en cours…",
+		"unknown": "Ce produit n’est pas encore dans Open Food Facts.",
+		"offline": "Vous êtes hors ligne : la recherche demande une connexion.",
+		"error": "La recherche a échoué. Réessayez dans un instant.",
+		"allergens": "Allergènes",
+		"noAllergens": "Aucun déclaré.",
+		"traces": "Peut contenir des traces de",
+		"ingredients": "Ingrédients",
+		"addTo": "Ajouter à une liste",
+		"add": "Ajouter",
+		"added": "Ajouté à {list}.",
+		"attribution": "Données produit issues de"
 	}
 }

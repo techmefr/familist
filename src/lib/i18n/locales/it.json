@@ -16,7 +16,8 @@
 		"create": "Crea",
 		"chat": "Conversazioni",
 		"prices": "Prezzi",
-		"recipes": "Ricette"
+		"recipes": "Ricette",
+		"unread": "{count} conversazione/i non letta/e"
 	},
 	"create": {
 		"title": "Che cosa vuoi creare?",
@@ -864,7 +865,8 @@
 			"waitLabel": "Cosa aspetta",
 			"caption": "Didascalia",
 			"toVerify": "da verificare"
-		}
+		},
+		"adaptForTable": "Adatta per la mia tavola"
 	},
 	"recipeTags": {
 		"title": "Categorie",
@@ -1434,7 +1436,9 @@
 		"assistantTitle": "Assistente Familiste",
 		"assistantBack": "Conversazioni",
 		"muteList": "Silenzia questa conversazione",
-		"unmuteList": "Riattiva le notifiche di questa conversazione"
+		"unmuteList": "Riattiva le notifiche di questa conversazione",
+		"unreadOne": "Non letta",
+		"adaptRequest": "Adatta la ricetta «{name}» (ingredienti: {ingredients}) alle persone alla mia tavola."
 	},
 	"household": {
 		"title": "La mia casa",
@@ -1883,7 +1887,8 @@
 		"searchPlaceholder": "Cerca menu",
 		"filtersTitle": "Filtra i menu",
 		"filterWithRecipes": "Solo menu con ricette",
-		"noMatch": "Nessun menu corrisponde."
+		"noMatch": "Nessun menu corrisponde.",
+		"reminderTitle": "Menu di oggi"
 	},
 	"recipeShare": {
 		"title": "Condividi questa ricetta",
@@ -2121,5 +2126,26 @@
 			"reminders": "Promemoria",
 			"timers": "Timer"
 		}
+	},
+	"product": {
+		"title": "Scansiona un prodotto",
+		"modes": "Strumenti della lente",
+		"modeLoupe": "Lente",
+		"modeProduct": "Prodotto",
+		"intro": "Scansiona un codice a barre per vedere cosa contiene un prodotto, nella tua lingua.",
+		"manual": "Oppure digita il codice a barre",
+		"search": "Cerca",
+		"loading": "Ricerca in corso…",
+		"unknown": "Questo prodotto non è ancora su Open Food Facts.",
+		"offline": "Sei offline: la ricerca richiede una connessione.",
+		"error": "La ricerca è fallita. Riprova tra poco.",
+		"allergens": "Allergeni",
+		"noAllergens": "Nessuno dichiarato.",
+		"traces": "Può contenere tracce di",
+		"ingredients": "Ingredienti",
+		"addTo": "Aggiungi a una lista",
+		"add": "Aggiungi",
+		"added": "Aggiunto a {list}.",
+		"attribution": "Dati prodotto da"
 	}
 }

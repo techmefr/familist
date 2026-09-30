@@ -16,7 +16,8 @@
 		"create": "Hamorona",
 		"chat": "Resaka",
 		"prices": "Vidiny",
-		"recipes": "Recettes"
+		"recipes": "Recettes",
+		"unread": "Resaka tsy novakiana: {count}"
 	},
 	"create": {
 		"title": "Inona no tianao hamboarina?",
@@ -857,7 +858,8 @@
 			"waitLabel": "Inona no miandry",
 			"caption": "Soratra",
 			"toVerify": "hohamarinina"
-		}
+		},
+		"adaptForTable": "Amboary ho an’ny latabatro"
 	},
 	"recipeTags": {
 		"title": "Sokajy",
@@ -1427,7 +1429,9 @@
 		"assistantTitle": "Mpanampy Familiste",
 		"assistantBack": "Resaka",
 		"muteList": "Hanginana ity resaka ity",
-		"unmuteList": "Averina ny feon’ity resaka ity"
+		"unmuteList": "Averina ny feon’ity resaka ity",
+		"unreadOne": "Tsy voavaky",
+		"adaptRequest": "Amboary ny fomba fahandrahoana “{name}” (akora: {ingredients}) ho an’ireo olona eo amin’ny latabatro."
 	},
 	"household": {
 		"title": "Ny ankohonako",
@@ -1876,7 +1880,8 @@
 		"searchPlaceholder": "Hitady menio",
 		"filtersTitle": "Sivano ny menio",
 		"filterWithRecipes": "Menio misy fomba fahandrahoana ihany",
-		"noMatch": "Tsy misy menio mifanaraka."
+		"noMatch": "Tsy misy menio mifanaraka.",
+		"reminderTitle": "Menio anio"
 	},
 	"recipeShare": {
 		"title": "Zarao ity mahandro ity",
@@ -2114,5 +2119,26 @@
 			"reminders": "Fampahatsiahivana",
 			"timers": "Timer"
 		}
+	},
+	"product": {
+		"title": "Hijery vokatra",
+		"modes": "Fitaovana amin’ny loupe",
+		"modeLoupe": "Loupe",
+		"modeProduct": "Vokatra",
+		"intro": "Jereo ny kaody-barre mba hahitana ny ao anatin’ny vokatra amin’ny teninao.",
+		"manual": "Na soraty ny kaody-barre",
+		"search": "Hitady",
+		"loading": "Mitady…",
+		"unknown": "Mbola tsy ao amin’ny Open Food Facts ity vokatra ity.",
+		"offline": "Tsy misy tambajotra: mila connexion ny fikarohana.",
+		"error": "Tsy nahomby ny fikarohana. Andramo indray afaka kelikely.",
+		"allergens": "Allergène",
+		"noAllergens": "Tsy misy voalaza.",
+		"traces": "Mety misy tsiambaratelo",
+		"ingredients": "Akora",
+		"addTo": "Ampio amin’ny lisitra",
+		"add": "Ampio",
+		"added": "Nampiana tao amin’ny {list}.",
+		"attribution": "Angona momba ny vokatra avy amin’ny"
 	}
 }

@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
+	import { ai } from '$stores/ai.svelte';
 	import { feedback } from '$stores/feedback.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { DEFAULT_SERVINGS, MAX_SERVINGS, MIN_SERVINGS } from '$domain/recipe';
@@ -26,7 +27,8 @@
 		Users,
 		UtensilsCrossed,
 		Copy,
-		Mic
+		Mic,
+		Sparkles
 	} from '@lucide/svelte';
 
 	/**
@@ -184,6 +186,18 @@
 					{t('recipes.cookAlong.start')}
 				</Button>
 			</div>
+		{/if}
+
+		{#if ai.configured}
+			<Button
+				variant="outline"
+				href="/chat/assistant?adapt={recipe.id}"
+				data-test-id="recipe-adapt"
+				class="fl-press"
+			>
+				<Sparkles size={18} aria-hidden="true" />
+				{t('recipes.adaptForTable')}
+			</Button>
 		{/if}
 
 		<div class="flex flex-wrap items-center gap-3 border-t pt-4">

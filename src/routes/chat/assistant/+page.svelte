@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
+	import { data } from '$stores/data.svelte';
 	import { ai } from '$stores/ai.svelte';
 	import { recipeDraft } from '$stores/recipe-draft.svelte';
 	import { t } from '$i18n/index.svelte';
@@ -7,6 +9,19 @@
 	import AiRecipeRequest from '$components/app/AiRecipeRequest.svelte';
 	import { Button } from '$components/ui/button';
 	import { ChevronLeft, KeyRound } from '@lucide/svelte';
+
+	/**
+	 * "Adapt for my table" arrives as `?adapt=<recipe id>`: the field starts with the request, written from
+	 * the recipe. The person reads it, changes it if they like, and sends it: nothing leaves on its own.
+	 */
+	const initialMessage = $derived.by(() => {
+		const id = page.url.searchParams.get('adapt');
+		const recipe = id ? data.recipes.find(candidate => candidate.id === id) : undefined;
+		if (!recipe) return '';
+
+		const ingredients = data.ingredientsOf(recipe.id).map(line => line.name).join(', ');
+		return t('chat.adaptRequest', { name: recipe.name, ingredients });
+	});
 
 	/** A kept suggestion goes to the recipe form as a draft: nothing is ever saved from the chat. */
 	async function useDraft(draft: RecipeDraft) {
@@ -41,6 +56,8 @@
 			<Button href="/profile/ai" class="fl-press">{t('recipes.create.needsKeyLink')}</Button>
 		</div>
 	{:else}
-		<AiRecipeRequest onDraft={useDraft} />
+		{#key initialMessage}
+			<AiRecipeRequest onDraft={useDraft} {initialMessage} />
+		{/key}
 	{/if}
 </div>

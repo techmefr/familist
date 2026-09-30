@@ -17,6 +17,8 @@
 	import ListPanel from '$components/app/ListPanel.svelte';
 	import ReportPanel from '$components/app/ReportPanel.svelte';
 	import { NAV } from './nav-entries';
+	import { unread } from '$stores/unread.svelte';
+	import { badgeText } from '$domain/unread';
 
 	let {
 		children,
@@ -53,6 +55,9 @@
 
 	/** The logo block that tops the full column: the create button sits right under it. */
 	let logoH = $state(0);
+
+	/** The header's height: the magnifier, full screen under it, starts its own controls just below. */
+	let headerH = $state(0);
 
 	/**
 	 * Hides the header while scrolling down past the first screenful, gives it back on the way up — the
@@ -127,7 +132,7 @@
 	);
 </script>
 
-	<div class="fl-shell" style="--fl-navbar-measured: {navbarH}px; --fl-logo-h: {logoH}px">
+	<div class="fl-shell" style="--fl-navbar-measured: {navbarH}px; --fl-logo-h: {logoH}px; --fl-header-h: {headerH}px">
 		<nav
 			bind:clientHeight={navbarH}
 			class="fl-navbar bg-card fixed inset-x-0 bottom-0 z-10 border-t"
@@ -181,6 +186,16 @@
 								{:else}
 									<Icon size={22} class="relative" aria-hidden="true" />
 								{/if}
+								{#if href === '/chat' && unread.count > 0}
+									<span
+										class="bg-primary text-primary-foreground text-caption absolute -top-1 -end-2 grid min-w-5 place-items-center rounded-full px-1 font-semibold leading-5"
+										aria-hidden="true"
+										data-test-id="nav-unread"
+									>
+										{badgeText(unread.count)}
+									</span>
+									<span class="sr-only">{t('nav.unread', { count: unread.count })}</span>
+								{/if}
 							</span>
 							<!-- The weight repeats the active tab: colour must not say it on its own. -->
 							<span
@@ -217,7 +232,7 @@
 				full:justify-start full:gap-3
 				{hidesCreate ? 'phone:hidden' : ''}"
 		>
-			<AnimatedIcon name="plus" size={26} />
+			<span class="fl-create-icon"><AnimatedIcon name="plus" size={26} /></span>
 			<span class="text-label sr-only font-medium full:not-sr-only">{t('nav.create')}</span>
 		</button>
 
@@ -238,6 +253,7 @@
 				thumb, on the edge.
 			-->
 			<header
+				bind:clientHeight={headerH}
 				inert={headerHidden}
 				class="bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl flex-wrap items-center
 					justify-between gap-x-4 gap-y-1 px-4 pt-3 pb-1 transition-transform duration-200 ease-out

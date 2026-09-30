@@ -16,7 +16,8 @@
 		"create": "新建",
 		"chat": "讨论",
 		"prices": "价格",
-		"recipes": "食谱"
+		"recipes": "食谱",
+		"unread": "{count} 个未读对话"
 	},
 	"create": {
 		"title": "要新建什么？",
@@ -856,7 +857,8 @@
 			"waitLabel": "等待内容",
 			"caption": "说明",
 			"toVerify": "待核实"
-		}
+		},
+		"adaptForTable": "为我的餐桌调整"
 	},
 	"recipeTags": {
 		"title": "分类",
@@ -1422,7 +1424,9 @@
 		"assistantTitle": "Familiste 助手",
 		"assistantBack": "对话",
 		"muteList": "静音此对话",
-		"unmuteList": "恢复此对话的通知"
+		"unmuteList": "恢复此对话的通知",
+		"unreadOne": "未读",
+		"adaptRequest": "请根据我餐桌上的人调整食谱“{name}”（食材：{ingredients}）。"
 	},
 	"household": {
 		"title": "我的家庭",
@@ -1867,7 +1871,8 @@
 		"searchPlaceholder": "搜索菜单",
 		"filtersTitle": "筛选菜单",
 		"filterWithRecipes": "仅含食谱的菜单",
-		"noMatch": "没有匹配的菜单。"
+		"noMatch": "没有匹配的菜单。",
+		"reminderTitle": "今日菜单"
 	},
 	"recipeShare": {
 		"title": "分享此食谱",
@@ -2102,5 +2107,26 @@
 			"reminders": "提醒",
 			"timers": "计时器"
 		}
+	},
+	"product": {
+		"title": "扫描商品",
+		"modes": "放大镜工具",
+		"modeLoupe": "放大镜",
+		"modeProduct": "商品",
+		"intro": "扫描条形码，用你的语言查看商品成分。",
+		"manual": "或输入条形码",
+		"search": "查询",
+		"loading": "查询中…",
+		"unknown": "Open Food Facts 中尚无此商品。",
+		"offline": "当前离线：查询需要网络。",
+		"error": "查询失败，请稍后再试。",
+		"allergens": "过敏原",
+		"noAllergens": "未声明。",
+		"traces": "可能含有微量",
+		"ingredients": "配料",
+		"addTo": "添加到清单",
+		"add": "添加",
+		"added": "已添加到 {list}。",
+		"attribution": "商品数据来自"
 	}
 }

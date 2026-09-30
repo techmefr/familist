@@ -12,7 +12,10 @@
 	import ActionSheet from '$components/app/ActionSheet.svelte';
 	import type { Action } from '$domain/action-sheet';
 	import { Button } from '$components/ui/button';
-	import { settings } from '$stores/settings.svelte';
+	import { settings, motionMs } from '$stores/settings.svelte';
+	import { unread } from '$stores/unread.svelte';
+	import { fly } from 'svelte/transition';
+	import { DURATION } from '$domain/motion-tokens';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
 	import {
@@ -36,6 +39,12 @@
 	const listId = $derived(page.params.id!);
 	const list = $derived(data.list(listId));
 	const allMessages = $derived(data.messagesOf(listId));
+	/** Open and kept open: whatever arrives while this screen is showing is read as it lands. */
+	$effect(() => {
+		void allMessages.length;
+		unread.markRead(listId);
+	});
+
 	const isMuted = $derived(settings.notifications.mutedLists.includes(listId));
 
 	let searchOpen = $state(false);
@@ -276,6 +285,7 @@
 				{@const mine = message.userId === data.me}
 
 				<li
+					in:fly={{ y: 10, duration: motionMs(DURATION.enter) }}
 					class="flex flex-col {mine ? 'items-end' : 'items-start'} {index === 0 ? '' : startsGroup ? 'mt-4' : 'mt-1'}"
 					data-test-class="chat-message"
 				>

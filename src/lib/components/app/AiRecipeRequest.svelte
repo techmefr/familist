@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { onDestroy, tick } from 'svelte';
+	import { onDestroy, tick, untrack } from 'svelte';
 	import { SvelteSet } from 'svelte/reactivity';
 	import { i18n, t, LOCALES } from '$i18n/index.svelte';
 	import { data } from '$stores/data.svelte';
@@ -26,9 +26,11 @@
 	interface Props {
 		/** A kept suggestion goes to the recipe form as a draft: nothing is ever saved from the chat (#313). */
 		onDraft: (draft: RecipeDraft) => void;
+		/** Text the field starts with, for a request begun elsewhere ("adapt this recipe"): never sent by itself. */
+		initialMessage?: string;
 	}
 
-	const { onDraft }: Props = $props();
+	const { onDraft, initialMessage = '' }: Props = $props();
 
 	/**
 	 * The "ask the AI" chat of "Create a recipe" (#313): the person says what they feel like eating, the
@@ -40,7 +42,7 @@
 	const conversation = aiRecipeConversation;
 	const language = $derived(LOCALES.find((l) => l.code === i18n.locale)?.native ?? 'Français');
 
-	let message = $state('');
+	let message = $state(untrack(() => initialMessage));
 	let thread = $state<HTMLOListElement | null>(null);
 	let field = $state<HTMLTextAreaElement | null>(null);
 

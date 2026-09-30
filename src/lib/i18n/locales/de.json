@@ -16,7 +16,8 @@
 		"create": "Erstellen",
 		"chat": "Unterhaltungen",
 		"prices": "Preise",
-		"recipes": "Rezepte"
+		"recipes": "Rezepte",
+		"unread": "{count} ungelesene Unterhaltung(en)"
 	},
 	"create": {
 		"title": "Was möchten Sie anlegen?",
@@ -866,7 +867,8 @@
 			"waitLabel": "Was wartet",
 			"caption": "Bildunterschrift",
 			"toVerify": "zu prüfen"
-		}
+		},
+		"adaptForTable": "Für meine Runde anpassen"
 	},
 	"recipeTags": {
 		"title": "Kategorien",
@@ -1436,7 +1438,9 @@
 		"assistantTitle": "Familiste-Assistent",
 		"assistantBack": "Unterhaltungen",
 		"muteList": "Diese Unterhaltung stummschalten",
-		"unmuteList": "Ton dieser Unterhaltung wieder einschalten"
+		"unmuteList": "Ton dieser Unterhaltung wieder einschalten",
+		"unreadOne": "Ungelesen",
+		"adaptRequest": "Passe das Rezept „{name}“ (Zutaten: {ingredients}) für die Personen an meinem Tisch an."
 	},
 	"household": {
 		"title": "Mein Haushalt",
@@ -1885,7 +1889,8 @@
 		"searchPlaceholder": "Menüs suchen",
 		"filtersTitle": "Menüs filtern",
 		"filterWithRecipes": "Nur Menüs mit Rezepten",
-		"noMatch": "Kein Menü passt."
+		"noMatch": "Kein Menü passt.",
+		"reminderTitle": "Heute auf dem Speiseplan"
 	},
 	"recipeShare": {
 		"title": "Dieses Rezept teilen",
@@ -2123,5 +2128,26 @@
 			"reminders": "Erinnerungen",
 			"timers": "Timer"
 		}
+	},
+	"product": {
+		"title": "Produkt scannen",
+		"modes": "Lupen-Werkzeuge",
+		"modeLoupe": "Lupe",
+		"modeProduct": "Produkt",
+		"intro": "Scannen Sie einen Barcode, um zu sehen, was ein Produkt enthält, in Ihrer Sprache.",
+		"manual": "Oder Barcode eingeben",
+		"search": "Suchen",
+		"loading": "Suche läuft…",
+		"unknown": "Dieses Produkt ist noch nicht in Open Food Facts.",
+		"offline": "Sie sind offline: die Suche braucht eine Verbindung.",
+		"error": "Die Suche ist fehlgeschlagen. Versuchen Sie es gleich erneut.",
+		"allergens": "Allergene",
+		"noAllergens": "Keine angegeben.",
+		"traces": "Kann Spuren enthalten von",
+		"ingredients": "Zutaten",
+		"addTo": "Zu einer Liste hinzufügen",
+		"add": "Hinzufügen",
+		"added": "Zu {list} hinzugefügt.",
+		"attribution": "Produktdaten von"
 	}
 }

@@ -16,7 +16,8 @@
 		"create": "إنشاء",
 		"chat": "المحادثات",
 		"prices": "الأسعار",
-		"recipes": "الوصفات"
+		"recipes": "الوصفات",
+		"unread": "{count} محادثة غير مقروءة"
 	},
 	"create": {
 		"title": "ما الذي تريد إنشاءه؟",
@@ -898,7 +899,8 @@
 			"waitLabel": "ما الذي ينتظر",
 			"caption": "التعليق",
 			"toVerify": "للتحقق"
-		}
+		},
+		"adaptForTable": "تكييفها لمائدتي"
 	},
 	"recipeTags": {
 		"title": "الفئات",
@@ -1484,7 +1486,9 @@
 		"assistantTitle": "مساعد Familiste",
 		"assistantBack": "المحادثات",
 		"muteList": "كتم هذه المحادثة",
-		"unmuteList": "إعادة تفعيل صوت هذه المحادثة"
+		"unmuteList": "إعادة تفعيل صوت هذه المحادثة",
+		"unreadOne": "غير مقروءة",
+		"adaptRequest": "كيّف الوصفة «{name}» (المكونات: {ingredients}) للأشخاص على مائدتي."
 	},
 	"household": {
 		"title": "منزلي",
@@ -1949,7 +1953,8 @@
 		"searchPlaceholder": "ابحث في القوائم",
 		"filtersTitle": "تصفية القوائم",
 		"filterWithRecipes": "القوائم التي تحتوي وصفات فقط",
-		"noMatch": "لا توجد قائمة مطابقة."
+		"noMatch": "لا توجد قائمة مطابقة.",
+		"reminderTitle": "قائمة اليوم"
 	},
 	"recipeShare": {
 		"title": "مشاركة هذه الوصفة",
@@ -2199,5 +2204,26 @@
 			"reminders": "التذكيرات",
 			"timers": "المؤقتات"
 		}
+	},
+	"product": {
+		"title": "مسح منتج",
+		"modes": "أدوات العدسة",
+		"modeLoupe": "عدسة",
+		"modeProduct": "منتج",
+		"intro": "امسح الباركود لترى محتوى المنتج بلغتك.",
+		"manual": "أو اكتب الباركود",
+		"search": "بحث",
+		"loading": "جارٍ البحث…",
+		"unknown": "هذا المنتج غير موجود بعد في Open Food Facts.",
+		"offline": "لا يوجد اتصال: يحتاج البحث إلى الإنترنت.",
+		"error": "فشل البحث. حاول مرة أخرى بعد قليل.",
+		"allergens": "مسببات الحساسية",
+		"noAllergens": "لا شيء مُعلن.",
+		"traces": "قد يحتوي على آثار من",
+		"ingredients": "المكونات",
+		"addTo": "إضافة إلى قائمة",
+		"add": "إضافة",
+		"added": "تمت الإضافة إلى {list}.",
+		"attribution": "بيانات المنتج من"
 	}
 }

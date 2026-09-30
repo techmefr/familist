@@ -16,7 +16,8 @@
 		"create": "Crear",
 		"chat": "Conversaciones",
 		"prices": "Precios",
-		"recipes": "Recetas"
+		"recipes": "Recetas",
+		"unread": "{count} conversación(es) sin leer"
 	},
 	"create": {
 		"title": "¿Qué quiere crear?",
@@ -870,7 +871,8 @@
 			"waitLabel": "Qué espera",
 			"caption": "Pie de foto",
 			"toVerify": "por verificar"
-		}
+		},
+		"adaptForTable": "Adaptar para mi mesa"
 	},
 	"recipeTags": {
 		"title": "Categorías",
@@ -1440,7 +1442,9 @@
 		"assistantTitle": "Asistente Familiste",
 		"assistantBack": "Conversaciones",
 		"muteList": "Silenciar esta conversación",
-		"unmuteList": "Reactivar el sonido de esta conversación"
+		"unmuteList": "Reactivar el sonido de esta conversación",
+		"unreadOne": "Sin leer",
+		"adaptRequest": "Adapta la receta «{name}» (ingredientes: {ingredients}) a las personas de mi mesa."
 	},
 	"household": {
 		"title": "Mi hogar",
@@ -1889,7 +1893,8 @@
 		"searchPlaceholder": "Buscar menús",
 		"filtersTitle": "Filtrar menús",
 		"filterWithRecipes": "Solo menús con recetas",
-		"noMatch": "Ningún menú coincide."
+		"noMatch": "Ningún menú coincide.",
+		"reminderTitle": "Menú de hoy"
 	},
 	"recipeShare": {
 		"title": "Compartir esta receta",
@@ -2127,5 +2132,26 @@
 			"reminders": "Recordatorios",
 			"timers": "Temporizadores"
 		}
+	},
+	"product": {
+		"title": "Escanear un producto",
+		"modes": "Herramientas de la lupa",
+		"modeLoupe": "Lupa",
+		"modeProduct": "Producto",
+		"intro": "Escanea un código de barras para ver qué contiene un producto, en tu idioma.",
+		"manual": "O escribe el código de barras",
+		"search": "Buscar",
+		"loading": "Buscando…",
+		"unknown": "Este producto aún no está en Open Food Facts.",
+		"offline": "Sin conexión: la búsqueda la necesita.",
+		"error": "La búsqueda falló. Inténtalo de nuevo en un momento.",
+		"allergens": "Alérgenos",
+		"noAllergens": "Ninguno declarado.",
+		"traces": "Puede contener trazas de",
+		"ingredients": "Ingredientes",
+		"addTo": "Añadir a una lista",
+		"add": "Añadir",
+		"added": "Añadido a {list}.",
+		"attribution": "Datos de producto de"
 	}
 }
