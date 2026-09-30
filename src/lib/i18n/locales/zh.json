@@ -815,7 +815,36 @@
 		"actionsAria": "{name} 的更多操作",
 		"addPhotoAction": "添加照片",
 		"backToRecipes": "返回食谱列表",
-		"notFound": "未找到该食谱。"
+		"notFound": "未找到该食谱。",
+		"widgets": {
+			"title": "步骤 {rank} 的小组件",
+			"quickTimer": "快速计时器",
+			"quickMinutes": "{count} 分钟",
+			"add": "添加小组件",
+			"remove": "移除：{type}",
+			"type": {
+				"appliance": "电器",
+				"alert": "提醒",
+				"wait": "长时间等待",
+				"photo": "照片备注"
+			},
+			"appliance": "电器",
+			"appliances": {
+				"oven": "烤箱",
+				"hob": "灶台",
+				"microwave": "微波炉",
+				"airfryer": "空气炸锅",
+				"pressure": "高压锅",
+				"other": "其他"
+			},
+			"temperature": "温度（°C）",
+			"setting": "设置",
+			"alertText": "提醒内容",
+			"waitHours": "时长（小时）",
+			"waitLabel": "等待内容",
+			"caption": "说明",
+			"toVerify": "待核实"
+		}
 	},
 	"recipeTags": {
 		"title": "分类",

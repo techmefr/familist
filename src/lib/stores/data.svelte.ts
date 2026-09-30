@@ -85,6 +85,7 @@ import { trigram } from '$domain/trigram';
 import { trigramSource } from '$domain/place';
 import { DEFAULT_UNIT } from '$domain/units';
 import { TINTS } from '$domain/tint';
+import { parseWidgets, type StepWidget } from '$domain/step-widgets';
 import { i18n, t } from '$i18n/index.svelte';
 
 /**
@@ -122,6 +123,7 @@ function recipeChildren(
 		steps: string[];
 		stepIngredients?: number[][];
 		stepDurations?: (number | null)[];
+		stepWidgets?: StepWidget[][];
 	}
 ): { rows: RecipeIngredient[]; steps: RecipeStep[] } {
 	const idOfRow = new Map<number, string>();
@@ -156,7 +158,8 @@ function recipeChildren(
 			body: body.trim(),
 			position: steps.length,
 			ingredientIds,
-			durationSeconds: clampDuration(input.stepDurations?.[index]) ?? undefined
+			durationSeconds: clampDuration(input.stepDurations?.[index]) ?? undefined,
+			widgets: parseWidgets(input.stepWidgets?.[index])
 		});
 	});
 
@@ -1604,6 +1607,7 @@ class DataStore {
 		steps: string[];
 		stepIngredients?: number[][];
 		stepDurations?: (number | null)[];
+		stepWidgets?: StepWidget[][];
 	}) {
 		const recipe: Recipe = {
 			id: crypto.randomUUID(),
@@ -1656,6 +1660,7 @@ class DataStore {
 			steps: string[];
 			stepIngredients?: number[][];
 			stepDurations?: (number | null)[];
+			stepWidgets?: StepWidget[][];
 		}
 	) {
 		const recipe = this.cachedRecipes.find((r) => r.id === id);

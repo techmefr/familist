@@ -841,7 +841,36 @@
 		"actionsAria": "Другие действия для {name}",
 		"addPhotoAction": "Добавить фото",
 		"backToRecipes": "Назад к рецептам",
-		"notFound": "Рецепт не найден."
+		"notFound": "Рецепт не найден.",
+		"widgets": {
+			"title": "Виджеты шага {rank}",
+			"quickTimer": "Быстрый таймер",
+			"quickMinutes": "{count} мин",
+			"add": "Добавить виджет",
+			"remove": "Удалить: {type}",
+			"type": {
+				"appliance": "Прибор",
+				"alert": "Предупреждение",
+				"wait": "Долгое ожидание",
+				"photo": "Заметка с фото"
+			},
+			"appliance": "Прибор",
+			"appliances": {
+				"oven": "Духовка",
+				"hob": "Плита",
+				"microwave": "Микроволновка",
+				"airfryer": "Аэрогриль",
+				"pressure": "Скороварка",
+				"other": "Другое"
+			},
+			"temperature": "Температура (°C)",
+			"setting": "Режим",
+			"alertText": "Текст предупреждения",
+			"waitHours": "Длительность (часы)",
+			"waitLabel": "Что ждёт",
+			"caption": "Подпись",
+			"toVerify": "проверить"
+		}
 	},
 	"recipeTags": {
 		"title": "Категории",

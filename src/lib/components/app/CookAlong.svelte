@@ -18,6 +18,8 @@
 	import { ShoppingBasket, Mic, MicOff, Timer as TimerIcon, Plus } from '@lucide/svelte';
 	import { timers } from '$stores/timers.svelte';
 	import { formatClock, splitDuration } from '$domain/step-duration';
+	import StepWidgetsView from '$components/app/StepWidgetsView.svelte';
+	import type { StepWidget } from '$domain/step-widgets';
 	import { remindersSupported } from '$native/reminders';
 	import { tick } from 'svelte';
 	import { ingredientsOfStep } from '$domain/step-ingredients';
@@ -34,6 +36,7 @@
 		stepIngredientIds = [],
 		recipeId,
 		stepDurations = [],
+		stepWidgets = [],
 		onClose
 	}: {
 		recipeName: string;
@@ -44,6 +47,8 @@
 		/** The recipe the timers belong to, and each step's duration in seconds (#310). */
 		recipeId?: string;
 		stepDurations?: (number | null)[];
+		/** Extras of each step (#472): oven settings, warnings, long waits, photo notes. */
+		stepWidgets?: StepWidget[][];
 		onClose: () => void;
 	} = $props();
 
@@ -444,12 +449,15 @@
 
 	<div class="relative flex flex-1 items-center justify-center px-6 py-8">
 		{#if total > 0}
-			<p
-				data-test-id="cook-along-step"
-				class="pointer-events-none relative z-10 text-center text-3xl leading-snug font-semibold break-words"
-			>
-				{current}
-			</p>
+			<div class="pointer-events-none relative z-10 flex flex-col items-center">
+				<p
+					data-test-id="cook-along-step"
+					class="text-center text-3xl leading-snug font-semibold break-words"
+				>
+					{current}
+				</p>
+				<StepWidgetsView widgets={stepWidgets[clampStepIndex(index, steps.length)] ?? []} />
+			</div>
 
 			<!--
 				The whole step half-screen doubles as previous/next, on top of the arrow buttons below: a hand busy

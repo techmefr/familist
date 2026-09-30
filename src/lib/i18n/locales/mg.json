@@ -816,7 +816,36 @@
 		"actionsAria": "Hetsika hafa ho an'ny {name}",
 		"addPhotoAction": "Manampy sary",
 		"backToRecipes": "Miverina any amin'ireo fomba fahandro",
-		"notFound": "Tsy hita ny fomba fahandro."
+		"notFound": "Tsy hita ny fomba fahandro.",
+		"widgets": {
+			"title": "Widget ho an’ny dingana {rank}",
+			"quickTimer": "Timer haingana",
+			"quickMinutes": "{count} min",
+			"add": "Ampio widget",
+			"remove": "Esory: {type}",
+			"type": {
+				"appliance": "Fitaovana",
+				"alert": "Fampitandremana",
+				"wait": "Fiandrasana lava",
+				"photo": "Naotin-tsary"
+			},
+			"appliance": "Fitaovana",
+			"appliances": {
+				"oven": "Lafaoro",
+				"hob": "Fatana",
+				"microwave": "Micro-ondes",
+				"airfryer": "Air fryer",
+				"pressure": "Lapoaly",
+				"other": "Hafa"
+			},
+			"temperature": "Hafanana (°C)",
+			"setting": "Fandrefesana",
+			"alertText": "Lahatsoratra fampitandremana",
+			"waitHours": "Faharetana (ora)",
+			"waitLabel": "Inona no miandry",
+			"caption": "Soratra",
+			"toVerify": "hohamarinina"
+		}
 	},
 	"recipeTags": {
 		"title": "Sokajy",

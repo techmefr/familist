@@ -823,7 +823,36 @@
 		"actionsAria": "Altre azioni per {name}",
 		"addPhotoAction": "Aggiungi una foto",
 		"backToRecipes": "Torna alle ricette",
-		"notFound": "Ricetta non trovata."
+		"notFound": "Ricetta non trovata.",
+		"widgets": {
+			"title": "Widget del passaggio {rank}",
+			"quickTimer": "Timer rapido",
+			"quickMinutes": "{count} min",
+			"add": "Aggiungi un widget",
+			"remove": "Rimuovi: {type}",
+			"type": {
+				"appliance": "Elettrodomestico",
+				"alert": "Avvertenza",
+				"wait": "Attesa lunga",
+				"photo": "Nota foto"
+			},
+			"appliance": "Apparecchio",
+			"appliances": {
+				"oven": "Forno",
+				"hob": "Piano cottura",
+				"microwave": "Microonde",
+				"airfryer": "Friggitrice ad aria",
+				"pressure": "Pentola a pressione",
+				"other": "Altro"
+			},
+			"temperature": "Temperatura (°C)",
+			"setting": "Impostazione",
+			"alertText": "Testo dell’avvertenza",
+			"waitHours": "Durata (ore)",
+			"waitLabel": "Cosa aspetta",
+			"caption": "Didascalia",
+			"toVerify": "da verificare"
+		}
 	},
 	"recipeTags": {
 		"title": "Categorie",

@@ -836,7 +836,36 @@
 		"actionsAria": "More actions for {name}",
 		"addPhotoAction": "Add a photo",
 		"backToRecipes": "Back to recipes",
-		"notFound": "Recipe not found."
+		"notFound": "Recipe not found.",
+		"widgets": {
+			"title": "Widgets for step {rank}",
+			"quickTimer": "Quick timer",
+			"quickMinutes": "{count} min",
+			"add": "Add a widget",
+			"remove": "Remove {type}",
+			"type": {
+				"appliance": "Appliance",
+				"alert": "Warning",
+				"wait": "Long wait",
+				"photo": "Photo note"
+			},
+			"appliance": "Appliance",
+			"appliances": {
+				"oven": "Oven",
+				"hob": "Hob",
+				"microwave": "Microwave",
+				"airfryer": "Air fryer",
+				"pressure": "Pressure cooker",
+				"other": "Other"
+			},
+			"temperature": "Temperature (°C)",
+			"setting": "Setting",
+			"alertText": "Warning text",
+			"waitHours": "Duration (hours)",
+			"waitLabel": "What is waiting",
+			"caption": "Caption",
+			"toVerify": "to verify"
+		}
 	},
 	"recipeTags": {
 		"title": "Categories",

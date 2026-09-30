@@ -829,7 +829,36 @@
 		"actionsAria": "Más acciones para {name}",
 		"addPhotoAction": "Añadir una foto",
 		"backToRecipes": "Volver a las recetas",
-		"notFound": "Receta no encontrada."
+		"notFound": "Receta no encontrada.",
+		"widgets": {
+			"title": "Widgets del paso {rank}",
+			"quickTimer": "Temporizador rápido",
+			"quickMinutes": "{count} min",
+			"add": "Añadir un widget",
+			"remove": "Quitar: {type}",
+			"type": {
+				"appliance": "Aparato",
+				"alert": "Advertencia",
+				"wait": "Espera larga",
+				"photo": "Nota de foto"
+			},
+			"appliance": "Aparato",
+			"appliances": {
+				"oven": "Horno",
+				"hob": "Placa",
+				"microwave": "Microondas",
+				"airfryer": "Freidora de aire",
+				"pressure": "Olla a presión",
+				"other": "Otro"
+			},
+			"temperature": "Temperatura (°C)",
+			"setting": "Ajuste",
+			"alertText": "Texto de la advertencia",
+			"waitHours": "Duración (horas)",
+			"waitLabel": "Qué espera",
+			"caption": "Pie de foto",
+			"toVerify": "por verificar"
+		}
 	},
 	"recipeTags": {
 		"title": "Categorías",
