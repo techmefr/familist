@@ -36,6 +36,16 @@ async function measure(page: Page): Promise<Finding[]> {
 
 			if (root.scrollWidth > window.innerWidth + tolerance) {
 				found.push({ what: `horizontal scroll: ${root.scrollWidth}px content in ${window.innerWidth}px` });
+
+				// Who pushes the page wide: the elements whose right edge is furthest out, so the fix is one look away.
+				const describe = (element: Element) =>
+					`${element.tagName.toLowerCase()}${element.id ? '#' + element.id : ''}.${String(element.getAttribute('class') ?? '').split(/\s+/).slice(0, 4).join('.')}[${element.getAttribute('data-test-id') ?? ''}]`;
+				const widest = [...document.body.querySelectorAll('*')]
+					.map(element => ({ element, right: element.getBoundingClientRect().right }))
+					.filter(entry => entry.right > window.innerWidth + tolerance)
+					.toSorted((a, b) => b.right - a.right)
+					.slice(0, 3);
+				for (const entry of widest) found.push({ what: `widest: ${describe(entry.element)} ends at ${Math.round(entry.right)}px` });
 			}
 
 			const interactive = document.querySelectorAll<HTMLElement>('button, a[href], [role="button"], input:not([type="hidden"]), select');

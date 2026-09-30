@@ -965,7 +965,9 @@ textarea {
 @media (width >= 48rem) and (orientation: landscape) {
 	.fl-shell {
 		display: grid;
-		grid-template-columns: 16rem 1fr;
+		/* Capped by the viewport: the columns are in rem, which the text size multiplies, and at the largest step they
+		 * alone were wider than the screen. minmax(0, 1fr) lets the page column shrink instead of pushing the row wide. */
+		grid-template-columns: min(16rem, 30vw) minmax(0, 1fr);
 	}
 
 	.fl-navbar {
@@ -978,7 +980,7 @@ textarea {
 
 @media (width >= 64rem) and (orientation: landscape) {
 	.fl-shell {
-		grid-template-columns: 16rem 20rem 1fr;
+		grid-template-columns: min(16rem, 26vw) min(20rem, 26vw) minmax(0, 1fr);
 	}
 }
 /*
@@ -1084,7 +1086,8 @@ textarea {
 	display: grid;
 	place-items: center;
 	padding-block: 0.25rem;
-	padding-inline: 1.125rem;
+	/* In rem it grew with the text size until five tabs no longer fitted a phone. */
+	padding-inline: min(1.125rem, 2vw);
 }
 
 .fl-nav-pill {
@@ -1945,7 +1948,7 @@ input.fl-otp-field:not([type='checkbox']):not([type='radio']):not([type='range']
 
 @media (width >= 48rem) and (orientation: landscape) {
 	.fl-create {
-		inline-size: calc(16rem - 1.5rem);
+		inline-size: calc(min(16rem, 30vw) - 1.5rem);
 		inset-inline-start: 0.75rem;
 	}
 }
