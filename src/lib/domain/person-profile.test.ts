@@ -122,3 +122,20 @@ describe('warningsFor', () => {
 		expect(out).toHaveLength(1);
 	});
 });
+
+import { portionsFor } from './person-profile';
+
+describe('portionsFor', () => {
+	it('sums the portion factors and counts unknown profiles as one', () => {
+		const eaters = [
+			{ personId: 'a', name: 'A', profile: profile({ portionFactor: 1.5 }) },
+			{ personId: 'b', name: 'B', profile: profile({ portionFactor: 0.5 }) },
+			{ personId: 'c', name: 'C', profile: null }
+		];
+		expect(portionsFor(eaters)).toBe(3);
+	});
+
+	it('leaves the recipe alone with nobody on the roster', () => {
+		expect(portionsFor([])).toBeNull();
+	});
+});

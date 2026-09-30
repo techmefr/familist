@@ -2,6 +2,7 @@
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
 	import { t } from '$i18n/index.svelte';
+	import { portionsFor } from '$domain/person-profile';
 	import { X } from '@lucide/svelte';
 
 	let { mealPlanId }: { mealPlanId: string } = $props();
@@ -9,6 +10,17 @@
 	let dialog = $state<HTMLDialogElement | null>(null);
 
 	const recipes = $derived(data.recipes);
+
+	/** The roster's portions when the household keeps one: a meal is planned for the people who eat it. */
+	const tablePortions = $derived(
+		portionsFor(
+			data.householdPersons.map(person => ({
+				personId: person.id,
+				name: person.name,
+				profile: data.profileOf(person.id) ?? null
+			}))
+		)
+	);
 	const inPlan = $derived(new Set(data.recipesInPlan(mealPlanId).map((entry) => entry.recipeId)));
 
 	export function show() {
@@ -22,7 +34,7 @@
 	function toggle(recipeId: string, servings: number, on: boolean) {
 		feedback.play('tap');
 		if (on) {
-			data.addRecipeToPlan(mealPlanId, recipeId, servings);
+			data.addRecipeToPlan(mealPlanId, recipeId, tablePortions ?? servings);
 			return;
 		}
 

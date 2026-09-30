@@ -214,3 +214,14 @@ export function warningsFor(
 
 	return out;
 }
+
+/**
+ * How many portions a meal for these people needs: each person counts for their portion factor, one when
+ * their profile is not readable (someone else's). Null with nobody on the roster, so the caller keeps the
+ * recipe's own number of servings.
+ */
+export function portionsFor(eaters: readonly Eater[]): number | null {
+	if (eaters.length === 0) return null;
+	const total = eaters.reduce((sum, eater) => sum + (eater.profile?.portionFactor ?? 1), 0);
+	return Math.max(1, Math.round(total));
+}
