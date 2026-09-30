@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Contas, relatórios, falhas",
 				"keywords": "aprovar, validar, função, administrador, demo, relatório, falha, pedido RGPD"
+			},
+			"notifications": {
+				"title": "Notificações",
+				"hint": "Mensagens, listas, horas de silêncio",
+				"keywords": "push, alertas, som, silenciar, noite, lembrete"
 			}
 		},
 		"palette": "Tema de cores"
@@ -1429,7 +1434,9 @@
 		"assistantName": "Assistente Familiste",
 		"assistantPreview": "Peça uma receita, um menu ou uma ideia",
 		"assistantTitle": "Assistente Familiste",
-		"assistantBack": "Conversas"
+		"assistantBack": "Conversas",
+		"muteList": "Silenciar esta conversa",
+		"unmuteList": "Reativar o som desta conversa"
 	},
 	"household": {
 		"title": "A minha casa",
@@ -2082,5 +2089,39 @@
 		"warn": "Contém {what} — {name}",
 		"safeForAll": "Adequado para todos",
 		"conflictBadge": "Atenção: {names}"
+	},
+	"notifications": {
+		"title": "Notificações",
+		"permissionTitle": "Notificações neste dispositivo",
+		"unsupported": "As notificações push funcionam nas apps Android e iOS. Os lembretes de data continuam onde são suportados.",
+		"enable": "Ativar notificações",
+		"granted": "As notificações estão ativas neste dispositivo.",
+		"denied": "As notificações estão bloqueadas. Abra as Definições do telemóvel, depois Aplicações, Familiste, Notificações, e permita-as.",
+		"test": "Enviar uma notificação de teste",
+		"testTitle": "Familiste",
+		"testBody": "Funciona. Será avisado assim.",
+		"typesTitle": "Sobre o que ser avisado",
+		"type": {
+			"chats": "Mensagens e pratos assumidos",
+			"lists": "Atividade nas listas partilhadas",
+			"invitations": "Convites e pedidos",
+			"reminders": "Lembretes",
+			"timers": "Temporizadores de receitas"
+		},
+		"listsTitle": "Silenciar uma lista",
+		"listsEmpty": "Ainda não tem listas.",
+		"muteList": "Silenciar {name}",
+		"quietTitle": "Horas de silêncio",
+		"quietHint": "Sem avisos nestas horas; chegam no fim. As horas seguem o fuso do dispositivo.",
+		"quietEnabled": "Silenciar à noite",
+		"quietStart": "Das",
+		"quietEnd": "Às",
+		"channels": {
+			"chats": "Conversas",
+			"lists": "Listas",
+			"invitations": "Convites",
+			"reminders": "Lembretes",
+			"timers": "Temporizadores"
+		}
 	}
 }

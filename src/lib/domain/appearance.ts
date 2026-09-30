@@ -4,6 +4,7 @@ export interface AppearanceRow {
 	theme: string;
 	theme_id: string;
 	custom_themes: Json;
+	notification_settings: Json;
 	accent_id: string;
 	type_scale: string;
 	font_id: string;

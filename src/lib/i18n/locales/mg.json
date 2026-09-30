@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Kaonty, tatitra, fianjerana",
 				"keywords": "manaiky, manamarina, anjara, mpitantana, demo, tatitra, fianjerana, fangatahana RGPD"
+			},
+			"notifications": {
+				"title": "Fampandrenesana",
+				"hint": "Hafatra, lisitra, ora mangina",
+				"keywords": "push, fampitandremana, feo, mangina, alina, fampahatsiahivana"
 			}
 		},
 		"palette": "Lohateny loko"
@@ -1420,7 +1425,9 @@
 		"assistantName": "Mpanampy Familiste",
 		"assistantPreview": "Angataho fomba fahandrahoana, menio na hevitra",
 		"assistantTitle": "Mpanampy Familiste",
-		"assistantBack": "Resaka"
+		"assistantBack": "Resaka",
+		"muteList": "Hanginana ity resaka ity",
+		"unmuteList": "Averina ny feon’ity resaka ity"
 	},
 	"household": {
 		"title": "Ny ankohonako",
@@ -2073,5 +2080,39 @@
 		"warn": "Misy {what} — {name}",
 		"safeForAll": "Mety ho an’ny rehetra",
 		"conflictBadge": "Mitandrema: {names}"
+	},
+	"notifications": {
+		"title": "Fampandrenesana",
+		"permissionTitle": "Fampandrenesana amin’ity fitaovana ity",
+		"unsupported": "Miasa ao amin’ny app Android sy iOS ny push. Mitohy ny fampahatsiahivana daty izay tohanana.",
+		"enable": "Ampandehano ny fampandrenesana",
+		"granted": "Mandeha ny fampandrenesana amin’ity fitaovana ity.",
+		"denied": "Voasakana ny fampandrenesana. Sokafy ny Fandrindrana > Fampiharana > Familiste > Fampandrenesana ary avelao.",
+		"test": "Alefaso fampandrenesana fitsapana",
+		"testTitle": "Familiste",
+		"testBody": "Mandeha. Izany no fomba hampahafantarana anao.",
+		"typesTitle": "Inona no hampahafantarina",
+		"type": {
+			"chats": "Hafatra sy lovia voaray",
+			"lists": "Hetsika amin’ny lisitra iombonana",
+			"invitations": "Fanasana sy fangatahana",
+			"reminders": "Fampahatsiahivana",
+			"timers": "Timer fahandrahoana"
+		},
+		"listsTitle": "Hanginana lisitra",
+		"listsEmpty": "Mbola tsy manana lisitra ianao.",
+		"muteList": "Hanginana {name}",
+		"quietTitle": "Ora mangina",
+		"quietHint": "Tsy misy fampandrenesana amin’ireo ora ireo; tonga rehefa vita. Araka ny faritry ny fitaovanao ny ora.",
+		"quietEnabled": "Hanginana amin’ny alina",
+		"quietStart": "Manomboka",
+		"quietEnd": "Hatramin’ny",
+		"channels": {
+			"chats": "Resaka",
+			"lists": "Lisitra",
+			"invitations": "Fanasana",
+			"reminders": "Fampahatsiahivana",
+			"timers": "Timer"
+		}
 	}
 }

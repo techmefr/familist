@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Account, segnalazioni, arresti anomali",
 				"keywords": "approvare, convalidare, ruolo, amministratore, demo, segnalazione, crash, richiesta GDPR"
+			},
+			"notifications": {
+				"title": "Notifiche",
+				"hint": "Messaggi, liste, ore di silenzio",
+				"keywords": "push, avvisi, suono, silenzia, notte, promemoria"
 			}
 		},
 		"palette": "Tema di colori"
@@ -1427,7 +1432,9 @@
 		"assistantName": "Assistente Familiste",
 		"assistantPreview": "Chiedi una ricetta, un menu o un’idea",
 		"assistantTitle": "Assistente Familiste",
-		"assistantBack": "Conversazioni"
+		"assistantBack": "Conversazioni",
+		"muteList": "Silenzia questa conversazione",
+		"unmuteList": "Riattiva le notifiche di questa conversazione"
 	},
 	"household": {
 		"title": "La mia casa",
@@ -2080,5 +2087,39 @@
 		"warn": "Contiene {what} — {name}",
 		"safeForAll": "Adatto a tutti",
 		"conflictBadge": "Attenzione: {names}"
+	},
+	"notifications": {
+		"title": "Notifiche",
+		"permissionTitle": "Notifiche su questo dispositivo",
+		"unsupported": "Le notifiche push funzionano nelle app Android e iOS. I promemoria di data continuano dove supportati.",
+		"enable": "Attiva le notifiche",
+		"granted": "Le notifiche sono attive su questo dispositivo.",
+		"denied": "Le notifiche sono bloccate. Apri Impostazioni del telefono, poi App, Familiste, Notifiche, e consentile.",
+		"test": "Invia una notifica di prova",
+		"testTitle": "Familiste",
+		"testBody": "Funziona. Sarai avvisato così.",
+		"typesTitle": "Di cosa essere avvisati",
+		"type": {
+			"chats": "Messaggi e piatti presi in carico",
+			"lists": "Attività nelle liste condivise",
+			"invitations": "Inviti e richieste",
+			"reminders": "Promemoria",
+			"timers": "Timer delle ricette"
+		},
+		"listsTitle": "Silenzia una lista",
+		"listsEmpty": "Non hai ancora liste.",
+		"muteList": "Silenzia {name}",
+		"quietTitle": "Ore di silenzio",
+		"quietHint": "Nessuna notifica in queste ore; arrivano alla fine. Gli orari seguono il fuso del dispositivo.",
+		"quietEnabled": "Silenzia di notte",
+		"quietStart": "Dalle",
+		"quietEnd": "Alle",
+		"channels": {
+			"chats": "Conversazioni",
+			"lists": "Liste",
+			"invitations": "Inviti",
+			"reminders": "Promemoria",
+			"timers": "Timer"
+		}
 	}
 }

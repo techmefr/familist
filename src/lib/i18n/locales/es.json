@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Cuentas, informes, fallos",
 				"keywords": "aprobar, validar, rol, administrador, demo, informe, fallo, solicitud RGPD"
+			},
+			"notifications": {
+				"title": "Notificaciones",
+				"hint": "Mensajes, listas, horas de silencio",
+				"keywords": "push, avisos, sonido, silenciar, noche, recordatorio"
 			}
 		},
 		"palette": "Tema de color"
@@ -1433,7 +1438,9 @@
 		"assistantName": "Asistente Familiste",
 		"assistantPreview": "Pide una receta, un menú o una idea",
 		"assistantTitle": "Asistente Familiste",
-		"assistantBack": "Conversaciones"
+		"assistantBack": "Conversaciones",
+		"muteList": "Silenciar esta conversación",
+		"unmuteList": "Reactivar el sonido de esta conversación"
 	},
 	"household": {
 		"title": "Mi hogar",
@@ -2086,5 +2093,39 @@
 		"warn": "Contiene {what} — {name}",
 		"safeForAll": "Apto para todos",
 		"conflictBadge": "Atención: {names}"
+	},
+	"notifications": {
+		"title": "Notificaciones",
+		"permissionTitle": "Notificaciones en este dispositivo",
+		"unsupported": "Las notificaciones push funcionan en las apps de Android e iOS. Los recordatorios de fecha siguen donde se admiten.",
+		"enable": "Activar notificaciones",
+		"granted": "Las notificaciones están activadas en este dispositivo.",
+		"denied": "Las notificaciones están bloqueadas. Abre Ajustes del teléfono, luego Aplicaciones, Familiste, Notificaciones, y permítelas.",
+		"test": "Enviar una notificación de prueba",
+		"testTitle": "Familiste",
+		"testBody": "Funciona. Así recibirás los avisos.",
+		"typesTitle": "De qué ser avisado",
+		"type": {
+			"chats": "Mensajes y platos asignados",
+			"lists": "Actividad en listas compartidas",
+			"invitations": "Invitaciones y solicitudes",
+			"reminders": "Recordatorios",
+			"timers": "Temporizadores de receta"
+		},
+		"listsTitle": "Silenciar una lista",
+		"listsEmpty": "Aún no tienes listas.",
+		"muteList": "Silenciar {name}",
+		"quietTitle": "Horas de silencio",
+		"quietHint": "Sin avisos en estas horas; llegan al terminar. Las horas siguen la zona horaria de tu dispositivo.",
+		"quietEnabled": "Silenciar de noche",
+		"quietStart": "Desde",
+		"quietEnd": "Hasta",
+		"channels": {
+			"chats": "Conversaciones",
+			"lists": "Listas",
+			"invitations": "Invitaciones",
+			"reminders": "Recordatorios",
+			"timers": "Temporizadores"
+		}
 	}
 }

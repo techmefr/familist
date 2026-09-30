@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Konten, Meldungen, Abstürze",
 				"keywords": "freigeben, bestätigen, Rolle, Administrator, Demo, Meldung, Absturz, DSGVO-Anfrage"
+			},
+			"notifications": {
+				"title": "Benachrichtigungen",
+				"hint": "Nachrichten, Listen, Ruhezeiten",
+				"keywords": "Push, Hinweise, Ton, stumm, Ruhe, Nacht, Erinnerung"
 			}
 		},
 		"palette": "Farbthema"
@@ -1429,7 +1434,9 @@
 		"assistantName": "Familiste-Assistent",
 		"assistantPreview": "Fragen Sie nach Rezept, Menü oder Idee",
 		"assistantTitle": "Familiste-Assistent",
-		"assistantBack": "Unterhaltungen"
+		"assistantBack": "Unterhaltungen",
+		"muteList": "Diese Unterhaltung stummschalten",
+		"unmuteList": "Ton dieser Unterhaltung wieder einschalten"
 	},
 	"household": {
 		"title": "Mein Haushalt",
@@ -2082,5 +2089,39 @@
 		"warn": "Enthält {what} — {name}",
 		"safeForAll": "Für alle geeignet",
 		"conflictBadge": "Achtung: {names}"
+	},
+	"notifications": {
+		"title": "Benachrichtigungen",
+		"permissionTitle": "Benachrichtigungen auf diesem Gerät",
+		"unsupported": "Push-Benachrichtigungen funktionieren in den Android- und iOS-Apps. Datumserinnerungen funktionieren weiter, wo sie unterstützt werden.",
+		"enable": "Benachrichtigungen aktivieren",
+		"granted": "Benachrichtigungen sind auf diesem Gerät aktiv.",
+		"denied": "Benachrichtigungen sind blockiert. Öffnen Sie die Telefoneinstellungen, dann Apps, Familiste, Benachrichtigungen, und erlauben Sie sie.",
+		"test": "Testbenachrichtigung senden",
+		"testTitle": "Familiste",
+		"testBody": "Es funktioniert. So werden Sie benachrichtigt.",
+		"typesTitle": "Worüber informiert werden",
+		"type": {
+			"chats": "Nachrichten und übernommene Gerichte",
+			"lists": "Aktivität auf geteilten Listen",
+			"invitations": "Einladungen und Anfragen",
+			"reminders": "Erinnerungen",
+			"timers": "Rezept-Timer"
+		},
+		"listsTitle": "Liste stummschalten",
+		"listsEmpty": "Sie haben noch keine Liste.",
+		"muteList": "{name} stummschalten",
+		"quietTitle": "Ruhezeiten",
+		"quietHint": "Keine Push-Nachrichten in dieser Zeit; sie kommen danach. Die Zeiten folgen der Zeitzone Ihres Geräts.",
+		"quietEnabled": "Nachts stumm",
+		"quietStart": "Von",
+		"quietEnd": "Bis",
+		"channels": {
+			"chats": "Unterhaltungen",
+			"lists": "Listen",
+			"invitations": "Einladungen",
+			"reminders": "Erinnerungen",
+			"timers": "Timer"
+		}
 	}
 }

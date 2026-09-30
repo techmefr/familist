@@ -12,10 +12,13 @@
 	import ActionSheet from '$components/app/ActionSheet.svelte';
 	import type { Action } from '$domain/action-sheet';
 	import { Button } from '$components/ui/button';
+	import { settings } from '$stores/settings.svelte';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
 	import {
 		ArrowLeft,
+		Bell,
+		BellOff,
 		Plus,
 		Search,
 		X,
@@ -33,6 +36,7 @@
 	const listId = $derived(page.params.id!);
 	const list = $derived(data.list(listId));
 	const allMessages = $derived(data.messagesOf(listId));
+	const isMuted = $derived(settings.notifications.mutedLists.includes(listId));
 
 	let searchOpen = $state(false);
 	let searchQuery = $state('');
@@ -202,6 +206,20 @@
 			class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
 		>
 			<Search size={18} aria-hidden="true" />
+		</button>
+		<button
+			type="button"
+			onclick={() => settings.setListMuted(listId, !isMuted)}
+			aria-pressed={isMuted}
+			aria-label={isMuted ? t('chat.unmuteList') : t('chat.muteList')}
+			data-test-id="chat-mute-toggle"
+			class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
+		>
+			{#if isMuted}
+				<BellOff size={18} aria-hidden="true" />
+			{:else}
+				<Bell size={18} aria-hidden="true" />
+			{/if}
 		</button>
 	</div>
 

@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Comptes, signalements, plantages",
 				"keywords": "valider, approuver, rôle, administrateur, démo, signalement, plantage, demande RGPD"
+			},
+			"notifications": {
+				"title": "Notifications",
+				"hint": "Messages, listes, heures calmes",
+				"keywords": "push, alertes, son, muet, silence, nuit, rappel"
 			}
 		},
 		"palette": "Thème de couleurs"
@@ -1472,7 +1477,9 @@
 		"assistantName": "Assistant Familiste",
 		"assistantPreview": "Demandez une recette, un menu ou une idée",
 		"assistantTitle": "Assistant Familiste",
-		"assistantBack": "Discussions"
+		"assistantBack": "Discussions",
+		"muteList": "Couper le son de cette discussion",
+		"unmuteList": "Réactiver le son de cette discussion"
 	},
 	"household": {
 		"title": "Mon foyer",
@@ -2128,5 +2135,39 @@
 		"warn": "Contient {what} — {name}",
 		"safeForAll": "Convient à tous",
 		"conflictBadge": "Attention : {names}"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"permissionTitle": "Notifications sur cet appareil",
+		"unsupported": "Les notifications push fonctionnent dans les applications Android et iOS. Les rappels de date continuent là où ils sont pris en charge.",
+		"enable": "Activer les notifications",
+		"granted": "Les notifications sont activées sur cet appareil.",
+		"denied": "Les notifications sont bloquées. Ouvrez les Réglages du téléphone, puis Applications, Familiste, Notifications, et autorisez-les.",
+		"test": "Envoyer une notification de test",
+		"testTitle": "Familiste",
+		"testBody": "Ça marche. Vous serez prévenu ainsi.",
+		"typesTitle": "De quoi être prévenu",
+		"type": {
+			"chats": "Messages et plats pris en charge",
+			"lists": "Activité sur les listes partagées",
+			"invitations": "Invitations et demandes",
+			"reminders": "Rappels",
+			"timers": "Minuteurs de recette"
+		},
+		"listsTitle": "Mettre une liste en sourdine",
+		"listsEmpty": "Vous n’avez pas encore de liste.",
+		"muteList": "Couper le son de {name}",
+		"quietTitle": "Heures calmes",
+		"quietHint": "Aucune notification pendant ces heures ; elles arrivent à la fin. Les heures suivent le fuseau de votre appareil.",
+		"quietEnabled": "Couper la nuit",
+		"quietStart": "De",
+		"quietEnd": "À",
+		"channels": {
+			"chats": "Discussions",
+			"lists": "Listes",
+			"invitations": "Invitations",
+			"reminders": "Rappels",
+			"timers": "Minuteurs"
+		}
 	}
 }

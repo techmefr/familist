@@ -108,6 +108,8 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 					'Account: email address, display name, avatar, password (hashed by Supabase Auth), two-factor authentication factors, approval status.',
 					'Content: lists and items, recipes and their photos, meal plans, shops and their location, prices, loyalty cards, household messages and polls.',
 					'Household and sharing: household membership, invitations, circles, shared lists, recipes and cards.',
+					'Household people profiles (allergies with severity, diets, tastes, birth year, portion size, notes): data concerning health and diet, entered by you, readable by you alone. No other member or administrator can read them unless you choose to share warnings (which allergen, never the details). They are deleted with the household or your account, and included in the export of your data.',
+					'Push notifications: a device token (one per device) and your notification settings (types, muted lists, quiet hours, language).',
 					'Loyalty account passwords: encrypted at rest in Supabase Vault, and optionally kept on your device, encrypted under an unlock code.',
 					'AI API keys: stored for you alone, never shared with the household.',
 					'Preferences: language, theme, text size, reminders.',
@@ -120,7 +122,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 				items: [
 					'Camera: barcode scanning and magnifier; images are not uploaded.',
 					'Geolocation (mobile app, with your permission): suggest the loyalty card of a nearby shop; your position is not sent to our servers.',
-					'Local notifications: reminders and nearby cards, scheduled on the device.'
+					'Local notifications: reminders, recipe timers and nearby cards, scheduled on the device.'
 				]
 			},
 			{
@@ -154,6 +156,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 					'Brevo (Sendinblue SAS, France): sending emails from noreply@familiste.fr; receives your email address.',
 					'The AI provider you choose (for example Anthropic, Google, Mistral, Groq, OpenRouter, DeepSeek): receives the text of your requests, with your key, directly from your device.',
 					'Pollinations and Openverse: receive a recipe’s description or name to generate or search for an image.',
+					'Google (Firebase Cloud Messaging, United States): delivers push notifications on Android; receives your device token and the notification’s title, text and target screen, never your account identifier.',
 					'GitHub: a bug report opens an issue that only contains its number, without personal data.',
 					'A self-hosted Familiste instance may enable sending crash reports to a third-party service; its operator must then declare it in their own policy.'
 				]

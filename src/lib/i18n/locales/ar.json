@@ -175,6 +175,11 @@
 			"admin": {
 				"hint": "الحسابات، البلاغات، الأعطال",
 				"keywords": "قبول، تحقق، دور، مدير، تجريبي، بلاغ، عطل، طلب بيانات"
+			},
+			"notifications": {
+				"title": "الإشعارات",
+				"hint": "الرسائل والقوائم وساعات الهدوء",
+				"keywords": "إشعار، تنبيه، صوت، كتم، ليل، تذكير"
 			}
 		},
 		"palette": "سمة الألوان"
@@ -1477,7 +1482,9 @@
 		"assistantName": "مساعد Familiste",
 		"assistantPreview": "اطلب وصفة أو قائمة أو فكرة",
 		"assistantTitle": "مساعد Familiste",
-		"assistantBack": "المحادثات"
+		"assistantBack": "المحادثات",
+		"muteList": "كتم هذه المحادثة",
+		"unmuteList": "إعادة تفعيل صوت هذه المحادثة"
 	},
 	"household": {
 		"title": "منزلي",
@@ -2158,5 +2165,39 @@
 		"warn": "يحتوي {what} — {name}",
 		"safeForAll": "مناسب للجميع",
 		"conflictBadge": "انتبه: {names}"
+	},
+	"notifications": {
+		"title": "الإشعارات",
+		"permissionTitle": "الإشعارات على هذا الجهاز",
+		"unsupported": "تعمل الإشعارات الفورية في تطبيقي Android وiOS. تستمر تذكيرات التواريخ حيث تكون مدعومة.",
+		"enable": "تفعيل الإشعارات",
+		"granted": "الإشعارات مفعّلة على هذا الجهاز.",
+		"denied": "الإشعارات محظورة. افتح إعدادات الهاتف ثم التطبيقات ثم Familiste ثم الإشعارات وفعّلها.",
+		"test": "إرسال إشعار تجريبي",
+		"testTitle": "Familiste",
+		"testBody": "يعمل. ستصلك التنبيهات هكذا.",
+		"typesTitle": "ما يُخطرك به التطبيق",
+		"type": {
+			"chats": "الرسائل والأطباق المحجوزة",
+			"lists": "النشاط في القوائم المشتركة",
+			"invitations": "الدعوات والطلبات",
+			"reminders": "التذكيرات",
+			"timers": "مؤقتات الوصفات"
+		},
+		"listsTitle": "كتم قائمة",
+		"listsEmpty": "ليس لديك قوائم بعد.",
+		"muteList": "كتم {name}",
+		"quietTitle": "ساعات الهدوء",
+		"quietHint": "لا إشعارات في هذه الساعات وتصل عند انتهائها. الأوقات حسب المنطقة الزمنية لجهازك.",
+		"quietEnabled": "كتم الليل",
+		"quietStart": "من",
+		"quietEnd": "إلى",
+		"channels": {
+			"chats": "المحادثات",
+			"lists": "القوائم",
+			"invitations": "الدعوات",
+			"reminders": "التذكيرات",
+			"timers": "المؤقتات"
+		}
 	}
 }

@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Accounts, reports, crashes",
 				"keywords": "approve, validate, role, administrator, demo, report, crash, GDPR request"
+			},
+			"notifications": {
+				"title": "Notifications",
+				"hint": "Messages, lists, quiet hours",
+				"keywords": "push, alerts, sound, mute, quiet, night, reminder"
 			}
 		},
 		"palette": "Colour theme"
@@ -1440,7 +1445,9 @@
 		"assistantName": "Familiste assistant",
 		"assistantPreview": "Ask for a recipe, a menu or an idea",
 		"assistantTitle": "Familiste assistant",
-		"assistantBack": "Discussions"
+		"assistantBack": "Discussions",
+		"muteList": "Mute this chat",
+		"unmuteList": "Turn this chat’s sound back on"
 	},
 	"household": {
 		"title": "My household",
@@ -2093,5 +2100,39 @@
 		"warn": "Contains {what} — {name}",
 		"safeForAll": "Safe for everyone",
 		"conflictBadge": "Watch out: {names}"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"permissionTitle": "Notifications on this device",
+		"unsupported": "Push notifications work in the Android and iOS apps. Date reminders keep working where they are supported.",
+		"enable": "Turn on notifications",
+		"granted": "Notifications are on for this device.",
+		"denied": "Notifications are blocked. Open your phone’s Settings, then Apps, Familiste, Notifications, and allow them.",
+		"test": "Send a test notification",
+		"testTitle": "Familiste",
+		"testBody": "It works. You will be notified like this.",
+		"typesTitle": "What to be told about",
+		"type": {
+			"chats": "Messages and dishes claimed",
+			"lists": "Activity on shared lists",
+			"invitations": "Invitations and requests",
+			"reminders": "Reminders",
+			"timers": "Recipe timers"
+		},
+		"listsTitle": "Mute a list",
+		"listsEmpty": "You have no list yet.",
+		"muteList": "Mute {name}",
+		"quietTitle": "Quiet hours",
+		"quietHint": "No push during these hours; they arrive when it ends. Times follow your device’s timezone.",
+		"quietEnabled": "Mute at night",
+		"quietStart": "From",
+		"quietEnd": "To",
+		"channels": {
+			"chats": "Chats",
+			"lists": "Lists",
+			"invitations": "Invitations",
+			"reminders": "Reminders",
+			"timers": "Timers"
+		}
 	}
 }

@@ -399,6 +399,30 @@ export type Database = {
           },
         ]
       }
+      push_tokens: {
+        Row: {
+          device_id: string
+          platform: string
+          token: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          device_id: string
+          platform: string
+          token: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          device_id?: string
+          platform?: string
+          token?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       person_profiles: {
         Row: {
           allergies: Json
@@ -1136,6 +1160,7 @@ export type Database = {
         Row: {
           accent_id: string
           custom_themes: Json
+          notification_settings: Json
           theme_id: string
           avatar: string
           created_at: string
@@ -1164,6 +1189,7 @@ export type Database = {
         Insert: {
           accent_id?: string
           custom_themes?: Json
+          notification_settings?: Json
           theme_id?: string
           avatar?: string
           created_at?: string
@@ -1192,6 +1218,7 @@ export type Database = {
         Update: {
           accent_id?: string
           custom_themes?: Json
+          notification_settings?: Json
           theme_id?: string
           avatar?: string
           created_at?: string

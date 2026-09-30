@@ -170,6 +170,11 @@
 			"admin": {
 				"hint": "账号、反馈、崩溃",
 				"keywords": "批准、审核、角色、管理员、演示、反馈、崩溃、数据请求"
+			},
+			"notifications": {
+				"title": "通知",
+				"hint": "消息、清单、免打扰时段",
+				"keywords": "推送，提醒，静音，夜间，提醒"
 			}
 		},
 		"palette": "配色主题"
@@ -1415,7 +1420,9 @@
 		"assistantName": "Familiste 助手",
 		"assistantPreview": "询问食谱、菜单或点子",
 		"assistantTitle": "Familiste 助手",
-		"assistantBack": "对话"
+		"assistantBack": "对话",
+		"muteList": "静音此对话",
+		"unmuteList": "恢复此对话的通知"
 	},
 	"household": {
 		"title": "我的家庭",
@@ -2061,5 +2068,39 @@
 		"warn": "含 {what} — {name}",
 		"safeForAll": "适合所有人",
 		"conflictBadge": "注意：{names}"
+	},
+	"notifications": {
+		"title": "通知",
+		"permissionTitle": "此设备上的通知",
+		"unsupported": "推送通知适用于 Android 和 iOS 应用。日期提醒在支持的地方继续可用。",
+		"enable": "开启通知",
+		"granted": "此设备已开启通知。",
+		"denied": "通知已被阻止。请打开手机设置，进入应用、Familiste、通知并允许。",
+		"test": "发送测试通知",
+		"testTitle": "Familiste",
+		"testBody": "一切正常，你会这样收到通知。",
+		"typesTitle": "通知内容",
+		"type": {
+			"chats": "消息与认领的菜",
+			"lists": "共享清单的动态",
+			"invitations": "邀请与请求",
+			"reminders": "提醒",
+			"timers": "食谱计时器"
+		},
+		"listsTitle": "静音清单",
+		"listsEmpty": "你还没有清单。",
+		"muteList": "静音 {name}",
+		"quietTitle": "免打扰时段",
+		"quietHint": "这段时间不推送，结束后送达。时间按设备时区。",
+		"quietEnabled": "夜间静音",
+		"quietStart": "从",
+		"quietEnd": "到",
+		"channels": {
+			"chats": "对话",
+			"lists": "清单",
+			"invitations": "邀请",
+			"reminders": "提醒",
+			"timers": "计时器"
+		}
 	}
 }
