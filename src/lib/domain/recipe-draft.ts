@@ -4,7 +4,8 @@ import { guessLinks } from './step-ingredients';
 import { detectDuration } from './step-duration';
 import { tagsFromSchemaOrg } from './recipe-tags';
 import { importedLines, parseImportedServings, type ImportedRecipe } from './recipe-import';
-import type { SuggestedRecipe } from './ai-recipe';
+import type { SuggestedRecipe, VerifyFlag } from './ai-recipe';
+import type { StepWidget } from './step-widgets';
 
 export const DEFAULT_EMOJI = '🍲';
 
@@ -25,6 +26,10 @@ export interface RecipeDraft {
 	stepIngredients: number[][];
 	/** For each of `steps`, how long it takes in seconds, or null (#310). */
 	stepDurations: (number | null)[];
+	/** Oven settings read from the steps, each flagged to verify (#473). */
+	stepWidgets?: StepWidget[][];
+	/** What the AI supplied that the form asks the person to check (#473). */
+	toVerify?: VerifyFlag[];
 	/** Tag keys (#314), picked again or changed in the form's own tag picker. */
 	tags: string[];
 	imagePrompt?: string;
@@ -90,6 +95,8 @@ export function draftFromSuggestion(recipe: SuggestedRecipe): RecipeDraft {
 		stepDurations: recipe.steps.length
 			? recipe.steps.map((_, index) => recipe.stepDurations[index] ?? null)
 			: [null],
+		stepWidgets: recipe.steps.length ? (recipe.stepWidgets ?? recipe.steps.map(() => [])) : [[]],
+		toVerify: recipe.toVerify,
 		tags: [...recipe.tags],
 		imagePrompt: recipe.imagePrompt,
 		image: null,

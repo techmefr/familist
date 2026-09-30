@@ -622,7 +622,7 @@
 				out:slide={{ duration: motionMs(DURATION.tap), easing: cubicOut }}
 			>
 				<Card.Root data-test-class="list-card" class="fl-home-card fl-press ring-0">
-					<Card.Content class="flex flex-wrap items-center gap-x-4 gap-y-3">
+					<Card.Content class="flex min-h-[5.5rem] flex-wrap items-center gap-x-4 gap-y-3">
 						<!--
 							The long press opens the action menu (#353): Edit, Duplicate, Delete, shared with cards and
 							loyalty cards rather than a menu rebuilt per screen. The "⋯" button below repeats the same
@@ -701,6 +701,15 @@
 								<MoreVertical size={18} aria-hidden="true" />
 							</button>
 						</div>
+					<!-- The same thin bar as the menus: progress at a glance, the badge above says it in words. -->
+						{#if total > 0}
+							<div class="bg-muted basis-full h-1.5 overflow-hidden rounded-full" aria-hidden="true">
+								<div
+									class="bg-primary h-full rounded-full transition-[width] duration-[var(--fl-dur-rise)]"
+									style="width: {Math.round((done / total) * 100)}%"
+								></div>
+							</div>
+						{/if}
 					</Card.Content>
 
 					<!--

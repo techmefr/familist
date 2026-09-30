@@ -154,7 +154,8 @@ test.describe('déverrouillage de l’appareil, parcours complet', () => {
 		const name = `Empreinte e2e ${Date.now()}`;
 		const password = `Mdp-${Date.now()}`;
 		await page.goto(onLocalhost('/cards'));
-		await page.getByTestId('card-add').click();
+		await page.getByTestId('nav-create').click();
+		await page.getByTestId('create-card').click();
 		await page.getByTestId('card-name').fill(name);
 		await page.getByTestId('card-code').fill('DEVICE42');
 		await page.getByTestId('card-submit').click();

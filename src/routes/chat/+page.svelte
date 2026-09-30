@@ -2,14 +2,15 @@
 	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { settings } from '$stores/settings.svelte';
+	import { createIntent } from '$stores/create.svelte';
+	import { ai } from '$stores/ai.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import * as Card from '$components/ui/card';
-	import { Button } from '$components/ui/button';
 	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
 	import FilterSheet from '$components/app/FilterSheet.svelte';
 	import Avatar from '$components/app/Avatar.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
-	import { MessagesSquare, Plus } from '@lucide/svelte';
+	import { MessagesSquare, Sparkles } from '@lucide/svelte';
 
 	/**
 	 * Two scopes live side by side here. A list discussion is attached to its list — `list_id`, route
@@ -47,6 +48,10 @@
 	);
 
 	let picking = $state(false);
+
+	$effect(() => {
+		if (createIntent.kind === 'direct' && createIntent.take('direct')) picking = true;
+	});
 	let failed = $state(false);
 
 	async function open(otherId: string) {
@@ -78,6 +83,38 @@
 	const STAGGER_MS = 45;
 	const STAGGER_MAX = 6;
 	const delay = (index: number) => Math.min(index, STAGGER_MAX) * STAGGER_MS;
+
+	/**
+	 * One conversation list, WhatsApp style: the assistant is pinned on top, then private conversations and
+	 * list chats together, the most recent message first. A household filter only concerns list chats, so
+	 * turning it on leaves the private ones out rather than pretending they belong to a household.
+	 */
+	type Row =
+		| { kind: 'direct'; id: string; lastAt: number; summary: (typeof data.directs)[number] }
+		| { kind: 'list'; id: string; lastAt: number; entry: (typeof allRows)[number] };
+
+	const conversations = $derived.by<Row[]>(() => {
+		const wanted = listQuery.trim().toLowerCase();
+
+		const directs: Row[] = data.directs
+			.filter(summary => {
+				if (householdFilter !== 'all') return false;
+				const name = data.member(summary.otherId)?.name ?? '';
+				return !wanted || name.toLowerCase().includes(wanted);
+			})
+			.map(summary => ({ kind: 'direct', id: summary.conversationId, lastAt: summary.lastAt, summary }));
+
+		const lists: Row[] = rows.map(entry => ({
+			kind: 'list',
+			id: entry.list.id,
+			lastAt: entry.last?.createdAt ?? 0,
+			entry
+		}));
+
+		return [...directs, ...lists].toSorted((a, b) => b.lastAt - a.lastAt);
+	});
+
+	const hasAnything = $derived(allRows.length > 0 || data.directs.length > 0);
 </script>
 
 <svelte:head>
@@ -86,7 +123,7 @@
 
 <h1 class="text-h1 font-semibold">{t('chat.indexTitle')}</h1>
 
-{#if allRows.length > 0}
+{#if hasAnything}
 	<SearchFilterBar
 		bind:query={listQuery}
 		bind:height={barHeight}
@@ -120,145 +157,134 @@
 			{/each}
 		</div>
 	</FilterSheet>
-
 {/if}
 
-<section aria-labelledby="direct-heading" class="mt-6">
-	<div class="flex flex-wrap items-center justify-between gap-2">
-		<h2 id="direct-heading" class="text-h2 font-semibold">{t('chat.directs')}</h2>
-		<Button variant="outline" onclick={() => (picking = !picking)} data-test-id="new-direct">
-			<Plus size={16} aria-hidden="true" />
-			{t('chat.newDirect')}
-		</Button>
+{#if picking}
+	<div class="bg-card mt-4 rounded-xl border p-4" data-test-id="direct-picker">
+		<h2 class="text-label font-medium">{t('chat.newDirectTitle')}</h2>
+
+		{#if data.directCandidates.length === 0}
+			<p class="text-caption text-muted-foreground mt-2">{t('chat.noDirectCandidates')}</p>
+		{:else}
+			<ul class="mt-3 space-y-2">
+				{#each data.directCandidates as candidate (candidate.id)}
+					<li>
+						<button
+							type="button"
+							onclick={() => open(candidate.id)}
+							data-test-class="direct-candidate"
+							class="hover:bg-muted flex min-h-[max(2.75rem,44px)] w-full items-center gap-3 rounded-md px-2 text-left"
+						>
+							<Avatar member={candidate} size={32} />
+							<span class="text-label truncate">{candidate.name}</span>
+						</button>
+					</li>
+				{/each}
+			</ul>
+		{/if}
+
+		{#if failed}
+			<p class="text-destructive text-caption mt-3" role="alert" data-test-id="direct-error">
+				{t('chat.directFailed')}
+			</p>
+		{/if}
 	</div>
+{/if}
 
-	<p class="text-caption text-muted-foreground mt-1">{t('chat.directsHint')}</p>
-
-	{#if picking}
-		<div class="bg-card mt-4 rounded-xl border p-4" data-test-id="direct-picker">
-			<h3 class="text-label font-medium">{t('chat.newDirectTitle')}</h3>
-
-			{#if data.directCandidates.length === 0}
-				<p class="text-caption text-muted-foreground mt-2">{t('chat.noDirectCandidates')}</p>
-			{:else}
-				<ul class="mt-3 space-y-2">
-					{#each data.directCandidates as candidate (candidate.id)}
-						<li>
-							<button
-								type="button"
-								onclick={() => open(candidate.id)}
-								data-test-class="direct-candidate"
-								class="hover:bg-muted flex min-h-[max(2.75rem,44px)] w-full items-center gap-3 rounded-md px-2 text-left"
-							>
-								<Avatar member={candidate} size={32} />
-								<span class="text-label truncate">{candidate.name}</span>
-							</button>
-						</li>
-					{/each}
-				</ul>
-			{/if}
-
-			{#if failed}
-				<p class="text-destructive text-caption mt-3" role="alert" data-test-id="direct-error">
-					{t('chat.directFailed')}
-				</p>
-			{/if}
-		</div>
-	{/if}
-
-	{#if data.directs.length === 0}
-		<p class="text-muted-foreground text-label mt-4" data-test-id="directs-empty">
-			{t('chat.directsEmpty')}
-		</p>
-	{:else}
-		<ul class="mt-4 space-y-3" data-test-id="direct-list">
-			{#each data.directs as summary (summary.conversationId)}
-				{@const other = data.member(summary.otherId)}
-				<li>
-					<a
-						href="/chat/d/{summary.conversationId}"
-						data-test-class="direct-entry"
-						class="fl-press block"
+<ul class="mt-4 space-y-3" data-test-id="chat-list">
+	<li>
+		<a href="/chat/assistant" data-test-id="chat-assistant" class="fl-press block">
+			<Card.Root class="border-primary/40 hover:border-primary transition-colors">
+				<Card.Content class="flex items-center gap-3 py-4">
+					<span
+						class="bg-primary text-primary-foreground grid size-9 shrink-0 place-items-center rounded-full"
+						aria-hidden="true"
 					>
-						<Card.Root class="hover:border-primary transition-colors">
-							<Card.Content class="flex items-center gap-3 py-4">
-								{#if other}
-									<Avatar member={other} size={36} />
-								{:else}
-									<MessagesSquare size={18} class="text-muted-foreground shrink-0" aria-hidden="true" />
-								{/if}
+						<Sparkles size={18} />
+					</span>
+					<span class="min-w-0 flex-1">
+						<span class="text-label block truncate font-medium">{t('chat.assistantName')}</span>
+						<span class="text-caption text-muted-foreground block truncate">
+							{ai.configured ? t('chat.assistantPreview') : t('recipes.create.needsKey')}
+						</span>
+					</span>
+				</Card.Content>
+			</Card.Root>
+		</a>
+	</li>
 
-								<span class="min-w-0 flex-1">
-									<span class="text-label block truncate font-medium">
-										{other?.name ?? t('chat.someone')}
-									</span>
-									<span class="text-caption text-muted-foreground block truncate">
-										{summary.lastBody || t('chat.empty')}
-									</span>
-								</span>
-
-								{#if summary.lastAt > 0}
-									<span class="text-caption text-muted-foreground shrink-0">
-										{when(summary.lastAt)}
-									</span>
-								{/if}
-							</Card.Content>
-						</Card.Root>
-					</a>
-				</li>
-			{/each}
-		</ul>
-	{/if}
-</section>
-
-<section aria-labelledby="list-chats-heading" class="mt-10">
-	<h2 id="list-chats-heading" class="text-h2 font-semibold">{t('chat.listSection')}</h2>
-
-	{#if rows.length === 0}
-		<EmptyState
-			illustration="mascot"
-			text={allRows.length === 0 ? t('chat.indexEmpty') : t('chat.listFilterEmpty')}
-			testId={allRows.length === 0 ? 'chats-empty' : 'chat-list-filter-empty'}
-		/>
-	{:else}
-		<ul class="mt-4 space-y-3" data-test-id="chat-list">
-			{#each rows as { list, last }, index (list.id)}
-				<li
-					class:fl-rise={settings.animates}
-					style={settings.animates ? `animation-delay: ${delay(index)}ms` : undefined}
+	{#each conversations as row, index (row.kind + row.id)}
+		<li
+			class:fl-rise={settings.animates}
+			style={settings.animates ? `animation-delay: ${delay(index)}ms` : undefined}
+		>
+			{#if row.kind === 'direct'}
+				{@const other = data.member(row.summary.otherId)}
+				<a
+					href="/chat/d/{row.summary.conversationId}"
+					data-test-class="direct-entry"
+					class="fl-press block"
 				>
-					<a href="/l/{list.id}/chat" data-test-class="chat-entry" class="fl-press block">
-						<Card.Root class="hover:border-primary transition-colors">
-							<Card.Content class="flex items-center gap-3 py-4">
-								<span class="text-h2" aria-hidden="true">{list.emoji}</span>
+					<Card.Root class="hover:border-primary transition-colors">
+						<Card.Content class="flex items-center gap-3 py-4">
+							{#if other}
+								<Avatar member={other} size={36} />
+							{:else}
+								<MessagesSquare size={18} class="text-muted-foreground shrink-0" aria-hidden="true" />
+							{/if}
 
-								<span class="min-w-0 flex-1">
-									<span class="text-label block truncate font-medium">{list.name}</span>
-									<span class="text-caption text-muted-foreground block truncate">
-										{#if last}
-											{last.body}
-										{:else}
-											{t('chat.empty')}
-										{/if}
-									</span>
+							<span class="min-w-0 flex-1">
+								<span class="text-label block truncate font-medium">
+									{other?.name ?? t('chat.someone')}
 								</span>
+								<span class="text-caption text-muted-foreground block truncate">
+									{row.summary.lastBody || t('chat.empty')}
+								</span>
+							</span>
 
-								{#if last}
-									<span class="text-caption text-muted-foreground shrink-0">
-										{when(last.createdAt)}
-									</span>
-								{:else}
-									<MessagesSquare size={18} class="text-muted-foreground shrink-0" aria-hidden="true" />
-								{/if}
-							</Card.Content>
-						</Card.Root>
-					</a>
-				</li>
-			{/each}
-		</ul>
-	{/if}
-</section>
+							{#if row.summary.lastAt > 0}
+								<span class="text-caption text-muted-foreground shrink-0">
+									{when(row.summary.lastAt)}
+								</span>
+							{/if}
+						</Card.Content>
+					</Card.Root>
+				</a>
+			{:else}
+				{@const { list, last } = row.entry}
+				<a href="/l/{list.id}/chat" data-test-class="chat-entry" class="fl-press block">
+					<Card.Root class="hover:border-primary transition-colors">
+						<Card.Content class="flex items-center gap-3 py-4">
+							<span class="text-h2" aria-hidden="true">{list.emoji}</span>
 
-{#if allRows.length > 0}
+							<span class="min-w-0 flex-1">
+								<span class="text-label block truncate font-medium">{list.name}</span>
+								<span class="text-caption text-muted-foreground block truncate">
+									{last ? last.body : t('chat.empty')}
+								</span>
+							</span>
+
+							{#if last}
+								<span class="text-caption text-muted-foreground shrink-0">
+									{when(last.createdAt)}
+								</span>
+							{:else}
+								<MessagesSquare size={18} class="text-muted-foreground shrink-0" aria-hidden="true" />
+							{/if}
+						</Card.Content>
+					</Card.Root>
+				</a>
+			{/if}
+		</li>
+	{/each}
+</ul>
+
+{#if hasAnything && conversations.length === 0}
+	<EmptyState illustration="mascot" text={t('chat.listFilterEmpty')} testId="chat-list-filter-empty" />
+{:else if !hasAnything}
+	<EmptyState illustration="mascot" text={t('chat.indexEmpty')} testId="chats-empty" />
+{/if}
+
+{#if hasAnything}
 	<div class="md:hidden" aria-hidden="true" style="height: calc({barHeight}px + var(--fl-navbar-h, 4rem) + 0.75rem)"></div>
 {/if}

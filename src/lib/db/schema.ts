@@ -1,3 +1,4 @@
+import type { StepWidget } from '$domain/step-widgets';
 import Dexie, { type EntityTable } from 'dexie';
 import type { CodeType } from '$domain/code-format';
 import type { PriceEntry } from '$domain/price';
@@ -273,6 +274,8 @@ export interface RecipeStep {
 	ingredientIds: string[];
 	/** How long the step takes, in seconds (#310). Absent for a step with no wait. */
 	durationSeconds?: number;
+	/** Oven settings, warnings, long waits and photos (#472). The timer and the linked ingredients keep their own fields. */
+	widgets?: StepWidget[];
 }
 
 /**

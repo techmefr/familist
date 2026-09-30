@@ -185,3 +185,28 @@ export function unitsOf(group: UnitGroupId): readonly UnitId[] {
 	const found = UNIT_GROUPS.find((candidate) => candidate.id === group);
 	return found ? found.units : UNIT_GROUPS[0].units;
 }
+
+/**
+ * What to print beside an ingredient's name: the quantity with its unit, or nothing.
+ *
+ * A unit never stands alone ("g lait"): with no readable, positive quantity the amount is dropped
+ * altogether, whatever the unit says. A quantity with no unit ("2 lait") stays as it is, that is how
+ * eggs and lemons are written. `translate` turns a unit key into the screen's language.
+ */
+export function formatAmount(
+	qty: string | null | undefined,
+	unit: string | null | undefined,
+	translate: (key: string) => string
+): string | null {
+	const quantity = (qty ?? '').trim();
+	if (!quantity) return null;
+
+	const amount = Number(quantity.replace(',', '.'));
+	if (Number.isFinite(amount) && amount <= 0) return null;
+
+	const key = unitKeyForCount(unit, quantity);
+	if (key) return `${quantity} ${translate(key)}`;
+
+	const raw = (unit ?? '').trim();
+	return raw ? `${quantity} ${raw}` : quantity;
+}

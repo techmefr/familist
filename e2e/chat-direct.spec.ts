@@ -28,7 +28,8 @@ test('écrire en privé à quelqu’un d’un cercle commun', async ({ signedInP
 	const body = `Entre nous ${Date.now()}`;
 
 	await page.goto('/chat');
-	await page.getByTestId('new-direct').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-direct').click();
 	await page.locator('[data-test-class="direct-candidate"]').first().click();
 	await expect(page).toHaveURL(/\/chat\/d\//, { timeout: 15_000 });
 

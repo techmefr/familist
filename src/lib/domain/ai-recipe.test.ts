@@ -438,3 +438,40 @@ describe('cleanImagePrompt (#306)', () => {
 		expect(cleanImagePrompt('  ""  ')).toBeNull();
 	});
 });
+
+describe('parseRecipeSuggestion: nothing invented, everything unsure is flagged (#473)', () => {
+	const answer = (extra: Record<string, unknown>) =>
+		JSON.stringify({
+			name: 'Gratin',
+			ingredients: [{ name: 'Potatoes', qty: '500', unit: 'g' }],
+			steps: ['Bake at 180°C for 40 minutes.', 'Serve.'],
+			stepMinutes: [40, 0],
+			...extra
+		});
+
+	it('keeps a temperature only when the step itself names it, flagged to verify', () => {
+		const recipe = parseRecipeSuggestion(answer({ stepTemperatures: [180, 220] }))!;
+
+		expect(recipe.stepWidgets![0]).toEqual([
+			{ type: 'appliance', appliance: 'oven', temperature: 180, toVerify: true }
+		]);
+		expect(recipe.stepWidgets![1]).toEqual([]);
+		expect(recipe.toVerify).toContain('temperatures');
+	});
+
+	it('flags missing servings, unplain quantities and times', () => {
+		const recipe = parseRecipeSuggestion(
+			answer({ ingredients: [{ name: 'Salt', qty: 'a pinch', unit: 'g' }] })
+		)!;
+
+		expect(recipe.toVerify).toEqual(expect.arrayContaining(['servings', 'quantities', 'durations']));
+	});
+
+	it('flags nothing when the model gave nothing to doubt', () => {
+		const recipe = parseRecipeSuggestion(
+			JSON.stringify({ name: 'Toast', servings: 2, ingredients: [{ name: 'Bread', qty: '2', unit: 'piece' }], steps: ['Toast it.'] })
+		)!;
+
+		expect(recipe.toVerify).toEqual([]);
+	});
+});

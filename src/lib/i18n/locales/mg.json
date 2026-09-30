@@ -26,7 +26,8 @@
 		"shop": "Fivarotana vaovao",
 		"card": "Karatra vaovao",
 		"recipe": "Recettes vaovao",
-		"mealPlan": "Drafitra sakafo vaovao"
+		"mealPlan": "Drafitra sakafo vaovao",
+		"direct": "Resaka vaovao"
 	},
 	"lists": {
 		"title": "Ny lisitro",
@@ -545,6 +546,13 @@
 				"not_html": "Tsy mitondra any amin'ny pejy tranonkala ity rohy ity.",
 				"too_large": "Lehibe loatra ity pejy ity ka tsy vakiana.",
 				"no_recipe": "Tsy misy fomba fahandroana azo vakiana ato amin'ity pejy ity. Tsy maintsy mamoaka azy amin'ny angona voalamina ny tranonkala."
+			},
+			"verifyTitle": "Hamarino alohan’ny hitahiry — tsy azo antoka:",
+			"verify": {
+				"servings": "Isan’ny anjara (tsy voalaza)",
+				"quantities": "Ny habetsahana sasany tsy isa tsotra",
+				"durations": "Ny fotoana isaky ny dingana",
+				"temperatures": "Ny hafanan’ny lafaoro"
 			}
 		},
 		"title": "Recettes",
@@ -815,7 +823,36 @@
 		"actionsAria": "Hetsika hafa ho an'ny {name}",
 		"addPhotoAction": "Manampy sary",
 		"backToRecipes": "Miverina any amin'ireo fomba fahandro",
-		"notFound": "Tsy hita ny fomba fahandro."
+		"notFound": "Tsy hita ny fomba fahandro.",
+		"widgets": {
+			"title": "Widget ho an’ny dingana {rank}",
+			"quickTimer": "Timer haingana",
+			"quickMinutes": "{count} min",
+			"add": "Ampio widget",
+			"remove": "Esory: {type}",
+			"type": {
+				"appliance": "Fitaovana",
+				"alert": "Fampitandremana",
+				"wait": "Fiandrasana lava",
+				"photo": "Naotin-tsary"
+			},
+			"appliance": "Fitaovana",
+			"appliances": {
+				"oven": "Lafaoro",
+				"hob": "Fatana",
+				"microwave": "Micro-ondes",
+				"airfryer": "Air fryer",
+				"pressure": "Lapoaly",
+				"other": "Hafa"
+			},
+			"temperature": "Hafanana (°C)",
+			"setting": "Fandrefesana",
+			"alertText": "Lahatsoratra fampitandremana",
+			"waitHours": "Faharetana (ora)",
+			"waitLabel": "Inona no miandry",
+			"caption": "Soratra",
+			"toVerify": "hohamarinina"
+		}
 	},
 	"recipeTags": {
 		"title": "Sokajy",
@@ -1379,7 +1416,11 @@
 		"photoView": "Jereo ny sary amin'ny efijery feno",
 		"photoUploading": "Mandefa sary…",
 		"photoFailed": "Tsy nahomby ny fandefasana ny sary. Andramo indray.",
-		"photoTooBig": "Mavesatra loatra io sary io."
+		"photoTooBig": "Mavesatra loatra io sary io.",
+		"assistantName": "Mpanampy Familiste",
+		"assistantPreview": "Angataho fomba fahandrahoana, menio na hevitra",
+		"assistantTitle": "Mpanampy Familiste",
+		"assistantBack": "Resaka"
 	},
 	"household": {
 		"title": "Ny ankohonako",

@@ -10,7 +10,8 @@ import { test, expect } from './fixtures';
 test('les deux boutons de code sont alignés sur mobile', async ({ signedInPage: page }) => {
 	await page.setViewportSize({ width: 375, height: 812 });
 	await page.goto('/cards');
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 
 	const scan = page.getByTestId('scan-start');
 	const image = page.getByTestId('import-code');

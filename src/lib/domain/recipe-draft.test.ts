@@ -82,6 +82,8 @@ describe('draftFromSuggestion', () => {
 			steps: ['Cuire le poulet.'],
 			stepIngredients: [[0]],
 			stepDurations: [600],
+			stepWidgets: [[]],
+			toVerify: undefined,
 			tags: ['main', 'quick'],
 			imagePrompt: 'un curry fumant',
 			image: null,

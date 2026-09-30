@@ -26,7 +26,8 @@
 		"shop": "Nova loja",
 		"card": "Novo cartão de fidelização",
 		"recipe": "Nova receita",
-		"mealPlan": "Novo plano de refeições semanal"
+		"mealPlan": "Novo plano de refeições semanal",
+		"direct": "Nova conversa"
 	},
 	"lists": {
 		"title": "As minhas listas",
@@ -545,6 +546,13 @@
 				"not_html": "Esta ligação não leva a uma página web.",
 				"too_large": "Esta página é demasiado pesada para ser lida.",
 				"no_recipe": "Nenhuma receita legível nesta página. O site tem de publicar a receita em dados estruturados."
+			},
+			"verifyTitle": "Verifique antes de guardar — não são certos:",
+			"verify": {
+				"servings": "Porções (nenhuma indicada)",
+				"quantities": "Algumas quantidades não são números simples",
+				"durations": "Tempos dos passos",
+				"temperatures": "Temperaturas do forno"
 			}
 		},
 		"title": "Receitas",
@@ -824,7 +832,36 @@
 		"actionsAria": "Mais ações para {name}",
 		"addPhotoAction": "Adicionar uma foto",
 		"backToRecipes": "Voltar às receitas",
-		"notFound": "Receita não encontrada."
+		"notFound": "Receita não encontrada.",
+		"widgets": {
+			"title": "Widgets do passo {rank}",
+			"quickTimer": "Temporizador rápido",
+			"quickMinutes": "{count} min",
+			"add": "Adicionar um widget",
+			"remove": "Remover: {type}",
+			"type": {
+				"appliance": "Aparelho",
+				"alert": "Aviso",
+				"wait": "Espera longa",
+				"photo": "Nota de foto"
+			},
+			"appliance": "Aparelho",
+			"appliances": {
+				"oven": "Forno",
+				"hob": "Placa",
+				"microwave": "Micro-ondas",
+				"airfryer": "Fritadeira de ar",
+				"pressure": "Panela de pressão",
+				"other": "Outro"
+			},
+			"temperature": "Temperatura (°C)",
+			"setting": "Definição",
+			"alertText": "Texto do aviso",
+			"waitHours": "Duração (horas)",
+			"waitLabel": "O que espera",
+			"caption": "Legenda",
+			"toVerify": "a verificar"
+		}
 	},
 	"recipeTags": {
 		"title": "Categorias",
@@ -1388,7 +1425,11 @@
 		"photoView": "Ver a foto em ecrã inteiro",
 		"photoUploading": "A enviar a foto…",
 		"photoFailed": "Não foi possível enviar a foto. Tente novamente.",
-		"photoTooBig": "Esta foto é demasiado grande."
+		"photoTooBig": "Esta foto é demasiado grande.",
+		"assistantName": "Assistente Familiste",
+		"assistantPreview": "Peça uma receita, um menu ou uma ideia",
+		"assistantTitle": "Assistente Familiste",
+		"assistantBack": "Conversas"
 	},
 	"household": {
 		"title": "A minha casa",

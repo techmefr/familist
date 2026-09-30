@@ -15,6 +15,7 @@
 		CreditCard,
 		CookingPot,
 		CalendarDays,
+		MessageSquarePlus,
 		X
 	} from '@lucide/svelte';
 
@@ -58,7 +59,8 @@
 		{ kind: 'mealPlan', icon: CalendarDays, target: () => '/meal-plan', field: null },
 		{ kind: 'aisle', icon: LayoutList, target: () => '/shops', field: '[data-test-id="aisle-name"]' },
 		{ kind: 'shop', icon: Store, target: () => '/shops', field: '[data-test-id="shop-name"]' },
-		{ kind: 'card', icon: CreditCard, target: () => '/cards', field: '[data-test-id="card-name"]' }
+		{ kind: 'card', icon: CreditCard, target: () => '/cards', field: '[data-test-id="card-name"]' },
+		{ kind: 'direct', icon: MessageSquarePlus, target: () => '/chat', field: null }
 	] satisfies { kind: CreateKind; icon: unknown; target: () => string | null; field: string | null }[];
 
 	const available = $derived(ACTIONS.filter((action) => action.target() !== null));

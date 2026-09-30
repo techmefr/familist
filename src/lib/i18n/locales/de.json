@@ -26,7 +26,8 @@
 		"shop": "Neues Geschäft",
 		"card": "Neue Kundenkarte",
 		"recipe": "Neues Rezept",
-		"mealPlan": "Neuer Essensplan"
+		"mealPlan": "Neuer Essensplan",
+		"direct": "Neue Unterhaltung"
 	},
 	"lists": {
 		"title": "Meine Listen",
@@ -545,6 +546,13 @@
 				"not_html": "Dieser Link führt nicht zu einer Webseite.",
 				"too_large": "Diese Seite ist zu groß zum Lesen.",
 				"no_recipe": "Auf dieser Seite steht kein lesbares Rezept. Die Website muss ihr Rezept als strukturierte Daten veröffentlichen."
+			},
+			"verifyTitle": "Vor dem Speichern prüfen — nicht sicher angegeben:",
+			"verify": {
+				"servings": "Portionen (keine angegeben)",
+				"quantities": "Einige Mengen sind keine einfachen Zahlen",
+				"durations": "Zeiten der Schritte",
+				"temperatures": "Ofentemperaturen"
 			}
 		},
 		"title": "Rezepte",
@@ -824,7 +832,36 @@
 		"actionsAria": "Weitere Aktionen für {name}",
 		"addPhotoAction": "Foto hinzufügen",
 		"backToRecipes": "Zurück zu den Rezepten",
-		"notFound": "Rezept nicht gefunden."
+		"notFound": "Rezept nicht gefunden.",
+		"widgets": {
+			"title": "Widgets für Schritt {rank}",
+			"quickTimer": "Schnelltimer",
+			"quickMinutes": "{count} Min.",
+			"add": "Widget hinzufügen",
+			"remove": "Entfernen: {type}",
+			"type": {
+				"appliance": "Gerät",
+				"alert": "Warnhinweis",
+				"wait": "Lange Wartezeit",
+				"photo": "Fotonotiz"
+			},
+			"appliance": "Gerät",
+			"appliances": {
+				"oven": "Backofen",
+				"hob": "Kochfeld",
+				"microwave": "Mikrowelle",
+				"airfryer": "Heißluftfritteuse",
+				"pressure": "Schnellkochtopf",
+				"other": "Andere"
+			},
+			"temperature": "Temperatur (°C)",
+			"setting": "Einstellung",
+			"alertText": "Warntext",
+			"waitHours": "Dauer (Stunden)",
+			"waitLabel": "Was wartet",
+			"caption": "Bildunterschrift",
+			"toVerify": "zu prüfen"
+		}
 	},
 	"recipeTags": {
 		"title": "Kategorien",
@@ -1388,7 +1425,11 @@
 		"photoView": "Foto im Vollbild ansehen",
 		"photoUploading": "Foto wird gesendet…",
 		"photoFailed": "Das Foto konnte nicht gesendet werden. Versuchen Sie es erneut.",
-		"photoTooBig": "Dieses Foto ist zu groß."
+		"photoTooBig": "Dieses Foto ist zu groß.",
+		"assistantName": "Familiste-Assistent",
+		"assistantPreview": "Fragen Sie nach Rezept, Menü oder Idee",
+		"assistantTitle": "Familiste-Assistent",
+		"assistantBack": "Unterhaltungen"
 	},
 	"household": {
 		"title": "Mein Haushalt",

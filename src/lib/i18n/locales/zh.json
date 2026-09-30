@@ -26,7 +26,8 @@
 		"shop": "新建门店",
 		"card": "新建会员卡",
 		"recipe": "新建食谱",
-		"mealPlan": "新建本周菜单"
+		"mealPlan": "新建本周菜单",
+		"direct": "新对话"
 	},
 	"lists": {
 		"title": "我的清单",
@@ -539,6 +540,13 @@
 				"not_html": "该链接指向的不是网页。",
 				"too_large": "该页面过大，无法读取。",
 				"no_recipe": "该页面没有可读取的菜谱。网站需以结构化数据发布菜谱。"
+			},
+			"verifyTitle": "保存前请核实——这些并不确定：",
+			"verify": {
+				"servings": "份数（未给出）",
+				"quantities": "部分用量不是简单数字",
+				"durations": "步骤时间",
+				"temperatures": "烤箱温度"
 			}
 		},
 		"title": "食谱",
@@ -814,7 +822,36 @@
 		"actionsAria": "{name} 的更多操作",
 		"addPhotoAction": "添加照片",
 		"backToRecipes": "返回食谱列表",
-		"notFound": "未找到该食谱。"
+		"notFound": "未找到该食谱。",
+		"widgets": {
+			"title": "步骤 {rank} 的小组件",
+			"quickTimer": "快速计时器",
+			"quickMinutes": "{count} 分钟",
+			"add": "添加小组件",
+			"remove": "移除：{type}",
+			"type": {
+				"appliance": "电器",
+				"alert": "提醒",
+				"wait": "长时间等待",
+				"photo": "照片备注"
+			},
+			"appliance": "电器",
+			"appliances": {
+				"oven": "烤箱",
+				"hob": "灶台",
+				"microwave": "微波炉",
+				"airfryer": "空气炸锅",
+				"pressure": "高压锅",
+				"other": "其他"
+			},
+			"temperature": "温度（°C）",
+			"setting": "设置",
+			"alertText": "提醒内容",
+			"waitHours": "时长（小时）",
+			"waitLabel": "等待内容",
+			"caption": "说明",
+			"toVerify": "待核实"
+		}
 	},
 	"recipeTags": {
 		"title": "分类",
@@ -1374,7 +1411,11 @@
 		"photoView": "全屏查看照片",
 		"photoUploading": "正在发送照片…",
 		"photoFailed": "照片发送失败，请重试。",
-		"photoTooBig": "这张照片太大了。"
+		"photoTooBig": "这张照片太大了。",
+		"assistantName": "Familiste 助手",
+		"assistantPreview": "询问食谱、菜单或点子",
+		"assistantTitle": "Familiste 助手",
+		"assistantBack": "对话"
 	},
 	"household": {
 		"title": "我的家庭",

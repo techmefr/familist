@@ -1211,6 +1211,7 @@ export type Database = {
           body: string
           ingredient_ids: string[]
           duration_seconds: number | null
+          widgets: Json
           id: string
           position: number
           recipe_id: string
@@ -1220,6 +1221,7 @@ export type Database = {
           id?: string
           ingredient_ids?: string[]
           duration_seconds?: number | null
+          widgets?: Json
           position?: number
           recipe_id: string
         }
@@ -1227,6 +1229,7 @@ export type Database = {
           body?: string
           ingredient_ids?: string[]
           duration_seconds?: number | null
+          widgets?: Json
           id?: string
           position?: number
           recipe_id?: string

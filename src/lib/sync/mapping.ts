@@ -1,3 +1,5 @@
+import { parseWidgets } from '$domain/step-widgets';
+import type { Json } from '$db/types';
 import type {
 	Aisle,
 	Conversation,
@@ -455,7 +457,8 @@ export const toRecipeStep = (row: Row): RecipeStep => ({
 		? row.ingredient_ids.filter((id): id is string => typeof id === 'string')
 		: [],
 	durationSeconds:
-		typeof row.duration_seconds === 'number' && row.duration_seconds > 0 ? row.duration_seconds : undefined
+		typeof row.duration_seconds === 'number' && row.duration_seconds > 0 ? row.duration_seconds : undefined,
+	widgets: parseWidgets(row.widgets)
 });
 
 export const fromRecipeStep = (step: RecipeStep) => ({
@@ -464,7 +467,8 @@ export const fromRecipeStep = (step: RecipeStep) => ({
 	body: step.body,
 	position: step.position,
 	ingredient_ids: step.ingredientIds,
-	duration_seconds: step.durationSeconds ?? null
+	duration_seconds: step.durationSeconds ?? null,
+	widgets: parseWidgets(step.widgets) as unknown as Json
 });
 
 export const toMealPlan = (row: Row): MealPlan => ({

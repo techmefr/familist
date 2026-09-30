@@ -29,6 +29,9 @@
 	import RecipeTagPicker from '$components/app/RecipeTagPicker.svelte';
 	import RecipeTagChips from '$components/app/RecipeTagChips.svelte';
 	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
+	import StepWidgetsEditor from '$components/app/StepWidgetsEditor.svelte';
+	import { parseWidgets, type StepWidget } from '$domain/step-widgets';
+	import type { VerifyFlag } from '$domain/ai-recipe';
 	import RecipeFilterSheet from '$components/app/RecipeFilterSheet.svelte';
 	import {
 		CookingPot,
@@ -71,6 +74,7 @@
 	let lines = $state<RecipeLine[]>([{ name: '', qty: '', unit: DEFAULT_UNIT }]);
 	let steps = $state<string[]>(['']);
 	let stepIngredients = $state<number[][]>([[]]);
+	let stepWidgets = $state<StepWidget[][]>([[]]);
 	/** Each step's duration as typed (#310): two plain fields rather than a wheel picker. */
 	let stepTimes = $state<{ hours: string; minutes: string }[]>([durationFields(null)]);
 	const stepDurations = $derived(stepTimes.map((time) => durationFromFields(time.hours, time.minutes)));
@@ -201,6 +205,7 @@
 
 	/** Whether the open form holds a draft read from elsewhere (a page, a photo, the AI), to be read over. */
 	let fromImport = $state(false);
+	let toVerify = $state<VerifyFlag[]>([]);
 
 	/**
 	 * The page's own photo, carried along the draft (#236). It has nowhere to live until the recipe itself
@@ -233,6 +238,8 @@
 		lines = draft.lines;
 		steps = draft.steps;
 		stepIngredients = draft.stepIngredients;
+		stepWidgets = draft.stepDurations.map((_, index) => draft.stepWidgets?.[index] ?? []);
+		toVerify = draft.toVerify ?? [];
 		stepTimes = draft.stepDurations.map((seconds) => durationFields(seconds));
 		tags = [...draft.tags];
 		notes = '';
@@ -272,11 +279,13 @@
 		lines = [{ name: '', qty: '', unit: DEFAULT_UNIT }];
 		steps = [''];
 		stepIngredients = [[]];
+		stepWidgets = [[]];
 		stepTimes = [durationFields(null)];
 		notes = '';
 		tags = [];
 		copiedFrom = null;
 		fromImport = false;
+		toVerify = [];
 		importedImage = null;
 		imagePrompt = undefined;
 	}
@@ -318,6 +327,7 @@
 		stepTimes = savedSteps.length
 			? savedSteps.map((saved) => durationFields(saved.durationSeconds))
 			: [durationFields(null)];
+		stepWidgets = savedSteps.length ? savedSteps.map((saved) => parseWidgets(saved.widgets)) : [[]];
 		stepIngredients = savedSteps.length
 			? savedSteps.map((saved) =>
 					saved.ingredientIds.flatMap((id) => {
@@ -353,6 +363,7 @@
 	function addStep() {
 		steps = [...steps, ''];
 		stepIngredients = [...stepIngredients, []];
+		stepWidgets = [...stepWidgets, []];
 		stepTimes = [...stepTimes, durationFields(null)];
 	}
 
@@ -360,6 +371,7 @@
 		if (steps.length <= 1) return;
 		steps = steps.filter((_, i) => i !== index);
 		stepIngredients = stepIngredients.filter((_, i) => i !== index);
+		stepWidgets = stepWidgets.filter((_, i) => i !== index);
 		stepTimes = stepTimes.filter((_, i) => i !== index);
 	}
 
@@ -398,7 +410,8 @@
 				ingredients: lines,
 				steps,
 				stepIngredients,
-				stepDurations
+				stepDurations,
+				stepWidgets
 			});
 		} else {
 			const recipe = data.addRecipe({
@@ -411,7 +424,8 @@
 				steps,
 				stepIngredients,
 				imagePrompt,
-				stepDurations
+				stepDurations,
+				stepWidgets
 			});
 			attachImportedPhoto(recipe.id);
 		}
@@ -540,6 +554,16 @@
 			>
 				{t('recipes.import.review')}
 			</p>
+			{#if toVerify.length > 0}
+				<div class="text-label mt-2 rounded-lg border p-3" role="note" data-test-id="recipe-import-verify">
+					<p class="font-semibold">{t('recipes.import.verifyTitle')}</p>
+					<ul class="mt-1 list-disc ps-5">
+						{#each toVerify as flag (flag)}
+							<li>{t(`recipes.import.verify.${flag}`)}</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 		{/if}
 
 		<!--
@@ -782,6 +806,12 @@
 									</div>
 								</div>
 							</fieldset>
+
+							<StepWidgetsEditor
+								bind:widgets={stepWidgets[index]}
+								rank={index + 1}
+								onQuickTimer={minutes => (stepTimes[index] = durationFields(minutes * 60))}
+							/>
 
 							{#if namedLines.length}
 								<fieldset class="min-w-0 sm:rounded-lg sm:border sm:p-3" data-test-class="recipe-step-ingredients">

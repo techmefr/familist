@@ -26,7 +26,8 @@
 		"shop": "Nouveau magasin",
 		"card": "Nouvelle carte de fidélité",
 		"recipe": "Nouvelle recette",
-		"mealPlan": "Nouveau menu de la semaine"
+		"mealPlan": "Nouveau menu de la semaine",
+		"direct": "Nouvelle conversation"
 	},
 	"lists": {
 		"title": "Mes listes",
@@ -569,6 +570,13 @@
 				"not_html": "Ce lien ne mène pas à une page web.",
 				"too_large": "Cette page est trop lourde pour être lue.",
 				"no_recipe": "Aucune recette lisible sur cette page. Le site doit publier sa recette en données structurées."
+			},
+			"verifyTitle": "À vérifier avant d’enregistrer — ils ne sont pas certains :",
+			"verify": {
+				"servings": "Nombre de portions (aucun n’était indiqué)",
+				"quantities": "Certaines quantités ne sont pas des nombres simples",
+				"durations": "Les durées des étapes",
+				"temperatures": "Les températures du four"
 			}
 		},
 		"title": "Recettes",
@@ -867,7 +875,36 @@
 		"actionsAria": "Plus d'actions pour {name}",
 		"addPhotoAction": "Ajouter une photo",
 		"backToRecipes": "Retour aux recettes",
-		"notFound": "Recette introuvable."
+		"notFound": "Recette introuvable.",
+		"widgets": {
+			"title": "Widgets de l’étape {rank}",
+			"quickTimer": "Minuteur rapide",
+			"quickMinutes": "{count} min",
+			"add": "Ajouter un widget",
+			"remove": "Retirer : {type}",
+			"type": {
+				"appliance": "Appareil",
+				"alert": "Avertissement",
+				"wait": "Longue attente",
+				"photo": "Note photo"
+			},
+			"appliance": "Appareil",
+			"appliances": {
+				"oven": "Four",
+				"hob": "Plaque",
+				"microwave": "Micro-ondes",
+				"airfryer": "Friteuse à air",
+				"pressure": "Autocuiseur",
+				"other": "Autre"
+			},
+			"temperature": "Température (°C)",
+			"setting": "Réglage",
+			"alertText": "Texte de l’avertissement",
+			"waitHours": "Durée (heures)",
+			"waitLabel": "Ce qui attend",
+			"caption": "Légende",
+			"toVerify": "à vérifier"
+		}
 	},
 	"recipeTags": {
 		"title": "Catégories",
@@ -1431,7 +1468,11 @@
 		"photoView": "Voir la photo en plein écran",
 		"photoUploading": "Envoi de la photo…",
 		"photoFailed": "L'envoi de la photo a échoué. Réessayez.",
-		"photoTooBig": "Cette photo est trop lourde."
+		"photoTooBig": "Cette photo est trop lourde.",
+		"assistantName": "Assistant Familiste",
+		"assistantPreview": "Demandez une recette, un menu ou une idée",
+		"assistantTitle": "Assistant Familiste",
+		"assistantBack": "Discussions"
 	},
 	"household": {
 		"title": "Mon foyer",

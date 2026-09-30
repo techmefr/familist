@@ -26,7 +26,8 @@
 		"shop": "New shop",
 		"card": "New loyalty card",
 		"recipe": "New recipe",
-		"mealPlan": "New meal plan"
+		"mealPlan": "New meal plan",
+		"direct": "New conversation"
 	},
 	"lists": {
 		"title": "My lists",
@@ -545,6 +546,13 @@
 				"not_html": "This link does not lead to a web page.",
 				"too_large": "This page is too heavy to read.",
 				"no_recipe": "No readable recipe on this page. The site must publish its recipe as structured data."
+			},
+			"verifyTitle": "Check these before saving — they were not stated for sure:",
+			"verify": {
+				"servings": "Number of servings (none was given)",
+				"quantities": "Some quantities are not plain numbers",
+				"durations": "Step times",
+				"temperatures": "Oven temperatures"
 			}
 		},
 		"title": "Recipes",
@@ -835,7 +843,36 @@
 		"actionsAria": "More actions for {name}",
 		"addPhotoAction": "Add a photo",
 		"backToRecipes": "Back to recipes",
-		"notFound": "Recipe not found."
+		"notFound": "Recipe not found.",
+		"widgets": {
+			"title": "Widgets for step {rank}",
+			"quickTimer": "Quick timer",
+			"quickMinutes": "{count} min",
+			"add": "Add a widget",
+			"remove": "Remove {type}",
+			"type": {
+				"appliance": "Appliance",
+				"alert": "Warning",
+				"wait": "Long wait",
+				"photo": "Photo note"
+			},
+			"appliance": "Appliance",
+			"appliances": {
+				"oven": "Oven",
+				"hob": "Hob",
+				"microwave": "Microwave",
+				"airfryer": "Air fryer",
+				"pressure": "Pressure cooker",
+				"other": "Other"
+			},
+			"temperature": "Temperature (°C)",
+			"setting": "Setting",
+			"alertText": "Warning text",
+			"waitHours": "Duration (hours)",
+			"waitLabel": "What is waiting",
+			"caption": "Caption",
+			"toVerify": "to verify"
+		}
 	},
 	"recipeTags": {
 		"title": "Categories",
@@ -1399,7 +1436,11 @@
 		"photoView": "View photo full screen",
 		"photoUploading": "Sending photo…",
 		"photoFailed": "Sending the photo failed. Try again.",
-		"photoTooBig": "This photo is too big."
+		"photoTooBig": "This photo is too big.",
+		"assistantName": "Familiste assistant",
+		"assistantPreview": "Ask for a recipe, a menu or an idea",
+		"assistantTitle": "Familiste assistant",
+		"assistantBack": "Discussions"
 	},
 	"household": {
 		"title": "My household",

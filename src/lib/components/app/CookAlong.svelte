@@ -3,7 +3,7 @@
 	import { motionMs } from '$stores/settings.svelte';
 	import { DURATION } from '$domain/motion-tokens';
 	import { i18n, t } from '$i18n/index.svelte';
-	import { unitKeyForCount } from '$domain/units';
+	import { formatAmount } from '$domain/units';
 	import {
 		clampStepIndex,
 		isFirstStep,
@@ -18,6 +18,8 @@
 	import { ShoppingBasket, Mic, MicOff, Timer as TimerIcon, Plus } from '@lucide/svelte';
 	import { timers } from '$stores/timers.svelte';
 	import { formatClock, splitDuration } from '$domain/step-duration';
+	import StepWidgetsView from '$components/app/StepWidgetsView.svelte';
+	import type { StepWidget } from '$domain/step-widgets';
 	import { remindersSupported } from '$native/reminders';
 	import { tick } from 'svelte';
 	import { ingredientsOfStep } from '$domain/step-ingredients';
@@ -34,6 +36,7 @@
 		stepIngredientIds = [],
 		recipeId,
 		stepDurations = [],
+		stepWidgets = [],
 		onClose
 	}: {
 		recipeName: string;
@@ -44,6 +47,8 @@
 		/** The recipe the timers belong to, and each step's duration in seconds (#310). */
 		recipeId?: string;
 		stepDurations?: (number | null)[];
+		/** Extras of each step (#472): oven settings, warnings, long waits, photo notes. */
+		stepWidgets?: StepWidget[][];
 		onClose: () => void;
 	} = $props();
 
@@ -60,10 +65,12 @@
 	const hasStepLines = $derived(stepLines.length > 0);
 	const shownLines = $derived(hasStepLines && !showAll ? stepLines : ingredients);
 
-	const lineText = (line: RecipeIngredient) =>
-		line.qty
-			? `${line.qty} ${t(unitKeyForCount(line.unit, line.qty) ?? `units.${line.unit}`)} ${line.name}`
-			: line.name;
+	const amountOf = (line: RecipeIngredient) => formatAmount(line.qty, line.unit, key => t(key));
+
+	const lineText = (line: RecipeIngredient) => {
+		const amount = amountOf(line);
+		return amount ? `${amount} ${line.name}` : line.name;
+	};
 
 	async function openPanel(all = false) {
 		panelOpen = true;
@@ -421,31 +428,36 @@
 		</p>
 
 		<!--
-			A thin progress bar replaces the numbered dots (#375): the dots read well up to six or seven steps,
-			then wrap or shrink past readability on a real recipe. A bar says the same "how far along" at any
-			length, and the text above it already gives the exact step, spoken and written.
+			One segment per step, filled up to the current one (#375 replaced numbered dots with a bar, which lost
+			the step boundaries). Segments share the width, so a long recipe only gets thinner ones instead of
+			wrapping. The text above already gives the exact step, spoken and written: this stays decorative.
 		-->
 		<div
-			class="mx-auto mt-3 h-1.5 max-w-xs overflow-hidden rounded-full bg-white/15"
-			role="progressbar"
+			class="mx-auto mt-3 flex h-1.5 max-w-xs gap-0.5"
 			aria-hidden="true"
 			data-test-id="cook-along-progress-bar"
 		>
-			<div
-				class="h-full rounded-full bg-white transition-[width]"
-				style="width: {(position.current / position.total) * 100}%"
-			></div>
+			{#each { length: position.total } as _, segment (segment)}
+				<span
+					class="h-full flex-1 rounded-full transition-colors {segment < position.current
+						? 'bg-white'
+						: 'bg-white/30'}"
+				></span>
+			{/each}
 		</div>
 	</nav>
 
 	<div class="relative flex flex-1 items-center justify-center px-6 py-8">
 		{#if total > 0}
-			<p
-				data-test-id="cook-along-step"
-				class="pointer-events-none relative z-10 text-center text-3xl leading-snug font-semibold break-words"
-			>
-				{current}
-			</p>
+			<div class="pointer-events-none relative z-10 flex flex-col items-center">
+				<p
+					data-test-id="cook-along-step"
+					class="text-center text-3xl leading-snug font-semibold break-words"
+				>
+					{current}
+				</p>
+				<StepWidgetsView widgets={stepWidgets[clampStepIndex(index, steps.length)] ?? []} />
+			</div>
 
 			<!--
 				The whole step half-screen doubles as previous/next, on top of the arrow buttons below: a hand busy
@@ -692,10 +704,8 @@
 						data-test-class="cook-along-ingredient"
 					>
 						<span class="min-w-0 break-words">{line.name}</span>
-						{#if line.qty}
-							<span class="shrink-0 font-semibold">
-							{line.qty} {t(unitKeyForCount(line.unit, line.qty) ?? `units.${line.unit}`)}
-						</span>
+						{#if amountOf(line)}
+							<span class="shrink-0 font-semibold">{amountOf(line)}</span>
 						{/if}
 					</li>
 				{/each}

@@ -3,7 +3,7 @@
 	import { data } from '$stores/data.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { Button } from '$components/ui/button';
-	import { Check, CalendarCheck, ListPlus, Pencil } from '@lucide/svelte';
+	import { Check, CalendarCheck, ListPlus, Pencil, X } from '@lucide/svelte';
 
 	let { poll, listId }: { poll: Poll; listId: string } = $props();
 
@@ -13,20 +13,25 @@
 	let editing = $state<string | null>(null);
 	let draft = $state('');
 	let pushed = $state<string | null>(null);
+	let sheet = $state<HTMLDialogElement | null>(null);
 
-	function startEditing(optionId: string, ingredients: string[]) {
+	const editedOption = $derived(options.find(option => option.id === editing) ?? null);
+
+	function openIngredients(optionId: string, ingredients: string[]) {
 		editing = optionId;
 		draft = ingredients.join('\n');
+		sheet?.showModal();
 	}
 
 	function saveIngredients(optionId: string) {
 		data.setIngredients(optionId, draft.split('\n'));
-		editing = null;
+		sheet?.close();
 	}
 
 	function push(optionId: string) {
 		const added = data.pushIngredients(listId, optionId);
 		pushed = t('chat.pushed', { count: added });
+		sheet?.close();
 	}
 </script>
 
@@ -66,67 +71,45 @@
 						</span>
 					</button>
 				{:else}
-					<div class="border-input rounded-md border p-3 {owner ? 'border-primary' : ''}">
-						<div class="flex flex-wrap items-center gap-2">
-							<span aria-hidden="true">{option.emoji ?? '🍽️'}</span>
-							<span class="flex-1 font-medium">{option.label}</span>
+					<!--
+						One line per dish: emoji, label, and a single chip that does the one thing you can do here
+						(claim it, or give it back). Who has it is written out, never left to a colour. The ingredients
+						open in a sheet, so a row never grows a cluster of buttons.
+					-->
+					<div
+						class="border-input flex min-h-[max(2.75rem,44px)] items-center gap-2 rounded-md border px-3 py-1.5 {owner
+							? 'border-primary'
+							: ''}"
+					>
+						<span aria-hidden="true">{option.emoji ?? '🍽️'}</span>
+						<span class="min-w-0 flex-1 truncate font-medium">{option.label}</span>
 
-							{#if owner}
-								<span class="text-caption text-primary">{owner.name}</span>
-							{/if}
-
-							{#if !option.claimedBy || option.claimedBy === data.me}
-								<Button
-									variant={option.claimedBy ? 'outline' : 'default'}
-									onclick={() => data.toggleClaim(option.id)}
-									data-test-class="poll-claim"
-								>
-									{option.claimedBy ? t('chat.release') : t('chat.claim')}
-								</Button>
-							{/if}
-						</div>
-
-						{#if option.claimedBy === data.me}
-							{#if editing === option.id}
-								<textarea
-									bind:value={draft}
-									rows="3"
-									placeholder={t('chat.ingredientsPlaceholder')}
-									data-test-class="poll-ingredients"
-									class="border-input bg-background mt-3 w-full rounded-md border p-2"
-								></textarea>
-								<Button onclick={() => saveIngredients(option.id)} data-test-class="poll-ingredients-save">
-									{t('common.save')}
-								</Button>
-							{:else}
-								<div class="mt-3 flex flex-wrap items-center gap-2">
-									<Button
-										variant="outline"
-										onclick={() => startEditing(option.id, option.ingredients)}
-										data-test-class="poll-ingredients-edit"
-									>
-										<Pencil size={16} aria-hidden="true" />
-										{t('chat.ingredients')}
-									</Button>
-
-									{#if option.ingredients.length > 0}
-										<Button onclick={() => push(option.id)} data-test-class="poll-push">
-											<ListPlus size={16} aria-hidden="true" />
-											{t('chat.pushToList')}
-										</Button>
-									{/if}
-								</div>
-
-								{#if option.ingredients.length > 0}
-									<ul class="text-muted-foreground text-label mt-2 list-disc ps-5">
-										{#each option.ingredients as ingredient (ingredient)}
-											<li>{ingredient}</li>
-										{/each}
-									</ul>
-								{/if}
-							{/if}
+						{#if option.claimedBy && option.claimedBy !== data.me}
+							<span class="text-caption text-primary shrink-0">{owner?.name ?? t('chat.someone')}</span>
+						{:else}
+							<Button
+								variant={option.claimedBy ? 'outline' : 'default'}
+								onclick={() => data.toggleClaim(option.id)}
+								data-test-class="poll-claim"
+								class="min-h-[max(2.75rem,44px)] shrink-0"
+							>
+								{option.claimedBy ? t('chat.release') : t('chat.claim')}
+							</Button>
 						{/if}
 					</div>
+
+					{#if option.claimedBy === data.me}
+						<button
+							type="button"
+							onclick={() => openIngredients(option.id, option.ingredients)}
+							data-test-class="poll-ingredients-edit"
+							class="fl-press text-primary text-caption mt-1 inline-flex min-h-[max(2.75rem,44px)] items-center gap-1 px-2 font-medium"
+						>
+							<Pencil size={14} aria-hidden="true" />
+							{t('chat.ingredients')}
+							{#if option.ingredients.length > 0}({option.ingredients.length}){/if}
+						</button>
+					{/if}
 				{/if}
 			</li>
 		{/each}
@@ -150,6 +133,50 @@
 			</Button>
 		{/if}
 	{/if}
+
+	<dialog
+		bind:this={sheet}
+		onclick={event => {
+			if (event.target === sheet) sheet?.close();
+		}}
+		onclose={() => (editing = null)}
+		aria-label={t('chat.ingredients')}
+		data-test-class="poll-ingredients-sheet"
+		class="m-auto w-[min(32rem,calc(100%-2rem))] max-w-full rounded-2xl border bg-transparent p-0 backdrop:bg-[var(--fl-scrim)]"
+	>
+		{#if editedOption}
+			<div class="bg-card relative rounded-2xl p-4">
+				<h3 class="text-label pe-12 font-semibold">{editedOption.label}</h3>
+				<textarea
+					bind:value={draft}
+					rows="5"
+					placeholder={t('chat.ingredientsPlaceholder')}
+					aria-label={t('chat.ingredients')}
+					data-test-class="poll-ingredients"
+					class="border-input bg-background mt-3 w-full rounded-md border p-2"
+				></textarea>
+				<div class="mt-3 flex flex-wrap gap-2">
+					<Button onclick={() => saveIngredients(editedOption.id)} data-test-class="poll-ingredients-save">
+						{t('common.save')}
+					</Button>
+					{#if editedOption.ingredients.length > 0}
+						<Button variant="outline" onclick={() => push(editedOption.id)} data-test-class="poll-push">
+							<ListPlus size={16} aria-hidden="true" />
+							{t('chat.pushToList')}
+						</Button>
+					{/if}
+				</div>
+				<button
+					type="button"
+					onclick={() => sheet?.close()}
+					aria-label={t('common.close')}
+					class="fl-press text-muted-foreground absolute end-2 top-2 grid size-11 place-items-center rounded-full"
+				>
+					<X size={20} aria-hidden="true" />
+				</button>
+			</div>
+		{/if}
+	</dialog>
 
 	{#if pushed}
 		<p class="text-primary text-caption mt-3" role="status" data-test-class="poll-pushed">{pushed}</p>
