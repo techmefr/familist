@@ -2069,6 +2069,9 @@
 		"guestTag": "Mpanafika",
 		"portionBadge": "Anjara ×{value}",
 		"privateHint": "Mitokana ny allergie, fomba fisakafoana ary tsiron’ny olona: ilay nanoratra ihany no mamaky.",
-		"ownedByOther": "Fiche tsy hita ataon’ny mpikambana hafa"
+		"ownedByOther": "Fiche tsy hita ataon’ny mpikambana hafa",
+		"warn": "Misy {what} — {name}",
+		"safeForAll": "Mety ho an’ny rehetra",
+		"conflictBadge": "Mitandrema: {names}"
 	}
 }

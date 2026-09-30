@@ -5,7 +5,7 @@
 	import { feedback } from '$stores/feedback.svelte';
 	import { ai } from '$stores/ai.svelte';
 	import { recipeDraft } from '$stores/recipe-draft.svelte';
-	import { t } from '$i18n/index.svelte';
+	import { t, i18n } from '$i18n/index.svelte';
 	import { motionMs, settings } from '$stores/settings.svelte';
 	import { DEFAULT_SERVINGS, MAX_SERVINGS, MIN_SERVINGS, type RecipeLine } from '$domain/recipe';
 	import type { Recipe } from '$db/schema';
@@ -32,6 +32,7 @@
 	import StepWidgetsEditor from '$components/app/StepWidgetsEditor.svelte';
 	import { parseWidgets, type StepWidget } from '$domain/step-widgets';
 	import type { VerifyFlag } from '$domain/ai-recipe';
+	import { warningsFor, type Eater } from '$domain/person-profile';
 	import RecipeFilterSheet from '$components/app/RecipeFilterSheet.svelte';
 	import {
 		CookingPot,
@@ -45,7 +46,8 @@
 		ChevronRight,
 		Check,
 		CalendarDays,
-		MoreVertical
+		MoreVertical,
+		TriangleAlert
 	} from '@lucide/svelte';
 	import RecipeActionsSheet from '$components/app/RecipeActionsSheet.svelte';
 	import { longpress } from '$components/app/longpress.svelte';
@@ -171,8 +173,41 @@
 		}))
 	);
 
-	const shownRecipes = $derived(findRecipes(query, selection, filterable).map((entry) => entry.recipe));
-	const narrowed = $derived(query.trim() !== '' || activeCount(selection) > 0);
+	let onlySafe = $state(false);
+
+	const eaters = $derived<Eater[]>(
+		data.householdPersons.map(person => ({
+			personId: person.id,
+			name: person.name,
+			profile: data.profileOf(person.id) ?? null
+		}))
+	);
+	const sharedInputs = $derived(
+		data.sharedWarnings.flatMap(entry => {
+			const person = data.householdPersons.find(candidate => candidate.id === entry.personId);
+			return person ? [{ ...entry, name: person.name }] : [];
+		})
+	);
+	const hasProfiles = $derived(data.personProfiles.length > 0 || data.sharedWarnings.length > 0);
+
+	/** Who cannot eat this recipe, from its ingredient names: a hint, never a guarantee. */
+	const warnedNames = $derived.by(() => {
+		const byRecipe = new Map<string, string[]>();
+		if (!hasProfiles) return byRecipe;
+
+		for (const [recipeId, names] of linesByRecipe) {
+			const people = warningsFor(names.join(' , '), i18n.locale, eaters, sharedInputs).map(w => w.name);
+			if (people.length > 0) byRecipe.set(recipeId, [...new Set(people)]);
+		}
+		return byRecipe;
+	});
+
+	const shownRecipes = $derived(
+		findRecipes(query, selection, filterable)
+			.map((entry) => entry.recipe)
+			.filter(recipe => !onlySafe || !warnedNames.has(recipe.id))
+	);
+	const narrowed = $derived(query.trim() !== '' || activeCount(selection) > 0 || onlySafe);
 
 	function showAll() {
 		feedback.play('tap');
@@ -518,6 +553,13 @@
 		placeholder={t('recipes.search.placeholder')}
 		testPrefix="recipe"
 	/>
+
+	{#if hasProfiles}
+		<label class="fl-choice mt-3 w-fit" data-test-id="recipe-safe-toggle">
+			<input type="checkbox" class="sr-only" bind:checked={onlySafe} />
+			{t('people.safeForAll')}
+		</label>
+	{/if}
 
 	<!-- Spoken, not shown: the wall itself shows how many cards are left. -->
 	<p class="sr-only" aria-live="polite" data-test-id="recipe-search-count">
@@ -951,6 +993,15 @@
 								<UtensilsCrossed size={12} aria-hidden="true" />
 								<span aria-hidden="true">{recipe.servings}</span>
 							</span>
+							{#if warnedNames.has(recipe.id)}
+								<span
+									class="text-caption mt-0.5 inline-flex basis-full items-center gap-1.5 rounded-lg border px-2 py-0.5 font-semibold"
+									data-test-class="recipe-conflict-badge"
+								>
+									<TriangleAlert size={14} aria-hidden="true" />
+									{t('people.conflictBadge', { names: warnedNames.get(recipe.id)?.join(', ') ?? '' })}
+								</span>
+							{/if}
 							{#if !owned}
 								<span
 									class="bg-muted text-muted-foreground text-caption mt-0.5 inline-flex shrink-0 items-center gap-1.5 rounded-full px-2 py-0.5 font-semibold"

@@ -2089,6 +2089,9 @@
 		"guestTag": "Guest",
 		"portionBadge": "Portion ×{value}",
 		"privateHint": "Allergies, diets and tastes are private: only the person who wrote them can read them.",
-		"ownedByOther": "Profile kept private by another member"
+		"ownedByOther": "Profile kept private by another member",
+		"warn": "Contains {what} — {name}",
+		"safeForAll": "Safe for everyone",
+		"conflictBadge": "Watch out: {names}"
 	}
 }

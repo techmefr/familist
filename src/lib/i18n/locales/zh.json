@@ -2057,6 +2057,9 @@
 		"guestTag": "访客",
 		"portionBadge": "份量 ×{value}",
 		"privateHint": "过敏、饮食和口味是私密的：只有填写者能看到。",
-		"ownedByOther": "档案由其他成员保密"
+		"ownedByOther": "档案由其他成员保密",
+		"warn": "含 {what} — {name}",
+		"safeForAll": "适合所有人",
+		"conflictBadge": "注意：{names}"
 	}
 }

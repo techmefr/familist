@@ -2154,6 +2154,9 @@
 		"guestTag": "ضيف",
 		"portionBadge": "حصة ×{value}",
 		"privateHint": "الحساسية والأنظمة والأذواق خاصة: يقرؤها من كتبها فقط.",
-		"ownedByOther": "ملف خاص بعضو آخر"
+		"ownedByOther": "ملف خاص بعضو آخر",
+		"warn": "يحتوي {what} — {name}",
+		"safeForAll": "مناسب للجميع",
+		"conflictBadge": "انتبه: {names}"
 	}
 }

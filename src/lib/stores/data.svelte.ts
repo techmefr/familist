@@ -410,6 +410,7 @@ class DataStore {
 		this.conversations = conversations;
 
 		this.restoreActiveShop();
+		void this.loadSharedWarnings();
 	}
 
 	/**

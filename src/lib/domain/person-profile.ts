@@ -161,3 +161,56 @@ export function capConstraints(constraints: readonly string[]): string[] {
 		.filter(Boolean)
 		.slice(0, MAX_CONSTRAINTS);
 }
+
+export interface SharedWarningInput {
+	personId: string;
+	name: string;
+	allergens: readonly string[];
+	diets: readonly string[];
+}
+
+export interface Warning {
+	personId: string;
+	name: string;
+	/** An allergen label or a diet key. */
+	what: string;
+	kind: 'allergy' | 'diet';
+	/** Only known for the owner's own profile; a shared warning carries no severity. */
+	severity: AllergySeverity | null;
+}
+
+/**
+ * Everything worth warning about for `text`: the owner's own conflicts with their severity, then the
+ * warnings other members agreed to share, which say what and for whom, nothing more.
+ */
+export function warningsFor(
+	text: string,
+	locale: string,
+	own: readonly Eater[],
+	shared: readonly SharedWarningInput[]
+): Warning[] {
+	const out: Warning[] = conflictsFor(text, locale, own).map(conflict =>
+		conflict.because.kind === 'allergy'
+			? { personId: conflict.personId, name: conflict.name, what: conflict.because.allergy.label, kind: 'allergy', severity: conflict.severity }
+			: { personId: conflict.personId, name: conflict.name, what: conflict.because.diet, kind: 'diet', severity: null }
+	);
+
+	const groups = new Set<FoodGroup>(matchFoodGroups(text, locale));
+	const folded = text.toLowerCase();
+
+	for (const entry of shared) {
+		for (const label of entry.allergens) {
+			const labelGroups = matchFoodGroups(label, locale);
+			if (labelGroups.some(group => groups.has(group)) || folded.includes(label.toLowerCase())) {
+				out.push({ personId: entry.personId, name: entry.name, what: label, kind: 'allergy', severity: null });
+			}
+		}
+		for (const diet of entry.diets) {
+			if ((DIET_EXCLUDES[diet] ?? []).some(group => groups.has(group))) {
+				out.push({ personId: entry.personId, name: entry.name, what: diet, kind: 'diet', severity: null });
+			}
+		}
+	}
+
+	return out;
+}

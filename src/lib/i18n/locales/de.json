@@ -2078,6 +2078,9 @@
 		"guestTag": "Gast",
 		"portionBadge": "Portion ×{value}",
 		"privateHint": "Allergien, Ernährungsweisen und Vorlieben sind privat: nur wer sie eingetragen hat, kann sie lesen.",
-		"ownedByOther": "Profil von einem anderen Mitglied privat gehalten"
+		"ownedByOther": "Profil von einem anderen Mitglied privat gehalten",
+		"warn": "Enthält {what} — {name}",
+		"safeForAll": "Für alle geeignet",
+		"conflictBadge": "Achtung: {names}"
 	}
 }

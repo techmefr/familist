@@ -1,4 +1,5 @@
 <script lang="ts">
+	import AllergyWarning from '$components/app/AllergyWarning.svelte';
 	import { tick } from 'svelte';
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
@@ -245,6 +246,7 @@
 						placeholder={t('add.namePlaceholder')}
 					/>
 				</IconField>
+				<AllergyWarning text={name} />
 			</div>
 
 			<!--

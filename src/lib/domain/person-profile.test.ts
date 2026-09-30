@@ -98,3 +98,27 @@ describe('aiConstraints', () => {
 		expect(capConstraints(['  ', ''])).toEqual([]);
 	});
 });
+
+import { warningsFor } from './person-profile';
+
+describe('warningsFor', () => {
+	const own = [
+		{ personId: 'p1', name: 'Léo', profile: profile({ allergies: [{ id: 'peanut', label: 'Peanut', severity: 'severe' }] }) }
+	];
+
+	it('adds what other members agreed to share, without a severity', () => {
+		const out = warningsFor('pesto', 'en', own, [{ personId: 'p9', name: 'Zoé', allergens: ['Milk'], diets: [] }]);
+
+		expect(out).toEqual([{ personId: 'p9', name: 'Zoé', what: 'Milk', kind: 'allergy', severity: null }]);
+	});
+
+	it('gives the owner their own severity', () => {
+		const [warning] = warningsFor('peanut butter', 'en', own, []);
+		expect(warning).toMatchObject({ name: 'Léo', what: 'Peanut', severity: 'severe' });
+	});
+
+	it('shares diets as rules', () => {
+		const out = warningsFor('bacon', 'en', [], [{ personId: 'p9', name: 'Zoé', allergens: [], diets: ['halal'] }]);
+		expect(out).toHaveLength(1);
+	});
+});
