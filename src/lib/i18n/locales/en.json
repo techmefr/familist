@@ -1308,7 +1308,7 @@
 	},
 	"sync": {
 		"offline": "Offline — your changes will sync when the network is back",
-		"error": "Cannot sync right now",
+		"error": "Saved on this device, will sync when possible",
 		"rejected": {
 			"message": "Could not save {what} on the server",
 			"retry": "Retry",
@@ -1322,7 +1322,10 @@
 				"message": "this message",
 				"other": "this change"
 			}
-		}
+		},
+		"retryNow": "Retry",
+		"details": "Details",
+		"retrying": "Retrying…"
 	},
 	"chat": {
 		"title": "Chat",

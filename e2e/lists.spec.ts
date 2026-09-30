@@ -128,3 +128,27 @@ test('une liste créée hors ligne reste affichée, y compris après rechargemen
 	await page.reload();
 	await expect(card).toBeVisible();
 });
+
+test('le bandeau de synchronisation flotte, propose de réessayer et détaille l’erreur', async ({
+	signedInPage: page,
+	context
+}) => {
+	await page.goto('/');
+	await context.route('**/rest/v1/**', route => route.fulfill({ status: 503, body: '{"message":"down"}' }));
+
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-list').click();
+	await page.getByTestId('list-name').fill(listName());
+	await page.getByTestId('list-create').click();
+
+	const banner = page.getByTestId('sync-status');
+	await expect(banner).toBeVisible();
+	expect(await banner.evaluate(el => getComputedStyle(el.parentElement as HTMLElement).position)).toBe('fixed');
+
+	await page.getByTestId('sync-details-toggle').click();
+	await expect(page.getByTestId('sync-details')).not.toBeEmpty();
+
+	await context.unroute('**/rest/v1/**');
+	await page.getByTestId('sync-retry').click();
+	await expect(banner).toHaveCount(0);
+});

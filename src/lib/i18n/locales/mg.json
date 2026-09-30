@@ -1288,7 +1288,7 @@
 	},
 	"sync": {
 		"offline": "Tsy misy fifandraisana — halefa rehefa miverina ny aterineto ny fanovana",
-		"error": "Tsy afaka mampifanaraka izao",
+		"error": "Voatahiry ato amin'ity fitaovana ity, hifanaraka rehefa azo atao",
 		"rejected": {
 			"message": "Tsy voatahiry tao amin'ny mpizara {what}",
 			"retry": "Andramo indray",
@@ -1302,7 +1302,10 @@
 				"message": "ity hafatra ity",
 				"other": "ity fanovana ity"
 			}
-		}
+		},
+		"retryNow": "Andramo indray",
+		"details": "Antsipiriany",
+		"retrying": "Mandrapaka indray…"
 	},
 	"chat": {
 		"title": "Resaka",

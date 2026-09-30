@@ -1285,7 +1285,7 @@
 	},
 	"sync": {
 		"offline": "离线 — 网络恢复后将同步你的更改",
-		"error": "目前无法同步",
+		"error": "已保存在此设备，将在可能时同步",
 		"rejected": {
 			"message": "无法在服务器上保存{what}",
 			"retry": "重试",
@@ -1299,7 +1299,10 @@
 				"message": "这条消息",
 				"other": "这项更改"
 			}
-		}
+		},
+		"retryNow": "重试",
+		"details": "详情",
+		"retrying": "正在重试…"
 	},
 	"chat": {
 		"title": "讨论",

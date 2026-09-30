@@ -1297,7 +1297,7 @@
 	},
 	"sync": {
 		"offline": "Offline — Ihre Änderungen werden übertragen, sobald das Netz zurück ist",
-		"error": "Synchronisierung derzeit nicht möglich",
+		"error": "Auf diesem Gerät gespeichert, wird bei Gelegenheit synchronisiert",
 		"rejected": {
 			"message": "{what} konnte nicht auf dem Server gespeichert werden",
 			"retry": "Erneut versuchen",
@@ -1311,7 +1311,10 @@
 				"message": "Diese Nachricht",
 				"other": "Diese Änderung"
 			}
-		}
+		},
+		"retryNow": "Erneut versuchen",
+		"details": "Details",
+		"retrying": "Neuer Versuch…"
 	},
 	"chat": {
 		"title": "Unterhaltung",

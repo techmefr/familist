@@ -1295,7 +1295,7 @@
 	},
 	"sync": {
 		"offline": "Non in linea — le modifiche partiranno al ritorno della rete",
-		"error": "Sincronizzazione non possibile al momento",
+		"error": "Salvato su questo dispositivo, si sincronizzerà appena possibile",
 		"rejected": {
 			"message": "Impossibile salvare {what} sul server",
 			"retry": "Riprova",
@@ -1309,7 +1309,10 @@
 				"message": "questo messaggio",
 				"other": "questa modifica"
 			}
-		}
+		},
+		"retryNow": "Riprova",
+		"details": "Dettagli",
+		"retrying": "Nuovo tentativo…"
 	},
 	"chat": {
 		"title": "Conversazione",

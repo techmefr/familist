@@ -1301,7 +1301,7 @@
 	},
 	"sync": {
 		"offline": "Sin conexión — tus cambios se enviarán al volver la red",
-		"error": "No se puede sincronizar ahora mismo",
+		"error": "Guardado en este dispositivo, se sincronizará en cuanto sea posible",
 		"rejected": {
 			"message": "No se pudo guardar {what} en el servidor",
 			"retry": "Reintentar",
@@ -1315,7 +1315,10 @@
 				"message": "este mensaje",
 				"other": "este cambio"
 			}
-		}
+		},
+		"retryNow": "Reintentar",
+		"details": "Detalles",
+		"retrying": "Reintentando…"
 	},
 	"chat": {
 		"title": "Conversación",

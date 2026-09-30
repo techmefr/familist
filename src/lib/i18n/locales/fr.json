@@ -1340,7 +1340,7 @@
 	},
 	"sync": {
 		"offline": "Hors connexion — vos modifications partiront au retour du réseau",
-		"error": "Synchronisation impossible pour le moment",
+		"error": "Enregistré sur cet appareil, synchronisation dès que possible",
 		"rejected": {
 			"message": "Impossible d'enregistrer {what} sur le serveur",
 			"retry": "Réessayer",
@@ -1354,7 +1354,10 @@
 				"message": "ce message",
 				"other": "cette modification"
 			}
-		}
+		},
+		"retryNow": "Réessayer",
+		"details": "Détails",
+		"retrying": "Nouvel essai…"
 	},
 	"chat": {
 		"title": "Discussion",
