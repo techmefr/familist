@@ -706,19 +706,6 @@
 				<Button type="button" variant="outline" onclick={reset}>{t('common.cancel')}</Button>
 			</div>
 		</form>
-	{:else}
-		<Button
-			variant="outline"
-			onclick={() => {
-				feedback.play('tap');
-				adding = true;
-			}}
-			data-test-id="card-add"
-			class="fl-press mt-6 w-full border-dashed py-6"
-		>
-			<Plus size={20} aria-hidden="true" />
-			{t('cards.add')}
-		</Button>
 	{/if}
 
 	<p class="text-muted-foreground text-caption mt-6">{t('cards.secretNotice')}</p>

@@ -37,7 +37,8 @@ const cardSaved = (page: Page) =>
 
 async function createCard(page: Page, card: NewCard) {
 	await page.goto('/cards');
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 	await page.getByTestId('card-name').fill(card.name);
 	await page.getByTestId('card-code').fill(card.code);
 	if (card.type) await page.getByTestId('card-type').selectOption(card.type);
@@ -129,7 +130,8 @@ test('le lien vers le site de la marque ne sort que pour une adresse http ou htt
 	const withoutSite = `Nu e2e ${stamp}`;
 
 	await page.goto('/cards');
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 	await page.getByTestId('card-website').fill('javascript:alert(1)');
 	await expect(page.getByTestId('card-website-error')).toBeVisible();
 	await page.getByTestId('card-website').fill('');
@@ -240,7 +242,7 @@ test.describe('compte de la carte', () => {
 
 async function showCircleWith(page: Page, name: string) {
 	await page.goto('/cards');
-	await expect(page.getByTestId('card-add')).toBeVisible({ timeout: 15_000 });
+	await expect(page.getByTestId('nav-create')).toBeVisible({ timeout: 15_000 });
 	if (await cardEntry(page, name).isVisible()) return;
 
 	await page.goto('/household');
@@ -312,10 +314,10 @@ test('partager une carte avec un autre cercle, puis retirer le partage', async (
 	await signOut(page);
 	await signIn(page, SECOND_EMAIL, FIXTURE_PASSWORD);
 	await page.goto('/cards');
-	await expect(page.getByTestId('card-add')).toBeVisible({ timeout: 15_000 });
+	await expect(page.getByTestId('nav-create')).toBeVisible({ timeout: 15_000 });
 	await expect(cardEntry(page, name)).toHaveCount(0);
 	await page.reload();
-	await expect(page.getByTestId('card-add')).toBeVisible({ timeout: 15_000 });
+	await expect(page.getByTestId('nav-create')).toBeVisible({ timeout: 15_000 });
 	await expect(cardEntry(page, name)).toHaveCount(0);
 
 	await signOut(page);
