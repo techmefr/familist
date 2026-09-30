@@ -2035,5 +2035,60 @@
 		"import": "Import a file",
 		"imported": "{count} theme(s) imported.",
 		"importEmpty": "Nothing could be imported from this file."
+	},
+	"people": {
+		"private": "Only you can see this",
+		"allergies": "Allergies and intolerances",
+		"allergen": {
+			"milk": "Milk",
+			"egg": "Egg",
+			"peanut": "Peanut",
+			"nuts": "Tree nuts",
+			"gluten": "Gluten",
+			"fish": "Fish",
+			"shellfish": "Shellfish",
+			"soy": "Soy",
+			"sesame": "Sesame",
+			"mustard": "Mustard",
+			"celery": "Celery"
+		},
+		"customAllergy": "Another allergy",
+		"add": "Add",
+		"severityFor": "Severity for {name}",
+		"severity": {
+			"severe": "Severe",
+			"intolerance": "Intolerance",
+			"preference": "Prefer to avoid"
+		},
+		"removeItem": "Remove {name}",
+		"diets": "Diets",
+		"diet": {
+			"vegetarian": "Vegetarian",
+			"vegan": "Vegan",
+			"no-pork": "No pork",
+			"halal": "Halal",
+			"kosher": "Kosher",
+			"gluten-free": "Gluten-free",
+			"lactose-free": "Lactose-free"
+		},
+		"likes": "Likes",
+		"dislikes": "Dislikes",
+		"portion": "Portion size",
+		"portions": {
+			"child": "Child",
+			"small": "Small",
+			"normal": "Adult",
+			"big": "Big appetite"
+		},
+		"birthYear": "Birth year (optional)",
+		"guest": "Guest, no account",
+		"notes": "Notes",
+		"shareWarnings": "Show warnings to the household",
+		"shareWarningsHint": "Others see “contains peanut — Léo”, never the severity or your notes.",
+		"edit": "Edit profile",
+		"guestTag": "Guest",
+		"portionBadge": "Portion ×{value}",
+		"privateHint": "Allergies, diets and tastes are private: only the person who wrote them can read them.",
+		"ownedByOther": "Profile kept private by another member"
 	}
 }

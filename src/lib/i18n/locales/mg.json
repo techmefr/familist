@@ -2015,5 +2015,60 @@
 		"import": "Ampidiro rakitra",
 		"imported": "Voampiditra ny lohateny {count}.",
 		"importEmpty": "Tsy nisy azo nampidirina tamin’ity rakitra ity."
+	},
+	"people": {
+		"private": "Ianao irery no mahita izany",
+		"allergies": "Allergie sy tsy fandeferana",
+		"allergen": {
+			"milk": "Ronono",
+			"egg": "Atody",
+			"peanut": "Voanjo",
+			"nuts": "Voa misy hodi-kazo",
+			"gluten": "Gluten",
+			"fish": "Trondro",
+			"shellfish": "Foza sy makamba",
+			"soy": "Soja",
+			"sesame": "Sezame",
+			"mustard": "Moutarde",
+			"celery": "Celeri"
+		},
+		"customAllergy": "Allergie hafa",
+		"add": "Ampio",
+		"severityFor": "Henjana ho an’ny {name}",
+		"severity": {
+			"severe": "Mafy",
+			"intolerance": "Tsy fandeferana",
+			"preference": "Aleo hisoroka"
+		},
+		"removeItem": "Esory {name}",
+		"diets": "Fomba fisakafoana",
+		"diet": {
+			"vegetarian": "Sakafo tsy misy hena",
+			"vegan": "Vegan",
+			"no-pork": "Tsy misy kisoa",
+			"halal": "Halal",
+			"kosher": "Kosher",
+			"gluten-free": "Tsy misy gluten",
+			"lactose-free": "Tsy misy lactose"
+		},
+		"likes": "Tia",
+		"dislikes": "Tsy tia",
+		"portion": "Habeny anjara",
+		"portions": {
+			"child": "Ankizy",
+			"small": "Kely",
+			"normal": "Olon-dehibe",
+			"big": "Mihinana be"
+		},
+		"birthYear": "Taona nahaterahana (tsy voatery)",
+		"guest": "Mpanafika, tsy misy kaonty",
+		"notes": "Naoty",
+		"shareWarnings": "Asehoy ny fampitandremana amin’ny ankohonana",
+		"shareWarningsHint": "Ny hafa dia mahita “misy voanjo — Léo”, tsy ny henjana na ny naotinao.",
+		"edit": "Hanova ny fiche",
+		"guestTag": "Mpanafika",
+		"portionBadge": "Anjara ×{value}",
+		"privateHint": "Mitokana ny allergie, fomba fisakafoana ary tsiron’ny olona: ilay nanoratra ihany no mamaky.",
+		"ownedByOther": "Fiche tsy hita ataon’ny mpikambana hafa"
 	}
 }

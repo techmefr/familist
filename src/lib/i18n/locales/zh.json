@@ -2003,5 +2003,60 @@
 		"import": "导入文件",
 		"imported": "已导入 {count} 个主题。",
 		"importEmpty": "无法从该文件导入任何内容。"
+	},
+	"people": {
+		"private": "只有你能看到",
+		"allergies": "过敏与不耐受",
+		"allergen": {
+			"milk": "牛奶",
+			"egg": "鸡蛋",
+			"peanut": "花生",
+			"nuts": "坚果",
+			"gluten": "麸质",
+			"fish": "鱼",
+			"shellfish": "甲壳与贝类",
+			"soy": "大豆",
+			"sesame": "芝麻",
+			"mustard": "芥末",
+			"celery": "芹菜"
+		},
+		"customAllergy": "其他过敏",
+		"add": "添加",
+		"severityFor": "{name} 的严重程度",
+		"severity": {
+			"severe": "严重",
+			"intolerance": "不耐受",
+			"preference": "宁可避免"
+		},
+		"removeItem": "移除 {name}",
+		"diets": "饮食",
+		"diet": {
+			"vegetarian": "素食",
+			"vegan": "纯素",
+			"no-pork": "不吃猪肉",
+			"halal": "清真",
+			"kosher": "洁食",
+			"gluten-free": "无麸质",
+			"lactose-free": "无乳糖"
+		},
+		"likes": "喜欢",
+		"dislikes": "不喜欢",
+		"portion": "份量",
+		"portions": {
+			"child": "儿童",
+			"small": "小",
+			"normal": "成人",
+			"big": "食量大"
+		},
+		"birthYear": "出生年份（可选）",
+		"guest": "访客，无账户",
+		"notes": "备注",
+		"shareWarnings": "向家庭成员显示提醒",
+		"shareWarningsHint": "其他人只会看到“含花生——Léo”，看不到严重程度或备注。",
+		"edit": "编辑档案",
+		"guestTag": "访客",
+		"portionBadge": "份量 ×{value}",
+		"privateHint": "过敏、饮食和口味是私密的：只有填写者能看到。",
+		"ownedByOther": "档案由其他成员保密"
 	}
 }

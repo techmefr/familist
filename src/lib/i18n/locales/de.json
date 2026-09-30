@@ -2024,5 +2024,60 @@
 		"import": "Datei importieren",
 		"imported": "{count} Thema/Themen importiert.",
 		"importEmpty": "Aus dieser Datei konnte nichts importiert werden."
+	},
+	"people": {
+		"private": "Nur Sie können das sehen",
+		"allergies": "Allergien und Unverträglichkeiten",
+		"allergen": {
+			"milk": "Milch",
+			"egg": "Ei",
+			"peanut": "Erdnuss",
+			"nuts": "Schalenfrüchte",
+			"gluten": "Gluten",
+			"fish": "Fisch",
+			"shellfish": "Krusten- und Schalentiere",
+			"soy": "Soja",
+			"sesame": "Sesam",
+			"mustard": "Senf",
+			"celery": "Sellerie"
+		},
+		"customAllergy": "Andere Allergie",
+		"add": "Hinzufügen",
+		"severityFor": "Schweregrad für {name}",
+		"severity": {
+			"severe": "Schwer",
+			"intolerance": "Unverträglichkeit",
+			"preference": "Meidet lieber"
+		},
+		"removeItem": "{name} entfernen",
+		"diets": "Ernährungsweisen",
+		"diet": {
+			"vegetarian": "Vegetarisch",
+			"vegan": "Vegan",
+			"no-pork": "Ohne Schwein",
+			"halal": "Halal",
+			"kosher": "Koscher",
+			"gluten-free": "Glutenfrei",
+			"lactose-free": "Laktosefrei"
+		},
+		"likes": "Mag",
+		"dislikes": "Mag nicht",
+		"portion": "Portionsgröße",
+		"portions": {
+			"child": "Kind",
+			"small": "Klein",
+			"normal": "Erwachsen",
+			"big": "Großer Hunger"
+		},
+		"birthYear": "Geburtsjahr (optional)",
+		"guest": "Gast, ohne Konto",
+		"notes": "Notizen",
+		"shareWarnings": "Warnungen dem Haushalt zeigen",
+		"shareWarningsHint": "Andere sehen „enthält Erdnuss – Léo“, nie den Schweregrad oder Ihre Notizen.",
+		"edit": "Profil bearbeiten",
+		"guestTag": "Gast",
+		"portionBadge": "Portion ×{value}",
+		"privateHint": "Allergien, Ernährungsweisen und Vorlieben sind privat: nur wer sie eingetragen hat, kann sie lesen.",
+		"ownedByOther": "Profil von einem anderen Mitglied privat gehalten"
 	}
 }

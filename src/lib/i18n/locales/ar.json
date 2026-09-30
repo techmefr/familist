@@ -2100,5 +2100,60 @@
 		"import": "استيراد ملف",
 		"imported": "تم استيراد {count} سمة.",
 		"importEmpty": "تعذّر استيراد أي شيء من هذا الملف."
+	},
+	"people": {
+		"private": "أنت وحدك من يرى هذا",
+		"allergies": "الحساسية وعدم التحمل",
+		"allergen": {
+			"milk": "الحليب",
+			"egg": "البيض",
+			"peanut": "الفول السوداني",
+			"nuts": "المكسرات",
+			"gluten": "الغلوتين",
+			"fish": "السمك",
+			"shellfish": "المحار والقشريات",
+			"soy": "الصويا",
+			"sesame": "السمسم",
+			"mustard": "الخردل",
+			"celery": "الكرفس"
+		},
+		"customAllergy": "حساسية أخرى",
+		"add": "إضافة",
+		"severityFor": "خطورة {name}",
+		"severity": {
+			"severe": "شديدة",
+			"intolerance": "عدم تحمل",
+			"preference": "يفضّل تجنبه"
+		},
+		"removeItem": "إزالة {name}",
+		"diets": "الأنظمة الغذائية",
+		"diet": {
+			"vegetarian": "نباتي",
+			"vegan": "نباتي صرف",
+			"no-pork": "بدون لحم الخنزير",
+			"halal": "حلال",
+			"kosher": "كوشر",
+			"gluten-free": "خالٍ من الغلوتين",
+			"lactose-free": "خالٍ من اللاكتوز"
+		},
+		"likes": "يحب",
+		"dislikes": "لا يحب",
+		"portion": "حجم الحصة",
+		"portions": {
+			"child": "طفل",
+			"small": "صغيرة",
+			"normal": "بالغ",
+			"big": "شهية كبيرة"
+		},
+		"birthYear": "سنة الميلاد (اختياري)",
+		"guest": "ضيف بدون حساب",
+		"notes": "ملاحظات",
+		"shareWarnings": "إظهار التنبيهات للأسرة",
+		"shareWarningsHint": "يرى الآخرون «يحتوي فول سوداني — Léo» دون الخطورة أو ملاحظاتك.",
+		"edit": "تعديل الملف",
+		"guestTag": "ضيف",
+		"portionBadge": "حصة ×{value}",
+		"privateHint": "الحساسية والأنظمة والأذواق خاصة: يقرؤها من كتبها فقط.",
+		"ownedByOther": "ملف خاص بعضو آخر"
 	}
 }

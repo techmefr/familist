@@ -2028,5 +2028,60 @@
 		"import": "Importar un archivo",
 		"imported": "{count} tema(s) importado(s).",
 		"importEmpty": "No se pudo importar nada de este archivo."
+	},
+	"people": {
+		"private": "Solo tú puedes ver esto",
+		"allergies": "Alergias e intolerancias",
+		"allergen": {
+			"milk": "Leche",
+			"egg": "Huevo",
+			"peanut": "Cacahuete",
+			"nuts": "Frutos secos",
+			"gluten": "Gluten",
+			"fish": "Pescado",
+			"shellfish": "Mariscos",
+			"soy": "Soja",
+			"sesame": "Sésamo",
+			"mustard": "Mostaza",
+			"celery": "Apio"
+		},
+		"customAllergy": "Otra alergia",
+		"add": "Añadir",
+		"severityFor": "Gravedad de {name}",
+		"severity": {
+			"severe": "Grave",
+			"intolerance": "Intolerancia",
+			"preference": "Prefiere evitar"
+		},
+		"removeItem": "Quitar {name}",
+		"diets": "Dietas",
+		"diet": {
+			"vegetarian": "Vegetariano",
+			"vegan": "Vegano",
+			"no-pork": "Sin cerdo",
+			"halal": "Halal",
+			"kosher": "Kosher",
+			"gluten-free": "Sin gluten",
+			"lactose-free": "Sin lactosa"
+		},
+		"likes": "Le gusta",
+		"dislikes": "No le gusta",
+		"portion": "Tamaño de ración",
+		"portions": {
+			"child": "Niño",
+			"small": "Pequeña",
+			"normal": "Adulto",
+			"big": "Mucho apetito"
+		},
+		"birthYear": "Año de nacimiento (opcional)",
+		"guest": "Invitado, sin cuenta",
+		"notes": "Notas",
+		"shareWarnings": "Mostrar avisos al hogar",
+		"shareWarningsHint": "Los demás ven «contiene cacahuete — Léo», nunca la gravedad ni tus notas.",
+		"edit": "Editar ficha",
+		"guestTag": "Invitado",
+		"portionBadge": "Ración ×{value}",
+		"privateHint": "Alergias, dietas y gustos son privados: solo quien los escribió puede leerlos.",
+		"ownedByOther": "Ficha privada de otro miembro"
 	}
 }
