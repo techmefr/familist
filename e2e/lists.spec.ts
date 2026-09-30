@@ -111,6 +111,9 @@ test('une liste créée hors ligne reste affichée, y compris après rechargemen
 	const name = listName();
 
 	await page.goto('/');
+	// The session must have resolved before the network goes: offline from the first frame, the app never
+	// leaves its loading screen and there is no create button to press.
+	await expect(page.getByTestId('nav-create')).toBeVisible();
 	await context.setOffline(true);
 
 	await page.getByTestId('nav-create').click();
@@ -134,6 +137,7 @@ test('le bandeau de synchronisation flotte, propose de réessayer et détaille l
 	context
 }) => {
 	await page.goto('/');
+	await expect(page.getByTestId('nav-create')).toBeVisible();
 	await context.route('**/rest/v1/**', route => route.fulfill({ status: 503, body: '{"message":"down"}' }));
 
 	await page.getByTestId('nav-create').click();
