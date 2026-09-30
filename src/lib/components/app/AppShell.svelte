@@ -264,7 +264,7 @@
 					<span class="min-w-0 shrink truncate">{t('app.name')}</span>
 				</p>
 
-				<div class="ms-auto flex shrink-0 items-center gap-0.5">
+				<div class="ms-auto flex max-w-full shrink-0 flex-wrap items-center justify-end gap-0.5">
 					<!--
 						Search is in the header, next to help, and in the same place at both screen sizes. It does not
 						go in the bottom bar: that one carries destinations, one per tab, and search is not one — it
@@ -281,7 +281,7 @@
 						data-test-id="header-search"
 						aria-label={t('search.open')}
 						aria-haspopup="dialog"
-						class="fl-press text-muted-foreground hover:text-foreground flex size-[max(2.5rem,44px)] items-center justify-center rounded-full"
+						class="fl-press text-muted-foreground hover:text-foreground flex size-[clamp(44px,2.5rem,52px)] items-center justify-center rounded-full"
 					>
 						<AnimatedIcon name="search" />
 					</button>
@@ -292,7 +292,7 @@
 						data-test-id="header-profile"
 						aria-label={t('nav.profile')}
 						aria-current={isActive('/profile') ? 'page' : undefined}
-						class="fl-press text-muted-foreground flex size-[max(2.5rem,44px)] items-center justify-center rounded-full full:hidden"
+						class="fl-press text-muted-foreground flex size-[clamp(44px,2.5rem,52px)] items-center justify-center rounded-full full:hidden"
 					>
 						<User size={22} aria-hidden="true" />
 					</a>
