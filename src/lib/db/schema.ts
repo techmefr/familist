@@ -353,6 +353,37 @@ export interface HouseholdPerson {
 }
 
 /**
+ * The private side of a `HouseholdPerson` (#475): allergies, diets, tastes, portions. Readable by its owner
+ * only, scoped to the person's household. Keyed by the person: there is at most one.
+ */
+export interface PersonProfile {
+	personId: string;
+	householdId: string;
+	ownerId: string;
+	allergies: PersonAllergy[];
+	diets: string[];
+	likes: string[];
+	dislikes: string[];
+	birthYear?: number;
+	portionFactor: number;
+	guest: boolean;
+	notes?: string;
+	/** The owner lets the household see warnings (which allergen), never the details. */
+	shareWarnings: boolean;
+	updatedAt: number;
+}
+
+export type AllergySeverity = 'severe' | 'intolerance' | 'preference';
+
+export interface PersonAllergy {
+	/** Key of a standard allergen (see `$domain/allergens`), or a slug of a custom one. */
+	id: string;
+	/** What the person wrote or picked, shown as is. */
+	label: string;
+	severity: AllergySeverity;
+}
+
+/**
  * A local write not yet confirmed by the server. This is what makes it possible to tick an item in a shop
  * with no network: the change leaves the queue as soon as the connection comes back.
  */
@@ -417,6 +448,7 @@ class FamiListDatabase extends Dexie {
 	mealPlans!: EntityTable<MealPlan, 'id'>;
 	mealPlanRecipes!: EntityTable<MealPlanRecipe, 'id'>;
 	householdPersons!: EntityTable<HouseholdPerson, 'id'>;
+	personProfiles!: EntityTable<PersonProfile, 'personId'>;
 	recipeShares!: EntityTable<RecipeShare, 'key'>;
 	cardShares!: EntityTable<LoyaltyCardShare, 'key'>;
 	cardSecrets!: EntityTable<StoredSecret, 'cardId'>;
@@ -547,6 +579,9 @@ class FamiListDatabase extends Dexie {
 						recipe.tags ??= [];
 					});
 			});
+
+		// Private profiles of the people a household plans around (#475).
+		this.version(17).stores({ personProfiles: 'personId, householdId' });
 	}
 }
 

@@ -27,6 +27,7 @@ import {
 	toMealPlan,
 	toMealPlanRecipe,
 	toHouseholdPerson,
+	toPersonProfile,
 	toShop
 } from './mapping';
 import { planRealtime, rowKey, type AppliedRealtimePlan, type RealtimeEvent } from './realtime';
@@ -448,6 +449,7 @@ class SyncStore {
 			mealPlans,
 			mealPlanRecipes,
 			householdPersons,
+			personProfiles,
 			conversations,
 			conversationParticipants
 		] = await Promise.all([
@@ -490,6 +492,8 @@ class SyncStore {
 			// A meal plan's recipes carry no household of their own, same reason as recipe_ingredients.
 			supabase.from('meal_plan_recipes').select('*'),
 			supabase.from('household_persons').select('*').in('household_id', cercles),
+			// Private profiles: RLS returns only the ones this account wrote.
+			supabase.from('person_profiles').select('*').in('household_id', cercles),
 			// A direct conversation attaches to no circle: filtering on the displayed household would make it
 			// disappear. RLS only lets through the ones you take part in.
 			supabase.from('conversations').select('*'),
@@ -519,6 +523,7 @@ class SyncStore {
 			mealPlans,
 			mealPlanRecipes,
 			householdPersons,
+			personProfiles,
 			conversations,
 			conversationParticipants
 		]
@@ -587,6 +592,7 @@ class SyncStore {
 				db.mealPlans,
 				db.mealPlanRecipes,
 				db.householdPersons,
+				db.personProfiles,
 				db.conversations,
 				db.rejections
 			],
@@ -632,6 +638,7 @@ class SyncStore {
 					db.mealPlans.clear(),
 					db.mealPlanRecipes.clear(),
 					db.householdPersons.clear(),
+					db.personProfiles.clear(),
 					db.conversations.clear()
 				]);
 
@@ -667,6 +674,7 @@ class SyncStore {
 					db.householdPersons.bulkAdd(
 						(householdPersons.data ?? []).map(toHouseholdPerson)
 					),
+					db.personProfiles.bulkAdd((personProfiles.data ?? []).map(toPersonProfile)),
 					db.conversations.bulkAdd(
 						(conversations.data ?? []).map((row) =>
 							toConversation(row, participantsByConversation.get(row.id as string) ?? [])
