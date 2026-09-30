@@ -22,15 +22,20 @@ test('les notifications : message honnête sur le web, réglages conservés', as
 	await page.getByTestId('quiet-start').fill('21:30');
 	await page.getByTestId('quiet-start').blur();
 
-	await page.reload();
-	await page.waitForLoadState('networkidle');
-	await expect(page.getByTestId('notify-chats')).not.toBeChecked();
-	await expect(page.getByTestId('quiet-start')).toHaveValue('21:30');
+	// Stored on the device as soon as it changes. (Not checked through a reload: the fixture rewrites the
+	// stored preferences on every navigation, so a reload could not tell a lost setting from a reset one.)
+	const stored = () =>
+		page.evaluate(() => {
+			const saved = JSON.parse(localStorage.getItem('familist:appearance') ?? '{}');
+			return { chat: saved.notifications?.types?.chat, poll: saved.notifications?.types?.poll, start: saved.notifications?.quiet?.start };
+		});
+	await expect.poll(stored).toEqual({ chat: false, poll: false, start: '21:30' });
 
-	// Putting things back: the setting is saved on the fixed account, shared by the whole suite.
 	await page.getByTestId('notify-chats').click();
+	await expect(page.getByTestId('notify-chats')).toBeChecked();
 	await page.getByTestId('quiet-start').fill('22:00');
 	await page.getByTestId('quiet-start').blur();
+	await expect.poll(stored).toEqual({ chat: true, poll: true, start: '22:00' });
 });
 
 test('une discussion de liste peut être mise en sourdine depuis son en-tête', async ({
