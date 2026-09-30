@@ -1814,7 +1814,12 @@
 		"generateSubmit": "生成清单",
 		"delete": "删除计划",
 		"deleteConfirm": "删除{name}？已生成的清单不会改变。",
-		"deleteYes": "删除"
+		"deleteYes": "删除",
+		"search": "搜索菜单",
+		"searchPlaceholder": "搜索菜单",
+		"filtersTitle": "筛选菜单",
+		"filterWithRecipes": "仅含食谱的菜单",
+		"noMatch": "没有匹配的菜单。"
 	},
 	"recipeShare": {
 		"title": "分享此食谱",

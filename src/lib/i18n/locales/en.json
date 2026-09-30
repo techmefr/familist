@@ -1843,7 +1843,12 @@
 		"generateSubmit": "Generate the list",
 		"delete": "Delete the meal plan",
 		"deleteConfirm": "Delete {name}? Lists already generated will not change.",
-		"deleteYes": "Delete"
+		"deleteYes": "Delete",
+		"search": "Search menus",
+		"searchPlaceholder": "Search menus",
+		"filtersTitle": "Filter menus",
+		"filterWithRecipes": "Only menus with recipes",
+		"noMatch": "No menu matches."
 	},
 	"recipeShare": {
 		"title": "Share this recipe",

@@ -1836,7 +1836,12 @@
 		"generateSubmit": "Generar la lista",
 		"delete": "Eliminar el plan",
 		"deleteConfirm": "¿Eliminar {name}? Las listas ya generadas no cambiarán.",
-		"deleteYes": "Eliminar"
+		"deleteYes": "Eliminar",
+		"search": "Buscar menús",
+		"searchPlaceholder": "Buscar menús",
+		"filtersTitle": "Filtrar menús",
+		"filterWithRecipes": "Solo menús con recetas",
+		"noMatch": "Ningún menú coincide."
 	},
 	"recipeShare": {
 		"title": "Compartir esta receta",

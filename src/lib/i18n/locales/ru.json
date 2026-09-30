@@ -1864,7 +1864,12 @@
 		"generateSubmit": "Создать список",
 		"delete": "Удалить план",
 		"deleteConfirm": "Удалить {name}? Уже созданные списки не изменятся.",
-		"deleteYes": "Удалить"
+		"deleteYes": "Удалить",
+		"search": "Поиск меню",
+		"searchPlaceholder": "Поиск меню",
+		"filtersTitle": "Фильтр меню",
+		"filterWithRecipes": "Только меню с рецептами",
+		"noMatch": "Подходящих меню нет."
 	},
 	"recipeShare": {
 		"title": "Поделиться этим рецептом",

@@ -1832,7 +1832,12 @@
 		"generateSubmit": "Gerar a lista",
 		"delete": "Eliminar o plano",
 		"deleteConfirm": "Eliminar {name}? As listas já geradas não vão mudar.",
-		"deleteYes": "Eliminar"
+		"deleteYes": "Eliminar",
+		"search": "Pesquisar menus",
+		"searchPlaceholder": "Pesquisar menus",
+		"filtersTitle": "Filtrar menus",
+		"filterWithRecipes": "Apenas menus com receitas",
+		"noMatch": "Nenhum menu corresponde."
 	},
 	"recipeShare": {
 		"title": "Partilhar esta receita",

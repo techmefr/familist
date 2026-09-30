@@ -1896,7 +1896,12 @@
 		"generateSubmit": "إنشاء القائمة",
 		"delete": "حذف الخطة",
 		"deleteConfirm": "حذف {name}؟ القوائم التي تم إنشاؤها بالفعل لن تتغير.",
-		"deleteYes": "حذف"
+		"deleteYes": "حذف",
+		"search": "البحث في القوائم",
+		"searchPlaceholder": "ابحث في القوائم",
+		"filtersTitle": "تصفية القوائم",
+		"filterWithRecipes": "القوائم التي تحتوي وصفات فقط",
+		"noMatch": "لا توجد قائمة مطابقة."
 	},
 	"recipeShare": {
 		"title": "مشاركة هذه الوصفة",

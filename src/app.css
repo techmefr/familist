@@ -846,38 +846,15 @@ textarea {
 }
 
 /*
- * The recipes' search bar (#315): the Filters button goes to the thumb's side, the field takes the rest.
+ * The one search bar of the application (#352, #402): lists, recipes, menus, conversations and cards all use it.
  *
- * Flex order speaks in `start` and `end`, which flip with Arabic; the thumb does not. So the side is set
- * from both settings at once: last in a left-to-right row puts it on the right, first in a right-to-left
- * row does too. A left hand reverses both.
+ * The Filters button goes to the thumb's side, the field takes the rest. Flex order speaks in `start` and
+ * `end`, which flip with Arabic; the thumb does not. So the side is set from both settings at once: last in
+ * a left-to-right row puts it on the right, first in a right-to-left row does too. A left hand reverses both.
  *
  * When a software keyboard covers the bottom of the page, the bar rises above it rather than above a
  * navigation bar now hidden underneath: the bar measures what is covered through `visualViewport` and
  * publishes it as `--fl-keyboard`.
- */
-.fl-recipe-bar-filters {
-	order: 1;
-}
-
-[dir='rtl'] .fl-recipe-bar-filters,
-[data-hand='left'] .fl-recipe-bar-filters {
-	order: -1;
-}
-
-[dir='rtl'][data-hand='left'] .fl-recipe-bar-filters {
-	order: 1;
-}
-
-@media (width < 48rem) {
-	.fl-recipe-bar[data-keyboard='open'] {
-		inset-block-end: calc(var(--fl-keyboard, 0px) + 0.5rem);
-	}
-}
-
-/*
- * The app-wide thumb bar (#352): the same rule as the recipes' own bar, generalised under a name that says
- * nothing about recipes — lists, shops and cards share this bar too.
  */
 .fl-search-bar-filters {
 	order: 1;

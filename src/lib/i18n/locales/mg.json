@@ -1823,7 +1823,12 @@
 		"generateSubmit": "Mamorona ny lisitra",
 		"delete": "Fafao ny drafitra",
 		"deleteConfirm": "Fafao {name}? Tsy hiova ny lisitra efa noforonina.",
-		"deleteYes": "Fafao"
+		"deleteYes": "Fafao",
+		"search": "Hitady menio",
+		"searchPlaceholder": "Hitady menio",
+		"filtersTitle": "Sivano ny menio",
+		"filterWithRecipes": "Menio misy fomba fahandrahoana ihany",
+		"noMatch": "Tsy misy menio mifanaraka."
 	},
 	"recipeShare": {
 		"title": "Zarao ity mahandro ity",

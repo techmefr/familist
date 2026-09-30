@@ -1832,7 +1832,12 @@
 		"generateSubmit": "Liste erstellen",
 		"delete": "Essensplan löschen",
 		"deleteConfirm": "{name} löschen? Bereits erstellte Listen ändern sich nicht.",
-		"deleteYes": "Löschen"
+		"deleteYes": "Löschen",
+		"search": "Menüs suchen",
+		"searchPlaceholder": "Menüs suchen",
+		"filtersTitle": "Menüs filtern",
+		"filterWithRecipes": "Nur Menüs mit Rezepten",
+		"noMatch": "Kein Menü passt."
 	},
 	"recipeShare": {
 		"title": "Dieses Rezept teilen",

@@ -1874,7 +1874,12 @@
 		"generateSubmit": "Générer la liste",
 		"delete": "Supprimer le menu",
 		"deleteConfirm": "Supprimer {name} ? Les listes déjà générées ne changeront pas.",
-		"deleteYes": "Supprimer"
+		"deleteYes": "Supprimer",
+		"search": "Rechercher un menu",
+		"searchPlaceholder": "Rechercher un menu",
+		"filtersTitle": "Filtrer les menus",
+		"filterWithRecipes": "Seulement les menus avec des recettes",
+		"noMatch": "Aucun menu ne correspond."
 	},
 	"recipeShare": {
 		"title": "Partager cette recette",

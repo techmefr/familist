@@ -28,7 +28,7 @@
 	import RecipeCover from '$components/app/RecipeCover.svelte';
 	import RecipeTagPicker from '$components/app/RecipeTagPicker.svelte';
 	import RecipeTagChips from '$components/app/RecipeTagChips.svelte';
-	import RecipeSearchBar from '$components/app/RecipeSearchBar.svelte';
+	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
 	import RecipeFilterSheet from '$components/app/RecipeFilterSheet.svelte';
 	import {
 		CookingPot,
@@ -495,11 +495,14 @@
 </Button>
 
 {#if data.recipes.length > 0}
-	<RecipeSearchBar
+	<SearchFilterBar
 		bind:query
 		bind:height={barHeight}
 		active={activeCount(selection)}
 		onFilters={() => filterSheet?.show()}
+		label={t('recipes.search.label')}
+		placeholder={t('recipes.search.placeholder')}
+		testPrefix="recipe"
 	/>
 
 	<!-- Spoken, not shown: the wall itself shows how many cards are left. -->

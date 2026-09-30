@@ -5,7 +5,8 @@
 	import { i18n, t } from '$i18n/index.svelte';
 	import * as Card from '$components/ui/card';
 	import { Button } from '$components/ui/button';
-	import { Input } from '$components/ui/input';
+	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
+	import FilterSheet from '$components/app/FilterSheet.svelte';
 	import Avatar from '$components/app/Avatar.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
 	import { MessagesSquare, Plus } from '@lucide/svelte';
@@ -26,6 +27,9 @@
 	/** Which list conversations show: every one, only personal lists, or one particular household's. */
 	let householdFilter = $state<'all' | 'personal' | string>('all');
 	let listQuery = $state('');
+	let barHeight = $state(0);
+	let filterSheet = $state<FilterSheet | null>(null);
+	const activeFilterCount = $derived(householdFilter === 'all' ? 0 : 1);
 
 	const rows = $derived(
 		allRows.filter(({ list }) => {
@@ -81,6 +85,43 @@
 </svelte:head>
 
 <h1 class="text-h1 font-semibold">{t('chat.indexTitle')}</h1>
+
+{#if allRows.length > 0}
+	<SearchFilterBar
+		bind:query={listQuery}
+		bind:height={barHeight}
+		active={activeFilterCount}
+		onFilters={() => filterSheet?.show()}
+		label={t('chat.listFilterSearch')}
+		placeholder={t('chat.listFilterSearchPlaceholder')}
+		testPrefix="chat-list"
+	/>
+
+	<FilterSheet
+		bind:this={filterSheet}
+		title={t('chat.listFilterHousehold')}
+		active={activeFilterCount}
+		onReset={() => (householdFilter = 'all')}
+		testPrefix="chat-list-filter"
+	>
+		<div class="mt-4 flex flex-wrap gap-2" role="radiogroup" aria-label={t('chat.listFilterHousehold')}>
+			{#each [{ id: 'all', name: t('chat.listFilterAll') }, { id: 'personal', name: t('chat.listFilterPersonal') }, ...data.circles] as option (option.id)}
+				<label class="fl-choice">
+					<input
+						type="radio"
+						name="chat-household"
+						value={option.id}
+						bind:group={householdFilter}
+						class="sr-only"
+						data-test-id="chat-list-filter-household-{option.id}"
+					/>
+					{option.name}
+				</label>
+			{/each}
+		</div>
+	</FilterSheet>
+
+{/if}
 
 <section aria-labelledby="direct-heading" class="mt-6">
 	<div class="flex flex-wrap items-center justify-between gap-2">
@@ -173,32 +214,6 @@
 <section aria-labelledby="list-chats-heading" class="mt-10">
 	<h2 id="list-chats-heading" class="text-h2 font-semibold">{t('chat.listSection')}</h2>
 
-	{#if allRows.length > 0}
-		<div class="mt-3 flex flex-wrap gap-2">
-			<Input
-				bind:value={listQuery}
-				aria-label={t('chat.listFilterSearch')}
-				placeholder={t('chat.listFilterSearchPlaceholder')}
-				data-test-id="chat-list-filter-search"
-				class="max-w-xs flex-1"
-			/>
-			{#if data.circles.length > 0}
-				<select
-					bind:value={householdFilter}
-					aria-label={t('chat.listFilterHousehold')}
-					data-test-id="chat-list-filter-household"
-					class="border-input bg-background min-h-[max(2.75rem,44px)] rounded-md border px-3"
-				>
-					<option value="all">{t('chat.listFilterAll')}</option>
-					<option value="personal">{t('chat.listFilterPersonal')}</option>
-					{#each data.circles as circle (circle.id)}
-						<option value={circle.id}>{circle.name}</option>
-					{/each}
-				</select>
-			{/if}
-		</div>
-	{/if}
-
 	{#if rows.length === 0}
 		<EmptyState
 			illustration="chat"
@@ -243,3 +258,7 @@
 		</ul>
 	{/if}
 </section>
+
+{#if allRows.length > 0}
+	<div class="md:hidden" aria-hidden="true" style="height: calc({barHeight}px + var(--fl-navbar-h, 4rem) + 0.75rem)"></div>
+{/if}

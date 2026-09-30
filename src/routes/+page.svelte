@@ -11,6 +11,7 @@
 	import { createIntent } from '$stores/create.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { TINTS, DEFAULT_TINT } from '$domain/tint';
+	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
 	import { themedTint } from '$domain/theme-tints';
 	import { reminderStatus } from '$domain/reminder';
 	import { remindersSupported, requestReminderPermission } from '$native/reminders';
@@ -36,10 +37,7 @@
 		Lock,
 		Check,
 		UtensilsCrossed,
-		MoreVertical,
-		Search,
-		SlidersHorizontal,
-		X
+		MoreVertical
 	} from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
@@ -81,8 +79,7 @@
 	/** Personal, a given household, or every list regardless of who it belongs to. */
 	let scopeFilter = $state('all');
 
-	/** The name search, folded up behind the search button until tapped. */
-	let searchOpen = $state(false);
+	/** The name search, typed in the shared search bar. */
 	let searchQuery = $state('');
 
 	let filterSheet = $state<HTMLDialogElement | null>(null);
@@ -528,72 +525,18 @@
 		the nav bar under 48rem and puts it back at the top of the flow past that width, exactly where it
 		already was.
 
-		A search button and a filter button, not a permanent panel of pills: the pills stayed on screen at
-		all times whether or not anyone cared, eating space above every list. Search unfolds in place;
-		filters (kind, and scope down to one specific household) live in a sheet opened on demand.
+		The shared bar: a search field and a filter button, not a permanent panel of pills. Filters (kind, and
+		scope down to one specific household) live in a sheet opened on demand.
 	-->
-	<div
-		bind:clientHeight={barHeight}
-		class="fl-above-nav border-border bg-card/82 mt-6 flex items-center gap-2 rounded-full border p-2 shadow-fl-3 backdrop-blur-2xl"
-	>
-		{#if searchOpen}
-			<div class="min-w-0 flex-1">
-				<IconField icon={Search}>
-					<Input
-						bind:value={searchQuery}
-						placeholder={t('lists.searchPlaceholder')}
-						autofocus
-						data-test-id="lists-search-input"
-					/>
-				</IconField>
-			</div>
-			<button
-				type="button"
-				onclick={() => {
-					searchOpen = false;
-					searchQuery = '';
-				}}
-				aria-label={t('common.close')}
-				data-test-id="lists-search-close"
-				class="fl-press text-muted-foreground flex size-11 shrink-0 items-center justify-center"
-			>
-				<X size={20} aria-hidden="true" />
-			</button>
-		{:else}
-			<button
-				type="button"
-				onclick={() => (searchOpen = true)}
-				aria-label={t('lists.search')}
-				data-test-id="lists-search-open"
-				class="fl-press text-foreground flex size-11 shrink-0 items-center justify-center rounded-full"
-			>
-				<Search size={20} aria-hidden="true" />
-			</button>
-
-			<span class="bg-border h-6 w-px shrink-0"></span>
-
-			<button
-				type="button"
-				onclick={() => filterSheet?.showModal()}
-				aria-haspopup="dialog"
-				data-test-id="lists-filters-open"
-				class="fl-press text-label text-foreground flex min-h-[max(2.75rem,44px)] flex-1 items-center justify-center gap-2 rounded-full font-medium"
-			>
-				<SlidersHorizontal size={18} aria-hidden="true" />
-				{t('lists.filters')}
-				{#if activeFilterCount > 0}
-					<span
-						class="bg-primary text-primary-foreground text-caption flex size-5 items-center justify-center rounded-full"
-						data-test-id="lists-filters-count"
-						aria-hidden="true"
-					>
-						{activeFilterCount}
-					</span>
-					<span class="sr-only">{t('common.filtersActive', { count: activeFilterCount })}</span>
-				{/if}
-			</button>
-		{/if}
-	</div>
+	<SearchFilterBar
+		bind:query={searchQuery}
+		bind:height={barHeight}
+		active={activeFilterCount}
+		onFilters={() => filterSheet?.showModal()}
+		label={t('lists.search')}
+		placeholder={t('lists.searchPlaceholder')}
+		testPrefix="lists"
+	/>
 
 	<dialog
 		bind:this={filterSheet}
