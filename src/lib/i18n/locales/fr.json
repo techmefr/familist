@@ -1480,7 +1480,8 @@
 		"assistantTitle": "Assistant Familiste",
 		"assistantBack": "Discussions",
 		"muteList": "Couper le son de cette discussion",
-		"unmuteList": "Réactiver le son de cette discussion"
+		"unmuteList": "Réactiver le son de cette discussion",
+		"unreadOne": "Non lue"
 	},
 	"household": {
 		"title": "Mon foyer",

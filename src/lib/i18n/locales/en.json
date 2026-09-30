@@ -1448,7 +1448,8 @@
 		"assistantTitle": "Familiste assistant",
 		"assistantBack": "Discussions",
 		"muteList": "Mute this chat",
-		"unmuteList": "Turn this chat’s sound back on"
+		"unmuteList": "Turn this chat’s sound back on",
+		"unreadOne": "Unread"
 	},
 	"household": {
 		"title": "My household",

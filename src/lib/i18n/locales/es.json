@@ -1441,7 +1441,8 @@
 		"assistantTitle": "Asistente Familiste",
 		"assistantBack": "Conversaciones",
 		"muteList": "Silenciar esta conversación",
-		"unmuteList": "Reactivar el sonido de esta conversación"
+		"unmuteList": "Reactivar el sonido de esta conversación",
+		"unreadOne": "Sin leer"
 	},
 	"household": {
 		"title": "Mi hogar",

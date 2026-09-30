@@ -3,6 +3,7 @@
 	import { data } from '$stores/data.svelte';
 	import { settings } from '$stores/settings.svelte';
 	import { createIntent } from '$stores/create.svelte';
+	import { unread } from '$stores/unread.svelte';
 	import { ai } from '$stores/ai.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import * as Card from '$components/ui/card';
@@ -242,6 +243,10 @@
 								</span>
 							</span>
 
+{#if unread.isUnread(row.summary.conversationId)}
+								<span class="bg-primary size-2.5 shrink-0 rounded-full" data-test-class="unread-dot"></span>
+								<span class="sr-only">{t('chat.unreadOne')}</span>
+							{/if}
 							{#if row.summary.lastAt > 0}
 								<span class="text-caption text-muted-foreground shrink-0">
 									{when(row.summary.lastAt)}
@@ -264,6 +269,10 @@
 								</span>
 							</span>
 
+{#if unread.isUnread(list.id)}
+								<span class="bg-primary size-2.5 shrink-0 rounded-full" data-test-class="unread-dot"></span>
+								<span class="sr-only">{t('chat.unreadOne')}</span>
+							{/if}
 							{#if last}
 								<span class="text-caption text-muted-foreground shrink-0">
 									{when(last.createdAt)}

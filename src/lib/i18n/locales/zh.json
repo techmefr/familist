@@ -1423,7 +1423,8 @@
 		"assistantTitle": "Familiste 助手",
 		"assistantBack": "对话",
 		"muteList": "静音此对话",
-		"unmuteList": "恢复此对话的通知"
+		"unmuteList": "恢复此对话的通知",
+		"unreadOne": "未读"
 	},
 	"household": {
 		"title": "我的家庭",

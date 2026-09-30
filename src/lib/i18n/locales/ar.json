@@ -1485,7 +1485,8 @@
 		"assistantTitle": "مساعد Familiste",
 		"assistantBack": "المحادثات",
 		"muteList": "كتم هذه المحادثة",
-		"unmuteList": "إعادة تفعيل صوت هذه المحادثة"
+		"unmuteList": "إعادة تفعيل صوت هذه المحادثة",
+		"unreadOne": "غير مقروءة"
 	},
 	"household": {
 		"title": "منزلي",

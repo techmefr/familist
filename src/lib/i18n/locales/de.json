@@ -1437,7 +1437,8 @@
 		"assistantTitle": "Familiste-Assistent",
 		"assistantBack": "Unterhaltungen",
 		"muteList": "Diese Unterhaltung stummschalten",
-		"unmuteList": "Ton dieser Unterhaltung wieder einschalten"
+		"unmuteList": "Ton dieser Unterhaltung wieder einschalten",
+		"unreadOne": "Ungelesen"
 	},
 	"household": {
 		"title": "Mein Haushalt",

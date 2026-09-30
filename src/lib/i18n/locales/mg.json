@@ -1428,7 +1428,8 @@
 		"assistantTitle": "Mpanampy Familiste",
 		"assistantBack": "Resaka",
 		"muteList": "Hanginana ity resaka ity",
-		"unmuteList": "Averina ny feon’ity resaka ity"
+		"unmuteList": "Averina ny feon’ity resaka ity",
+		"unreadOne": "Tsy voavaky"
 	},
 	"household": {
 		"title": "Ny ankohonako",

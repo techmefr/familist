@@ -1435,7 +1435,8 @@
 		"assistantTitle": "Assistente Familiste",
 		"assistantBack": "Conversazioni",
 		"muteList": "Silenzia questa conversazione",
-		"unmuteList": "Riattiva le notifiche di questa conversazione"
+		"unmuteList": "Riattiva le notifiche di questa conversazione",
+		"unreadOne": "Non letta"
 	},
 	"household": {
 		"title": "La mia casa",

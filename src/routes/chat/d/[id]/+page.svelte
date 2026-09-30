@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { unread } from '$stores/unread.svelte';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
 	import { t, i18n } from '$i18n/index.svelte';
@@ -15,6 +16,12 @@
 	const conversation = $derived(data.direct(conversationId));
 	const other = $derived(data.otherOf(conversationId));
 	const messages = $derived(data.messagesOfConversation(conversationId));
+
+	/** Open and kept open: whatever arrives while this screen is showing is read as it lands. */
+	$effect(() => {
+		void messages.length;
+		unread.markRead(conversationId);
+	});
 
 	let body = $state('');
 	let photoPicker = $state<ChatPhotoPicker | null>(null);

@@ -1461,7 +1461,8 @@
 		"assistantTitle": "Помощник Familiste",
 		"assistantBack": "Обсуждения",
 		"muteList": "Отключить это обсуждение",
-		"unmuteList": "Включить звук этого обсуждения"
+		"unmuteList": "Включить звук этого обсуждения",
+		"unreadOne": "Не прочитано"
 	},
 	"household": {
 		"title": "Моя семья",
