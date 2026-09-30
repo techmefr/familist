@@ -7,6 +7,7 @@
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { createIntent } from '$stores/create.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { CODE_TYPES, guessCodeType, isMatrixFormat, type CodeType } from '$domain/code-format';
@@ -375,8 +376,8 @@
 				<li
 					class="fl-rise relative min-w-0"
 					style="animation-delay: {Math.min(index, 6) * 45}ms"
-					animate:flip={{ duration: motionMs(280), easing: cubicOut }}
-					out:slide={{ duration: motionMs(180), easing: cubicOut }}
+					animate:flip={{ duration: motionMs(DURATION.leave), easing: cubicOut }}
+					out:slide={{ duration: motionMs(DURATION.tap), easing: cubicOut }}
 				>
 					<button
 						type="button"
@@ -425,7 +426,7 @@
 	{#if adding}
 		<form
 			onsubmit={submit}
-			transition:slide={{ duration: motionMs(220), easing: cubicOut }}
+			transition:slide={{ duration: motionMs(DURATION.enter), easing: cubicOut }}
 			class="bg-card mt-6 space-y-4 rounded-xl border p-4"
 			data-test-id="card-form"
 		>

@@ -7,6 +7,7 @@
 	import type { ListKind } from '$db/schema';
 	import { feedback } from '$stores/feedback.svelte';
 	import { motionMs, settings } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { createIntent } from '$stores/create.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { TINTS, DEFAULT_TINT } from '$domain/tint';
@@ -323,7 +324,7 @@
 {#if creating}
 	<form
 		onsubmit={create}
-		transition:slide={{ duration: motionMs(220), easing: cubicOut }}
+		transition:slide={{ duration: motionMs(DURATION.enter), easing: cubicOut }}
 		class="fl-home-card bg-card mt-6 space-y-3 p-4"
 	>
 		<div class="grid gap-3 sm:grid-cols-[auto_1fr]">
@@ -674,8 +675,8 @@
 			<li
 				class="fl-rise"
 				style="animation-delay: {delay(index)}ms"
-				animate:flip={{ duration: motionMs(280), easing: cubicOut }}
-				out:slide={{ duration: motionMs(180), easing: cubicOut }}
+				animate:flip={{ duration: motionMs(DURATION.leave), easing: cubicOut }}
+				out:slide={{ duration: motionMs(DURATION.tap), easing: cubicOut }}
 			>
 				<Card.Root data-test-class="list-card" class="fl-home-card fl-press ring-0">
 					<Card.Content class="flex flex-wrap items-center gap-x-4 gap-y-3">

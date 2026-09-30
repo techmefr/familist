@@ -1223,8 +1223,11 @@ textarea {
 :root {
 	--fl-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 	--fl-dur-tap: 180ms;
-	--fl-dur-in: 340ms;
+	--fl-dur-enter: 220ms;
+	--fl-dur-leave: 280ms;
 	--fl-dur-page: 320ms;
+	--fl-dur-in: 340ms;
+	--fl-dur-panel: 380ms;
 	--fl-dur-rise: 440ms;
 }
 

@@ -3,6 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { t } from '$i18n/index.svelte';
 	import { ArrowDown, ArrowUp, ChevronDown, GripVertical } from '@lucide/svelte';
 
@@ -129,7 +130,7 @@
 	{#if open}
 		<div
 			id={panel}
-			transition:slide={{ duration: motionMs(260), easing: cubicOut }}
+			transition:slide={{ duration: motionMs(DURATION.leave), easing: cubicOut }}
 			class="space-y-2 border-t p-2"
 		>
 			{@render children()}

@@ -3,6 +3,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { sync } from '$sync/index.svelte';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { t } from '$i18n/index.svelte';
 	import { CloudOff, TriangleAlert } from '@lucide/svelte';
 
@@ -34,7 +35,7 @@
 
 {#if trouble}
 	<div
-		transition:fly={{ y: -12, duration: motionMs(220), easing: cubicOut }}
+		transition:fly={{ y: -12, duration: motionMs(DURATION.enter), easing: cubicOut }}
 		class="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-[calc(env(safe-area-inset-top)+0.5rem)]"
 	>
 		<div

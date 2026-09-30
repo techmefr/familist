@@ -4,6 +4,7 @@
 	import { t } from '$i18n/index.svelte';
 	import { install } from '$stores/install.svelte';
 	import { settings, motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { feedback } from '$stores/feedback.svelte';
 	import { Download, Share, Plus, WifiOff, House, X } from '@lucide/svelte';
 
@@ -53,7 +54,7 @@
 -->
 {#if install.offers}
 	<section
-		transition:slide={{ duration: motionMs(220), easing: cubicOut }}
+		transition:slide={{ duration: motionMs(DURATION.enter), easing: cubicOut }}
 		aria-labelledby="install-banner-title"
 		aria-live="polite"
 		data-test-id="install-banner"

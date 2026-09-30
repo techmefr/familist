@@ -5,6 +5,7 @@
 		MOTION_PREFERENCES,
 		type MotionPreference
 	} from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { feedback } from '$stores/feedback.svelte';
 	import { fade } from 'svelte/transition';
 	import { t } from '$i18n/index.svelte';
@@ -80,7 +81,7 @@
 			{#if settings.animates}
 				<p
 					class="text-caption text-primary mt-3 inline-block rounded-full bg-[var(--fl-primary-tint)] px-3 py-1"
-					transition:fade={{ duration: motionMs(200) }}
+					transition:fade={{ duration: motionMs(DURATION.tap) }}
 					data-test-id="motion-preview"
 				>
 					{t('profile.motionPreview')}

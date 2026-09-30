@@ -2,6 +2,7 @@
 	import type { Component, Snippet } from 'svelte';
 	import { i18n } from '$i18n/index.svelte';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import {
 		isHorizontalGesture,
 		swipeOffset,
@@ -144,7 +145,7 @@
 	<div
 		bind:this={content}
 		class="fl-swipe-content"
-		style="translate: {offset}px 0; transition-duration: {engaged ? 0 : motionMs(220)}ms"
+		style="translate: {offset}px 0; transition-duration: {engaged ? 0 : motionMs(DURATION.enter)}ms"
 		onpointerdown={onPointerStart}
 		onpointermove={onPointerMove}
 		onpointerup={onPointerEnd}

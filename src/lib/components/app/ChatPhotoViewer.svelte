@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { t } from '$i18n/index.svelte';
 	import { X } from '@lucide/svelte';
 
@@ -16,7 +17,7 @@
 <!-- Minimal full-screen viewer: a black ground and the photo at its own aspect ratio, in the same spirit as
 	CardFullscreen but with nothing else to show — a chat photo carries no data of its own to browse. -->
 <div
-	transition:fade={{ duration: motionMs(150) }}
+	transition:fade={{ duration: motionMs(DURATION.tap) }}
 	class="fixed inset-0 z-50 flex flex-col bg-black"
 	role="dialog"
 	aria-modal="true"

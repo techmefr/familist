@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { motionMs } from '$stores/settings.svelte';
+	import { DURATION } from '$domain/motion-tokens';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { unitKeyForCount } from '$domain/units';
 	import {
@@ -370,7 +371,7 @@
 />
 
 <div
-	transition:fade={{ duration: motionMs(180) }}
+	transition:fade={{ duration: motionMs(DURATION.tap) }}
 	class="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-black text-white"
 	role="dialog"
 	aria-modal="true"
