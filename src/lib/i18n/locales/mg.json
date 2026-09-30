@@ -546,6 +546,13 @@
 				"not_html": "Tsy mitondra any amin'ny pejy tranonkala ity rohy ity.",
 				"too_large": "Lehibe loatra ity pejy ity ka tsy vakiana.",
 				"no_recipe": "Tsy misy fomba fahandroana azo vakiana ato amin'ity pejy ity. Tsy maintsy mamoaka azy amin'ny angona voalamina ny tranonkala."
+			},
+			"verifyTitle": "Hamarino alohan’ny hitahiry — tsy azo antoka:",
+			"verify": {
+				"servings": "Isan’ny anjara (tsy voalaza)",
+				"quantities": "Ny habetsahana sasany tsy isa tsotra",
+				"durations": "Ny fotoana isaky ny dingana",
+				"temperatures": "Ny hafanan’ny lafaoro"
 			}
 		},
 		"title": "Recettes",

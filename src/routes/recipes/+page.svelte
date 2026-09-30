@@ -31,6 +31,7 @@
 	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
 	import StepWidgetsEditor from '$components/app/StepWidgetsEditor.svelte';
 	import { parseWidgets, type StepWidget } from '$domain/step-widgets';
+	import type { VerifyFlag } from '$domain/ai-recipe';
 	import RecipeFilterSheet from '$components/app/RecipeFilterSheet.svelte';
 	import {
 		CookingPot,
@@ -204,6 +205,7 @@
 
 	/** Whether the open form holds a draft read from elsewhere (a page, a photo, the AI), to be read over. */
 	let fromImport = $state(false);
+	let toVerify = $state<VerifyFlag[]>([]);
 
 	/**
 	 * The page's own photo, carried along the draft (#236). It has nowhere to live until the recipe itself
@@ -236,7 +238,8 @@
 		lines = draft.lines;
 		steps = draft.steps;
 		stepIngredients = draft.stepIngredients;
-		stepWidgets = draft.stepDurations.map(() => []);
+		stepWidgets = draft.stepDurations.map((_, index) => draft.stepWidgets?.[index] ?? []);
+		toVerify = draft.toVerify ?? [];
 		stepTimes = draft.stepDurations.map((seconds) => durationFields(seconds));
 		tags = [...draft.tags];
 		notes = '';
@@ -282,6 +285,7 @@
 		tags = [];
 		copiedFrom = null;
 		fromImport = false;
+		toVerify = [];
 		importedImage = null;
 		imagePrompt = undefined;
 	}
@@ -550,6 +554,16 @@
 			>
 				{t('recipes.import.review')}
 			</p>
+			{#if toVerify.length > 0}
+				<div class="text-label mt-2 rounded-lg border p-3" role="note" data-test-id="recipe-import-verify">
+					<p class="font-semibold">{t('recipes.import.verifyTitle')}</p>
+					<ul class="mt-1 list-disc ps-5">
+						{#each toVerify as flag (flag)}
+							<li>{t(`recipes.import.verify.${flag}`)}</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 		{/if}
 
 		<!--

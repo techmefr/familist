@@ -570,6 +570,13 @@
 				"not_html": "Ce lien ne mène pas à une page web.",
 				"too_large": "Cette page est trop lourde pour être lue.",
 				"no_recipe": "Aucune recette lisible sur cette page. Le site doit publier sa recette en données structurées."
+			},
+			"verifyTitle": "À vérifier avant d’enregistrer — ils ne sont pas certains :",
+			"verify": {
+				"servings": "Nombre de portions (aucun n’était indiqué)",
+				"quantities": "Certaines quantités ne sont pas des nombres simples",
+				"durations": "Les durées des étapes",
+				"temperatures": "Les températures du four"
 			}
 		},
 		"title": "Recettes",

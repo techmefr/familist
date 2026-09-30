@@ -546,6 +546,13 @@
 				"not_html": "Dieser Link führt nicht zu einer Webseite.",
 				"too_large": "Diese Seite ist zu groß zum Lesen.",
 				"no_recipe": "Auf dieser Seite steht kein lesbares Rezept. Die Website muss ihr Rezept als strukturierte Daten veröffentlichen."
+			},
+			"verifyTitle": "Vor dem Speichern prüfen — nicht sicher angegeben:",
+			"verify": {
+				"servings": "Portionen (keine angegeben)",
+				"quantities": "Einige Mengen sind keine einfachen Zahlen",
+				"durations": "Zeiten der Schritte",
+				"temperatures": "Ofentemperaturen"
 			}
 		},
 		"title": "Rezepte",

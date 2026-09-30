@@ -540,6 +540,13 @@
 				"not_html": "该链接指向的不是网页。",
 				"too_large": "该页面过大，无法读取。",
 				"no_recipe": "该页面没有可读取的菜谱。网站需以结构化数据发布菜谱。"
+			},
+			"verifyTitle": "保存前请核实——这些并不确定：",
+			"verify": {
+				"servings": "份数（未给出）",
+				"quantities": "部分用量不是简单数字",
+				"durations": "步骤时间",
+				"temperatures": "烤箱温度"
 			}
 		},
 		"title": "食谱",
