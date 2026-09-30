@@ -5,7 +5,7 @@
 	import { feedback } from '$stores/feedback.svelte';
 	import { ai } from '$stores/ai.svelte';
 	import { recipeDraft } from '$stores/recipe-draft.svelte';
-	import { t } from '$i18n/index.svelte';
+	import { t, i18n } from '$i18n/index.svelte';
 	import { motionMs, settings } from '$stores/settings.svelte';
 	import { DEFAULT_SERVINGS, MAX_SERVINGS, MIN_SERVINGS, type RecipeLine } from '$domain/recipe';
 	import type { Recipe } from '$db/schema';
@@ -29,6 +29,10 @@
 	import RecipeTagPicker from '$components/app/RecipeTagPicker.svelte';
 	import RecipeTagChips from '$components/app/RecipeTagChips.svelte';
 	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
+	import StepWidgetsEditor from '$components/app/StepWidgetsEditor.svelte';
+	import { parseWidgets, type StepWidget } from '$domain/step-widgets';
+	import type { VerifyFlag } from '$domain/ai-recipe';
+	import { warningsFor, type Eater } from '$domain/person-profile';
 	import RecipeFilterSheet from '$components/app/RecipeFilterSheet.svelte';
 	import {
 		CookingPot,
@@ -42,7 +46,8 @@
 		ChevronRight,
 		Check,
 		CalendarDays,
-		MoreVertical
+		MoreVertical,
+		TriangleAlert
 	} from '@lucide/svelte';
 	import RecipeActionsSheet from '$components/app/RecipeActionsSheet.svelte';
 	import { longpress } from '$components/app/longpress.svelte';
@@ -71,6 +76,7 @@
 	let lines = $state<RecipeLine[]>([{ name: '', qty: '', unit: DEFAULT_UNIT }]);
 	let steps = $state<string[]>(['']);
 	let stepIngredients = $state<number[][]>([[]]);
+	let stepWidgets = $state<StepWidget[][]>([[]]);
 	/** Each step's duration as typed (#310): two plain fields rather than a wheel picker. */
 	let stepTimes = $state<{ hours: string; minutes: string }[]>([durationFields(null)]);
 	const stepDurations = $derived(stepTimes.map((time) => durationFromFields(time.hours, time.minutes)));
@@ -167,8 +173,41 @@
 		}))
 	);
 
-	const shownRecipes = $derived(findRecipes(query, selection, filterable).map((entry) => entry.recipe));
-	const narrowed = $derived(query.trim() !== '' || activeCount(selection) > 0);
+	let onlySafe = $state(false);
+
+	const eaters = $derived<Eater[]>(
+		data.householdPersons.map(person => ({
+			personId: person.id,
+			name: person.name,
+			profile: data.profileOf(person.id) ?? null
+		}))
+	);
+	const sharedInputs = $derived(
+		data.sharedWarnings.flatMap(entry => {
+			const person = data.householdPersons.find(candidate => candidate.id === entry.personId);
+			return person ? [{ ...entry, name: person.name }] : [];
+		})
+	);
+	const hasProfiles = $derived(data.personProfiles.length > 0 || data.sharedWarnings.length > 0);
+
+	/** Who cannot eat this recipe, from its ingredient names: a hint, never a guarantee. */
+	const warnedNames = $derived.by(() => {
+		const byRecipe = new Map<string, string[]>();
+		if (!hasProfiles) return byRecipe;
+
+		for (const [recipeId, names] of linesByRecipe) {
+			const people = warningsFor(names.join(' , '), i18n.locale, eaters, sharedInputs).map(w => w.name);
+			if (people.length > 0) byRecipe.set(recipeId, [...new Set(people)]);
+		}
+		return byRecipe;
+	});
+
+	const shownRecipes = $derived(
+		findRecipes(query, selection, filterable)
+			.map((entry) => entry.recipe)
+			.filter(recipe => !onlySafe || !warnedNames.has(recipe.id))
+	);
+	const narrowed = $derived(query.trim() !== '' || activeCount(selection) > 0 || onlySafe);
 
 	function showAll() {
 		feedback.play('tap');
@@ -201,6 +240,7 @@
 
 	/** Whether the open form holds a draft read from elsewhere (a page, a photo, the AI), to be read over. */
 	let fromImport = $state(false);
+	let toVerify = $state<VerifyFlag[]>([]);
 
 	/**
 	 * The page's own photo, carried along the draft (#236). It has nowhere to live until the recipe itself
@@ -233,6 +273,8 @@
 		lines = draft.lines;
 		steps = draft.steps;
 		stepIngredients = draft.stepIngredients;
+		stepWidgets = draft.stepDurations.map((_, index) => draft.stepWidgets?.[index] ?? []);
+		toVerify = draft.toVerify ?? [];
 		stepTimes = draft.stepDurations.map((seconds) => durationFields(seconds));
 		tags = [...draft.tags];
 		notes = '';
@@ -272,11 +314,13 @@
 		lines = [{ name: '', qty: '', unit: DEFAULT_UNIT }];
 		steps = [''];
 		stepIngredients = [[]];
+		stepWidgets = [[]];
 		stepTimes = [durationFields(null)];
 		notes = '';
 		tags = [];
 		copiedFrom = null;
 		fromImport = false;
+		toVerify = [];
 		importedImage = null;
 		imagePrompt = undefined;
 	}
@@ -318,6 +362,7 @@
 		stepTimes = savedSteps.length
 			? savedSteps.map((saved) => durationFields(saved.durationSeconds))
 			: [durationFields(null)];
+		stepWidgets = savedSteps.length ? savedSteps.map((saved) => parseWidgets(saved.widgets)) : [[]];
 		stepIngredients = savedSteps.length
 			? savedSteps.map((saved) =>
 					saved.ingredientIds.flatMap((id) => {
@@ -353,6 +398,7 @@
 	function addStep() {
 		steps = [...steps, ''];
 		stepIngredients = [...stepIngredients, []];
+		stepWidgets = [...stepWidgets, []];
 		stepTimes = [...stepTimes, durationFields(null)];
 	}
 
@@ -360,6 +406,7 @@
 		if (steps.length <= 1) return;
 		steps = steps.filter((_, i) => i !== index);
 		stepIngredients = stepIngredients.filter((_, i) => i !== index);
+		stepWidgets = stepWidgets.filter((_, i) => i !== index);
 		stepTimes = stepTimes.filter((_, i) => i !== index);
 	}
 
@@ -398,7 +445,8 @@
 				ingredients: lines,
 				steps,
 				stepIngredients,
-				stepDurations
+				stepDurations,
+				stepWidgets
 			});
 		} else {
 			const recipe = data.addRecipe({
@@ -411,7 +459,8 @@
 				steps,
 				stepIngredients,
 				imagePrompt,
-				stepDurations
+				stepDurations,
+				stepWidgets
 			});
 			attachImportedPhoto(recipe.id);
 		}
@@ -505,6 +554,13 @@
 		testPrefix="recipe"
 	/>
 
+	{#if hasProfiles}
+		<label class="fl-choice mt-3 w-fit" data-test-id="recipe-safe-toggle">
+			<input type="checkbox" class="sr-only" bind:checked={onlySafe} />
+			{t('people.safeForAll')}
+		</label>
+	{/if}
+
 	<!-- Spoken, not shown: the wall itself shows how many cards are left. -->
 	<p class="sr-only" aria-live="polite" data-test-id="recipe-search-count">
 		{narrowed ? t('recipes.search.count', { count: shownRecipes.length }) : ''}
@@ -540,6 +596,16 @@
 			>
 				{t('recipes.import.review')}
 			</p>
+			{#if toVerify.length > 0}
+				<div class="text-label mt-2 rounded-lg border p-3" role="note" data-test-id="recipe-import-verify">
+					<p class="font-semibold">{t('recipes.import.verifyTitle')}</p>
+					<ul class="mt-1 list-disc ps-5">
+						{#each toVerify as flag (flag)}
+							<li>{t(`recipes.import.verify.${flag}`)}</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 		{/if}
 
 		<!--
@@ -783,6 +849,12 @@
 								</div>
 							</fieldset>
 
+							<StepWidgetsEditor
+								bind:widgets={stepWidgets[index]}
+								rank={index + 1}
+								onQuickTimer={minutes => (stepTimes[index] = durationFields(minutes * 60))}
+							/>
+
 							{#if namedLines.length}
 								<fieldset class="min-w-0 sm:rounded-lg sm:border sm:p-3" data-test-class="recipe-step-ingredients">
 									<legend class="text-label mb-2 font-semibold sm:px-1">
@@ -921,6 +993,15 @@
 								<UtensilsCrossed size={12} aria-hidden="true" />
 								<span aria-hidden="true">{recipe.servings}</span>
 							</span>
+							{#if warnedNames.has(recipe.id)}
+								<span
+									class="text-caption mt-0.5 inline-flex basis-full items-center gap-1.5 rounded-lg border px-2 py-0.5 font-semibold"
+									data-test-class="recipe-conflict-badge"
+								>
+									<TriangleAlert size={14} aria-hidden="true" />
+									{t('people.conflictBadge', { names: warnedNames.get(recipe.id)?.join(', ') ?? '' })}
+								</span>
+							{/if}
 							{#if !owned}
 								<span
 									class="bg-muted text-muted-foreground text-caption mt-0.5 inline-flex shrink-0 items-center gap-1.5 rounded-full px-2 py-0.5 font-semibold"

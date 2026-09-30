@@ -151,9 +151,12 @@ test.describe('discussion avec l IA pour creer une recette', () => {
 		await page.getByTestId('ai-chat-guest-save').click();
 
 		await expect(page.locator('[data-test-class="ai-chat-guest"]')).toContainText(guest);
-		await expect(page.locator('[data-test-class="ai-chat-constraint"]').filter({ hasText: guest })).toContainText(
-			'allergique au chou-fleur'
-		);
+		// The preview lists exactly what is sent: the constraint, never the guest's name.
+		const constraint = page.locator('[data-test-class="ai-chat-constraint"]').filter({
+			hasText: 'allergique au chou-fleur'
+		});
+		await expect(constraint).toBeVisible();
+		await expect(constraint).not.toContainText(guest);
 
 		await say(page, 'un gratin pour ce soir');
 		const first = page.getByTestId('ai-proposal').first();

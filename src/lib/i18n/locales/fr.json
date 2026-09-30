@@ -27,7 +27,8 @@
 		"shop": "Nouveau magasin",
 		"card": "Nouvelle carte de fidélité",
 		"recipe": "Nouvelle recette",
-		"mealPlan": "Nouveau menu de la semaine"
+		"mealPlan": "Nouveau menu de la semaine",
+		"direct": "Nouvelle conversation"
 	},
 	"lists": {
 		"title": "Mes listes",
@@ -171,6 +172,11 @@
 			"admin": {
 				"hint": "Comptes, signalements, plantages",
 				"keywords": "valider, approuver, rôle, administrateur, démo, signalement, plantage, demande RGPD"
+			},
+			"notifications": {
+				"title": "Notifications",
+				"hint": "Messages, listes, heures calmes",
+				"keywords": "push, alertes, son, muet, silence, nuit, rappel"
 			}
 		},
 		"palette": "Thème de couleurs"
@@ -570,6 +576,13 @@
 				"not_html": "Ce lien ne mène pas à une page web.",
 				"too_large": "Cette page est trop lourde pour être lue.",
 				"no_recipe": "Aucune recette lisible sur cette page. Le site doit publier sa recette en données structurées."
+			},
+			"verifyTitle": "À vérifier avant d’enregistrer — ils ne sont pas certains :",
+			"verify": {
+				"servings": "Nombre de portions (aucun n’était indiqué)",
+				"quantities": "Certaines quantités ne sont pas des nombres simples",
+				"durations": "Les durées des étapes",
+				"temperatures": "Les températures du four"
 			}
 		},
 		"title": "Recettes",
@@ -868,7 +881,36 @@
 		"actionsAria": "Plus d'actions pour {name}",
 		"addPhotoAction": "Ajouter une photo",
 		"backToRecipes": "Retour aux recettes",
-		"notFound": "Recette introuvable."
+		"notFound": "Recette introuvable.",
+		"widgets": {
+			"title": "Widgets de l’étape {rank}",
+			"quickTimer": "Minuteur rapide",
+			"quickMinutes": "{count} min",
+			"add": "Ajouter un widget",
+			"remove": "Retirer : {type}",
+			"type": {
+				"appliance": "Appareil",
+				"alert": "Avertissement",
+				"wait": "Longue attente",
+				"photo": "Note photo"
+			},
+			"appliance": "Appareil",
+			"appliances": {
+				"oven": "Four",
+				"hob": "Plaque",
+				"microwave": "Micro-ondes",
+				"airfryer": "Friteuse à air",
+				"pressure": "Autocuiseur",
+				"other": "Autre"
+			},
+			"temperature": "Température (°C)",
+			"setting": "Réglage",
+			"alertText": "Texte de l’avertissement",
+			"waitHours": "Durée (heures)",
+			"waitLabel": "Ce qui attend",
+			"caption": "Légende",
+			"toVerify": "à vérifier"
+		}
 	},
 	"recipeTags": {
 		"title": "Catégories",
@@ -1432,7 +1474,13 @@
 		"photoView": "Voir la photo en plein écran",
 		"photoUploading": "Envoi de la photo…",
 		"photoFailed": "L'envoi de la photo a échoué. Réessayez.",
-		"photoTooBig": "Cette photo est trop lourde."
+		"photoTooBig": "Cette photo est trop lourde.",
+		"assistantName": "Assistant Familiste",
+		"assistantPreview": "Demandez une recette, un menu ou une idée",
+		"assistantTitle": "Assistant Familiste",
+		"assistantBack": "Discussions",
+		"muteList": "Couper le son de cette discussion",
+		"unmuteList": "Réactiver le son de cette discussion"
 	},
 	"household": {
 		"title": "Mon foyer",
@@ -1808,7 +1856,7 @@
 			"guestSave": "Ajouter l’invité",
 			"guestDefault": "Invité {number}",
 			"removeGuest": "Retirer {name}",
-			"constraintsTitle": "L’assistant tient compte de",
+			"constraintsTitle": "Ce qui sera envoyé à votre fournisseur d’IA (sans aucun nom)",
 			"constraintsNone": "Aucune allergie ni régime à prendre en compte.",
 			"constraintOf": "{who} : {notes}",
 			"threadLabel": "Conversation avec l’assistant",
@@ -2030,5 +2078,97 @@
 		"import": "Importer un fichier",
 		"imported": "{count} thème(s) importé(s).",
 		"importEmpty": "Rien n’a pu être importé depuis ce fichier."
+	},
+	"people": {
+		"private": "Vous seul(e) pouvez voir ceci",
+		"allergies": "Allergies et intolérances",
+		"allergen": {
+			"milk": "Lait",
+			"egg": "Œuf",
+			"peanut": "Arachide",
+			"nuts": "Fruits à coque",
+			"gluten": "Gluten",
+			"fish": "Poisson",
+			"shellfish": "Crustacés et mollusques",
+			"soy": "Soja",
+			"sesame": "Sésame",
+			"mustard": "Moutarde",
+			"celery": "Céleri"
+		},
+		"customAllergy": "Une autre allergie",
+		"add": "Ajouter",
+		"severityFor": "Gravité pour {name}",
+		"severity": {
+			"severe": "Grave",
+			"intolerance": "Intolérance",
+			"preference": "Préfère éviter"
+		},
+		"removeItem": "Retirer {name}",
+		"diets": "Régimes",
+		"diet": {
+			"vegetarian": "Végétarien",
+			"vegan": "Végan",
+			"no-pork": "Sans porc",
+			"halal": "Halal",
+			"kosher": "Casher",
+			"gluten-free": "Sans gluten",
+			"lactose-free": "Sans lactose"
+		},
+		"likes": "Aime",
+		"dislikes": "N’aime pas",
+		"portion": "Taille de portion",
+		"portions": {
+			"child": "Enfant",
+			"small": "Petite",
+			"normal": "Adulte",
+			"big": "Gros appétit"
+		},
+		"birthYear": "Année de naissance (facultatif)",
+		"guest": "Invité, sans compte",
+		"notes": "Notes",
+		"shareWarnings": "Montrer les alertes au foyer",
+		"shareWarningsHint": "Les autres voient « contient de l’arachide — Léo », jamais la gravité ni vos notes.",
+		"edit": "Modifier la fiche",
+		"guestTag": "Invité",
+		"portionBadge": "Portion ×{value}",
+		"privateHint": "Allergies, régimes et goûts sont privés : seule la personne qui les a saisis peut les lire.",
+		"ownedByOther": "Fiche gardée privée par un autre membre",
+		"warn": "Contient {what} — {name}",
+		"safeForAll": "Convient à tous",
+		"conflictBadge": "Attention : {names}"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"permissionTitle": "Notifications sur cet appareil",
+		"unsupported": "Les notifications push fonctionnent dans les applications Android et iOS. Les rappels de date continuent là où ils sont pris en charge.",
+		"enable": "Activer les notifications",
+		"granted": "Les notifications sont activées sur cet appareil.",
+		"denied": "Les notifications sont bloquées. Ouvrez les Réglages du téléphone, puis Applications, Familiste, Notifications, et autorisez-les.",
+		"test": "Envoyer une notification de test",
+		"testTitle": "Familiste",
+		"testBody": "Ça marche. Vous serez prévenu ainsi.",
+		"typesTitle": "De quoi être prévenu",
+		"type": {
+			"chats": "Messages et plats pris en charge",
+			"lists": "Activité sur les listes partagées",
+			"invitations": "Invitations et demandes",
+			"reminders": "Rappels",
+			"timers": "Minuteurs de recette"
+		},
+		"listsTitle": "Mettre une liste en sourdine",
+		"listsEmpty": "Vous n’avez pas encore de liste.",
+		"muteList": "Couper le son de {name}",
+		"quietTitle": "Heures calmes",
+		"quietHint": "Aucune notification pendant ces heures ; elles arrivent à la fin. Les heures suivent le fuseau de votre appareil.",
+		"quietEnabled": "Couper la nuit",
+		"quietStart": "De",
+		"quietEnd": "À",
+		"channels": {
+			"chats": "Discussions",
+			"lists": "Listes",
+			"invitations": "Invitations",
+			"reminders": "Rappels",
+			"timers": "Minuteurs"
+		}
 	}
 }

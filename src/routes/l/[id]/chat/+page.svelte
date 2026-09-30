@@ -1,4 +1,6 @@
 <script lang="ts">
+	/** Messages from the same person closer than this read as one run and share a single name line. */
+	const GROUP_GAP_MS = 5 * 60 * 1000;
 	import AnimatedIcon from '$components/app/AnimatedIcon.svelte';
 	import { tick } from 'svelte';
 	import { goto } from '$app/navigation';
@@ -10,10 +12,13 @@
 	import ActionSheet from '$components/app/ActionSheet.svelte';
 	import type { Action } from '$domain/action-sheet';
 	import { Button } from '$components/ui/button';
+	import { settings } from '$stores/settings.svelte';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
 	import {
 		ArrowLeft,
+		Bell,
+		BellOff,
 		Plus,
 		Search,
 		X,
@@ -31,6 +36,7 @@
 	const listId = $derived(page.params.id!);
 	const list = $derived(data.list(listId));
 	const allMessages = $derived(data.messagesOf(listId));
+	const isMuted = $derived(settings.notifications.mutedLists.includes(listId));
 
 	let searchOpen = $state(false);
 	let searchQuery = $state('');
@@ -201,6 +207,20 @@
 		>
 			<Search size={18} aria-hidden="true" />
 		</button>
+		<button
+			type="button"
+			onclick={() => settings.setListMuted(listId, !isMuted)}
+			aria-pressed={isMuted}
+			aria-label={isMuted ? t('chat.unmuteList') : t('chat.muteList')}
+			data-test-id="chat-mute-toggle"
+			class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
+		>
+			{#if isMuted}
+				<BellOff size={18} aria-hidden="true" />
+			{:else}
+				<Bell size={18} aria-hidden="true" />
+			{/if}
+		</button>
 	</div>
 
 	{#if searchOpen}
@@ -244,16 +264,26 @@
 			testId={searchQuery.trim() ? 'chat-search-empty' : 'chat-empty'}
 		/>
 	{:else}
-		<ol class="mt-6 space-y-4">
-			{#each messages as message (message.id)}
+		<ol class="mt-6">
+			{#each messages as message, index (message.id)}
+				{@const previous = messages[index - 1]}
+				{@const startsGroup =
+					!previous ||
+					previous.userId !== message.userId ||
+					message.createdAt - previous.createdAt > GROUP_GAP_MS}
 				{@const poll = data.pollOf(message.id)}
 				{@const author = data.member(message.userId)}
 				{@const mine = message.userId === data.me}
 
-				<li class="flex flex-col {mine ? 'items-end' : 'items-start'}" data-test-class="chat-message">
-					<p class="text-muted-foreground text-caption">
-						{author?.name ?? t('chat.unknownAuthor')} — {time(message.createdAt)}
-					</p>
+				<li
+					class="flex flex-col {mine ? 'items-end' : 'items-start'} {index === 0 ? '' : startsGroup ? 'mt-4' : 'mt-1'}"
+					data-test-class="chat-message"
+				>
+					{#if startsGroup}
+						<p class="text-muted-foreground text-caption">
+							{author?.name ?? t('chat.unknownAuthor')} — {time(message.createdAt)}
+						</p>
+					{/if}
 
 					{#if message.body}
 						<p
@@ -333,7 +363,11 @@
 		width was only ever an at-rest state. `aria-label` and not only the placeholder: the latter is not an
 		accessible name, and it disappears at the first letter typed.
 	-->
-	<form onsubmit={send} class="mt-4 flex items-center gap-2" data-test-id="chat-form">
+	<form
+		onsubmit={send}
+		class="mt-4 flex items-center gap-2 pb-[env(safe-area-inset-bottom)]"
+		data-test-id="chat-form"
+	>
 		<div class="min-w-0 flex-1">
 			<Input
 				bind:value={body}

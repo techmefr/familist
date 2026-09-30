@@ -9,7 +9,8 @@ const cardFace = (page: Page, name: string) =>
 		.locator('[data-test-class="loyalty-card"]');
 
 async function saveCard(page: Page, name: string, code: string) {
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 	await page.getByTestId('card-name').fill(name);
 	await page.getByTestId('card-code').fill(code);
 	await page.getByTestId('card-submit').click();
@@ -22,7 +23,8 @@ test('enregistrer une carte de fidélité par saisie manuelle du code', async ({
 	const name = `Carte e2e ${Date.now()}`;
 
 	await page.goto('/cards');
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 	await page.getByTestId('card-name').fill(name);
 	await page.getByTestId('card-code').fill('1234567890128');
 	await page.getByTestId('card-submit').click();
@@ -37,7 +39,8 @@ test('le catalogue reconnait l enseigne tapee et propose sa couleur et son monog
 	const name = `Leclerc Vienne e2e ${Date.now()}`;
 
 	await page.goto('/cards');
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 	await page.getByTestId('card-name').fill(name);
 
 	await expect(page.getByTestId('card-brand-match')).toContainText('E.Leclerc');
@@ -83,7 +86,8 @@ test('la couleur choisie dans la palette est gardee et reproposee a la modificat
 	const name = `Couleur e2e ${Date.now()}`;
 
 	await page.goto('/cards');
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 	await page.getByTestId('card-name').fill(name);
 	await page.getByTestId('card-code').fill('ABC123');
 	await page.locator('label').filter({ has: page.getByTestId('card-color-teal') }).click();
@@ -140,7 +144,8 @@ test('deux cartes par ligne en taille moyenne, une seule en taille confort', asy
 	expect(await right('cards-wallet')).toBeLessThanOrEqual(390);
 	const face = (await cardFace(page, first).boundingBox())!;
 	expect(face.x + face.width).toBeLessThanOrEqual(390);
-	await page.getByTestId('card-add').click();
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-card').click();
 	await expect(page.getByTestId('card-form')).toBeVisible();
 	expect(await right('card-form')).toBeLessThanOrEqual(390);
 	expect(await right('card-color-list')).toBeLessThanOrEqual(390);

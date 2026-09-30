@@ -4,6 +4,7 @@ import { RECIPE_TAG_CATEGORIES, sanitizeTags, type RecipeTag, type RecipeTagCate
 import { suggestedDurations } from './step-duration';
 import { guessLinks, sanitizeLinks } from './step-ingredients';
 import { DEFAULT_UNIT, resolveUnit, UNITS } from './units';
+import { MAX_TEMPERATURE, type StepWidget } from './step-widgets';
 
 /**
  * A recipe idea from what the household buys, and above all: what leaves the device to get it.
@@ -118,6 +119,13 @@ export const MAX_IMAGE_PROMPT_LENGTH = 600;
  * Asked with every recipe (#310): the time a step makes you wait, so cook-along can offer a timer. 0 for a
  * step with nothing to wait for; the step's own text is read when the model leaves it out.
  */
+/**
+ * Oven temperatures, asked only when the step says one. `parseRecipeSuggestion` keeps a temperature only if
+ * its digits are in the step's own text, so a value the model made up to fill the field never reaches the form.
+ */
+const STEP_TEMPERATURES_RULE =
+	'"stepTemperatures" contient un nombre par etape, dans le meme ordre que "steps" : la temperature du four en degres Celsius uniquement si l etape l indique explicitement, sinon 0. N invente jamais une temperature.';
+
 const STEP_MINUTES_RULE =
 	'"stepMinutes" contient un nombre par etape, dans le meme ordre que "steps" : la duree en minutes quand l etape demande de cuire, reposer ou attendre un temps precis, sinon 0.';
 
@@ -167,7 +175,8 @@ export function recipePrompt(products: string[], options: PromptOptions): string
 		STEP_INGREDIENTS_RULE,
 		IMAGE_PROMPT_RULE,
 		TAGS_RULE,
-		STEP_MINUTES_RULE
+		STEP_MINUTES_RULE,
+		STEP_TEMPERATURES_RULE
 	].join('\n');
 }
 
@@ -200,7 +209,8 @@ export function recipeExtractionPrompt(pageText: string, options: PromptOptions)
 		STEP_INGREDIENTS_RULE,
 		IMAGE_PROMPT_RULE,
 		TAGS_RULE,
-		STEP_MINUTES_RULE
+		STEP_MINUTES_RULE,
+		STEP_TEMPERATURES_RULE
 	].join('\n');
 }
 
@@ -228,7 +238,8 @@ export function recipeFromPhotoPrompt(options: PromptOptions): string {
 		STEP_INGREDIENTS_RULE,
 		IMAGE_PROMPT_RULE,
 		TAGS_RULE,
-		STEP_MINUTES_RULE
+		STEP_MINUTES_RULE,
+		STEP_TEMPERATURES_RULE
 	].join('\n');
 }
 
@@ -251,6 +262,32 @@ export interface SuggestedRecipe {
 	tags: RecipeTag[];
 	/** For each of `steps`, how long it takes in seconds, or null (#310). */
 	stepDurations: (number | null)[];
+	/** For each of `steps`, the oven setting read from its text, always flagged to verify (#473). */
+	stepWidgets?: StepWidget[][];
+	/** What the model supplied that the person must check before saving: never silently trusted. */
+	toVerify?: VerifyFlag[];
+}
+
+export type VerifyFlag = 'servings' | 'quantities' | 'durations' | 'temperatures';
+
+const PLAIN_QUANTITY = /^\d+([.,]\d+)?(\/\d+)?$/;
+
+/** A temperature counts only if the step itself names it: the model does not get to fill a blank. */
+function suggestedTemperatures(raw: unknown, allSteps: string[]): StepWidget[][] {
+	const given = Array.isArray(raw) ? raw : [];
+
+	return allSteps
+		.map((body, index) => {
+			const value = Number(given[index]);
+			if (!Number.isFinite(value) || value <= 0 || value > MAX_TEMPERATURE) return [];
+
+			const degrees = Math.round(value);
+			const digits = new RegExp(`(^|[^\\d])${degrees}([^\\d]|$)`);
+			if (!digits.test(body)) return [];
+
+			return [{ type: 'appliance', appliance: 'oven', temperature: degrees, toVerify: true } as StepWidget];
+		})
+		.filter((_, index) => allSteps[index] !== '');
 }
 
 /**
@@ -376,6 +413,16 @@ export function parseRecipeSuggestion(text: string): SuggestedRecipe | null {
 	const steps = allSteps.filter(Boolean);
 	const imagePrompt = cleanImagePrompt(asText(root.imagePrompt)) ?? undefined;
 
+	const servingsGiven = Number(root.servings);
+	const durations = steps.length > 0 ? suggestedDurations(root.stepMinutes, allSteps) : [null];
+	const stepWidgets = steps.length > 0 ? suggestedTemperatures(root.stepTemperatures, allSteps) : [[]];
+
+	const toVerify: VerifyFlag[] = [];
+	if (!Number.isFinite(servingsGiven) || servingsGiven < MIN_SERVINGS) toVerify.push('servings');
+	if (ingredients.some(line => line.qty !== '' && !PLAIN_QUANTITY.test(line.qty))) toVerify.push('quantities');
+	if (durations.some(seconds => seconds !== null)) toVerify.push('durations');
+	if (stepWidgets.some(widgets => widgets.length > 0)) toVerify.push('temperatures');
+
 	return {
 		imagePrompt,
 		tags: sanitizeTags(root.tags),
@@ -387,6 +434,8 @@ export function parseRecipeSuggestion(text: string): SuggestedRecipe | null {
 		// keep an empty entry so that the review form has its row.
 		steps: steps.length > 0 ? steps : [''],
 		stepIngredients: steps.length > 0 ? suggestedLinks(root.stepIngredients, allIngredients, allSteps) : [[]],
-		stepDurations: steps.length > 0 ? suggestedDurations(root.stepMinutes, allSteps) : [null]
+		stepDurations: durations,
+		stepWidgets,
+		toVerify
 	};
 }

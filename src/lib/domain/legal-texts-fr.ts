@@ -108,6 +108,8 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 					'Compte : adresse e-mail, nom affiché, avatar, mot de passe (haché par Supabase Auth), facteurs de double authentification, statut d’approbation.',
 					'Contenu : listes et articles, recettes et leurs photos, menus, magasins et leur position, prix, cartes de fidélité, messages et sondages du foyer.',
 					'Foyer et partages : appartenance au foyer, invitations, cercles, partages de listes, de recettes et de cartes.',
+					'Fiches des personnes du foyer (allergies avec gravité, régimes, goûts, année de naissance, taille de portion, notes) : données concernant la santé et l’alimentation, saisies par vous et lisibles par vous seul. Aucun autre membre ni administrateur ne peut les lire, sauf si vous choisissez de partager les alertes (quel allergène, jamais le détail). Elles sont supprimées avec le foyer ou votre compte et incluses dans l’export de vos données.',
+					'Notifications push : un jeton d’appareil (un par appareil) et vos réglages de notification (types, listes en sourdine, heures calmes, langue).',
 					'Mots de passe des comptes de fidélité : chiffrés au repos dans Supabase Vault, et éventuellement conservés sur votre appareil, chiffrés par un code de déverrouillage.',
 					'Clés d’API d’IA : stockées pour vous seul, jamais partagées avec le foyer.',
 					'Préférences : langue, thème, taille du texte, rappels.',
@@ -120,7 +122,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 				items: [
 					'Caméra : lecture des codes-barres et loupe ; les images ne sont pas envoyées.',
 					'Géolocalisation (application mobile, sur autorisation) : proposer la carte de fidélité d’un magasin proche ; votre position n’est pas envoyée à nos serveurs.',
-					'Notifications locales : rappels et cartes à proximité, programmés sur l’appareil.'
+					'Notifications locales : rappels, minuteurs de recette et cartes à proximité, programmés sur l’appareil.'
 				]
 			},
 			{
@@ -154,6 +156,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 					'Brevo (Sendinblue SAS, France) : envoi des e-mails depuis noreply@familiste.fr ; reçoit votre adresse e-mail.',
 					'Fournisseur d’IA choisi par vous (par exemple Anthropic, Google, Mistral, Groq, OpenRouter, DeepSeek) : reçoit le texte de vos demandes, avec votre clé, directement depuis votre appareil.',
 					'Pollinations et Openverse : reçoivent la description ou le nom d’une recette pour générer ou rechercher une image.',
+					'Google (Firebase Cloud Messaging, États-Unis) : achemine les notifications push sur Android ; reçoit le jeton de votre appareil et le titre, le texte et l’écran visé de la notification, jamais l’identifiant de votre compte.',
 					'GitHub : un signalement de bug ouvre un ticket qui ne contient que son numéro, sans donnée personnelle.',
 					'Une instance auto-hébergée de Familiste peut activer l’envoi des rapports de plantage à un service tiers ; son exploitant doit alors le déclarer dans sa propre politique.'
 				]

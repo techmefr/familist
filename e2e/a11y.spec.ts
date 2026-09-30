@@ -105,7 +105,8 @@ test.describe('accessibilite', () => {
 	 */
 	test('messages prives', async ({ signedInPage: page }) => {
 		await page.goto('/chat');
-		await page.getByTestId('new-direct').click();
+		await page.getByTestId('nav-create').click();
+		await page.getByTestId('create-direct').click();
 		await expect(page.getByTestId('direct-picker')).toBeVisible();
 
 		await expectNoNewViolations(page, 'messages-prives');

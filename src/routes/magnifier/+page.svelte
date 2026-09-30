@@ -268,6 +268,22 @@
 		if (pointers.size < 2) pinch = null;
 	}
 
+	/**
+	 * A pointer the browser took back without telling us (a system gesture, the WebView swallowing a
+	 * `pointerup`) would stay in the map for good: the next single finger then counts as half a pinch and the
+	 * pan and the pinch both stop answering until the page is reloaded. Ending it here clears that.
+	 */
+	function onLostCapture(event: PointerEvent) {
+		onPointerEnd(event);
+	}
+
+	/** Freezing or unfreezing changes what a gesture means: start from a clean slate. */
+	$effect(() => {
+		void frozen;
+		pointers.clear();
+		pinch = null;
+	});
+
 	// The session is not always known at mount: we wait for it to be, once.
 	let started = false;
 	$effect(() => {
@@ -309,6 +325,7 @@
 		onpointermove={onPointerMove}
 		onpointerup={onPointerEnd}
 		onpointercancel={onPointerEnd}
+		onlostpointercapture={onLostCapture}
 	>
 		{#if status === 'live'}
 			<!-- svelte-ignore a11y_media_has_caption -->

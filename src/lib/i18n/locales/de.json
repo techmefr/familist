@@ -27,7 +27,8 @@
 		"shop": "Neues Geschäft",
 		"card": "Neue Kundenkarte",
 		"recipe": "Neues Rezept",
-		"mealPlan": "Neuer Essensplan"
+		"mealPlan": "Neuer Essensplan",
+		"direct": "Neue Unterhaltung"
 	},
 	"lists": {
 		"title": "Meine Listen",
@@ -171,6 +172,11 @@
 			"admin": {
 				"hint": "Konten, Meldungen, Abstürze",
 				"keywords": "freigeben, bestätigen, Rolle, Administrator, Demo, Meldung, Absturz, DSGVO-Anfrage"
+			},
+			"notifications": {
+				"title": "Benachrichtigungen",
+				"hint": "Nachrichten, Listen, Ruhezeiten",
+				"keywords": "Push, Hinweise, Ton, stumm, Ruhe, Nacht, Erinnerung"
 			}
 		},
 		"palette": "Farbthema"
@@ -546,6 +552,13 @@
 				"not_html": "Dieser Link führt nicht zu einer Webseite.",
 				"too_large": "Diese Seite ist zu groß zum Lesen.",
 				"no_recipe": "Auf dieser Seite steht kein lesbares Rezept. Die Website muss ihr Rezept als strukturierte Daten veröffentlichen."
+			},
+			"verifyTitle": "Vor dem Speichern prüfen — nicht sicher angegeben:",
+			"verify": {
+				"servings": "Portionen (keine angegeben)",
+				"quantities": "Einige Mengen sind keine einfachen Zahlen",
+				"durations": "Zeiten der Schritte",
+				"temperatures": "Ofentemperaturen"
 			}
 		},
 		"title": "Rezepte",
@@ -825,7 +838,36 @@
 		"actionsAria": "Weitere Aktionen für {name}",
 		"addPhotoAction": "Foto hinzufügen",
 		"backToRecipes": "Zurück zu den Rezepten",
-		"notFound": "Rezept nicht gefunden."
+		"notFound": "Rezept nicht gefunden.",
+		"widgets": {
+			"title": "Widgets für Schritt {rank}",
+			"quickTimer": "Schnelltimer",
+			"quickMinutes": "{count} Min.",
+			"add": "Widget hinzufügen",
+			"remove": "Entfernen: {type}",
+			"type": {
+				"appliance": "Gerät",
+				"alert": "Warnhinweis",
+				"wait": "Lange Wartezeit",
+				"photo": "Fotonotiz"
+			},
+			"appliance": "Gerät",
+			"appliances": {
+				"oven": "Backofen",
+				"hob": "Kochfeld",
+				"microwave": "Mikrowelle",
+				"airfryer": "Heißluftfritteuse",
+				"pressure": "Schnellkochtopf",
+				"other": "Andere"
+			},
+			"temperature": "Temperatur (°C)",
+			"setting": "Einstellung",
+			"alertText": "Warntext",
+			"waitHours": "Dauer (Stunden)",
+			"waitLabel": "Was wartet",
+			"caption": "Bildunterschrift",
+			"toVerify": "zu prüfen"
+		}
 	},
 	"recipeTags": {
 		"title": "Kategorien",
@@ -1389,7 +1431,13 @@
 		"photoView": "Foto im Vollbild ansehen",
 		"photoUploading": "Foto wird gesendet…",
 		"photoFailed": "Das Foto konnte nicht gesendet werden. Versuchen Sie es erneut.",
-		"photoTooBig": "Dieses Foto ist zu groß."
+		"photoTooBig": "Dieses Foto ist zu groß.",
+		"assistantName": "Familiste-Assistent",
+		"assistantPreview": "Fragen Sie nach Rezept, Menü oder Idee",
+		"assistantTitle": "Familiste-Assistent",
+		"assistantBack": "Unterhaltungen",
+		"muteList": "Diese Unterhaltung stummschalten",
+		"unmuteList": "Ton dieser Unterhaltung wieder einschalten"
 	},
 	"household": {
 		"title": "Mein Haushalt",
@@ -1766,7 +1814,7 @@
 			"guestSave": "Gast hinzufügen",
 			"guestDefault": "Gast {number}",
 			"removeGuest": "{name} entfernen",
-			"constraintsTitle": "Der Assistent berücksichtigt",
+			"constraintsTitle": "Was an Ihren KI-Anbieter gesendet wird (ohne Namen)",
 			"constraintsNone": "Keine Allergie und keine Ernährungsweise zu berücksichtigen.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Unterhaltung mit dem Assistenten",
@@ -1984,5 +2032,97 @@
 		"import": "Datei importieren",
 		"imported": "{count} Thema/Themen importiert.",
 		"importEmpty": "Aus dieser Datei konnte nichts importiert werden."
+	},
+	"people": {
+		"private": "Nur Sie können das sehen",
+		"allergies": "Allergien und Unverträglichkeiten",
+		"allergen": {
+			"milk": "Milch",
+			"egg": "Ei",
+			"peanut": "Erdnuss",
+			"nuts": "Schalenfrüchte",
+			"gluten": "Gluten",
+			"fish": "Fisch",
+			"shellfish": "Krusten- und Schalentiere",
+			"soy": "Soja",
+			"sesame": "Sesam",
+			"mustard": "Senf",
+			"celery": "Sellerie"
+		},
+		"customAllergy": "Andere Allergie",
+		"add": "Hinzufügen",
+		"severityFor": "Schweregrad für {name}",
+		"severity": {
+			"severe": "Schwer",
+			"intolerance": "Unverträglichkeit",
+			"preference": "Meidet lieber"
+		},
+		"removeItem": "{name} entfernen",
+		"diets": "Ernährungsweisen",
+		"diet": {
+			"vegetarian": "Vegetarisch",
+			"vegan": "Vegan",
+			"no-pork": "Ohne Schwein",
+			"halal": "Halal",
+			"kosher": "Koscher",
+			"gluten-free": "Glutenfrei",
+			"lactose-free": "Laktosefrei"
+		},
+		"likes": "Mag",
+		"dislikes": "Mag nicht",
+		"portion": "Portionsgröße",
+		"portions": {
+			"child": "Kind",
+			"small": "Klein",
+			"normal": "Erwachsen",
+			"big": "Großer Hunger"
+		},
+		"birthYear": "Geburtsjahr (optional)",
+		"guest": "Gast, ohne Konto",
+		"notes": "Notizen",
+		"shareWarnings": "Warnungen dem Haushalt zeigen",
+		"shareWarningsHint": "Andere sehen „enthält Erdnuss – Léo“, nie den Schweregrad oder Ihre Notizen.",
+		"edit": "Profil bearbeiten",
+		"guestTag": "Gast",
+		"portionBadge": "Portion ×{value}",
+		"privateHint": "Allergien, Ernährungsweisen und Vorlieben sind privat: nur wer sie eingetragen hat, kann sie lesen.",
+		"ownedByOther": "Profil von einem anderen Mitglied privat gehalten",
+		"warn": "Enthält {what} — {name}",
+		"safeForAll": "Für alle geeignet",
+		"conflictBadge": "Achtung: {names}"
+	},
+	"notifications": {
+		"title": "Benachrichtigungen",
+		"permissionTitle": "Benachrichtigungen auf diesem Gerät",
+		"unsupported": "Push-Benachrichtigungen funktionieren in den Android- und iOS-Apps. Datumserinnerungen funktionieren weiter, wo sie unterstützt werden.",
+		"enable": "Benachrichtigungen aktivieren",
+		"granted": "Benachrichtigungen sind auf diesem Gerät aktiv.",
+		"denied": "Benachrichtigungen sind blockiert. Öffnen Sie die Telefoneinstellungen, dann Apps, Familiste, Benachrichtigungen, und erlauben Sie sie.",
+		"test": "Testbenachrichtigung senden",
+		"testTitle": "Familiste",
+		"testBody": "Es funktioniert. So werden Sie benachrichtigt.",
+		"typesTitle": "Worüber informiert werden",
+		"type": {
+			"chats": "Nachrichten und übernommene Gerichte",
+			"lists": "Aktivität auf geteilten Listen",
+			"invitations": "Einladungen und Anfragen",
+			"reminders": "Erinnerungen",
+			"timers": "Rezept-Timer"
+		},
+		"listsTitle": "Liste stummschalten",
+		"listsEmpty": "Sie haben noch keine Liste.",
+		"muteList": "{name} stummschalten",
+		"quietTitle": "Ruhezeiten",
+		"quietHint": "Keine Push-Nachrichten in dieser Zeit; sie kommen danach. Die Zeiten folgen der Zeitzone Ihres Geräts.",
+		"quietEnabled": "Nachts stumm",
+		"quietStart": "Von",
+		"quietEnd": "Bis",
+		"channels": {
+			"chats": "Unterhaltungen",
+			"lists": "Listen",
+			"invitations": "Einladungen",
+			"reminders": "Erinnerungen",
+			"timers": "Timer"
+		}
 	}
 }

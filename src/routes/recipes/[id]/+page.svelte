@@ -324,6 +324,7 @@
 			stepIngredientIds={steps.map((step) => step.ingredientIds ?? [])}
 			recipeId={recipe.id}
 			stepDurations={steps.map((step) => step.durationSeconds ?? null)}
+			stepWidgets={steps.map((step) => step.widgets ?? [])}
 			onClose={() => (cookAlongOpen = false)}
 		/>
 	{/if}

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
 	DEFAULT_UNIT,
+	formatAmount,
 	UNIT_GROUPS,
 	UNITS,
 	resolveUnit,
@@ -119,5 +120,26 @@ describe('unitKeyForCount', () => {
 
 	it('rend null pour une unité inconnue', () => {
 		expect(unitKeyForCount('douzaine', '3')).toBeNull();
+	});
+});
+
+describe('formatAmount', () => {
+	const say = (key: string) => key.replace('units.', '');
+
+	it('never prints a unit without a quantity', () => {
+		expect(formatAmount('', 'g', say)).toBeNull();
+		expect(formatAmount('  ', 'g', say)).toBeNull();
+		expect(formatAmount('0', 'g', say)).toBeNull();
+		expect(formatAmount(null, 'ml', say)).toBeNull();
+	});
+
+	it('joins quantity and unit, and keeps a bare quantity', () => {
+		expect(formatAmount('200', 'g', say)).toBe('200 g');
+		expect(formatAmount('2', null, say)).toBe('2');
+		expect(formatAmount('1,5', 'l', say)).toBe('1,5 l');
+	});
+
+	it('keeps an unknown unit as written', () => {
+		expect(formatAmount('3', 'noisettes', say)).toBe('3 noisettes');
 	});
 });

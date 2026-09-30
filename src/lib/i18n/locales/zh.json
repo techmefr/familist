@@ -27,7 +27,8 @@
 		"shop": "新建门店",
 		"card": "新建会员卡",
 		"recipe": "新建食谱",
-		"mealPlan": "新建本周菜单"
+		"mealPlan": "新建本周菜单",
+		"direct": "新对话"
 	},
 	"lists": {
 		"title": "我的清单",
@@ -170,6 +171,11 @@
 			"admin": {
 				"hint": "账号、反馈、崩溃",
 				"keywords": "批准、审核、角色、管理员、演示、反馈、崩溃、数据请求"
+			},
+			"notifications": {
+				"title": "通知",
+				"hint": "消息、清单、免打扰时段",
+				"keywords": "推送，提醒，静音，夜间，提醒"
 			}
 		},
 		"palette": "配色主题"
@@ -540,6 +546,13 @@
 				"not_html": "该链接指向的不是网页。",
 				"too_large": "该页面过大，无法读取。",
 				"no_recipe": "该页面没有可读取的菜谱。网站需以结构化数据发布菜谱。"
+			},
+			"verifyTitle": "保存前请核实——这些并不确定：",
+			"verify": {
+				"servings": "份数（未给出）",
+				"quantities": "部分用量不是简单数字",
+				"durations": "步骤时间",
+				"temperatures": "烤箱温度"
 			}
 		},
 		"title": "食谱",
@@ -815,7 +828,36 @@
 		"actionsAria": "{name} 的更多操作",
 		"addPhotoAction": "添加照片",
 		"backToRecipes": "返回食谱列表",
-		"notFound": "未找到该食谱。"
+		"notFound": "未找到该食谱。",
+		"widgets": {
+			"title": "步骤 {rank} 的小组件",
+			"quickTimer": "快速计时器",
+			"quickMinutes": "{count} 分钟",
+			"add": "添加小组件",
+			"remove": "移除：{type}",
+			"type": {
+				"appliance": "电器",
+				"alert": "提醒",
+				"wait": "长时间等待",
+				"photo": "照片备注"
+			},
+			"appliance": "电器",
+			"appliances": {
+				"oven": "烤箱",
+				"hob": "灶台",
+				"microwave": "微波炉",
+				"airfryer": "空气炸锅",
+				"pressure": "高压锅",
+				"other": "其他"
+			},
+			"temperature": "温度（°C）",
+			"setting": "设置",
+			"alertText": "提醒内容",
+			"waitHours": "时长（小时）",
+			"waitLabel": "等待内容",
+			"caption": "说明",
+			"toVerify": "待核实"
+		}
 	},
 	"recipeTags": {
 		"title": "分类",
@@ -1375,7 +1417,13 @@
 		"photoView": "全屏查看照片",
 		"photoUploading": "正在发送照片…",
 		"photoFailed": "照片发送失败，请重试。",
-		"photoTooBig": "这张照片太大了。"
+		"photoTooBig": "这张照片太大了。",
+		"assistantName": "Familiste 助手",
+		"assistantPreview": "询问食谱、菜单或点子",
+		"assistantTitle": "Familiste 助手",
+		"assistantBack": "对话",
+		"muteList": "静音此对话",
+		"unmuteList": "恢复此对话的通知"
 	},
 	"household": {
 		"title": "我的家庭",
@@ -1749,7 +1797,7 @@
 			"guestSave": "添加这位客人",
 			"guestDefault": "客人 {number}",
 			"removeGuest": "移除 {name}",
-			"constraintsTitle": "助手会考虑",
+			"constraintsTitle": "将发送给你的 AI 提供商的内容（不含姓名）",
 			"constraintsNone": "没有需要考虑的过敏或饮食限制。",
 			"constraintOf": "{who}：{notes}",
 			"threadLabel": "与助手的对话",
@@ -1963,5 +2011,97 @@
 		"import": "导入文件",
 		"imported": "已导入 {count} 个主题。",
 		"importEmpty": "无法从该文件导入任何内容。"
+	},
+	"people": {
+		"private": "只有你能看到",
+		"allergies": "过敏与不耐受",
+		"allergen": {
+			"milk": "牛奶",
+			"egg": "鸡蛋",
+			"peanut": "花生",
+			"nuts": "坚果",
+			"gluten": "麸质",
+			"fish": "鱼",
+			"shellfish": "甲壳与贝类",
+			"soy": "大豆",
+			"sesame": "芝麻",
+			"mustard": "芥末",
+			"celery": "芹菜"
+		},
+		"customAllergy": "其他过敏",
+		"add": "添加",
+		"severityFor": "{name} 的严重程度",
+		"severity": {
+			"severe": "严重",
+			"intolerance": "不耐受",
+			"preference": "宁可避免"
+		},
+		"removeItem": "移除 {name}",
+		"diets": "饮食",
+		"diet": {
+			"vegetarian": "素食",
+			"vegan": "纯素",
+			"no-pork": "不吃猪肉",
+			"halal": "清真",
+			"kosher": "洁食",
+			"gluten-free": "无麸质",
+			"lactose-free": "无乳糖"
+		},
+		"likes": "喜欢",
+		"dislikes": "不喜欢",
+		"portion": "份量",
+		"portions": {
+			"child": "儿童",
+			"small": "小",
+			"normal": "成人",
+			"big": "食量大"
+		},
+		"birthYear": "出生年份（可选）",
+		"guest": "访客，无账户",
+		"notes": "备注",
+		"shareWarnings": "向家庭成员显示提醒",
+		"shareWarningsHint": "其他人只会看到“含花生——Léo”，看不到严重程度或备注。",
+		"edit": "编辑档案",
+		"guestTag": "访客",
+		"portionBadge": "份量 ×{value}",
+		"privateHint": "过敏、饮食和口味是私密的：只有填写者能看到。",
+		"ownedByOther": "档案由其他成员保密",
+		"warn": "含 {what} — {name}",
+		"safeForAll": "适合所有人",
+		"conflictBadge": "注意：{names}"
+	},
+	"notifications": {
+		"title": "通知",
+		"permissionTitle": "此设备上的通知",
+		"unsupported": "推送通知适用于 Android 和 iOS 应用。日期提醒在支持的地方继续可用。",
+		"enable": "开启通知",
+		"granted": "此设备已开启通知。",
+		"denied": "通知已被阻止。请打开手机设置，进入应用、Familiste、通知并允许。",
+		"test": "发送测试通知",
+		"testTitle": "Familiste",
+		"testBody": "一切正常，你会这样收到通知。",
+		"typesTitle": "通知内容",
+		"type": {
+			"chats": "消息与认领的菜",
+			"lists": "共享清单的动态",
+			"invitations": "邀请与请求",
+			"reminders": "提醒",
+			"timers": "食谱计时器"
+		},
+		"listsTitle": "静音清单",
+		"listsEmpty": "你还没有清单。",
+		"muteList": "静音 {name}",
+		"quietTitle": "免打扰时段",
+		"quietHint": "这段时间不推送，结束后送达。时间按设备时区。",
+		"quietEnabled": "夜间静音",
+		"quietStart": "从",
+		"quietEnd": "到",
+		"channels": {
+			"chats": "对话",
+			"lists": "清单",
+			"invitations": "邀请",
+			"reminders": "提醒",
+			"timers": "计时器"
+		}
 	}
 }

@@ -537,6 +537,12 @@ class SessionStore {
 	async signOut() {
 		await sync.flush();
 
+		// While the session still holds: the token row is this account's to delete, not the next one's.
+		if (this.user) {
+			const { unregisterPush } = await import('$native/push');
+			await unregisterPush(this.user.id).catch(() => undefined);
+		}
+
 		await supabase.auth.signOut();
 		this.user = null;
 		this.profile = null;

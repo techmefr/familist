@@ -1,3 +1,6 @@
+import { parseWidgets } from '$domain/step-widgets';
+import { parseAllergies, stringList } from '$domain/person-profile';
+import type { Json } from '$db/types';
 import type {
 	Aisle,
 	Conversation,
@@ -9,6 +12,7 @@ import type {
 	Message,
 	Poll,
 	PollOption,
+	PersonProfile,
 	PollVote,
 	Price,
 	Recipe,
@@ -455,7 +459,8 @@ export const toRecipeStep = (row: Row): RecipeStep => ({
 		? row.ingredient_ids.filter((id): id is string => typeof id === 'string')
 		: [],
 	durationSeconds:
-		typeof row.duration_seconds === 'number' && row.duration_seconds > 0 ? row.duration_seconds : undefined
+		typeof row.duration_seconds === 'number' && row.duration_seconds > 0 ? row.duration_seconds : undefined,
+	widgets: parseWidgets(row.widgets)
 });
 
 export const fromRecipeStep = (step: RecipeStep) => ({
@@ -464,7 +469,8 @@ export const fromRecipeStep = (step: RecipeStep) => ({
 	body: step.body,
 	position: step.position,
 	ingredient_ids: step.ingredientIds,
-	duration_seconds: step.durationSeconds ?? null
+	duration_seconds: step.durationSeconds ?? null,
+	widgets: parseWidgets(step.widgets) as unknown as Json
 });
 
 export const toMealPlan = (row: Row): MealPlan => ({
@@ -518,4 +524,36 @@ export const fromHouseholdPerson = (person: HouseholdPerson, householdId: string
 	linked_user_id: person.linkedUserId ?? null,
 	name: person.name,
 	dietary_notes: person.dietaryNotes ?? null
+});
+
+export const toPersonProfile = (row: Row): PersonProfile => ({
+	personId: text(row.person_id),
+	householdId: text(row.household_id),
+	ownerId: text(row.owner_id),
+	allergies: parseAllergies(row.allergies),
+	diets: stringList(row.diets),
+	likes: stringList(row.likes),
+	dislikes: stringList(row.dislikes),
+	birthYear: typeof row.birth_year === 'number' ? row.birth_year : undefined,
+	portionFactor: typeof row.portion_factor === 'number' ? row.portion_factor : Number(row.portion_factor) || 1,
+	guest: row.guest === true,
+	notes: typeof row.notes === 'string' ? row.notes : undefined,
+	shareWarnings: row.share_warnings === true,
+	updatedAt: Date.parse(text(row.updated_at)) || 0
+});
+
+export const fromPersonProfile = (profile: PersonProfile) => ({
+	person_id: profile.personId,
+	household_id: profile.householdId,
+	owner_id: profile.ownerId,
+	allergies: profile.allergies as unknown as Json,
+	diets: profile.diets,
+	likes: profile.likes,
+	dislikes: profile.dislikes,
+	birth_year: profile.birthYear ?? null,
+	portion_factor: profile.portionFactor,
+	guest: profile.guest,
+	notes: profile.notes ?? null,
+	share_warnings: profile.shareWarnings,
+	updated_at: new Date(profile.updatedAt || Date.now()).toISOString()
 });

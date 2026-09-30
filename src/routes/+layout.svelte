@@ -18,6 +18,7 @@
 	import { version as appVersion } from '../../package.json';
 	import { pushAppearance, syncAppearance } from '$sync/appearance';
 	import { registerServiceWorker } from '$native/pwa';
+	import { registerPush } from '$native/push';
 	import { watchCrashes } from '$crash/reporter';
 	import { install } from '$stores/install.svelte';
 	import { reminderPlans } from '$domain/reminder';
@@ -282,6 +283,23 @@
 	$effect(() => {
 		const id = session.user?.id;
 		if (id) void syncAppearance(settings, id);
+	});
+
+	/**
+	 * The device hands its push token to the signed-in account when the permission was already given (it is
+	 * never asked here, only on the notifications screen), and taps on a notification open the right screen.
+	 * The language is kept in the synced settings so the server words each push for this person.
+	 */
+	$effect(() => {
+		const id = session.user?.id;
+		if (!id) return;
+
+		settings.setNotificationLocale(i18n.locale);
+		void registerPush(
+			id,
+			path => void goto(path),
+			key => t(`notifications.channels.${key}`)
+		);
 	});
 
 	/**

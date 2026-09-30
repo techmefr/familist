@@ -27,7 +27,8 @@
 		"shop": "Fivarotana vaovao",
 		"card": "Karatra vaovao",
 		"recipe": "Recettes vaovao",
-		"mealPlan": "Drafitra sakafo vaovao"
+		"mealPlan": "Drafitra sakafo vaovao",
+		"direct": "Resaka vaovao"
 	},
 	"lists": {
 		"title": "Ny lisitro",
@@ -171,6 +172,11 @@
 			"admin": {
 				"hint": "Kaonty, tatitra, fianjerana",
 				"keywords": "manaiky, manamarina, anjara, mpitantana, demo, tatitra, fianjerana, fangatahana RGPD"
+			},
+			"notifications": {
+				"title": "Fampandrenesana",
+				"hint": "Hafatra, lisitra, ora mangina",
+				"keywords": "push, fampitandremana, feo, mangina, alina, fampahatsiahivana"
 			}
 		},
 		"palette": "Lohateny loko"
@@ -546,6 +552,13 @@
 				"not_html": "Tsy mitondra any amin'ny pejy tranonkala ity rohy ity.",
 				"too_large": "Lehibe loatra ity pejy ity ka tsy vakiana.",
 				"no_recipe": "Tsy misy fomba fahandroana azo vakiana ato amin'ity pejy ity. Tsy maintsy mamoaka azy amin'ny angona voalamina ny tranonkala."
+			},
+			"verifyTitle": "Hamarino alohan’ny hitahiry — tsy azo antoka:",
+			"verify": {
+				"servings": "Isan’ny anjara (tsy voalaza)",
+				"quantities": "Ny habetsahana sasany tsy isa tsotra",
+				"durations": "Ny fotoana isaky ny dingana",
+				"temperatures": "Ny hafanan’ny lafaoro"
 			}
 		},
 		"title": "Recettes",
@@ -816,7 +829,36 @@
 		"actionsAria": "Hetsika hafa ho an'ny {name}",
 		"addPhotoAction": "Manampy sary",
 		"backToRecipes": "Miverina any amin'ireo fomba fahandro",
-		"notFound": "Tsy hita ny fomba fahandro."
+		"notFound": "Tsy hita ny fomba fahandro.",
+		"widgets": {
+			"title": "Widget ho an’ny dingana {rank}",
+			"quickTimer": "Timer haingana",
+			"quickMinutes": "{count} min",
+			"add": "Ampio widget",
+			"remove": "Esory: {type}",
+			"type": {
+				"appliance": "Fitaovana",
+				"alert": "Fampitandremana",
+				"wait": "Fiandrasana lava",
+				"photo": "Naotin-tsary"
+			},
+			"appliance": "Fitaovana",
+			"appliances": {
+				"oven": "Lafaoro",
+				"hob": "Fatana",
+				"microwave": "Micro-ondes",
+				"airfryer": "Air fryer",
+				"pressure": "Lapoaly",
+				"other": "Hafa"
+			},
+			"temperature": "Hafanana (°C)",
+			"setting": "Fandrefesana",
+			"alertText": "Lahatsoratra fampitandremana",
+			"waitHours": "Faharetana (ora)",
+			"waitLabel": "Inona no miandry",
+			"caption": "Soratra",
+			"toVerify": "hohamarinina"
+		}
 	},
 	"recipeTags": {
 		"title": "Sokajy",
@@ -1380,7 +1422,13 @@
 		"photoView": "Jereo ny sary amin'ny efijery feno",
 		"photoUploading": "Mandefa sary…",
 		"photoFailed": "Tsy nahomby ny fandefasana ny sary. Andramo indray.",
-		"photoTooBig": "Mavesatra loatra io sary io."
+		"photoTooBig": "Mavesatra loatra io sary io.",
+		"assistantName": "Mpanampy Familiste",
+		"assistantPreview": "Angataho fomba fahandrahoana, menio na hevitra",
+		"assistantTitle": "Mpanampy Familiste",
+		"assistantBack": "Resaka",
+		"muteList": "Hanginana ity resaka ity",
+		"unmuteList": "Averina ny feon’ity resaka ity"
 	},
 	"household": {
 		"title": "Ny ankohonako",
@@ -1757,7 +1805,7 @@
 			"guestSave": "Ampidiro ny vahiny",
 			"guestDefault": "Vahiny {number}",
 			"removeGuest": "Esory {name}",
-			"constraintsTitle": "Heverin’ny mpanampy",
+			"constraintsTitle": "Ny halefa amin’ny mpamatsy AI-nao (tsy misy anarana)",
 			"constraintsNone": "Tsy misy tsy fahazakana na fomba fihinana tokony hodinihina.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Resaka amin’ny mpanampy",
@@ -1975,5 +2023,97 @@
 		"import": "Ampidiro rakitra",
 		"imported": "Voampiditra ny lohateny {count}.",
 		"importEmpty": "Tsy nisy azo nampidirina tamin’ity rakitra ity."
+	},
+	"people": {
+		"private": "Ianao irery no mahita izany",
+		"allergies": "Allergie sy tsy fandeferana",
+		"allergen": {
+			"milk": "Ronono",
+			"egg": "Atody",
+			"peanut": "Voanjo",
+			"nuts": "Voa misy hodi-kazo",
+			"gluten": "Gluten",
+			"fish": "Trondro",
+			"shellfish": "Foza sy makamba",
+			"soy": "Soja",
+			"sesame": "Sezame",
+			"mustard": "Moutarde",
+			"celery": "Celeri"
+		},
+		"customAllergy": "Allergie hafa",
+		"add": "Ampio",
+		"severityFor": "Henjana ho an’ny {name}",
+		"severity": {
+			"severe": "Mafy",
+			"intolerance": "Tsy fandeferana",
+			"preference": "Aleo hisoroka"
+		},
+		"removeItem": "Esory {name}",
+		"diets": "Fomba fisakafoana",
+		"diet": {
+			"vegetarian": "Sakafo tsy misy hena",
+			"vegan": "Vegan",
+			"no-pork": "Tsy misy kisoa",
+			"halal": "Halal",
+			"kosher": "Kosher",
+			"gluten-free": "Tsy misy gluten",
+			"lactose-free": "Tsy misy lactose"
+		},
+		"likes": "Tia",
+		"dislikes": "Tsy tia",
+		"portion": "Habeny anjara",
+		"portions": {
+			"child": "Ankizy",
+			"small": "Kely",
+			"normal": "Olon-dehibe",
+			"big": "Mihinana be"
+		},
+		"birthYear": "Taona nahaterahana (tsy voatery)",
+		"guest": "Mpanafika, tsy misy kaonty",
+		"notes": "Naoty",
+		"shareWarnings": "Asehoy ny fampitandremana amin’ny ankohonana",
+		"shareWarningsHint": "Ny hafa dia mahita “misy voanjo — Léo”, tsy ny henjana na ny naotinao.",
+		"edit": "Hanova ny fiche",
+		"guestTag": "Mpanafika",
+		"portionBadge": "Anjara ×{value}",
+		"privateHint": "Mitokana ny allergie, fomba fisakafoana ary tsiron’ny olona: ilay nanoratra ihany no mamaky.",
+		"ownedByOther": "Fiche tsy hita ataon’ny mpikambana hafa",
+		"warn": "Misy {what} — {name}",
+		"safeForAll": "Mety ho an’ny rehetra",
+		"conflictBadge": "Mitandrema: {names}"
+	},
+	"notifications": {
+		"title": "Fampandrenesana",
+		"permissionTitle": "Fampandrenesana amin’ity fitaovana ity",
+		"unsupported": "Miasa ao amin’ny app Android sy iOS ny push. Mitohy ny fampahatsiahivana daty izay tohanana.",
+		"enable": "Ampandehano ny fampandrenesana",
+		"granted": "Mandeha ny fampandrenesana amin’ity fitaovana ity.",
+		"denied": "Voasakana ny fampandrenesana. Sokafy ny Fandrindrana > Fampiharana > Familiste > Fampandrenesana ary avelao.",
+		"test": "Alefaso fampandrenesana fitsapana",
+		"testTitle": "Familiste",
+		"testBody": "Mandeha. Izany no fomba hampahafantarana anao.",
+		"typesTitle": "Inona no hampahafantarina",
+		"type": {
+			"chats": "Hafatra sy lovia voaray",
+			"lists": "Hetsika amin’ny lisitra iombonana",
+			"invitations": "Fanasana sy fangatahana",
+			"reminders": "Fampahatsiahivana",
+			"timers": "Timer fahandrahoana"
+		},
+		"listsTitle": "Hanginana lisitra",
+		"listsEmpty": "Mbola tsy manana lisitra ianao.",
+		"muteList": "Hanginana {name}",
+		"quietTitle": "Ora mangina",
+		"quietHint": "Tsy misy fampandrenesana amin’ireo ora ireo; tonga rehefa vita. Araka ny faritry ny fitaovanao ny ora.",
+		"quietEnabled": "Hanginana amin’ny alina",
+		"quietStart": "Manomboka",
+		"quietEnd": "Hatramin’ny",
+		"channels": {
+			"chats": "Resaka",
+			"lists": "Lisitra",
+			"invitations": "Fanasana",
+			"reminders": "Fampahatsiahivana",
+			"timers": "Timer"
+		}
 	}
 }

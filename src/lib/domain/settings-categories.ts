@@ -5,6 +5,7 @@ export type SettingsCategoryId =
 	| 'household'
 	| 'display'
 	| 'feedback'
+	| 'notifications'
 	| 'security'
 	| 'ai'
 	| 'images'
@@ -91,6 +92,17 @@ export const SETTINGS_CATEGORIES: SettingsCategory[] = [
 			{ anchor: 'setting-sound', label: 'profile.sound', hint: 'profile.soundHint' },
 			{ anchor: 'setting-haptics', label: 'profile.haptics', hint: 'profile.hapticsHint' },
 			{ anchor: 'setting-nearby', label: 'profile.nearbyCards' }
+		]
+	},
+	{
+		id: 'notifications',
+		route: '/profile/notifications',
+		title: 'profile.categories.notifications.title',
+		...keys('notifications'),
+		settings: [
+			{ anchor: 'setting-notification-types', label: 'notifications.typesTitle' },
+			{ anchor: 'setting-notification-lists', label: 'notifications.listsTitle' },
+			{ anchor: 'setting-quiet-hours', label: 'notifications.quietTitle', hint: 'notifications.quietHint' }
 		]
 	},
 	{

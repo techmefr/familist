@@ -2,13 +2,13 @@
 	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
+	import { createIntent } from '$stores/create.svelte';
 	import { t } from '$i18n/index.svelte';
-	import { Button } from '$components/ui/button';
 	import * as Card from '$components/ui/card';
 	import EmptyState from '$components/app/EmptyState.svelte';
 	import SearchFilterBar from '$components/app/SearchFilterBar.svelte';
 	import FilterSheet from '$components/app/FilterSheet.svelte';
-	import { CalendarDays, Plus, ChevronRight } from '@lucide/svelte';
+	import { CalendarDays, ChevronRight } from '@lucide/svelte';
 
 	let query = $state('');
 	let onlyWithRecipes = $state(false);
@@ -30,6 +30,11 @@
 		await goto(`/meal-plan/${plan.id}`);
 	}
 
+	/** The + sheet is the only way to a new menu: it lands here and the menu is created on arrival. */
+	$effect(() => {
+		if (createIntent.kind === 'mealPlan' && createIntent.take('mealPlan')) void create();
+	});
+
 	function recipeCount(planId: string) {
 		return data.recipesInPlan(planId).length;
 	}
@@ -41,11 +46,6 @@
 
 <h1 class="text-h1 font-semibold">{t('mealPlan.title')}</h1>
 <p class="text-muted-foreground text-label mt-1">{t('mealPlan.intro')}</p>
-
-<Button onclick={create} data-test-id="meal-plan-create" class="fl-press mt-4">
-	<Plus size={18} aria-hidden="true" />
-	{t('mealPlan.new')}
-</Button>
 
 {#if data.mealPlans.length > 0}
 	<SearchFilterBar

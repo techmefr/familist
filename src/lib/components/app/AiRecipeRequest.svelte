@@ -7,6 +7,7 @@
 	import { feedback } from '$stores/feedback.svelte';
 	import { aiRecipeConversation } from '$stores/ai-recipe-conversation.svelte';
 	import type { SuggestedRecipe } from '$domain/ai-recipe';
+	import { aiConstraints, capConstraints } from '$domain/person-profile';
 	import { conflictingIngredients, tableConstraints, type TableGuest } from '$domain/ai-recipe-chat';
 	import { draftFromSuggestion, type RecipeDraft } from '$domain/recipe-draft';
 	import {
@@ -64,15 +65,14 @@
 	const atTable = $derived([
 		...persons
 			.filter((person) => !absent.has(person.id))
-			.map((person) => ({ name: person.name, notes: person.dietaryNotes ?? '' })),
+			.map((person) => {
+				const profile = data.profileOf(person.id);
+				const notes = profile ? aiConstraints(profile).join(', ') : (person.dietaryNotes ?? '');
+				return { name: person.name, notes };
+			}),
 		...guests
 	]);
-	const constraints = $derived(tableConstraints(atTable));
-	const constraintsShown = $derived(
-		atTable
-			.filter((person) => person.notes.trim())
-			.map((person) => ({ who: person.name, notes: person.notes.trim() }))
-	);
+	const constraints = $derived(capConstraints(tableConstraints(atTable)));
 
 	function togglePerson(id: string) {
 		feedback.play('tap');
@@ -294,14 +294,14 @@
 
 		<div data-test-id="ai-chat-constraints">
 			<h2 class="text-label font-semibold">{t('ai.chat.constraintsTitle')}</h2>
-			{#if constraintsShown.length > 0}
+			{#if constraints.length > 0}
 				<ul class="mt-2 flex flex-wrap gap-2">
-					{#each constraintsShown as constraint, index (index)}
+					{#each constraints as constraint, index (index)}
 						<li
 							class="bg-muted text-label rounded-lg px-3 py-2 [overflow-wrap:anywhere]"
 							data-test-class="ai-chat-constraint"
 						>
-							{t('ai.chat.constraintOf', { who: constraint.who, notes: constraint.notes })}
+							{constraint}
 						</li>
 					{/each}
 				</ul>

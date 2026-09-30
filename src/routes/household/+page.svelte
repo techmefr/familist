@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import { afterNavigate, goto } from '$app/navigation';
 	import { supabase } from '$db/supabase';
 	import { session } from '$stores/session.svelte';
@@ -12,8 +13,10 @@
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
-	import { Users, Copy, Check, KeyRound, CircleDot, Salad, Trash2 } from '@lucide/svelte';
+	import { Users, Copy, Check, KeyRound, CircleDot, Salad, Trash2, ShieldAlert, TriangleAlert } from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
+	import PersonSheet from '$components/app/PersonSheet.svelte';
+	import { bySeverity } from '$domain/person-profile';
 	import { highlightSettingTarget } from '$components/app/setting-target';
 
 	afterNavigate(({ to }) => highlightSettingTarget(to?.url));
@@ -22,7 +25,15 @@
 	let joinCode = $state('');
 	let renaming = $state('');
 	let newPersonName = $state('');
-	let newPersonNotes = $state('');
+	let sheet = $state<PersonSheet | null>(null);
+	let sheetPersonId = $state<string | null>(null);
+	const sheetPerson = $derived(data.householdPersons.find(p => p.id === sheetPersonId) ?? null);
+
+	async function openSheet(id: string) {
+		sheetPersonId = id;
+		await tick();
+		sheet?.show();
+	}
 
 	const circleName = $derived(data.circleName(data.circle));
 	let error = $state<string | null>(null);
@@ -163,14 +174,11 @@
 		const name = newPersonName.trim();
 		if (!name) return;
 
-		data.addHouseholdPerson({ name, dietaryNotes: newPersonNotes });
+		const person = data.addHouseholdPerson({ name });
+		data.saveProfile(person.id, { guest: true });
 		newPersonName = '';
-		newPersonNotes = '';
 	}
 
-	function updateDietaryNotes(id: string, value: string) {
-		data.updateHouseholdPerson(id, { dietaryNotes: value });
-	}
 </script>
 
 <svelte:head>
@@ -310,11 +318,30 @@
 	<Card.Content>
 		<p class="text-muted-foreground text-label">{t('household.peopleHint')}</p>
 
+		<p class="text-muted-foreground text-caption mt-2">{t('people.privateHint')}</p>
+
 		<ul class="mt-4 space-y-4">
 			{#each data.householdPersons as person (person.id)}
+				{@const profile = data.profileOf(person.id)}
 				<li class="space-y-2" data-test-class="household-person">
 					<div class="flex flex-wrap items-center gap-3">
 						<span class="text-product min-w-0 flex-1 basis-[8rem] font-medium">{person.name}</span>
+						{#if profile?.guest || (!profile && !person.linkedUserId)}
+							<span class="bg-muted text-caption rounded-full px-2 py-0.5 font-medium">{t('people.guestTag')}</span>
+						{/if}
+						{#if profile && profile.portionFactor !== 1}
+							<span class="bg-muted text-caption rounded-full px-2 py-0.5 font-medium">
+								{t('people.portionBadge', { value: profile.portionFactor })}
+							</span>
+						{/if}
+						<Button
+							variant="outline"
+							onclick={() => openSheet(person.id)}
+							data-test-id="household-person-edit-{person.id}"
+							class="min-h-[max(2.75rem,44px)]"
+						>
+							{t('people.edit')}
+						</Button>
 						<Button
 							variant="ghost"
 							onclick={() => data.removeHouseholdPerson(person.id)}
@@ -325,15 +352,32 @@
 							<Trash2 size={16} aria-hidden="true" />
 						</Button>
 					</div>
-					<Input
-						value={person.dietaryNotes ?? ''}
-						oninput={(event) => updateDietaryNotes(person.id, event.currentTarget.value)}
-						placeholder={t('household.dietaryNotesPlaceholder')}
-						data-test-id="household-person-notes-{person.id}"
-					/>
+
+					{#if profile && (profile.allergies.length > 0 || profile.diets.length > 0)}
+						<ul class="flex flex-wrap gap-2" data-test-class="person-chips">
+							{#each bySeverity(profile.allergies) as allergy (allergy.id)}
+								<li
+									class="text-caption inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-medium"
+									data-severity={allergy.severity}
+								>
+									{#if allergy.severity === 'severe'}
+										<ShieldAlert size={14} class="text-destructive" aria-hidden="true" />
+									{:else if allergy.severity === 'intolerance'}
+										<TriangleAlert size={14} class="text-[var(--fl-warning)]" aria-hidden="true" />
+									{/if}
+									{allergy.label} · {t(`people.severity.${allergy.severity}`)}
+								</li>
+							{/each}
+							{#each profile.diets as diet (diet)}
+								<li class="bg-muted text-caption rounded-full px-2 py-0.5 font-medium">{t(`people.diet.${diet}`)}</li>
+							{/each}
+						</ul>
+					{/if}
 				</li>
 			{/each}
 		</ul>
+
+		<PersonSheet bind:this={sheet} person={sheetPerson} />
 
 		<form onsubmit={addPerson} class="mt-6 space-y-3" data-test-id="household-person-form">
 			<div>
@@ -344,16 +388,6 @@
 					data-test-id="household-person-name"
 					class="mt-2"
 					required
-				/>
-			</div>
-			<div>
-				<Label for="new-person-notes">{t('household.dietaryNotesLabel')}</Label>
-				<Input
-					id="new-person-notes"
-					bind:value={newPersonNotes}
-					data-test-id="household-person-new-notes"
-					class="mt-2"
-					placeholder={t('household.dietaryNotesPlaceholder')}
 				/>
 			</div>
 			<Button type="submit" data-test-id="household-person-add">{t('household.personAdd')}</Button>

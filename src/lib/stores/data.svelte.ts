@@ -25,6 +25,7 @@ import {
 	type MealPlan,
 	type MealPlanRecipe,
 	type HouseholdPerson,
+	type PersonProfile,
 	type Shop,
 	type ShopItemOrder,
 	type ShopLayout
@@ -36,6 +37,7 @@ import { clampDuration } from '$domain/step-duration';
 import { accountDecision } from '$domain/account-switch';
 import { guessAisleKind, FALLBACK_AISLE_KIND } from '$domain/guess-aisle';
 import { PendingWrites } from '$domain/pending-writes';
+import { clampPortion, emptyProfile, parseAllergies, stringList } from '$domain/person-profile';
 import { groupByAisle, learnedItemOrder } from '$domain/aisle-order';
 import { defaultCircle, ofCircle, resolveAisle, visibleLists, visibleRecipes } from '$domain/circle';
 import { shareStatusOf, visibleCards } from '$domain/card-share';
@@ -59,6 +61,7 @@ import {
 	fromMealPlan,
 	fromMealPlanRecipe,
 	fromHouseholdPerson,
+	fromPersonProfile,
 	fromShop
 } from '$sync/mapping';
 import { copiedItem, copyName } from '$domain/duplicate';
@@ -85,6 +88,7 @@ import { trigram } from '$domain/trigram';
 import { trigramSource } from '$domain/place';
 import { DEFAULT_UNIT } from '$domain/units';
 import { TINTS } from '$domain/tint';
+import { parseWidgets, type StepWidget } from '$domain/step-widgets';
 import { i18n, t } from '$i18n/index.svelte';
 
 /**
@@ -122,6 +126,7 @@ function recipeChildren(
 		steps: string[];
 		stepIngredients?: number[][];
 		stepDurations?: (number | null)[];
+		stepWidgets?: StepWidget[][];
 	}
 ): { rows: RecipeIngredient[]; steps: RecipeStep[] } {
 	const idOfRow = new Map<number, string>();
@@ -156,11 +161,19 @@ function recipeChildren(
 			body: body.trim(),
 			position: steps.length,
 			ingredientIds,
-			durationSeconds: clampDuration(input.stepDurations?.[index]) ?? undefined
+			durationSeconds: clampDuration(input.stepDurations?.[index]) ?? undefined,
+			widgets: parseWidgets(input.stepWidgets?.[index])
 		});
 	});
 
 	return { rows, steps };
+}
+
+/** A warning a household member chose to share about their own profile: the allergen labels and diets, nothing else. */
+export interface SharedWarning {
+	personId: string;
+	allergens: string[];
+	diets: string[];
 }
 
 class DataStore {
@@ -177,6 +190,9 @@ class DataStore {
 	private cachedRecipes = $state<Recipe[]>([]);
 	private cachedMealPlans = $state<MealPlan[]>([]);
 	private cachedHouseholdPersons = $state<HouseholdPerson[]>([]);
+	private cachedPersonProfiles = $state<PersonProfile[]>([]);
+	/** Warnings (never details) the other members chose to share, fetched from the server on demand. */
+	sharedWarnings = $state<SharedWarning[]>([]);
 
 	// What is read per list, per shop or per recipe is not filtered here: the foreign key already does
 	// it, and those tables have no circle of their own.
@@ -211,6 +227,8 @@ class DataStore {
 	recipes = $derived(visibleRecipes(this.cachedRecipes, this.recipeShares, this.circle));
 	mealPlans = $derived(ofCircle(this.cachedMealPlans, this.circle));
 	householdPersons = $derived(ofCircle(this.cachedHouseholdPersons, this.circle));
+	/** The profiles of the active household's people that this account owns: nobody else's ever reach it. */
+	personProfiles = $derived(ofCircle(this.cachedPersonProfiles, this.circle));
 	lists = $derived(visibleLists(this.cachedLists, this.circle));
 
 	activeShop = $derived(this.shops.find((s) => s.id === this.activeShopId) ?? this.shops[0]);
@@ -322,6 +340,7 @@ class DataStore {
 			mealPlans,
 			mealPlanRecipes,
 			householdPersons,
+			personProfiles,
 			conversations
 		] = await Promise.all([
 			db.shops.toArray(),
@@ -345,6 +364,7 @@ class DataStore {
 			db.mealPlans.toArray(),
 			db.mealPlanRecipes.toArray(),
 			db.householdPersons.toArray(),
+			db.personProfiles.toArray(),
 			db.conversations.toArray()
 		]);
 
@@ -386,9 +406,11 @@ class DataStore {
 		this.cachedMealPlans = mealPlans;
 		this.mealPlanRecipes = mealPlanRecipes;
 		this.cachedHouseholdPersons = householdPersons;
+		this.cachedPersonProfiles = personProfiles;
 		this.conversations = conversations;
 
 		this.restoreActiveShop();
+		void this.loadSharedWarnings();
 	}
 
 	/**
@@ -1604,6 +1626,7 @@ class DataStore {
 		steps: string[];
 		stepIngredients?: number[][];
 		stepDurations?: (number | null)[];
+		stepWidgets?: StepWidget[][];
 	}) {
 		const recipe: Recipe = {
 			id: crypto.randomUUID(),
@@ -1656,6 +1679,7 @@ class DataStore {
 			steps: string[];
 			stepIngredients?: number[][];
 			stepDurations?: (number | null)[];
+			stepWidgets?: StepWidget[][];
 		}
 	) {
 		const recipe = this.cachedRecipes.find((r) => r.id === id);
@@ -1985,8 +2009,84 @@ class DataStore {
 
 	removeHouseholdPerson(id: string) {
 		this.cachedHouseholdPersons = this.cachedHouseholdPersons.filter((p) => p.id !== id);
+		this.cachedPersonProfiles = this.cachedPersonProfiles.filter((p) => p.personId !== id);
 		db.householdPersons.delete(id);
+		db.personProfiles.delete(id);
 		sync.enqueue({ table: 'household_persons', op: 'delete', match: { id } });
+	}
+
+	profileOf(personId: string): PersonProfile | undefined {
+		return this.personProfiles.find((profile) => profile.personId === personId);
+	}
+
+	/**
+	 * Saves the private profile of a person. The profile is written by whoever first fills it and stays theirs:
+	 * another member of the household cannot take it over, the server refuses it (row-level security).
+	 */
+	saveProfile(
+		personId: string,
+		changes: Partial<
+			Pick<
+				PersonProfile,
+				| 'allergies'
+				| 'diets'
+				| 'likes'
+				| 'dislikes'
+				| 'birthYear'
+				| 'portionFactor'
+				| 'guest'
+				| 'notes'
+				| 'shareWarnings'
+			>
+		>
+	): PersonProfile | null {
+		const person = this.cachedHouseholdPersons.find((p) => p.id === personId);
+		if (!person || !this.userId) return null;
+
+		const base = this.profileOf(personId) ?? emptyProfile(personId, person.householdId, this.userId);
+		if (base.ownerId !== this.userId) return null;
+
+		const next: PersonProfile = {
+			...base,
+			allergies: changes.allergies ? parseAllergies(changes.allergies) : base.allergies,
+			diets: changes.diets ? stringList(changes.diets) : base.diets,
+			likes: changes.likes ? stringList(changes.likes) : base.likes,
+			dislikes: changes.dislikes ? stringList(changes.dislikes) : base.dislikes,
+			birthYear: 'birthYear' in changes ? changes.birthYear : base.birthYear,
+			portionFactor:
+				changes.portionFactor !== undefined ? clampPortion(changes.portionFactor) : base.portionFactor,
+			guest: changes.guest ?? base.guest,
+			notes: 'notes' in changes ? changes.notes?.trim() || undefined : base.notes,
+			shareWarnings: changes.shareWarnings ?? base.shareWarnings,
+			updatedAt: Date.now()
+		};
+
+		this.cachedPersonProfiles = [
+			...this.cachedPersonProfiles.filter((p) => p.personId !== personId),
+			next
+		];
+		db.personProfiles.put($state.snapshot(next) as PersonProfile);
+		sync.enqueue({
+			table: 'person_profiles',
+			op: 'upsert',
+			match: { person_id: personId },
+			payload: fromPersonProfile(next)
+		});
+
+		return next;
+	}
+
+	/** Asks the server which warnings the other members of this household agreed to share. */
+	async loadSharedWarnings() {
+		if (!this.circle) return;
+		const { data: rows, error } = await supabase.rpc('household_person_warnings', {
+			p_household: this.circle
+		});
+		if (error || !rows) return;
+
+		this.sharedWarnings = rows
+			.filter((row) => !this.cachedPersonProfiles.some((profile) => profile.personId === row.person_id))
+			.map((row) => ({ personId: row.person_id, allergens: row.allergens, diets: row.diets }));
 	}
 
 	/**
@@ -2136,6 +2236,7 @@ class DataStore {
 			db.deviceVault.clear(),
 			db.mealPlans.clear(),
 			db.mealPlanRecipes.clear(),
+			db.personProfiles.clear(),
 			db.conversations.clear()
 		]);
 
