@@ -3,7 +3,7 @@
 	import { motionMs } from '$stores/settings.svelte';
 	import { DURATION } from '$domain/motion-tokens';
 	import { i18n, t } from '$i18n/index.svelte';
-	import { unitKeyForCount } from '$domain/units';
+	import { formatAmount } from '$domain/units';
 	import {
 		clampStepIndex,
 		isFirstStep,
@@ -60,10 +60,12 @@
 	const hasStepLines = $derived(stepLines.length > 0);
 	const shownLines = $derived(hasStepLines && !showAll ? stepLines : ingredients);
 
-	const lineText = (line: RecipeIngredient) =>
-		line.qty
-			? `${line.qty} ${t(unitKeyForCount(line.unit, line.qty) ?? `units.${line.unit}`)} ${line.name}`
-			: line.name;
+	const amountOf = (line: RecipeIngredient) => formatAmount(line.qty, line.unit, key => t(key));
+
+	const lineText = (line: RecipeIngredient) => {
+		const amount = amountOf(line);
+		return amount ? `${amount} ${line.name}` : line.name;
+	};
 
 	async function openPanel(all = false) {
 		panelOpen = true;
@@ -421,20 +423,22 @@
 		</p>
 
 		<!--
-			A thin progress bar replaces the numbered dots (#375): the dots read well up to six or seven steps,
-			then wrap or shrink past readability on a real recipe. A bar says the same "how far along" at any
-			length, and the text above it already gives the exact step, spoken and written.
+			One segment per step, filled up to the current one (#375 replaced numbered dots with a bar, which lost
+			the step boundaries). Segments share the width, so a long recipe only gets thinner ones instead of
+			wrapping. The text above already gives the exact step, spoken and written: this stays decorative.
 		-->
 		<div
-			class="mx-auto mt-3 h-1.5 max-w-xs overflow-hidden rounded-full bg-white/15"
-			role="progressbar"
+			class="mx-auto mt-3 flex h-1.5 max-w-xs gap-0.5"
 			aria-hidden="true"
 			data-test-id="cook-along-progress-bar"
 		>
-			<div
-				class="h-full rounded-full bg-white transition-[width]"
-				style="width: {(position.current / position.total) * 100}%"
-			></div>
+			{#each { length: position.total } as _, segment (segment)}
+				<span
+					class="h-full flex-1 rounded-full transition-colors {segment < position.current
+						? 'bg-white'
+						: 'bg-white/30'}"
+				></span>
+			{/each}
 		</div>
 	</nav>
 
@@ -692,10 +696,8 @@
 						data-test-class="cook-along-ingredient"
 					>
 						<span class="min-w-0 break-words">{line.name}</span>
-						{#if line.qty}
-							<span class="shrink-0 font-semibold">
-							{line.qty} {t(unitKeyForCount(line.unit, line.qty) ?? `units.${line.unit}`)}
-						</span>
+						{#if amountOf(line)}
+							<span class="shrink-0 font-semibold">{amountOf(line)}</span>
 						{/if}
 					</li>
 				{/each}
