@@ -182,9 +182,10 @@ describe('menuReminderPlans', () => {
 		expect(plans[0].at.getHours()).toBe(8);
 	});
 
-	it('leaves out a day whose hour has gone by', () => {
+	it('leaves out a day whose hour has gone by, and looks no further than a week ahead', () => {
 		const late = new Date(2026, 8, 30, 9, 0, 0);
-		expect(menuReminderPlans([entry(2, 'Pasta')], late, title).map(plan => plan.eventDate)).toEqual(['2026-10-07']);
+		expect(menuReminderPlans([entry(2, 'Pasta')], late, title)).toEqual([]);
+		expect(menuReminderPlans([entry(3, 'Fish')], late, title).map(plan => plan.eventDate)).toEqual(['2026-10-01']);
 	});
 
 	it('gives distinct stable ids per plan and day', () => {
