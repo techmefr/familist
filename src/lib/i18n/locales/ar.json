@@ -1951,7 +1951,8 @@
 		"searchPlaceholder": "ابحث في القوائم",
 		"filtersTitle": "تصفية القوائم",
 		"filterWithRecipes": "القوائم التي تحتوي وصفات فقط",
-		"noMatch": "لا توجد قائمة مطابقة."
+		"noMatch": "لا توجد قائمة مطابقة.",
+		"reminderTitle": "قائمة اليوم"
 	},
 	"recipeShare": {
 		"title": "مشاركة هذه الوصفة",

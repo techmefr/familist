@@ -1878,7 +1878,8 @@
 		"searchPlaceholder": "Hitady menio",
 		"filtersTitle": "Sivano ny menio",
 		"filterWithRecipes": "Menio misy fomba fahandrahoana ihany",
-		"noMatch": "Tsy misy menio mifanaraka."
+		"noMatch": "Tsy misy menio mifanaraka.",
+		"reminderTitle": "Menio anio"
 	},
 	"recipeShare": {
 		"title": "Zarao ity mahandro ity",

@@ -1919,7 +1919,8 @@
 		"searchPlaceholder": "Поиск меню",
 		"filtersTitle": "Фильтр меню",
 		"filterWithRecipes": "Только меню с рецептами",
-		"noMatch": "Подходящих меню нет."
+		"noMatch": "Подходящих меню нет.",
+		"reminderTitle": "Меню на сегодня"
 	},
 	"recipeShare": {
 		"title": "Поделиться этим рецептом",

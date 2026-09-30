@@ -1887,7 +1887,8 @@
 		"searchPlaceholder": "Menüs suchen",
 		"filtersTitle": "Menüs filtern",
 		"filterWithRecipes": "Nur Menüs mit Rezepten",
-		"noMatch": "Kein Menü passt."
+		"noMatch": "Kein Menü passt.",
+		"reminderTitle": "Heute auf dem Speiseplan"
 	},
 	"recipeShare": {
 		"title": "Dieses Rezept teilen",

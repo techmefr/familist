@@ -1891,7 +1891,8 @@
 		"searchPlaceholder": "Buscar menús",
 		"filtersTitle": "Filtrar menús",
 		"filterWithRecipes": "Solo menús con recetas",
-		"noMatch": "Ningún menú coincide."
+		"noMatch": "Ningún menú coincide.",
+		"reminderTitle": "Menú de hoy"
 	},
 	"recipeShare": {
 		"title": "Compartir esta receta",

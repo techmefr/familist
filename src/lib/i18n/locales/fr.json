@@ -1929,7 +1929,8 @@
 		"searchPlaceholder": "Rechercher un menu",
 		"filtersTitle": "Filtrer les menus",
 		"filterWithRecipes": "Seulement les menus avec des recettes",
-		"noMatch": "Aucun menu ne correspond."
+		"noMatch": "Aucun menu ne correspond.",
+		"reminderTitle": "Au menu aujourd’hui"
 	},
 	"recipeShare": {
 		"title": "Partager cette recette",

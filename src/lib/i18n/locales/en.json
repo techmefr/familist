@@ -1898,7 +1898,8 @@
 		"searchPlaceholder": "Search menus",
 		"filtersTitle": "Filter menus",
 		"filterWithRecipes": "Only menus with recipes",
-		"noMatch": "No menu matches."
+		"noMatch": "No menu matches.",
+		"reminderTitle": "Today’s menu"
 	},
 	"recipeShare": {
 		"title": "Share this recipe",
