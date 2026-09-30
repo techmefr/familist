@@ -77,7 +77,8 @@ for (const viewport of VIEWPORTS) {
 
 				for (const screen of SCREENS) {
 					await page.goto(screen);
-					await expect(page.getByTestId('nav-create').or(page.getByRole('heading').first())).toBeVisible({ timeout: 15_000 });
+					await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
+					await page.waitForLoadState('networkidle');
 					await page.evaluate(
 						({ scale, dir }) => {
 							document.documentElement.dataset.scale = scale;
