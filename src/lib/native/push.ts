@@ -1,5 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { supabase } from '$db/supabase';
+import { parseTopicUrl } from '$domain/ntfy';
 
 /**
  * Push notifications through Firebase Cloud Messaging, on the Android and iOS builds.
@@ -143,4 +144,34 @@ export async function sendTestNotification(title: string, body: string): Promise
 	} catch {
 		return false;
 	}
+}
+
+const NTFY_DEVICE = 'ntfy';
+
+/** Saves the ntfy topic address for this account, or removes it when `address` is empty. */
+export async function saveNtfyTopic(userId: string, address: string): Promise<'saved' | 'removed' | 'invalid' | 'failed'> {
+	if (address.trim() === '') {
+		const { error } = await supabase.from('push_tokens').delete().match({ user_id: userId, device_id: NTFY_DEVICE });
+		return error ? 'failed' : 'removed';
+	}
+
+	if (!parseTopicUrl(address)) return 'invalid';
+
+	const { error } = await supabase.from('push_tokens').upsert({
+		user_id: userId,
+		device_id: NTFY_DEVICE,
+		platform: 'ntfy',
+		token: address.trim(),
+		updated_at: new Date().toISOString()
+	});
+	return error ? 'failed' : 'saved';
+}
+
+export async function loadNtfyTopic(userId: string): Promise<string> {
+	const { data } = await supabase
+		.from('push_tokens')
+		.select('token')
+		.match({ user_id: userId, device_id: NTFY_DEVICE })
+		.maybeSingle();
+	return data?.token ?? '';
 }

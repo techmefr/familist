@@ -2131,6 +2131,14 @@
 			"invitations": "Invitaciones",
 			"reminders": "Recordatorios",
 			"timers": "Temporizadores"
+		},
+		"ntfyTitle": "Sin Google: tema de ntfy",
+		"ntfyHint": "En un teléfono sin servicios de Google (F-Droid), instala la app ntfy, suscríbete a un tema largo y aleatorio y pega aquí su dirección.",
+		"ntfy": {
+			"saved": "Guardado. Las notificaciones irán también a este tema.",
+			"removed": "Quitado.",
+			"invalid": "Dirección rechazada: usa una dirección https que termine en un tema de 8 a 64 letras o cifras.",
+			"failed": "No se pudo guardar. Inténtalo de nuevo."
 		}
 	},
 	"product": {

@@ -2118,6 +2118,14 @@
 			"invitations": "Fanasana",
 			"reminders": "Fampahatsiahivana",
 			"timers": "Timer"
+		},
+		"ntfyTitle": "Tsy misy Google: lohahevitra ntfy",
+		"ntfyHint": "Amin’ny finday tsy misy Google (F-Droid), apetraho ny app ntfy, misoratra amin’ny lohahevitra lava tsy fantatra ary apetaho eto ny adiresiny.",
+		"ntfy": {
+			"saved": "Voatahiry. Handeha koa any amin’io lohahevitra io ny fampandrenesana.",
+			"removed": "Voafafa.",
+			"invalid": "Nolavina ny adiresy: ampiasao adiresy https misy lohahevitra litera na isa 8 ka hatramin’ny 64.",
+			"failed": "Tsy afaka voatahiry. Andramo indray."
 		}
 	},
 	"product": {

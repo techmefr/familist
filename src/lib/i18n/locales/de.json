@@ -2127,6 +2127,14 @@
 			"invitations": "Einladungen",
 			"reminders": "Erinnerungen",
 			"timers": "Timer"
+		},
+		"ntfyTitle": "Ohne Google: ntfy-Thema",
+		"ntfyHint": "Auf einem Telefon ohne Google-Dienste (F-Droid) die ntfy-App installieren, ein langes Zufallsthema abonnieren und die Adresse hier einfügen.",
+		"ntfy": {
+			"saved": "Gespeichert. Benachrichtigungen gehen auch an dieses Thema.",
+			"removed": "Entfernt.",
+			"invalid": "Adresse nicht akzeptiert: https-Adresse mit einem Thema aus 8 bis 64 Buchstaben oder Ziffern verwenden.",
+			"failed": "Speichern nicht möglich. Erneut versuchen."
 		}
 	},
 	"product": {

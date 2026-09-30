@@ -156,6 +156,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 					'Brevo (Sendinblue SAS, France): sending emails from noreply@familiste.fr; receives your email address.',
 					'The AI provider you choose (for example Anthropic, Google, Mistral, Groq, OpenRouter, DeepSeek): receives the text of your requests, with your key, directly from your device.',
 					'Pollinations and Openverse: receive a recipe’s description or name to generate or search for an image.',
+					'An ntfy server, only if you set a topic for push without Google: receives the notification’s title and text for that topic. Only the hosts the instance allows are ever contacted.',
 					'Open Food Facts (France, open database): receives the barcode you scan in the product scan, nothing else, to return the product’s name, ingredients and allergens.',
 					'Google (Firebase Cloud Messaging, United States): delivers push notifications on Android; receives your device token and the notification’s title, text and target screen, never your account identifier.',
 					'GitHub: a bug report opens an issue that only contains its number, without personal data.',
