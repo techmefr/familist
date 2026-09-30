@@ -56,6 +56,9 @@
 	/** The logo block that tops the full column: the create button sits right under it. */
 	let logoH = $state(0);
 
+	/** The header's height: the magnifier, full screen under it, starts its own controls just below. */
+	let headerH = $state(0);
+
 	/**
 	 * Hides the header while scrolling down past the first screenful, gives it back on the way up — the
 	 * direction is what matters, not the absolute position, so a person scrolling back to check something
@@ -129,7 +132,7 @@
 	);
 </script>
 
-	<div class="fl-shell" style="--fl-navbar-measured: {navbarH}px; --fl-logo-h: {logoH}px">
+	<div class="fl-shell" style="--fl-navbar-measured: {navbarH}px; --fl-logo-h: {logoH}px; --fl-header-h: {headerH}px">
 		<nav
 			bind:clientHeight={navbarH}
 			class="fl-navbar bg-card fixed inset-x-0 bottom-0 z-10 border-t"
@@ -250,6 +253,7 @@
 				thumb, on the edge.
 			-->
 			<header
+				bind:clientHeight={headerH}
 				inert={headerHidden}
 				class="bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl flex-wrap items-center
 					justify-between gap-x-4 gap-y-1 px-4 pt-3 pb-1 transition-transform duration-200 ease-out
