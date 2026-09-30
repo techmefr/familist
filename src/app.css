@@ -1931,3 +1931,80 @@ input.fl-otp-field:not([type='checkbox']):not([type='radio']):not([type='range']
 [dir='rtl'] .fl-otp-field {
 	background-position-x: right;
 }
+
+/*
+ * The create button, outside the app bar.
+ *
+ * On a phone it floats above the bar (`--fl-navbar-h` is the bar's measured height) on the thumb's side;
+ * the side itself comes from `.fl-thumb-side`. From 48rem on the bar is a column and the button sits at its
+ * top: under the logo in the full column (`--fl-logo-h`), at the top edge in the rail. The column reserves
+ * the room with a margin on its list of destinations.
+ */
+.fl-create {
+	position: fixed;
+	z-index: 11;
+	inline-size: 58px;
+	block-size: 58px;
+	inset-block-end: calc(var(--fl-navbar-h, 4rem) + 1rem);
+	border: 4px solid var(--background);
+}
+
+@media (width >= 48rem) {
+	.fl-create {
+		inset-block-end: auto;
+		inset-block-start: calc(var(--fl-logo-h, 0px) + 0.75rem);
+		block-size: max(2.75rem, 44px);
+		inline-size: calc(var(--fl-rail-w) - 1.5rem);
+		border: 0;
+		border-radius: var(--radius-lg);
+		box-shadow: none;
+		padding-inline: 0.75rem;
+	}
+
+	.fl-navbar > ul {
+		margin-block-start: calc(max(2.75rem, 44px) + 1.5rem);
+	}
+}
+
+@media (width >= 48rem) and (orientation: landscape) {
+	.fl-create {
+		inline-size: calc(16rem - 1.5rem);
+		inset-inline-start: 0.75rem;
+	}
+}
+
+@media (width >= 48rem) and (orientation: portrait) {
+	.fl-create {
+		right: 0.75rem;
+		left: auto;
+	}
+
+	[data-hand='left'] .fl-create {
+		right: auto;
+		left: 0.75rem;
+	}
+}
+
+/*
+ * The content scrolls under the bars with a thin scrollbar in the theme's colour. Always present but
+ * discreet: hiding it on motion settings would make the page's extent unreadable for those who turned
+ * animations off.
+ */
+html {
+	scrollbar-width: thin;
+	scrollbar-color: var(--primary) transparent;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--primary);
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}

@@ -1,36 +1,18 @@
 <script lang="ts">
 	import '../app.css';
-	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { goto, onNavigate, afterNavigate } from '$app/navigation';
 	import { trackPageview } from '$native/analytics';
-	import {
-		ListChecks,
-		Store,
-		CreditCard,
-		User,
-		Glasses,
-		Plus,
-		MessagesSquare,
-		Users,
-		ShieldCheck,
-		Tags,
-		CookingPot,
-		CalendarDays,
-		Search
-	} from '@lucide/svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { data } from '$stores/data.svelte';
 	import { session } from '$stores/session.svelte';
-	import { feedback } from '$stores/feedback.svelte';
 	import { settings } from '$stores/settings.svelte';
 	import { ai } from '$stores/ai.svelte';
 	import { imageBanks } from '$stores/image-banks.svelte';
 	import { placeCredentials } from '$stores/place-credentials.svelte';
 	import { navDirection } from '$domain/motion';
 	import { isLegalRoute } from '$domain/legal';
-	import { PRICE_HISTORY_ENABLED } from '$domain/feature-flags';
 	import { releasesSince } from '$domain/changelog';
 	import { RELEASES } from '$lib/changelog/releases';
 	import { version as appVersion } from '../../package.json';
@@ -41,17 +23,13 @@
 	import { reminderPlans } from '$domain/reminder';
 	import { applyReminders } from '$native/reminders';
 	import { applyNearbyWatch } from '$native/nearby';
-	import SyncStatus from '$components/app/SyncStatus.svelte';
-	import SyncRejections from '$components/app/SyncRejections.svelte';
-	import InstallBanner from '$components/app/InstallBanner.svelte';
+	import AppShell from '$components/app/AppShell.svelte';
+	import { NAV } from '$components/app/nav-entries';
 	import CreateMenu from '$components/app/CreateMenu.svelte';
 	import Logo from '$components/app/Logo.svelte';
-	import HelpButton from '$components/app/HelpButton.svelte';
 	import ChangelogModal from '$components/app/ChangelogModal.svelte';
 	import Toaster from '$components/app/Toaster.svelte';
-	import ReportPanel from '$components/app/ReportPanel.svelte';
 	import SearchSheet from '$components/app/SearchSheet.svelte';
-	import ListPanel from '$components/app/ListPanel.svelte';
 	import SetupNeeded from '$components/app/SetupNeeded.svelte';
 	import TimerAlarm from '$components/app/TimerAlarm.svelte';
 	import { isConfigured } from '$db/supabase';
@@ -61,48 +39,7 @@
 	let menu = $state<CreateMenu | null>(null);
 	let search = $state<SearchSheet | null>(null);
 
-	/**
-	 * The measured height of the navigation element, published as a CSS variable.
-	 *
-	 * A page's floating controls — a list's filters — must sit just above the bottom bar. That height is
-	 * not a constant: the bar grows with the text size and with the device notch, and a hard-coded value
-	 * would put the button underneath from the first size step.
-	 *
-	 * It is deliberately a raw measurement and not `--fl-navbar-h`: in the other two regimes the
-	 * navigation is a column as tall as the screen, and publishing its height under that name would make
-	 * the floating controls believe a 900px floor blocks the bottom of the page. The stylesheet decides
-	 * where the measurement counts.
-	 */
-	let navbarH = $state(0);
 
-	/**
-	 * Hides the header while scrolling down past the first screenful, gives it back on the way up — the
-	 * direction is what matters, not the absolute position, so a person scrolling back to check something
-	 * gets it back immediately instead of having to reach the very top first. Below `headerHideAt` it always
-	 * stays put: hiding it right as the page starts would flicker on the smallest scroll.
-	 */
-	const headerHideAt = 96;
-	let headerHidden = $state(false);
-
-	onMount(() => {
-		if (!browser) return;
-		let lastY = window.scrollY;
-
-		function onScroll() {
-			const y = window.scrollY;
-			if (y <= headerHideAt) {
-				headerHidden = false;
-			} else if (y > lastY) {
-				headerHidden = true;
-			} else if (y < lastY) {
-				headerHidden = false;
-			}
-			lastY = y;
-		}
-
-		window.addEventListener('scroll', onScroll, { passive: true });
-		return () => window.removeEventListener('scroll', onScroll);
-	});
 
 	i18n.init();
 	registerServiceWorker();
@@ -362,72 +299,6 @@
 		return () => clearTimeout(timer);
 	});
 
-	/**
-	 * One table for the three regimes, and a field saying where each entry belongs.
-	 *
-	 * Four regimes of destinations for three CSS regimes: the tablet in portrait mostly takes the phone's,
-	 * because the rail is a narrow column, it carries icons above a short word, not nine destinations — but
-	 * it has a hand free where the phone does not, so it can take one more than the phone.
-	 *
-	 * `handheld`: phone and tablet in portrait, that is, everything held in the hand. The magnifier uses
-	 * the rear camera in front of a product label — a tablet has one, a computer screen would have nothing
-	 * to show.
-	 *
-	 * `desktop`: the full column only. In a thumb bar as in a rail, five tabs are a maximum: beyond that,
-	 * the labels crowd and the targets fall below the finger threshold. So it holds the four daily
-	 * round trips — lists, magnifier, chats, cards. Shops drop out: the create button already adds an
-	 * aisle and a shop, and you only go to that screen to tidy up, not while shopping. The accounts and the
-	 * profile are destinations you visit rarely; outside the full column you reach them through the header
-	 * and the profile, in the column they get their tab like the rest.
-	 *
-	 * `tablet-and-desktop`: the rail and the full column, not the phone. The household — its members, diets,
-	 * the switcher between households — and the weekly meal plan are rarer stops than the four daily ones
-	 * but not as rare as the accounts or the profile settings, and unlike them they stay reachable from a
-	 * thumb: a tablet held with both hands can spare the extra icons, a phone held in one cannot. On the
-	 * phone they stay where they always were — the household tucked under the profile, the meal plan reached
-	 * from the recipes screen and the create menu.
-	 *
-	 * The magnifier comes second, against the lists: it is the tool you open in the aisle, one hand on the
-	 * trolley, and the edge of the thumb reaches it without crossing the bar.
-	 */
-	const nav = [
-		{ href: '/', key: 'nav.lists', icon: ListChecks, place: 'partout' },
-		{ href: '/magnifier', key: 'nav.magnifier', icon: Glasses, place: 'handheld' },
-		{ href: '/chat', key: 'nav.chat', icon: MessagesSquare, place: 'partout' },
-		{ href: '/cards', key: 'nav.cards', icon: CreditCard, place: 'partout' },
-		{ href: '/recipes', key: 'nav.recipes', icon: CookingPot, place: 'partout' },
-		{ href: '/shops', key: 'nav.shops', icon: Store, place: 'desktop' },
-		{ href: '/prices', key: 'nav.prices', icon: Tags, place: 'desktop' },
-		{ href: '/household', key: 'nav.household', icon: Users, place: 'tablet-and-desktop' },
-		{ href: '/meal-plan', key: 'nav.mealPlan', icon: CalendarDays, place: 'tablet-and-desktop' },
-		{ href: '/admin', key: 'nav.admin', icon: ShieldCheck, place: 'desktop', admin: true },
-		{ href: '/profile', key: 'nav.profile', icon: User, place: 'desktop' }
-	] as const;
-
-	/** Accounts only show for those who can manage them; price history stays hidden while unfinished (#362). */
-	const entries = $derived(
-		nav.filter(
-			(entry) =>
-				(!('admin' in entry) || session.isAdmin) &&
-				(entry.href !== '/prices' || PRICE_HISTORY_ENABLED)
-		)
-	);
-
-	const isActive = (href: string) =>
-		href === '/'
-			? page.url.pathname === '/' || page.url.pathname.startsWith('/l/')
-			: page.url.pathname.startsWith(href);
-
-	/**
-	 * Icons-only tabs, on a phone, at the three largest text sizes.
-	 *
-	 * Five labels fit under their icon up to `lg`; past that a two-line label pushes its neighbours and
-	 * the bar's five tabs stop lining up under the thumb — the same crowding that already forces
-	 * `.name-form` to a single column at these sizes (see app.css). The label is not removed, only made
-	 * `sr-only`: a screen reader still gets it, and every page carries an `<h1>` that names where the icon
-	 * led, so nothing that was said out loud goes missing.
-	 */
-	const iconOnlyNav = $derived(['xl', 'xxl', 'comfort'].includes(settings.fontScaleId));
 
 	/**
 	 * Ctrl+K, ⌘K on Mac: the shortcut everyone already tries in order to search. It doubles the header
@@ -442,20 +313,6 @@
 		void search?.show();
 	}
 
-	/**
-	 * The magnifier takes the whole surface to enlarge a label: nothing floats over it.
-	 *
-	 * A conversation hides it too (#365): its own compose button sits exactly where the floating one would,
-	 * and the two used to overlap. The profile list hides it too (#412): it has no create action of its
-	 * own, and the button floated over the settings rows underneath — only the list itself, not its
-	 * sub-pages, one of which (the hand setting) is tested against the button staying put.
-	 */
-	const hidesCreate = $derived(
-		page.url.pathname.startsWith('/magnifier') ||
-			page.url.pathname.startsWith('/chat/d/') ||
-			/^\/l\/[^/]+\/chat/.test(page.url.pathname) ||
-			page.url.pathname === '/profile'
-	);
 
 	/**
 	 * Page transition through the View Transitions API: the browser photographs the screen, lets
@@ -483,7 +340,7 @@
 		document.documentElement.dataset.nav = navDirection(
 			navigation.from?.url.pathname ?? '',
 			navigation.to.url.pathname,
-			nav.map((entry) => entry.href)
+			NAV.map((entry) => entry.href)
 		);
 
 		return new Promise((resolve) => {
@@ -551,184 +408,9 @@
 		</main>
 	</div>
 {:else}
-	<div class="fl-shell" style="--fl-navbar-measured: {navbarH}px">
-		<nav
-			bind:clientHeight={navbarH}
-			class="fl-navbar bg-card fixed inset-x-0 bottom-0 z-10 border-t"
-			style="view-transition-name: nav"
-			aria-label={t('nav.main')}
-		>
-			<!-- The household name does not fit in a 5.5rem rail: in portrait it stays in the header. -->
-			<p class="text-h2 hidden min-w-0 items-center gap-2.5 px-6 py-6 font-semibold full:flex">
-				<Logo />
-				<span class="min-w-0 shrink truncate">{t('app.name')}</span>
-			</p>
-
-			<!--
-				The create button: on a phone, a solid disc above the bar, on the side of the hand holding the
-				device — right by default, the place Android recommends. That is where the thumb lands without
-				the hand changing grip, and it is the place people look for by themselves; `fl-thumb-side` moves
-				it for a left-handed person.
-
-				In the centre, it fell in the middle of the Magnifier tab: the main target half covered a
-				destination. The rim in the background colour is still useful — it is what detaches the disc from
-				the content scrolling behind.
-
-				It disappears on the magnifier, and only on a phone: there the disc floats over the label you are
-				trying to read. As soon as the navigation is a column — rail included — it goes back into the flow
-				there, covers nothing, and stays. In the rail it keeps its label hidden: the column is too narrow
-				for a word next to an icon.
-
-				One element for both screen sizes, and not two with one hidden: two buttons would carry the same
-				test marker, and the guided tour would end up pointing at an invisible one.
-			-->
-			<button
-				type="button"
-				onclick={() => {
-					feedback.play('tap');
-					menu?.show();
-				}}
-				data-test-id="nav-create"
-				aria-haspopup="dialog"
-				class="fl-press fl-thumb-side bg-primary text-primary-foreground shadow-fl-3 absolute bottom-full mb-4 flex size-[58px] items-center justify-center gap-0 rounded-full border-4 border-[var(--background)]
-					md:static md:mx-3 md:mb-3 md:h-[max(2.75rem,44px)] md:w-[calc(100%-1.5rem)] md:rounded-lg md:border-0 md:px-3 md:shadow-none
-					full:justify-start full:gap-3
-					{hidesCreate ? 'phone:hidden' : ''}"
-			>
-				<Plus size={26} aria-hidden="true" />
-				<span class="text-label sr-only font-medium full:not-sr-only">{t('nav.create')}</span>
-			</button>
-
-			<ul class="flex overflow-x-auto md:gap-1 md:px-3">
-				{#each entries as { href, key, icon: Icon, place } (href)}
-					{@const active = isActive(href)}
-					<li
-						class="min-w-0 flex-1 md:flex-none"
-						class:full:hidden={place === 'handheld'}
-						class:compact:hidden={place === 'desktop'}
-						class:phone:hidden={place === 'tablet-and-desktop'}
-					>
-						<a
-							{href}
-							data-test-id="nav-{href}"
-							aria-current={active ? 'page' : undefined}
-							class="fl-press text-caption full:text-label relative flex flex-col items-center gap-1 px-2 py-2 full:flex-row full:gap-3 full:rounded-md full:px-3 full:py-3
-								{active ? 'text-primary' : 'text-muted-foreground'}"
-						>
-							<!--
-								The active tab badge is a separate element, named for the transition: it slides from one tab
-								to the next during the page change. Naming the whole link would slide its text, which would
-								blend into the next tab's.
-
-								Its shape is in app.css: a pill behind the icon on a phone, a full line in the column. The
-								wrapper decides, by ceasing to be its containing block beyond 48rem.
-							-->
-							<span class="fl-nav-icon">
-								{#if active}
-									<span
-										class="fl-nav-pill"
-										style="view-transition-name: nav-active"
-										aria-hidden="true"
-									></span>
-								{/if}
-								<Icon size={22} class="relative" aria-hidden="true" />
-							</span>
-							<!-- The weight repeats the active tab: colour must not say it on its own. -->
-							<span
-								class="fl-nav-label relative w-full text-center [hyphens:auto] [overflow-wrap:break-word] {active
-									? 'font-medium'
-									: ''} {iconOnlyNav ? 'phone:sr-only' : ''}"
-								>{t(key)}</span
-							>
-						</a>
-					</li>
-				{/each}
-			</ul>
-		</nav>
-
-		<ListPanel />
-
-		<div>
-			<SyncStatus />
-			<SyncRejections />
-			<InstallBanner />
-
-			<!--
-				The header. Help is in the same place on every screen and at every size: looking for the question
-				mark somewhere else depending on the page would cost more time than it saves.
-
-				Everywhere the navigation only shows the daily destinations — phone and tablet in portrait — it
-				also carries what the full column shows by itself: the logo and the name, which say where you are,
-				and the profile. A setting is looked for at the top of the screen; a round trip is made with the
-				thumb, on the edge.
-			-->
-			<header
-				inert={headerHidden}
-				class="bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl flex-wrap items-center
-					justify-between gap-x-4 gap-y-1 px-4 pt-3 pb-1 transition-transform duration-200 ease-out
-					{headerHidden ? '-translate-y-full' : 'translate-y-0'}"
-			>
-				<p class="text-h2 flex min-w-0 items-center gap-2 font-semibold full:hidden">
-					<Logo />
-					<span class="min-w-0 shrink truncate">{t('app.name')}</span>
-				</p>
-
-				<div class="ms-auto flex shrink-0 items-center gap-0.5">
-					<!--
-						Search is in the header, next to help, and in the same place at both screen sizes. It does not
-						go in the bottom bar: that one carries destinations, one per tab, and search is not one — it
-						opens a sheet over the page and gives it back afterwards. Adding a fifth tab on a phone would
-						also have squeezed the other four below the finger threshold.
-					-->
-					<button
-						type="button"
-						onclick={() => {
-							feedback.play('tap');
-							void search?.show();
-						}}
-						data-test-id="header-search"
-						aria-label={t('search.open')}
-						aria-haspopup="dialog"
-						class="fl-press text-muted-foreground hover:text-foreground flex size-[max(2.5rem,44px)] items-center justify-center rounded-full"
-					>
-						<Search size={22} aria-hidden="true" />
-					</button>
-					<HelpButton />
-					<a
-						href="/profile"
-						data-test-id="header-profile"
-						aria-label={t('nav.profile')}
-						aria-current={isActive('/profile') ? 'page' : undefined}
-						class="fl-press text-muted-foreground flex size-[max(2.5rem,44px)] items-center justify-center rounded-full full:hidden"
-					>
-						<User size={22} aria-hidden="true" />
-					</a>
-				</div>
-			</header>
-
-			<!--
-				The bottom padding used to be a flat `pb-36`: close enough to clear the create button most of the
-				time, but the button's own footprint — the navigation bar plus its 58 px disc and margin — is not
-				a constant, it grows with the text size just like `--fl-navbar-h` does. A page whose last card
-				landed right at that boundary (the avatar hint on `/profile`, the join button on `/household`, a
-				busy poll's last option) ended up with it half hidden behind the disc. The formula mirrors
-				`fl-above-nav`'s so the two amounts cannot drift apart.
-			-->
-			<main
-				class="mx-auto w-full max-w-5xl px-4 pt-2 pb-[calc(var(--fl-navbar-h,4rem)+58px+1.5rem)] md:pb-10"
-			>
-				{@render children()}
-			</main>
-		</div>
-
-		<!--
-			The report panel is placed here, inside the grid, and not beside it: this element is what
-			publishes `--fl-navbar-measured`, which the panel needs so as not to slip under the tabs. It lives
-			outside the pages so it survives a navigation — you can go and reproduce the problem elsewhere, the
-			draft follows.
-		-->
-		<ReportPanel />
-	</div>
+	<AppShell onCreate={() => menu?.show()} onSearch={() => void search?.show()}>
+		{@render children()}
+	</AppShell>
 
 	<CreateMenu bind:this={menu} />
 	<SearchSheet bind:this={search} />
