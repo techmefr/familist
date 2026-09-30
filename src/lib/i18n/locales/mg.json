@@ -16,7 +16,8 @@
 		"create": "Hamorona",
 		"chat": "Resaka",
 		"prices": "Vidiny",
-		"recipes": "Recettes"
+		"recipes": "Recettes",
+		"unread": "Resaka tsy novakiana: {count}"
 	},
 	"create": {
 		"title": "Inona no tianao hamboarina?",

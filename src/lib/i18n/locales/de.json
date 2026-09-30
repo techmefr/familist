@@ -16,7 +16,8 @@
 		"create": "Erstellen",
 		"chat": "Unterhaltungen",
 		"prices": "Preise",
-		"recipes": "Rezepte"
+		"recipes": "Rezepte",
+		"unread": "{count} ungelesene Unterhaltung(en)"
 	},
 	"create": {
 		"title": "Was möchten Sie anlegen?",

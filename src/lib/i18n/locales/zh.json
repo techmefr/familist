@@ -16,7 +16,8 @@
 		"create": "新建",
 		"chat": "讨论",
 		"prices": "价格",
-		"recipes": "食谱"
+		"recipes": "食谱",
+		"unread": "{count} 个未读对话"
 	},
 	"create": {
 		"title": "要新建什么？",

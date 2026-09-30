@@ -17,6 +17,8 @@
 	import ListPanel from '$components/app/ListPanel.svelte';
 	import ReportPanel from '$components/app/ReportPanel.svelte';
 	import { NAV } from './nav-entries';
+	import { unread } from '$stores/unread.svelte';
+	import { badgeText } from '$domain/unread';
 
 	let {
 		children,
@@ -180,6 +182,16 @@
 									<AnimatedIcon name={entry.animated} animate={active} class="relative" />
 								{:else}
 									<Icon size={22} class="relative" aria-hidden="true" />
+								{/if}
+								{#if href === '/chat' && unread.count > 0}
+									<span
+										class="bg-primary text-primary-foreground text-caption absolute -top-1 -end-2 grid min-w-5 place-items-center rounded-full px-1 font-semibold leading-5"
+										aria-hidden="true"
+										data-test-id="nav-unread"
+									>
+										{badgeText(unread.count)}
+									</span>
+									<span class="sr-only">{t('nav.unread', { count: unread.count })}</span>
 								{/if}
 							</span>
 							<!-- The weight repeats the active tab: colour must not say it on its own. -->

@@ -16,7 +16,8 @@
 		"create": "Crear",
 		"chat": "Conversaciones",
 		"prices": "Precios",
-		"recipes": "Recetas"
+		"recipes": "Recetas",
+		"unread": "{count} conversación(es) sin leer"
 	},
 	"create": {
 		"title": "¿Qué quiere crear?",
