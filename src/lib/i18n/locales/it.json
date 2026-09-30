@@ -2123,5 +2123,26 @@
 			"reminders": "Promemoria",
 			"timers": "Timer"
 		}
+	},
+	"product": {
+		"title": "Scansiona un prodotto",
+		"modes": "Strumenti della lente",
+		"modeLoupe": "Lente",
+		"modeProduct": "Prodotto",
+		"intro": "Scansiona un codice a barre per vedere cosa contiene un prodotto, nella tua lingua.",
+		"manual": "Oppure digita il codice a barre",
+		"search": "Cerca",
+		"loading": "Ricerca in corso…",
+		"unknown": "Questo prodotto non è ancora su Open Food Facts.",
+		"offline": "Sei offline: la ricerca richiede una connessione.",
+		"error": "La ricerca è fallita. Riprova tra poco.",
+		"allergens": "Allergeni",
+		"noAllergens": "Nessuno dichiarato.",
+		"traces": "Può contenere tracce di",
+		"ingredients": "Ingredienti",
+		"addTo": "Aggiungi a una lista",
+		"add": "Aggiungi",
+		"added": "Aggiunto a {list}.",
+		"attribution": "Dati prodotto da"
 	}
 }

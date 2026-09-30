@@ -139,3 +139,20 @@ describe('portionsFor', () => {
 		expect(portionsFor([])).toBeNull();
 	});
 });
+
+import { productWarnings } from './person-profile';
+
+describe('productWarnings', () => {
+	it('matches allergies by id and diets by the groups they exclude', () => {
+		const eaters = [
+			{ personId: 'p1', name: 'Léo', profile: profile({ allergies: [{ id: 'nuts', label: 'Nuts', severity: 'severe' }], diets: ['vegan'] }) }
+		];
+		const out = productWarnings(['milk', 'nuts'], eaters);
+
+		expect(out.map(w => [w.kind, w.severity])).toEqual([
+			['allergy', 'severe'],
+			['diet', null]
+		]);
+		expect(productWarnings(['soy'], eaters)).toEqual([]);
+	});
+});

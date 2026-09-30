@@ -2129,5 +2129,26 @@
 			"reminders": "Recordatorios",
 			"timers": "Temporizadores"
 		}
+	},
+	"product": {
+		"title": "Escanear un producto",
+		"modes": "Herramientas de la lupa",
+		"modeLoupe": "Lupa",
+		"modeProduct": "Producto",
+		"intro": "Escanea un código de barras para ver qué contiene un producto, en tu idioma.",
+		"manual": "O escribe el código de barras",
+		"search": "Buscar",
+		"loading": "Buscando…",
+		"unknown": "Este producto aún no está en Open Food Facts.",
+		"offline": "Sin conexión: la búsqueda la necesita.",
+		"error": "La búsqueda falló. Inténtalo de nuevo en un momento.",
+		"allergens": "Alérgenos",
+		"noAllergens": "Ninguno declarado.",
+		"traces": "Puede contener trazas de",
+		"ingredients": "Ingredientes",
+		"addTo": "Añadir a una lista",
+		"add": "Añadir",
+		"added": "Añadido a {list}.",
+		"attribution": "Datos de producto de"
 	}
 }

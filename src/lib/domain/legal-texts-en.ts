@@ -156,6 +156,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 					'Brevo (Sendinblue SAS, France): sending emails from noreply@familiste.fr; receives your email address.',
 					'The AI provider you choose (for example Anthropic, Google, Mistral, Groq, OpenRouter, DeepSeek): receives the text of your requests, with your key, directly from your device.',
 					'Pollinations and Openverse: receive a recipe’s description or name to generate or search for an image.',
+					'Open Food Facts (France, open database): receives the barcode you scan in the product scan, nothing else, to return the product’s name, ingredients and allergens.',
 					'Google (Firebase Cloud Messaging, United States): delivers push notifications on Android; receives your device token and the notification’s title, text and target screen, never your account identifier.',
 					'GitHub: a bug report opens an issue that only contains its number, without personal data.',
 					'A self-hosted Familiste instance may enable sending crash reports to a third-party service; its operator must then declare it in their own policy.'

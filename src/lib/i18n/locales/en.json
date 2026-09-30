@@ -2136,5 +2136,26 @@
 			"reminders": "Reminders",
 			"timers": "Timers"
 		}
+	},
+	"product": {
+		"title": "Scan a product",
+		"modes": "Loupe tools",
+		"modeLoupe": "Magnifier",
+		"modeProduct": "Product",
+		"intro": "Scan a barcode to see what is in a product, in your language.",
+		"manual": "Or type the barcode",
+		"search": "Look up",
+		"loading": "Looking it up…",
+		"unknown": "This product is not in Open Food Facts yet.",
+		"offline": "You are offline: the lookup needs a connection.",
+		"error": "The lookup failed. Try again in a moment.",
+		"allergens": "Allergens",
+		"noAllergens": "None declared.",
+		"traces": "May contain traces of",
+		"ingredients": "Ingredients",
+		"addTo": "Add to a list",
+		"add": "Add",
+		"added": "Added to {list}.",
+		"attribution": "Product data from"
 	}
 }

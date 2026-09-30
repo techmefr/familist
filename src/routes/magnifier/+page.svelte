@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MagnifierModes from '$components/app/MagnifierModes.svelte';
 	import { onDestroy, tick } from 'svelte';
 	import { browser } from '$app/environment';
 	import { t } from '$i18n/index.svelte';
@@ -306,6 +307,8 @@
 	would be no way left to leave the magnifier.
 -->
 <div class="fixed inset-0 z-0 overflow-hidden bg-black" data-test-id="magnifier">
+	<MagnifierModes active="loupe" overlay />
+
 	<!--
 		The surface receiving the gestures covers the image and nothing else: the controls come after it in
 		the markup, therefore above it, and keep their taps.
@@ -383,7 +386,7 @@
 		find the line to read.
 	-->
 	{#if frozen}
-		<div class="pointer-events-none absolute inset-x-3 top-3 flex flex-col items-center gap-2">
+		<div class="pointer-events-none absolute inset-x-3 top-[4.25rem] flex flex-col items-center gap-2">
 			<p
 				class="text-caption flex items-center gap-2 rounded-full bg-black/60 px-4 py-2 font-semibold text-white backdrop-blur-md"
 				data-test-id="magnifier-frozen-badge"
@@ -406,7 +409,7 @@
 			{/if}
 		</div>
 	{:else if status === 'live' && !touched}
-		<div class="pointer-events-none absolute inset-x-3 top-3 flex justify-center">
+		<div class="pointer-events-none absolute inset-x-3 top-[4.25rem] flex justify-center">
 			<p
 				class="text-label max-w-sm rounded-2xl bg-black/60 px-4 py-3 text-center text-white backdrop-blur-md"
 				data-test-id="magnifier-hint"

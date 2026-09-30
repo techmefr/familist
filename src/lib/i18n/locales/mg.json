@@ -2116,5 +2116,26 @@
 			"reminders": "Fampahatsiahivana",
 			"timers": "Timer"
 		}
+	},
+	"product": {
+		"title": "Hijery vokatra",
+		"modes": "Fitaovana amin’ny loupe",
+		"modeLoupe": "Loupe",
+		"modeProduct": "Vokatra",
+		"intro": "Jereo ny kaody-barre mba hahitana ny ao anatin’ny vokatra amin’ny teninao.",
+		"manual": "Na soraty ny kaody-barre",
+		"search": "Hitady",
+		"loading": "Mitady…",
+		"unknown": "Mbola tsy ao amin’ny Open Food Facts ity vokatra ity.",
+		"offline": "Tsy misy tambajotra: mila connexion ny fikarohana.",
+		"error": "Tsy nahomby ny fikarohana. Andramo indray afaka kelikely.",
+		"allergens": "Allergène",
+		"noAllergens": "Tsy misy voalaza.",
+		"traces": "Mety misy tsiambaratelo",
+		"ingredients": "Akora",
+		"addTo": "Ampio amin’ny lisitra",
+		"add": "Ampio",
+		"added": "Nampiana tao amin’ny {list}.",
+		"attribution": "Angona momba ny vokatra avy amin’ny"
 	}
 }

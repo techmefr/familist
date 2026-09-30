@@ -225,3 +225,29 @@ export function portionsFor(eaters: readonly Eater[]): number | null {
 	const total = eaters.reduce((sum, eater) => sum + (eater.profile?.portionFactor ?? 1), 0);
 	return Math.max(1, Math.round(total));
 }
+
+/**
+ * Warnings for a product whose allergens are already known as standard ids (Open Food Facts), so no word
+ * matching is needed: a profile allergy hits when its id is among them, a diet when it excludes one of them.
+ */
+export function productWarnings(allergens: readonly string[], eaters: readonly Eater[]): Warning[] {
+	const present = new Set(allergens);
+	const out: Warning[] = [];
+
+	for (const eater of eaters) {
+		if (!eater.profile) continue;
+
+		for (const allergy of eater.profile.allergies) {
+			if (present.has(allergy.id)) {
+				out.push({ personId: eater.personId, name: eater.name, what: allergy.label, kind: 'allergy', severity: allergy.severity });
+			}
+		}
+		for (const diet of eater.profile.diets) {
+			if ((DIET_EXCLUDES[diet] ?? []).some(group => present.has(group))) {
+				out.push({ personId: eater.personId, name: eater.name, what: diet, kind: 'diet', severity: null });
+			}
+		}
+	}
+
+	return out;
+}

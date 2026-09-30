@@ -57,3 +57,43 @@ test('on quitte la loupe par la navigation', async ({ signedInPage: page }) => {
 	await expect(page).toHaveURL(/\/cards$/);
 	await expect(page.getByTestId('magnifier')).toHaveCount(0);
 });
+
+/**
+ * The Loupe tab holds two tools (#491): the switch takes you to the product scan and back, and an unknown or
+ * malformed barcode says so instead of failing in silence. The lookup is stubbed: CI has no internet promise.
+ */
+test('la loupe propose le scan de produit, avec le résultat traduit et les allergènes', async ({
+	signedInPage: page
+}) => {
+	await page.route('https://world.openfoodfacts.org/api/v2/product/**', async route => {
+		await route.fulfill({
+			status: 200,
+			contentType: 'application/json',
+			body: JSON.stringify({
+				code: '3017620422003',
+				status: 1,
+				product: {
+					product_name: 'Hazelnut spread',
+					product_name_fr: 'Pâte à tartiner',
+					allergens_tags: ['en:milk', 'en:nuts']
+				}
+			})
+		});
+	});
+
+	await page.goto('/magnifier');
+	await page.getByTestId('magnifier-mode-product').click();
+	await expect(page).toHaveURL(/\/magnifier\/product$/);
+
+	await page.getByTestId('product-ean').fill('3017620422003');
+	await page.getByTestId('product-search').click();
+	await expect(page.getByTestId('product-name')).toHaveText(/Hazelnut spread|Pâte à tartiner/);
+	await expect(page.getByTestId('product-result')).toContainText(/Open Food Facts/);
+
+	await page.getByTestId('product-ean').fill('abc');
+	await page.getByTestId('product-search').click();
+	await expect(page.getByTestId('product-unknown')).toBeVisible();
+
+	await page.getByTestId('magnifier-mode-loupe').click();
+	await expect(page).toHaveURL(/\/magnifier$/);
+});

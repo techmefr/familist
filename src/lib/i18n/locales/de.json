@@ -2125,5 +2125,26 @@
 			"reminders": "Erinnerungen",
 			"timers": "Timer"
 		}
+	},
+	"product": {
+		"title": "Produkt scannen",
+		"modes": "Lupen-Werkzeuge",
+		"modeLoupe": "Lupe",
+		"modeProduct": "Produkt",
+		"intro": "Scannen Sie einen Barcode, um zu sehen, was ein Produkt enthält, in Ihrer Sprache.",
+		"manual": "Oder Barcode eingeben",
+		"search": "Suchen",
+		"loading": "Suche läuft…",
+		"unknown": "Dieses Produkt ist noch nicht in Open Food Facts.",
+		"offline": "Sie sind offline: die Suche braucht eine Verbindung.",
+		"error": "Die Suche ist fehlgeschlagen. Versuchen Sie es gleich erneut.",
+		"allergens": "Allergene",
+		"noAllergens": "Keine angegeben.",
+		"traces": "Kann Spuren enthalten von",
+		"ingredients": "Zutaten",
+		"addTo": "Zu einer Liste hinzufügen",
+		"add": "Hinzufügen",
+		"added": "Zu {list} hinzugefügt.",
+		"attribution": "Produktdaten von"
 	}
 }
