@@ -41,9 +41,9 @@ import {
  * trolley, and the edge of the thumb reaches it without crossing the bar.
  */
 export const NAV = [
-	{ href: '/', key: 'nav.lists', icon: ListChecks, place: 'partout' },
+	{ href: '/', key: 'nav.lists', icon: ListChecks, animated: 'list-checks', place: 'partout' },
 	{ href: '/magnifier', key: 'nav.magnifier', icon: Glasses, place: 'handheld' },
-	{ href: '/chat', key: 'nav.chat', icon: MessagesSquare, place: 'partout' },
+	{ href: '/chat', key: 'nav.chat', icon: MessagesSquare, animated: 'message-circle', place: 'partout' },
 	{ href: '/cards', key: 'nav.cards', icon: CreditCard, place: 'partout' },
 	{ href: '/recipes', key: 'nav.recipes', icon: CookingPot, place: 'partout' },
 	{ href: '/shops', key: 'nav.shops', icon: Store, place: 'desktop' },

@@ -2,7 +2,8 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
-	import { Plus, Search, User } from '@lucide/svelte';
+	import { User } from '@lucide/svelte';
+	import AnimatedIcon from '$components/app/AnimatedIcon.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { session } from '$stores/session.svelte';
 	import { feedback } from '$stores/feedback.svelte';
@@ -143,7 +144,8 @@
 			</p>
 
 			<ul class="flex overflow-x-auto md:gap-1 md:px-3">
-				{#each entries as { href, key, icon: Icon, place } (href)}
+				{#each entries as entry (entry.href)}
+					{@const { href, key, icon: Icon, place } = entry}
 					{@const active = isActive(href)}
 					<li
 						class="min-w-0 flex-1 md:flex-none"
@@ -174,7 +176,11 @@
 										aria-hidden="true"
 									></span>
 								{/if}
-								<Icon size={22} class="relative" aria-hidden="true" />
+								{#if 'animated' in entry}
+									<AnimatedIcon name={entry.animated} animate={active} class="relative" />
+								{:else}
+									<Icon size={22} class="relative" aria-hidden="true" />
+								{/if}
 							</span>
 							<!-- The weight repeats the active tab: colour must not say it on its own. -->
 							<span
@@ -211,7 +217,7 @@
 				full:justify-start full:gap-3
 				{hidesCreate ? 'phone:hidden' : ''}"
 		>
-			<Plus size={26} aria-hidden="true" />
+			<AnimatedIcon name="plus" size={26} />
 			<span class="text-label sr-only font-medium full:not-sr-only">{t('nav.create')}</span>
 		</button>
 
@@ -261,7 +267,7 @@
 						aria-haspopup="dialog"
 						class="fl-press text-muted-foreground hover:text-foreground flex size-[max(2.5rem,44px)] items-center justify-center rounded-full"
 					>
-						<Search size={22} aria-hidden="true" />
+						<AnimatedIcon name="search" />
 					</button>
 					{/if}
 					<HelpButton />

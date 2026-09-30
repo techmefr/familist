@@ -1985,3 +1985,19 @@ html {
 ::-webkit-scrollbar-track {
 	background: transparent;
 }
+
+/*
+ * Moving Icons play a keyframe animation on hover by themselves. With motion off, in the app's setting or in
+ * the system's, they stay still.
+ */
+html[data-motion='none'] .fl-anim-icon *,
+html[data-motion='none'] .fl-anim-icon {
+	animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html[data-motion='system'] .fl-anim-icon *,
+	html[data-motion='system'] .fl-anim-icon {
+		animation: none !important;
+	}
+}
