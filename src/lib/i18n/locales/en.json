@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Accounts, reports, crashes",
 				"keywords": "approve, validate, role, administrator, demo, report, crash, GDPR request"
+			},
+			"notifications": {
+				"title": "Notifications",
+				"hint": "Messages, lists, quiet hours",
+				"keywords": "push, alerts, sound, mute, quiet, night, reminder"
 			}
 		},
 		"palette": "Colour theme"
@@ -1440,7 +1445,9 @@
 		"assistantName": "Familiste assistant",
 		"assistantPreview": "Ask for a recipe, a menu or an idea",
 		"assistantTitle": "Familiste assistant",
-		"assistantBack": "Discussions"
+		"assistantBack": "Discussions",
+		"muteList": "Mute this chat",
+		"unmuteList": "Turn this chat’s sound back on"
 	},
 	"household": {
 		"title": "My household",
@@ -1817,7 +1824,7 @@
 			"guestSave": "Add the guest",
 			"guestDefault": "Guest {number}",
 			"removeGuest": "Remove {name}",
-			"constraintsTitle": "The assistant takes into account",
+			"constraintsTitle": "What will be sent to your AI provider (no names)",
 			"constraintsNone": "No allergy or diet to take into account.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Conversation with the assistant",
@@ -2035,5 +2042,97 @@
 		"import": "Import a file",
 		"imported": "{count} theme(s) imported.",
 		"importEmpty": "Nothing could be imported from this file."
+	},
+	"people": {
+		"private": "Only you can see this",
+		"allergies": "Allergies and intolerances",
+		"allergen": {
+			"milk": "Milk",
+			"egg": "Egg",
+			"peanut": "Peanut",
+			"nuts": "Tree nuts",
+			"gluten": "Gluten",
+			"fish": "Fish",
+			"shellfish": "Shellfish",
+			"soy": "Soy",
+			"sesame": "Sesame",
+			"mustard": "Mustard",
+			"celery": "Celery"
+		},
+		"customAllergy": "Another allergy",
+		"add": "Add",
+		"severityFor": "Severity for {name}",
+		"severity": {
+			"severe": "Severe",
+			"intolerance": "Intolerance",
+			"preference": "Prefer to avoid"
+		},
+		"removeItem": "Remove {name}",
+		"diets": "Diets",
+		"diet": {
+			"vegetarian": "Vegetarian",
+			"vegan": "Vegan",
+			"no-pork": "No pork",
+			"halal": "Halal",
+			"kosher": "Kosher",
+			"gluten-free": "Gluten-free",
+			"lactose-free": "Lactose-free"
+		},
+		"likes": "Likes",
+		"dislikes": "Dislikes",
+		"portion": "Portion size",
+		"portions": {
+			"child": "Child",
+			"small": "Small",
+			"normal": "Adult",
+			"big": "Big appetite"
+		},
+		"birthYear": "Birth year (optional)",
+		"guest": "Guest, no account",
+		"notes": "Notes",
+		"shareWarnings": "Show warnings to the household",
+		"shareWarningsHint": "Others see “contains peanut — Léo”, never the severity or your notes.",
+		"edit": "Edit profile",
+		"guestTag": "Guest",
+		"portionBadge": "Portion ×{value}",
+		"privateHint": "Allergies, diets and tastes are private: only the person who wrote them can read them.",
+		"ownedByOther": "Profile kept private by another member",
+		"warn": "Contains {what} — {name}",
+		"safeForAll": "Safe for everyone",
+		"conflictBadge": "Watch out: {names}"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"permissionTitle": "Notifications on this device",
+		"unsupported": "Push notifications work in the Android and iOS apps. Date reminders keep working where they are supported.",
+		"enable": "Turn on notifications",
+		"granted": "Notifications are on for this device.",
+		"denied": "Notifications are blocked. Open your phone’s Settings, then Apps, Familiste, Notifications, and allow them.",
+		"test": "Send a test notification",
+		"testTitle": "Familiste",
+		"testBody": "It works. You will be notified like this.",
+		"typesTitle": "What to be told about",
+		"type": {
+			"chats": "Messages and dishes claimed",
+			"lists": "Activity on shared lists",
+			"invitations": "Invitations and requests",
+			"reminders": "Reminders",
+			"timers": "Recipe timers"
+		},
+		"listsTitle": "Mute a list",
+		"listsEmpty": "You have no list yet.",
+		"muteList": "Mute {name}",
+		"quietTitle": "Quiet hours",
+		"quietHint": "No push during these hours; they arrive when it ends. Times follow your device’s timezone.",
+		"quietEnabled": "Mute at night",
+		"quietStart": "From",
+		"quietEnd": "To",
+		"channels": {
+			"chats": "Chats",
+			"lists": "Lists",
+			"invitations": "Invitations",
+			"reminders": "Reminders",
+			"timers": "Timers"
+		}
 	}
 }

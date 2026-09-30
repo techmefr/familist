@@ -399,6 +399,78 @@ export type Database = {
           },
         ]
       }
+      push_tokens: {
+        Row: {
+          device_id: string
+          platform: string
+          token: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          device_id: string
+          platform: string
+          token: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          device_id?: string
+          platform?: string
+          token?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      person_profiles: {
+        Row: {
+          allergies: Json
+          birth_year: number | null
+          diets: string[]
+          dislikes: string[]
+          guest: boolean
+          household_id: string
+          likes: string[]
+          notes: string | null
+          owner_id: string
+          person_id: string
+          portion_factor: number
+          share_warnings: boolean
+          updated_at: string
+        }
+        Insert: {
+          allergies?: Json
+          birth_year?: number | null
+          diets?: string[]
+          dislikes?: string[]
+          guest?: boolean
+          household_id: string
+          likes?: string[]
+          notes?: string | null
+          owner_id: string
+          person_id: string
+          portion_factor?: number
+          share_warnings?: boolean
+          updated_at?: string
+        }
+        Update: {
+          allergies?: Json
+          birth_year?: number | null
+          diets?: string[]
+          dislikes?: string[]
+          guest?: boolean
+          household_id?: string
+          likes?: string[]
+          notes?: string | null
+          owner_id?: string
+          person_id?: string
+          portion_factor?: number
+          share_warnings?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       household_persons: {
         Row: {
           created_at: string
@@ -1088,6 +1160,7 @@ export type Database = {
         Row: {
           accent_id: string
           custom_themes: Json
+          notification_settings: Json
           theme_id: string
           avatar: string
           created_at: string
@@ -1116,6 +1189,7 @@ export type Database = {
         Insert: {
           accent_id?: string
           custom_themes?: Json
+          notification_settings?: Json
           theme_id?: string
           avatar?: string
           created_at?: string
@@ -1144,6 +1218,7 @@ export type Database = {
         Update: {
           accent_id?: string
           custom_themes?: Json
+          notification_settings?: Json
           theme_id?: string
           avatar?: string
           created_at?: string
@@ -1456,6 +1531,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      household_person_warnings: {
+        Args: { p_household: string }
+        Returns: { person_id: string; allergens: string[]; diets: string[] }[]
+      }
       admin_reset_mfa: { Args: { target: string }; Returns: undefined }
       assert_admin_write: { Args: never; Returns: undefined }
       backup_codes_left: { Args: never; Returns: number }

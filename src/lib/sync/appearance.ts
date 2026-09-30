@@ -2,7 +2,7 @@ import { supabase } from '$db/supabase';
 import type { AppearanceStore } from '$domain/appearance';
 
 const COLUMNS =
-	'theme, theme_id, custom_themes, accent_id, type_scale, font_id, motion, hand, sound, haptics, nearby_cards, has_seen_tour';
+	'theme, theme_id, custom_themes, notification_settings, accent_id, type_scale, font_id, motion, hand, sound, haptics, nearby_cards, has_seen_tour';
 
 /**
  * Account whose initial arbitration has already happened on this device.

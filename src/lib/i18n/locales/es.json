@@ -171,6 +171,11 @@
 			"admin": {
 				"hint": "Cuentas, informes, fallos",
 				"keywords": "aprobar, validar, rol, administrador, demo, informe, fallo, solicitud RGPD"
+			},
+			"notifications": {
+				"title": "Notificaciones",
+				"hint": "Mensajes, listas, horas de silencio",
+				"keywords": "push, avisos, sonido, silenciar, noche, recordatorio"
 			}
 		},
 		"palette": "Tema de color"
@@ -1433,7 +1438,9 @@
 		"assistantName": "Asistente Familiste",
 		"assistantPreview": "Pide una receta, un menú o una idea",
 		"assistantTitle": "Asistente Familiste",
-		"assistantBack": "Conversaciones"
+		"assistantBack": "Conversaciones",
+		"muteList": "Silenciar esta conversación",
+		"unmuteList": "Reactivar el sonido de esta conversación"
 	},
 	"household": {
 		"title": "Mi hogar",
@@ -1810,7 +1817,7 @@
 			"guestSave": "Añadir el invitado",
 			"guestDefault": "Invitado {number}",
 			"removeGuest": "Quitar a {name}",
-			"constraintsTitle": "El asistente tiene en cuenta",
+			"constraintsTitle": "Lo que se enviará a tu proveedor de IA (sin nombres)",
 			"constraintsNone": "Ninguna alergia ni dieta que tener en cuenta.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Conversación con el asistente",
@@ -2028,5 +2035,97 @@
 		"import": "Importar un archivo",
 		"imported": "{count} tema(s) importado(s).",
 		"importEmpty": "No se pudo importar nada de este archivo."
+	},
+	"people": {
+		"private": "Solo tú puedes ver esto",
+		"allergies": "Alergias e intolerancias",
+		"allergen": {
+			"milk": "Leche",
+			"egg": "Huevo",
+			"peanut": "Cacahuete",
+			"nuts": "Frutos secos",
+			"gluten": "Gluten",
+			"fish": "Pescado",
+			"shellfish": "Mariscos",
+			"soy": "Soja",
+			"sesame": "Sésamo",
+			"mustard": "Mostaza",
+			"celery": "Apio"
+		},
+		"customAllergy": "Otra alergia",
+		"add": "Añadir",
+		"severityFor": "Gravedad de {name}",
+		"severity": {
+			"severe": "Grave",
+			"intolerance": "Intolerancia",
+			"preference": "Prefiere evitar"
+		},
+		"removeItem": "Quitar {name}",
+		"diets": "Dietas",
+		"diet": {
+			"vegetarian": "Vegetariano",
+			"vegan": "Vegano",
+			"no-pork": "Sin cerdo",
+			"halal": "Halal",
+			"kosher": "Kosher",
+			"gluten-free": "Sin gluten",
+			"lactose-free": "Sin lactosa"
+		},
+		"likes": "Le gusta",
+		"dislikes": "No le gusta",
+		"portion": "Tamaño de ración",
+		"portions": {
+			"child": "Niño",
+			"small": "Pequeña",
+			"normal": "Adulto",
+			"big": "Mucho apetito"
+		},
+		"birthYear": "Año de nacimiento (opcional)",
+		"guest": "Invitado, sin cuenta",
+		"notes": "Notas",
+		"shareWarnings": "Mostrar avisos al hogar",
+		"shareWarningsHint": "Los demás ven «contiene cacahuete — Léo», nunca la gravedad ni tus notas.",
+		"edit": "Editar ficha",
+		"guestTag": "Invitado",
+		"portionBadge": "Ración ×{value}",
+		"privateHint": "Alergias, dietas y gustos son privados: solo quien los escribió puede leerlos.",
+		"ownedByOther": "Ficha privada de otro miembro",
+		"warn": "Contiene {what} — {name}",
+		"safeForAll": "Apto para todos",
+		"conflictBadge": "Atención: {names}"
+	},
+	"notifications": {
+		"title": "Notificaciones",
+		"permissionTitle": "Notificaciones en este dispositivo",
+		"unsupported": "Las notificaciones push funcionan en las apps de Android e iOS. Los recordatorios de fecha siguen donde se admiten.",
+		"enable": "Activar notificaciones",
+		"granted": "Las notificaciones están activadas en este dispositivo.",
+		"denied": "Las notificaciones están bloqueadas. Abre Ajustes del teléfono, luego Aplicaciones, Familiste, Notificaciones, y permítelas.",
+		"test": "Enviar una notificación de prueba",
+		"testTitle": "Familiste",
+		"testBody": "Funciona. Así recibirás los avisos.",
+		"typesTitle": "De qué ser avisado",
+		"type": {
+			"chats": "Mensajes y platos asignados",
+			"lists": "Actividad en listas compartidas",
+			"invitations": "Invitaciones y solicitudes",
+			"reminders": "Recordatorios",
+			"timers": "Temporizadores de receta"
+		},
+		"listsTitle": "Silenciar una lista",
+		"listsEmpty": "Aún no tienes listas.",
+		"muteList": "Silenciar {name}",
+		"quietTitle": "Horas de silencio",
+		"quietHint": "Sin avisos en estas horas; llegan al terminar. Las horas siguen la zona horaria de tu dispositivo.",
+		"quietEnabled": "Silenciar de noche",
+		"quietStart": "Desde",
+		"quietEnd": "Hasta",
+		"channels": {
+			"chats": "Conversaciones",
+			"lists": "Listas",
+			"invitations": "Invitaciones",
+			"reminders": "Recordatorios",
+			"timers": "Temporizadores"
+		}
 	}
 }

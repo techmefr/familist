@@ -52,6 +52,7 @@ const LOCAL_TABLES: Record<string, LocalTable> = {
 	meal_plans: byId('mealPlans', 'recipe'),
 	meal_plan_recipes: byId('mealPlanRecipes', 'recipe'),
 	household_persons: byId('householdPersons', 'other'),
+	person_profiles: { dexie: 'personProfiles', key: (match) => match.person_id, entity: 'other' },
 	shop_layouts: { dexie: 'shopLayouts', key: (match) => match.shop_id, entity: 'shop' },
 	shop_item_orders: {
 		dexie: 'shopItemOrders',

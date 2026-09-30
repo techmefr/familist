@@ -175,6 +175,11 @@
 			"admin": {
 				"hint": "الحسابات، البلاغات، الأعطال",
 				"keywords": "قبول، تحقق، دور، مدير، تجريبي، بلاغ، عطل، طلب بيانات"
+			},
+			"notifications": {
+				"title": "الإشعارات",
+				"hint": "الرسائل والقوائم وساعات الهدوء",
+				"keywords": "إشعار، تنبيه، صوت، كتم، ليل، تذكير"
 			}
 		},
 		"palette": "سمة الألوان"
@@ -1477,7 +1482,9 @@
 		"assistantName": "مساعد Familiste",
 		"assistantPreview": "اطلب وصفة أو قائمة أو فكرة",
 		"assistantTitle": "مساعد Familiste",
-		"assistantBack": "المحادثات"
+		"assistantBack": "المحادثات",
+		"muteList": "كتم هذه المحادثة",
+		"unmuteList": "إعادة تفعيل صوت هذه المحادثة"
 	},
 	"household": {
 		"title": "منزلي",
@@ -1866,7 +1873,7 @@
 			"guestSave": "إضافة الضيف",
 			"guestDefault": "ضيف {number}",
 			"removeGuest": "إزالة {name}",
-			"constraintsTitle": "يأخذ المساعد في الحسبان",
+			"constraintsTitle": "ما سيُرسل إلى مزوّد الذكاء الاصطناعي لديك (دون أسماء)",
 			"constraintsNone": "لا توجد حساسية ولا نظام غذائي يجب مراعاته.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "محادثة مع المساعد",
@@ -2100,5 +2107,97 @@
 		"import": "استيراد ملف",
 		"imported": "تم استيراد {count} سمة.",
 		"importEmpty": "تعذّر استيراد أي شيء من هذا الملف."
+	},
+	"people": {
+		"private": "أنت وحدك من يرى هذا",
+		"allergies": "الحساسية وعدم التحمل",
+		"allergen": {
+			"milk": "الحليب",
+			"egg": "البيض",
+			"peanut": "الفول السوداني",
+			"nuts": "المكسرات",
+			"gluten": "الغلوتين",
+			"fish": "السمك",
+			"shellfish": "المحار والقشريات",
+			"soy": "الصويا",
+			"sesame": "السمسم",
+			"mustard": "الخردل",
+			"celery": "الكرفس"
+		},
+		"customAllergy": "حساسية أخرى",
+		"add": "إضافة",
+		"severityFor": "خطورة {name}",
+		"severity": {
+			"severe": "شديدة",
+			"intolerance": "عدم تحمل",
+			"preference": "يفضّل تجنبه"
+		},
+		"removeItem": "إزالة {name}",
+		"diets": "الأنظمة الغذائية",
+		"diet": {
+			"vegetarian": "نباتي",
+			"vegan": "نباتي صرف",
+			"no-pork": "بدون لحم الخنزير",
+			"halal": "حلال",
+			"kosher": "كوشر",
+			"gluten-free": "خالٍ من الغلوتين",
+			"lactose-free": "خالٍ من اللاكتوز"
+		},
+		"likes": "يحب",
+		"dislikes": "لا يحب",
+		"portion": "حجم الحصة",
+		"portions": {
+			"child": "طفل",
+			"small": "صغيرة",
+			"normal": "بالغ",
+			"big": "شهية كبيرة"
+		},
+		"birthYear": "سنة الميلاد (اختياري)",
+		"guest": "ضيف بدون حساب",
+		"notes": "ملاحظات",
+		"shareWarnings": "إظهار التنبيهات للأسرة",
+		"shareWarningsHint": "يرى الآخرون «يحتوي فول سوداني — Léo» دون الخطورة أو ملاحظاتك.",
+		"edit": "تعديل الملف",
+		"guestTag": "ضيف",
+		"portionBadge": "حصة ×{value}",
+		"privateHint": "الحساسية والأنظمة والأذواق خاصة: يقرؤها من كتبها فقط.",
+		"ownedByOther": "ملف خاص بعضو آخر",
+		"warn": "يحتوي {what} — {name}",
+		"safeForAll": "مناسب للجميع",
+		"conflictBadge": "انتبه: {names}"
+	},
+	"notifications": {
+		"title": "الإشعارات",
+		"permissionTitle": "الإشعارات على هذا الجهاز",
+		"unsupported": "تعمل الإشعارات الفورية في تطبيقي Android وiOS. تستمر تذكيرات التواريخ حيث تكون مدعومة.",
+		"enable": "تفعيل الإشعارات",
+		"granted": "الإشعارات مفعّلة على هذا الجهاز.",
+		"denied": "الإشعارات محظورة. افتح إعدادات الهاتف ثم التطبيقات ثم Familiste ثم الإشعارات وفعّلها.",
+		"test": "إرسال إشعار تجريبي",
+		"testTitle": "Familiste",
+		"testBody": "يعمل. ستصلك التنبيهات هكذا.",
+		"typesTitle": "ما يُخطرك به التطبيق",
+		"type": {
+			"chats": "الرسائل والأطباق المحجوزة",
+			"lists": "النشاط في القوائم المشتركة",
+			"invitations": "الدعوات والطلبات",
+			"reminders": "التذكيرات",
+			"timers": "مؤقتات الوصفات"
+		},
+		"listsTitle": "كتم قائمة",
+		"listsEmpty": "ليس لديك قوائم بعد.",
+		"muteList": "كتم {name}",
+		"quietTitle": "ساعات الهدوء",
+		"quietHint": "لا إشعارات في هذه الساعات وتصل عند انتهائها. الأوقات حسب المنطقة الزمنية لجهازك.",
+		"quietEnabled": "كتم الليل",
+		"quietStart": "من",
+		"quietEnd": "إلى",
+		"channels": {
+			"chats": "المحادثات",
+			"lists": "القوائم",
+			"invitations": "الدعوات",
+			"reminders": "التذكيرات",
+			"timers": "المؤقتات"
+		}
 	}
 }

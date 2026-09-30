@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import type { Json } from '$db/types';
 import { localWins as arbitrate, type AppearanceRow } from '$domain/appearance';
 import {
 	buildTheme,
@@ -14,6 +15,12 @@ import {
 	type ThemeProblem
 } from '$domain/custom-theme';
 import { DEFAULT_THEME_ID, THEME_PRESETS } from '$domain/themes';
+import {
+	defaultSettings as defaultNotificationSettings,
+	parseSettings as parseNotificationSettings,
+	type NotificationSettings,
+	type NotificationType
+} from '$domain/notify-rules';
 import { applyCustomTokens } from './theme-dom';
 import { isHand, type Hand } from '$domain/hand';
 import { animates, isMotionPreference, type MotionPreference } from '$domain/motion';
@@ -41,10 +48,20 @@ export type { AppearanceRow } from '$domain/appearance';
 
 const THEMES: Theme[] = ['light', 'dark', 'system'];
 
+/** The device's own timezone: quiet hours mean the local evening, wherever the account was made. */
+function deviceTimezone(): string {
+	try {
+		return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+	} catch {
+		return 'UTC';
+	}
+}
+
 class Settings {
 	theme = $state<Theme>('system');
 	themeId = $state<string>(DEFAULT_THEME_ID);
 	customThemes = $state<CustomTheme[]>([]);
+	notifications = $state<NotificationSettings>(defaultNotificationSettings());
 	accentId = $state<string>(DEFAULT_ACCENT);
 	fontScaleId = $state<string>(DEFAULT_FONT_SCALE);
 	fontId = $state<string>(DEFAULT_FONT);
@@ -113,6 +130,7 @@ class Settings {
 		try {
 			const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}');
 			if (saved.theme) this.theme = saved.theme;
+			this.notifications = parseNotificationSettings(saved.notifications ?? { quiet: { timezone: deviceTimezone() } });
 			this.customThemes = parseCustomThemes(saved.customThemes);
 			if (this.#knowsTheme(saved.themeId)) this.themeId = saved.themeId;
 			if (saved.accentId) this.accentId = saved.accentId;
@@ -170,6 +188,7 @@ class Settings {
 						theme: this.theme,
 						themeId: this.themeId,
 						customThemes: this.customThemes,
+						notifications: this.notifications,
 						accentId: this.accentId,
 						fontScaleId: this.fontScaleId,
 						fontId: this.fontId,
@@ -265,6 +284,31 @@ class Settings {
 		return added.length;
 	}
 
+	setNotificationType(type: NotificationType, isOn: boolean) {
+		this.#touch();
+		this.notifications = { ...this.notifications, types: { ...this.notifications.types, [type]: isOn } };
+	}
+
+	setListMuted(listId: string, isMuted: boolean) {
+		this.#touch();
+		const others = this.notifications.mutedLists.filter(id => id !== listId);
+		this.notifications = { ...this.notifications, mutedLists: isMuted ? [...others, listId] : others };
+	}
+
+	setQuietHours(quiet: Partial<NotificationSettings['quiet']>) {
+		this.#touch();
+		this.notifications = parseNotificationSettings({
+			...this.notifications,
+			quiet: { ...this.notifications.quiet, ...quiet }
+		});
+	}
+
+	/** Kept in the synced row so the server words each push in the person's own language. */
+	setNotificationLocale(locale: string) {
+		if (this.notifications.locale === locale) return;
+		this.notifications = { ...this.notifications, locale };
+	}
+
 	setAccent(id: string) {
 		if (!ACCENT_PRESETS.some((a) => a.id === id)) return;
 		this.#touch();
@@ -354,6 +398,7 @@ class Settings {
 			theme: this.theme,
 			theme_id: this.themeId,
 			custom_themes: this.customThemes.map(({ tokens: _tokens, ...inputs }) => inputs),
+			notification_settings: this.notifications as unknown as Json,
 			accent_id: this.accentId,
 			type_scale: this.fontScaleId,
 			font_id: this.fontId,
@@ -373,6 +418,12 @@ class Settings {
 	 */
 	adoptRemote(row: Partial<AppearanceRow>, userId: string) {
 		if (THEMES.includes(row.theme as Theme)) this.theme = row.theme as Theme;
+		if (
+			row.notification_settings &&
+			typeof row.notification_settings === 'object' &&
+			Object.keys(row.notification_settings).length > 0
+		)
+			this.notifications = parseNotificationSettings(row.notification_settings);
 		if (Array.isArray(row.custom_themes)) this.customThemes = parseCustomThemes(row.custom_themes);
 		if (this.#knowsTheme(row.theme_id)) this.themeId = row.theme_id;
 		else if (this.themeId !== DEFAULT_THEME_ID && !this.#knowsTheme(this.themeId))

@@ -18,6 +18,7 @@
 	import InstallEntry from '$components/app/InstallEntry.svelte';
 	import {
 		ALargeSmall,
+		Bell,
 		Images,
 		LifeBuoy,
 		Monitor,
@@ -37,6 +38,7 @@
 		household: Users,
 		display: Monitor,
 		feedback: Volume2,
+		notifications: Bell,
 		security: ShieldCheck,
 		ai: Sparkles,
 		images: Images,
