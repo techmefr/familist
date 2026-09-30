@@ -2135,7 +2135,11 @@
 			"removed": "Rimosso.",
 			"invalid": "Indirizzo rifiutato: usa un indirizzo https che termina con un argomento di 8-64 lettere o cifre.",
 			"failed": "Impossibile salvare. Riprova."
-		}
+		},
+		"backgroundSwitch": "Restare connessi in background",
+		"backgroundHint": "Solo Android, senza Google: l’app mantiene la propria connessione aperta e ti avvisa di messaggi e modifiche alle liste. Android mostra un avviso permanente e consuma un po’ più di batteria. Se il telefono la ferma, escludi Familiste dal risparmio energetico.",
+		"backgroundTitle": "Familiste è in ascolto",
+		"backgroundBody": "Verrai avvisato di nuovi messaggi e modifiche alle liste."
 	},
 	"product": {
 		"title": "Scansiona un prodotto",

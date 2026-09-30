@@ -2148,7 +2148,11 @@
 			"removed": "Removed.",
 			"invalid": "This address is not accepted: use an https address ending with a topic of 8 to 64 letters or digits.",
 			"failed": "Could not save. Try again."
-		}
+		},
+		"backgroundSwitch": "Stay connected in the background",
+		"backgroundHint": "Android only, no Google: the app keeps its own connection open and notifies you of new messages and list changes. Android shows one permanent notice and this uses a little more battery. If your phone stops it, exclude Familiste from battery saving.",
+		"backgroundTitle": "Familiste is listening",
+		"backgroundBody": "New messages and list changes will notify you."
 	},
 	"product": {
 		"title": "Scan a product",

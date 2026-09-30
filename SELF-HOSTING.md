@@ -224,6 +224,10 @@ sign-in is offered in the iOS app.
 
 Nothing here requires a proprietary service:
 
+- **Notifications without any other app (Android)**: Profile, Notifications, "Stay connected in the background". The app
+  keeps its own connection to your Supabase open through a foreground service and raises local notifications
+  for new messages and list changes, by the same switches, mutes and quiet hours as push. No Google, no ntfy,
+  no extra app; Android shows one permanent notice and some phones need Familiste excluded from battery saving.
 - **Push notifications**: use ntfy (open source, free, self-hostable). Run your own server or use ntfy.sh, add
   its host to `NTFY_ALLOWED_HOSTS` if it is your own, and each person gives their topic address in
   Profile, Notifications. Firebase Cloud Messaging is optional and only matters for people who want push on
