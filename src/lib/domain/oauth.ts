@@ -25,7 +25,8 @@ export type ProviderId =
 	| 'twitter'
 	| 'spotify'
 	| 'notion'
-	| 'bitbucket';
+	| 'bitbucket'
+	| 'keycloak';
 
 export interface OAuthProvider {
 	id: ProviderId;
@@ -52,7 +53,9 @@ export const OAUTH_PROVIDERS: OAuthProvider[] = [
 	{ id: 'twitter', label: 'X' },
 	{ id: 'spotify', label: 'Spotify' },
 	{ id: 'notion', label: 'Notion' },
-	{ id: 'bitbucket', label: 'Bitbucket' }
+	{ id: 'bitbucket', label: 'Bitbucket' },
+	// Open source and self-hostable: an instance can run its own identity provider and offer only that.
+	{ id: 'keycloak', label: 'Keycloak' }
 ];
 
 export const PROVIDER_IDS: ProviderId[] = OAUTH_PROVIDERS.map((provider) => provider.id);

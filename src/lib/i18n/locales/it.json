@@ -2128,7 +2128,7 @@
 			"reminders": "Promemoria",
 			"timers": "Timer"
 		},
-		"ntfyTitle": "Senza Google: argomento ntfy",
+		"ntfyTitle": "Notifiche libere (ntfy), gratuite e senza Google",
 		"ntfyHint": "Su un telefono senza servizi Google (F-Droid), installa l’app ntfy, iscriviti a un argomento lungo e casuale e incolla qui l’indirizzo.",
 		"ntfy": {
 			"saved": "Salvato. Le notifiche andranno anche a questo argomento.",

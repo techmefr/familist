@@ -2109,7 +2109,7 @@
 			"reminders": "提醒",
 			"timers": "计时器"
 		},
-		"ntfyTitle": "无 Google：ntfy 主题",
+		"ntfyTitle": "开源推送（ntfy），免费且无需 Google",
 		"ntfyHint": "在没有 Google 服务的手机（F-Droid）上，安装 ntfy 应用，订阅一个随机长主题，并把地址粘贴到这里。",
 		"ntfy": {
 			"saved": "已保存，通知也会发送到此主题。",

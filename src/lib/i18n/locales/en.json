@@ -2141,7 +2141,7 @@
 			"reminders": "Reminders",
 			"timers": "Timers"
 		},
-		"ntfyTitle": "Without Google: ntfy topic",
+		"ntfyTitle": "Open-source push (ntfy), free and without Google",
 		"ntfyHint": "On a phone without Google services (F-Droid), install the ntfy app, subscribe to a long random topic and paste its address here.",
 		"ntfy": {
 			"saved": "Saved. Notifications will also go to this topic.",

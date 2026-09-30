@@ -219,3 +219,16 @@ The first service shown is the platform's own (Google on Android, Apple on iOS, 
 web); the others are behind a "More" button. An id that is listed here but not enabled in Supabase shows a
 button that fails, so keep the two lists equal. Apple is required by the App Store as soon as another social
 sign-in is offered in the iOS app.
+
+## An entirely open-source and free stack
+
+Nothing here requires a proprietary service:
+
+- **Push notifications**: use ntfy (open source, free, self-hostable). Run your own server or use ntfy.sh, add
+  its host to `NTFY_ALLOWED_HOSTS` if it is your own, and each person gives their topic address in
+  Profile, Notifications. Firebase Cloud Messaging is optional and only matters for people who want push on
+  a phone with Google services without installing ntfy; leave `FCM_SERVICE_ACCOUNT` unset to never use it.
+- **Sign-in**: email works alone. For single sign-on, `keycloak` (or GitHub, GitLab) are open choices;
+  Google and Apple are offered only if you list them in `PUBLIC_OAUTH_PROVIDERS`.
+- **Product data**: Open Food Facts, an open database.
+- **Database and accounts**: Supabase, which can be self-hosted.

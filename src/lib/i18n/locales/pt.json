@@ -2130,7 +2130,7 @@
 			"reminders": "Lembretes",
 			"timers": "Temporizadores"
 		},
-		"ntfyTitle": "Sem Google: tópico ntfy",
+		"ntfyTitle": "Notificações livres (ntfy), gratuitas e sem Google",
 		"ntfyHint": "Num telemóvel sem serviços Google (F-Droid), instale a app ntfy, subscreva um tópico longo e aleatório e cole aqui o endereço.",
 		"ntfy": {
 			"saved": "Guardado. As notificações irão também para este tópico.",
