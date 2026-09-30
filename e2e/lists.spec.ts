@@ -103,3 +103,28 @@ test('une liste créée survit à un cache local vidé', async ({ signedInPage: 
 		timeout: 20_000
 	});
 });
+
+test('une liste créée hors ligne reste affichée, y compris après rechargement', async ({
+	signedInPage: page,
+	context
+}) => {
+	const name = listName();
+
+	await page.goto('/');
+	await context.setOffline(true);
+
+	await page.getByTestId('nav-create').click();
+	await page.getByTestId('create-list').click();
+	await page.getByTestId('list-name').fill(name);
+	await page.getByTestId('list-create').click();
+
+	const card = page.locator('[data-test-class="list-card"]').filter({ hasText: name });
+	await expect(card).toBeVisible();
+
+	await page.waitForTimeout(1500);
+	await expect(card).toBeVisible();
+
+	await context.setOffline(false);
+	await page.reload();
+	await expect(card).toBeVisible();
+});
