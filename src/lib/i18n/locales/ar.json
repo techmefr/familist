@@ -1866,7 +1866,7 @@
 			"guestSave": "إضافة الضيف",
 			"guestDefault": "ضيف {number}",
 			"removeGuest": "إزالة {name}",
-			"constraintsTitle": "يأخذ المساعد في الحسبان",
+			"constraintsTitle": "ما سيُرسل إلى مزوّد الذكاء الاصطناعي لديك (دون أسماء)",
 			"constraintsNone": "لا توجد حساسية ولا نظام غذائي يجب مراعاته.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "محادثة مع المساعد",

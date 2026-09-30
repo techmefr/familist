@@ -1817,7 +1817,7 @@
 			"guestSave": "Add the guest",
 			"guestDefault": "Guest {number}",
 			"removeGuest": "Remove {name}",
-			"constraintsTitle": "The assistant takes into account",
+			"constraintsTitle": "What will be sent to your AI provider (no names)",
 			"constraintsNone": "No allergy or diet to take into account.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Conversation with the assistant",

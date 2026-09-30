@@ -1797,7 +1797,7 @@
 			"guestSave": "Ampidiro ny vahiny",
 			"guestDefault": "Vahiny {number}",
 			"removeGuest": "Esory {name}",
-			"constraintsTitle": "Heverin’ny mpanampy",
+			"constraintsTitle": "Ny halefa amin’ny mpamatsy AI-nao (tsy misy anarana)",
 			"constraintsNone": "Tsy misy tsy fahazakana na fomba fihinana tokony hodinihina.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Resaka amin’ny mpanampy",

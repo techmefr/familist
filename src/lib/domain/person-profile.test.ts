@@ -72,3 +72,29 @@ describe('conflictsFor', () => {
 		expect(sorted[0].severity).toBe('severe');
 	});
 });
+
+import { aiConstraints, capConstraints, MAX_CONSTRAINTS, MAX_CONSTRAINT_LENGTH } from './person-profile';
+
+describe('aiConstraints', () => {
+	it('writes allergies, diets and dislikes without any name', () => {
+		const out = aiConstraints(
+			profile({
+				allergies: [
+					{ id: 'peanut', label: 'Arachide', severity: 'severe' },
+					{ id: 'kiwi', label: 'Kiwi', severity: 'preference' }
+				],
+				diets: ['halal'],
+				dislikes: ['coriandre']
+			})
+		);
+
+		expect(out).toEqual(['Arachide (peanut) severe', 'avoid Kiwi', 'halal', 'dislikes coriandre']);
+	});
+
+	it('bounds what leaves', () => {
+		const many = Array.from({ length: 100 }, (_, n) => `x${n}`);
+		expect(capConstraints(many)).toHaveLength(MAX_CONSTRAINTS);
+		expect(capConstraints(['a'.repeat(500)])[0]).toHaveLength(MAX_CONSTRAINT_LENGTH);
+		expect(capConstraints(['  ', ''])).toEqual([]);
+	});
+});

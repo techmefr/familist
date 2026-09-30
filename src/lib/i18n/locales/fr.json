@@ -1848,7 +1848,7 @@
 			"guestSave": "Ajouter l’invité",
 			"guestDefault": "Invité {number}",
 			"removeGuest": "Retirer {name}",
-			"constraintsTitle": "L’assistant tient compte de",
+			"constraintsTitle": "Ce qui sera envoyé à votre fournisseur d’IA (sans aucun nom)",
 			"constraintsNone": "Aucune allergie ni régime à prendre en compte.",
 			"constraintOf": "{who} : {notes}",
 			"threadLabel": "Conversation avec l’assistant",

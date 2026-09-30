@@ -1836,7 +1836,7 @@
 			"guestSave": "Добавить гостя",
 			"guestDefault": "Гость {number}",
 			"removeGuest": "Убрать: {name}",
-			"constraintsTitle": "Ассистент учитывает",
+			"constraintsTitle": "Что будет отправлено вашему ИИ-провайдеру (без имён)",
 			"constraintsNone": "Нет аллергий и диет, которые нужно учитывать.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Разговор с ассистентом",

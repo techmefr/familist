@@ -1806,7 +1806,7 @@
 			"guestSave": "Gast hinzufügen",
 			"guestDefault": "Gast {number}",
 			"removeGuest": "{name} entfernen",
-			"constraintsTitle": "Der Assistent berücksichtigt",
+			"constraintsTitle": "Was an Ihren KI-Anbieter gesendet wird (ohne Namen)",
 			"constraintsNone": "Keine Allergie und keine Ernährungsweise zu berücksichtigen.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Unterhaltung mit dem Assistenten",

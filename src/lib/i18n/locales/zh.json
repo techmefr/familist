@@ -1789,7 +1789,7 @@
 			"guestSave": "添加这位客人",
 			"guestDefault": "客人 {number}",
 			"removeGuest": "移除 {name}",
-			"constraintsTitle": "助手会考虑",
+			"constraintsTitle": "将发送给你的 AI 提供商的内容（不含姓名）",
 			"constraintsNone": "没有需要考虑的过敏或饮食限制。",
 			"constraintOf": "{who}：{notes}",
 			"threadLabel": "与助手的对话",

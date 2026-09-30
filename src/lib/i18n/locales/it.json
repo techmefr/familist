@@ -1804,7 +1804,7 @@
 			"guestSave": "Aggiungi l’ospite",
 			"guestDefault": "Ospite {number}",
 			"removeGuest": "Togli {name}",
-			"constraintsTitle": "L’assistente tiene conto di",
+			"constraintsTitle": "Cosa verrà inviato al tuo provider di IA (senza nomi)",
 			"constraintsNone": "Nessuna allergia né dieta da considerare.",
 			"constraintOf": "{who}: {notes}",
 			"threadLabel": "Conversazione con l’assistente",

@@ -1,5 +1,5 @@
 import type { AllergySeverity, PersonAllergy, PersonProfile } from '$db/schema';
-import { DIET_EXCLUDES, isStandardAllergen, matchFoodGroups, type FoodGroup } from './allergens';
+import { DIET_EXCLUDES, isStandardAllergen, KEYWORDS, matchFoodGroups, type FoodGroup } from './allergens';
 import { slugify } from './slug';
 
 export const SEVERITIES: AllergySeverity[] = ['severe', 'intolerance', 'preference'];
@@ -130,4 +130,34 @@ export function conflictsFor(text: string, locale: string, eaters: readonly Eate
 	}
 
 	return out.toSorted((a, b) => SEVERITIES.indexOf(a.severity) - SEVERITIES.indexOf(b.severity));
+}
+
+export const MAX_CONSTRAINTS = 30;
+export const MAX_CONSTRAINT_LENGTH = 120;
+
+/**
+ * What the AI is told about one person, as short phrases and never with a name: allergies with their
+ * severity in words, diets as rules, dislikes. A standard allergen is written in English as well, because
+ * the provider reasons better on it and the conflict check reads both.
+ */
+export function aiConstraints(profile: PersonProfile): string[] {
+	const phrases: string[] = [];
+
+	for (const allergy of bySeverity(profile.allergies)) {
+		const english = isStandardAllergen(allergy.id) ? KEYWORDS[allergy.id].en[0] : null;
+		const name = english && english.toLowerCase() !== allergy.label.toLowerCase() ? `${allergy.label} (${english})` : allergy.label;
+		phrases.push(allergy.severity === 'preference' ? `avoid ${name}` : `${name} ${allergy.severity}`);
+	}
+	for (const diet of profile.diets) phrases.push(diet);
+	for (const dislike of profile.dislikes) phrases.push(`dislikes ${dislike}`);
+
+	return phrases;
+}
+
+/** The last guard before anything leaves: a bounded list of bounded phrases, nothing else. */
+export function capConstraints(constraints: readonly string[]): string[] {
+	return constraints
+		.map(constraint => constraint.trim().slice(0, MAX_CONSTRAINT_LENGTH))
+		.filter(Boolean)
+		.slice(0, MAX_CONSTRAINTS);
 }
