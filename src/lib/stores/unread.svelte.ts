@@ -1,3 +1,4 @@
+import { untrack } from 'svelte';
 import { browser } from '$app/environment';
 import { data } from '$stores/data.svelte';
 import { unreadIds, type ConversationTip, type LastRead } from '$domain/unread';
@@ -39,10 +40,15 @@ class UnreadStore {
 		return this.ids.includes(id);
 	}
 
+	/**
+	 * Called from effects ("this screen is open, whatever lands is read"): reading the previous map to write the
+	 * next must not subscribe the caller to it, or the write re-runs the effect and it never stops.
+	 */
 	markRead(id: string): void {
-		this.#lastRead = { ...this.#lastRead, [id]: Date.now() };
+		const next = untrack(() => ({ ...this.#lastRead, [id]: Date.now() }));
+		this.#lastRead = next;
 		try {
-			localStorage.setItem(KEY, JSON.stringify(this.#lastRead));
+			localStorage.setItem(KEY, JSON.stringify(next));
 		} catch {
 			// A full or blocked storage only means the marker comes back next time.
 		}
