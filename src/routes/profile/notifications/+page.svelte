@@ -11,6 +11,8 @@
 		pushPermission,
 		registerPush,
 		requestPushPermission,
+		loadNtfyTopic,
+		saveNtfyTopic,
 		sendTestNotification,
 		type PushPermission
 	} from '$native/push';
@@ -38,9 +40,19 @@
 	let permission = $state<PushPermission>('unsupported');
 	let testSent = $state<boolean | null>(null);
 
+	let ntfyTopic = $state('');
+	let ntfyStatus = $state<'saved' | 'removed' | 'invalid' | 'failed' | null>(null);
+
 	onMount(async () => {
 		permission = await pushPermission();
+		const id = session.user?.id;
+		if (id) ntfyTopic = await loadNtfyTopic(id);
 	});
+
+	async function saveNtfy() {
+		const id = session.user?.id;
+		if (id) ntfyStatus = await saveNtfyTopic(id, ntfyTopic);
+	}
 
 	async function enable() {
 		permission = await requestPushPermission();
@@ -91,6 +103,26 @@
 				<Button onclick={enable} class="mt-3" data-test-id="notifications-enable">
 					{t('notifications.enable')}
 				</Button>
+			{/if}
+		</div>
+
+		<div class="fl-setting" id="setting-ntfy" data-test-id="notifications-ntfy">
+			<Label for="ntfy-topic" class="text-label font-medium">{t('notifications.ntfyTitle')}</Label>
+			<p class="text-muted-foreground text-caption mt-1">{t('notifications.ntfyHint')}</p>
+			<div class="mt-2 flex flex-wrap gap-2">
+				<Input
+					id="ntfy-topic"
+					type="url"
+					bind:value={ntfyTopic}
+					placeholder="https://ntfy.sh/familiste-xxxxxxxx"
+					autocomplete="off"
+					class="min-w-0 flex-1"
+					data-test-id="ntfy-topic"
+				/>
+				<Button variant="outline" onclick={saveNtfy} data-test-id="ntfy-save">{t('common.save')}</Button>
+			</div>
+			{#if ntfyStatus}
+				<p class="text-caption mt-2" role="status" data-test-id="ntfy-status">{t(`notifications.ntfy.${ntfyStatus}`)}</p>
 			{/if}
 		</div>
 

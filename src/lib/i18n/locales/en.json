@@ -2138,6 +2138,14 @@
 			"invitations": "Invitations",
 			"reminders": "Reminders",
 			"timers": "Timers"
+		},
+		"ntfyTitle": "Without Google: ntfy topic",
+		"ntfyHint": "On a phone without Google services (F-Droid), install the ntfy app, subscribe to a long random topic and paste its address here.",
+		"ntfy": {
+			"saved": "Saved. Notifications will also go to this topic.",
+			"removed": "Removed.",
+			"invalid": "This address is not accepted: use an https address ending with a topic of 8 to 64 letters or digits.",
+			"failed": "Could not save. Try again."
 		}
 	},
 	"product": {

@@ -2173,6 +2173,14 @@
 			"invitations": "Invitations",
 			"reminders": "Rappels",
 			"timers": "Minuteurs"
+		},
+		"ntfyTitle": "Sans Google : sujet ntfy",
+		"ntfyHint": "Sur un téléphone sans services Google (F-Droid), installez l’appli ntfy, abonnez-vous à un sujet long et aléatoire et collez son adresse ici.",
+		"ntfy": {
+			"saved": "Enregistré. Les notifications iront aussi vers ce sujet.",
+			"removed": "Retiré.",
+			"invalid": "Adresse refusée : utilisez une adresse https qui se termine par un sujet de 8 à 64 lettres ou chiffres.",
+			"failed": "Enregistrement impossible. Réessayez."
 		}
 	},
 	"product": {

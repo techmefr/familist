@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { motionMs } from '$stores/settings.svelte';
+	import { fly } from 'svelte/transition';
 	import { DURATION } from '$domain/motion-tokens';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { formatAmount } from '$domain/units';
@@ -18,6 +19,7 @@
 	import { ShoppingBasket, Mic, MicOff, Timer as TimerIcon, Plus } from '@lucide/svelte';
 	import { timers } from '$stores/timers.svelte';
 	import { formatClock, splitDuration } from '$domain/step-duration';
+	import { ringFraction } from '$domain/timers';
 	import StepWidgetsView from '$components/app/StepWidgetsView.svelte';
 	import type { StepWidget } from '$domain/step-widgets';
 	import { remindersSupported } from '$native/reminders';
@@ -132,8 +134,13 @@
 		window.speechSynthesis.speak(utterance);
 	}
 
+	/** Which way the last move went, so the next step slides in from that side. */
+	let slide = $state(1);
+
 	function go(to: number) {
-		index = clampStepIndex(to, total);
+		const next = clampStepIndex(to, total);
+		slide = next >= index ? 1 : -1;
+		index = next;
 		speak(current);
 	}
 
@@ -244,6 +251,9 @@
 	const stepTimer = $derived(recipeId ? timers.forStep(recipeId, clampStepIndex(index, total)) : undefined);
 	/** Written only on request (a tap, "Famy, temps restant"): a countdown read out every second is noise. */
 	let timerNotice = $state('');
+
+	/** Circumference of the ring (radius 19 in a 44-wide box). */
+	const RING_LENGTH = 2 * Math.PI * 19;
 
 	function startTimer() {
 		if (!recipeId) return;
@@ -449,7 +459,11 @@
 
 	<div class="relative flex flex-1 items-center justify-center px-6 py-8">
 		{#if total > 0}
-			<div class="pointer-events-none relative z-10 flex flex-col items-center">
+			{#key index}
+			<div
+				in:fly={{ x: 32 * slide, duration: motionMs(DURATION.in) }}
+				class="pointer-events-none relative z-10 flex flex-col items-center"
+			>
 				<p
 					data-test-id="cook-along-step"
 					class="text-center text-3xl leading-snug font-semibold break-words"
@@ -458,6 +472,7 @@
 				</p>
 				<StepWidgetsView widgets={stepWidgets[clampStepIndex(index, steps.length)] ?? []} />
 			</div>
+			{/key}
 
 			<!--
 				The whole step half-screen doubles as previous/next, on top of the arrow buttons below: a hand busy
@@ -506,15 +521,37 @@
 						<p id="cook-along-timer-{timer.id}" class="text-label break-words text-white/80">
 							{t('timers.stepLabel', { rank: timer.stepIndex + 1 })} · {timer.label}
 						</p>
-						<p
-							role="timer"
-							dir="ltr"
-							aria-describedby="cook-along-timer-{timer.id}"
-							class="text-4xl font-semibold tabular-nums"
-							data-test-class="cook-along-timer-clock"
-						>
-							{formatClock(timers.remaining(timer))}
-						</p>
+						<div class="flex items-center gap-4">
+							<!--
+								The ring empties with the time, redrawn each second. Decorative: the clock beside it says the
+								same in digits. Ringing, it pulses gently (never flashes), and with motion off it simply stays.
+							-->
+							<svg viewBox="0 0 44 44" class="size-14 shrink-0 -rotate-90" aria-hidden="true" data-test-class="cook-along-timer-ring">
+								<circle cx="22" cy="22" r="19" fill="none" stroke="currentColor" stroke-opacity="0.2" stroke-width="4" />
+								<circle
+									cx="22"
+									cy="22"
+									r="19"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="4"
+									stroke-linecap="round"
+									stroke-dasharray={RING_LENGTH}
+									stroke-dashoffset={RING_LENGTH * (1 - ringFraction(timer, timers.now))}
+									class={timers.remaining(timer) <= 0 ? 'fl-ring-pulse' : ''}
+									style="transition: stroke-dashoffset {motionMs(DURATION.panel)}ms linear"
+								/>
+							</svg>
+							<p
+								role="timer"
+								dir="ltr"
+								aria-describedby="cook-along-timer-{timer.id}"
+								class="text-4xl font-semibold tabular-nums"
+								data-test-class="cook-along-timer-clock"
+							>
+								{formatClock(timers.remaining(timer))}
+							</p>
+						</div>
 						<div class="mt-2 flex flex-col gap-2 sm:flex-row">
 							<Button
 								variant="outline"

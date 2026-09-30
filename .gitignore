@@ -31,7 +31,9 @@ ios/
 # règles maison, parfois des extraits d'autres projets, et n'ont rien à y faire. La liste couvre
 # les outils courants plutôt que le seul que j'utilise, pour qu'une contribution extérieure n'en
 # laisse pas passer par mégarde. La documentation de conception vit dans le dépôt privé.
-.claude/
+.claude/*
+# Agent skills are public, licensed files (each keeps its LICENSE); only they are tracked.
+!.claude/skills/
 CLAUDE.md
 .cursor/
 .cursorrules

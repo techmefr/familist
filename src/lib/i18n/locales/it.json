@@ -2125,6 +2125,14 @@
 			"invitations": "Inviti",
 			"reminders": "Promemoria",
 			"timers": "Timer"
+		},
+		"ntfyTitle": "Senza Google: argomento ntfy",
+		"ntfyHint": "Su un telefono senza servizi Google (F-Droid), installa l’app ntfy, iscriviti a un argomento lungo e casuale e incolla qui l’indirizzo.",
+		"ntfy": {
+			"saved": "Salvato. Le notifiche andranno anche a questo argomento.",
+			"removed": "Rimosso.",
+			"invalid": "Indirizzo rifiutato: usa un indirizzo https che termina con un argomento di 8-64 lettere o cifre.",
+			"failed": "Impossibile salvare. Riprova."
 		}
 	},
 	"product": {

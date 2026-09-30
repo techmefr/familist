@@ -15,6 +15,7 @@
 import { callRpc, serviceKey } from '../_shared/rpc.ts';
 import { FcmClient, buildMessage, type ServiceAccount } from '../_shared/fcm.ts';
 import { decide, groupRows, parseSettings, type OutboxRow } from '../_shared/notify-rules.ts';
+import { DEFAULT_NTFY_HOSTS, buildNtfyRequest, parseTopicUrl } from '../_shared/ntfy.ts';
 
 interface Claimed extends OutboxRow {
 	settings: unknown;
@@ -38,6 +39,26 @@ function loadAccount(): ServiceAccount | null {
 	}
 }
 
+const ALLOWED_NTFY_HOSTS = (Deno.env.get('NTFY_ALLOWED_HOSTS') ?? '')
+	.split(',')
+	.map(host => host.trim())
+	.filter(Boolean);
+
+/** A topic on an ntfy server, for phones without Google services. */
+async function sendNtfy(address: string, title: string, body: string): Promise<'ok' | 'dead' | 'failed'> {
+	const target = parseTopicUrl(address, ALLOWED_NTFY_HOSTS.length > 0 ? ALLOWED_NTFY_HOSTS : DEFAULT_NTFY_HOSTS);
+	// An address that is no longer acceptable (host removed from the allowlist) is dropped, never retried.
+	if (!target) return 'dead';
+
+	try {
+		const request = buildNtfyRequest(target, title, body);
+		const response = await fetch(request.url, request.init);
+		return response.ok ? 'ok' : 'failed';
+	} catch {
+		return 'failed';
+	}
+}
+
 Deno.serve(async req => {
 	const token = tokenOf(req);
 	const rpc = <T>(name: string, args: Record<string, unknown>): Promise<T> => callRpc<T>(name, args, token);
@@ -49,8 +70,8 @@ Deno.serve(async req => {
 		claimedIds = rows.map(row => row.id);
 
 		const account = loadAccount();
-		if (!account) throw new Error('FCM non configure');
-		const fcm = new FcmClient(account);
+		// Without a Firebase account only the ntfy devices can be served; the rest wait in the buffer.
+		const fcm = account ? new FcmClient(account) : null;
 
 		const now = new Date();
 		const settled: string[] = [];
@@ -80,6 +101,18 @@ Deno.serve(async req => {
 				let failed = false;
 
 				for (const device of row.tokens) {
+					if (device.platform === 'ntfy') {
+						const outcome = await sendNtfy(device.token, push.title, push.body);
+						if (outcome === 'ok') delivered = true;
+						else if (outcome === 'dead') dead.push(device.token);
+						else failed = true;
+						continue;
+					}
+
+					if (!fcm) {
+						failed = true;
+						continue;
+					}
 					const outcome = await fcm.send(
 						buildMessage({ token: device.token, title: push.title, body: push.body, path: push.path, kind: push.kind, tag: row.groupKey })
 					);

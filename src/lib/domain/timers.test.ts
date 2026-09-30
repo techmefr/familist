@@ -41,3 +41,18 @@ describe('timers', () => {
 		expect(parseStoredTimers('nope', now)).toEqual([]);
 	});
 });
+
+import { ringFraction } from './timers';
+
+describe('ringFraction', () => {
+	it('empties with the time and never exceeds a full turn', () => {
+		const timer = { durationSeconds: 100, endsAt: 100_000 };
+
+		expect(ringFraction(timer, 0)).toBe(1);
+		expect(ringFraction(timer, 50_000)).toBe(0.5);
+		expect(ringFraction(timer, 100_000)).toBe(0);
+		expect(ringFraction(timer, 200_000)).toBe(0);
+		expect(ringFraction({ durationSeconds: 100, endsAt: 300_000 }, 0)).toBe(1);
+		expect(ringFraction({ durationSeconds: 0, endsAt: 1 }, 0)).toBe(0);
+	});
+});

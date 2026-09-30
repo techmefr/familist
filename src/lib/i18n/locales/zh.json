@@ -2106,6 +2106,14 @@
 			"invitations": "邀请",
 			"reminders": "提醒",
 			"timers": "计时器"
+		},
+		"ntfyTitle": "无 Google：ntfy 主题",
+		"ntfyHint": "在没有 Google 服务的手机（F-Droid）上，安装 ntfy 应用，订阅一个随机长主题，并把地址粘贴到这里。",
+		"ntfy": {
+			"saved": "已保存，通知也会发送到此主题。",
+			"removed": "已移除。",
+			"invalid": "地址被拒绝：请使用以 8 到 64 位字母或数字主题结尾的 https 地址。",
+			"failed": "无法保存，请重试。"
 		}
 	},
 	"product": {
