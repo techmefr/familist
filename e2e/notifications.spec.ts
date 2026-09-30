@@ -8,6 +8,9 @@ test('les notifications : message honnête sur le web, réglages conservés', as
 	signedInPage: page
 }) => {
 	await page.goto('/profile/notifications');
+	// The first sync pulls the stored preferences and applies them: touching a switch before it lands would
+	// have the pull overwrite the change.
+	await page.waitForLoadState('networkidle');
 
 	await expect(page.getByTestId('notifications-unsupported')).toBeVisible();
 	await expect(page.getByTestId('notifications-enable')).toHaveCount(0);
@@ -20,6 +23,7 @@ test('les notifications : message honnête sur le web, réglages conservés', as
 	await page.getByTestId('quiet-start').blur();
 
 	await page.reload();
+	await page.waitForLoadState('networkidle');
 	await expect(page.getByTestId('notify-chats')).not.toBeChecked();
 	await expect(page.getByTestId('quiet-start')).toHaveValue('21:30');
 
