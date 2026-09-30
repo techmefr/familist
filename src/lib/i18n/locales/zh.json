@@ -857,7 +857,8 @@
 			"waitLabel": "等待内容",
 			"caption": "说明",
 			"toVerify": "待核实"
-		}
+		},
+		"adaptForTable": "为我的餐桌调整"
 	},
 	"recipeTags": {
 		"title": "分类",
@@ -1424,7 +1425,8 @@
 		"assistantBack": "对话",
 		"muteList": "静音此对话",
 		"unmuteList": "恢复此对话的通知",
-		"unreadOne": "未读"
+		"unreadOne": "未读",
+		"adaptRequest": "请根据我餐桌上的人调整食谱“{name}”（食材：{ingredients}）。"
 	},
 	"household": {
 		"title": "我的家庭",

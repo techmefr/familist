@@ -878,7 +878,8 @@
 			"waitLabel": "What is waiting",
 			"caption": "Caption",
 			"toVerify": "to verify"
-		}
+		},
+		"adaptForTable": "Adapt for my table"
 	},
 	"recipeTags": {
 		"title": "Categories",
@@ -1449,7 +1450,8 @@
 		"assistantBack": "Discussions",
 		"muteList": "Mute this chat",
 		"unmuteList": "Turn this chat’s sound back on",
-		"unreadOne": "Unread"
+		"unreadOne": "Unread",
+		"adaptRequest": "Adapt the recipe “{name}” (ingredients: {ingredients}) for the people at my table."
 	},
 	"household": {
 		"title": "My household",

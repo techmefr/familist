@@ -910,7 +910,8 @@
 			"waitLabel": "Ce qui attend",
 			"caption": "Légende",
 			"toVerify": "à vérifier"
-		}
+		},
+		"adaptForTable": "Adapter pour ma table"
 	},
 	"recipeTags": {
 		"title": "Catégories",
@@ -1481,7 +1482,8 @@
 		"assistantBack": "Discussions",
 		"muteList": "Couper le son de cette discussion",
 		"unmuteList": "Réactiver le son de cette discussion",
-		"unreadOne": "Non lue"
+		"unreadOne": "Non lue",
+		"adaptRequest": "Adapte la recette « {name} » (ingrédients : {ingredients}) aux personnes à ma table."
 	},
 	"household": {
 		"title": "Mon foyer",

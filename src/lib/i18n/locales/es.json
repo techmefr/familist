@@ -871,7 +871,8 @@
 			"waitLabel": "Qué espera",
 			"caption": "Pie de foto",
 			"toVerify": "por verificar"
-		}
+		},
+		"adaptForTable": "Adaptar para mi mesa"
 	},
 	"recipeTags": {
 		"title": "Categorías",
@@ -1442,7 +1443,8 @@
 		"assistantBack": "Conversaciones",
 		"muteList": "Silenciar esta conversación",
 		"unmuteList": "Reactivar el sonido de esta conversación",
-		"unreadOne": "Sin leer"
+		"unreadOne": "Sin leer",
+		"adaptRequest": "Adapta la receta «{name}» (ingredientes: {ingredients}) a las personas de mi mesa."
 	},
 	"household": {
 		"title": "Mi hogar",

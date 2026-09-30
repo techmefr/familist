@@ -867,7 +867,8 @@
 			"waitLabel": "Was wartet",
 			"caption": "Bildunterschrift",
 			"toVerify": "zu prüfen"
-		}
+		},
+		"adaptForTable": "Für meine Runde anpassen"
 	},
 	"recipeTags": {
 		"title": "Kategorien",
@@ -1438,7 +1439,8 @@
 		"assistantBack": "Unterhaltungen",
 		"muteList": "Diese Unterhaltung stummschalten",
 		"unmuteList": "Ton dieser Unterhaltung wieder einschalten",
-		"unreadOne": "Ungelesen"
+		"unreadOne": "Ungelesen",
+		"adaptRequest": "Passe das Rezept „{name}“ (Zutaten: {ingredients}) für die Personen an meinem Tisch an."
 	},
 	"household": {
 		"title": "Mein Haushalt",

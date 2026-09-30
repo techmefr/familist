@@ -899,7 +899,8 @@
 			"waitLabel": "ما الذي ينتظر",
 			"caption": "التعليق",
 			"toVerify": "للتحقق"
-		}
+		},
+		"adaptForTable": "تكييفها لمائدتي"
 	},
 	"recipeTags": {
 		"title": "الفئات",
@@ -1486,7 +1487,8 @@
 		"assistantBack": "المحادثات",
 		"muteList": "كتم هذه المحادثة",
 		"unmuteList": "إعادة تفعيل صوت هذه المحادثة",
-		"unreadOne": "غير مقروءة"
+		"unreadOne": "غير مقروءة",
+		"adaptRequest": "كيّف الوصفة «{name}» (المكونات: {ingredients}) للأشخاص على مائدتي."
 	},
 	"household": {
 		"title": "منزلي",

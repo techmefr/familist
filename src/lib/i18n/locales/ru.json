@@ -883,7 +883,8 @@
 			"waitLabel": "Что ждёт",
 			"caption": "Подпись",
 			"toVerify": "проверить"
-		}
+		},
+		"adaptForTable": "Адаптировать для моего стола"
 	},
 	"recipeTags": {
 		"title": "Категории",
@@ -1462,7 +1463,8 @@
 		"assistantBack": "Обсуждения",
 		"muteList": "Отключить это обсуждение",
 		"unmuteList": "Включить звук этого обсуждения",
-		"unreadOne": "Не прочитано"
+		"unreadOne": "Не прочитано",
+		"adaptRequest": "Адаптируй рецепт «{name}» (ингредиенты: {ingredients}) для людей за моим столом."
 	},
 	"household": {
 		"title": "Моя семья",

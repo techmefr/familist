@@ -865,7 +865,8 @@
 			"waitLabel": "Cosa aspetta",
 			"caption": "Didascalia",
 			"toVerify": "da verificare"
-		}
+		},
+		"adaptForTable": "Adatta per la mia tavola"
 	},
 	"recipeTags": {
 		"title": "Categorie",
@@ -1436,7 +1437,8 @@
 		"assistantBack": "Conversazioni",
 		"muteList": "Silenzia questa conversazione",
 		"unmuteList": "Riattiva le notifiche di questa conversazione",
-		"unreadOne": "Non letta"
+		"unreadOne": "Non letta",
+		"adaptRequest": "Adatta la ricetta «{name}» (ingredienti: {ingredients}) alle persone alla mia tavola."
 	},
 	"household": {
 		"title": "La mia casa",

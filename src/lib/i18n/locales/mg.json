@@ -858,7 +858,8 @@
 			"waitLabel": "Inona no miandry",
 			"caption": "Soratra",
 			"toVerify": "hohamarinina"
-		}
+		},
+		"adaptForTable": "Amboary ho an’ny latabatro"
 	},
 	"recipeTags": {
 		"title": "Sokajy",
@@ -1429,7 +1430,8 @@
 		"assistantBack": "Resaka",
 		"muteList": "Hanginana ity resaka ity",
 		"unmuteList": "Averina ny feon’ity resaka ity",
-		"unreadOne": "Tsy voavaky"
+		"unreadOne": "Tsy voavaky",
+		"adaptRequest": "Amboary ny fomba fahandrahoana “{name}” (akora: {ingredients}) ho an’ireo olona eo amin’ny latabatro."
 	},
 	"household": {
 		"title": "Ny ankohonako",
