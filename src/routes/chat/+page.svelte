@@ -216,7 +216,7 @@
 
 	{#if rows.length === 0}
 		<EmptyState
-			illustration="chat"
+			illustration="mascot"
 			text={allRows.length === 0 ? t('chat.indexEmpty') : t('chat.listFilterEmpty')}
 			testId={allRows.length === 0 ? 'chats-empty' : 'chat-list-filter-empty'}
 		/>

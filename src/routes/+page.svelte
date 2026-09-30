@@ -492,7 +492,7 @@
 	-->
 	<div class="fl-auth-glow" aria-hidden="true"></div>
 	<div class="fl-auth-card fl-rise mt-6">
-		<EmptyState illustration="lists" text={t('lists.empty')} testId="lists-empty">
+		<EmptyState illustration="mascot" text={t('lists.empty')} testId="lists-empty">
 			{#snippet action()}
 				{#if !creating}
 					<Button

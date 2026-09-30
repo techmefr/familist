@@ -1,5 +1,5 @@
 <script module lang="ts">
-	export type IllustrationName = 'cart' | 'lists' | 'cards' | 'chat' | 'shop' | 'inbox' | 'filter';
+	export type IllustrationName = 'cart' | 'lists' | 'cards' | 'chat' | 'shop' | 'inbox' | 'filter' | 'mascot';
 </script>
 
 <script lang="ts">
@@ -28,7 +28,33 @@
 >
 	<circle cx="80" cy="82" r="66" fill="var(--fl-primary-tint)" />
 
-	{#if name === 'cart'}
+	{#if name === 'mascot'}
+		<!--
+			Familiste's mascot: a basket with a face, painted only with theme tokens so it follows every palette. The
+			blink is a slow idle loop and the only ambient motion of the app; `.fl-mascot-eyes` holds still when
+			motion is off.
+		-->
+		<path
+			d="M38 78 Q80 62 122 78 L112 126 Q80 136 48 126 Z"
+			fill="var(--card)"
+			stroke="var(--primary)"
+			stroke-width="3"
+			stroke-linejoin="round"
+		/>
+		<path
+			d="M56 76 Q56 40 80 40 Q104 40 104 76"
+			stroke="var(--secondary)"
+			stroke-width="3.5"
+			stroke-linecap="round"
+		/>
+		<g class="fl-mascot-eyes" fill="var(--foreground)">
+			<ellipse cx="68" cy="98" rx="4" ry="5" />
+			<ellipse cx="92" cy="98" rx="4" ry="5" />
+		</g>
+		<path d="M71 110 Q80 118 89 110" stroke="var(--foreground)" stroke-width="2.5" stroke-linecap="round" />
+		<circle cx="60" cy="108" r="4" fill="var(--primary)" fill-opacity="0.25" />
+		<circle cx="100" cy="108" r="4" fill="var(--primary)" fill-opacity="0.25" />
+	{:else if name === 'cart'}
 		<path
 			d="M34 66 Q80 52 126 66 L117 124 Q80 133 43 124 Z"
 			stroke="var(--primary)"

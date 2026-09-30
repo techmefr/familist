@@ -2001,3 +2001,34 @@ html[data-motion='none'] .fl-anim-icon {
 		animation: none !important;
 	}
 }
+
+/*
+ * The mascot's idle blink: the eyes close for a moment every few seconds. It is the one ambient loop besides
+ * a running timer, and it is still whenever motion is off, in the app or in the system.
+ */
+.fl-mascot-eyes {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: fl-blink 5s var(--fl-ease) infinite;
+}
+
+@keyframes fl-blink {
+	0%,
+	92%,
+	100% {
+		transform: scaleY(1);
+	}
+	96% {
+		transform: scaleY(0.1);
+	}
+}
+
+html[data-motion='none'] .fl-mascot-eyes {
+	animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html[data-motion='system'] .fl-mascot-eyes {
+		animation: none;
+	}
+}
