@@ -1160,7 +1160,9 @@
 		"resetInvalidTitle": "Ungültiger oder abgelaufener Link",
 		"resetInvalidBody": "Dieser Link zum Zurücksetzen ist nicht mehr gültig. Fordern Sie einen neuen über die Anmeldeseite an.",
 		"resetDoneTitle": "Passwort aktualisiert",
-		"resetDoneBody": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden."
+		"resetDoneBody": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden.",
+		"moreProviders": "Weitere Anmeldearten",
+		"fewerProviders": "Weniger Optionen"
 	},
 	"welcome": {
 		"title": "Willkommen",
@@ -2127,6 +2129,14 @@
 			"invitations": "Einladungen",
 			"reminders": "Erinnerungen",
 			"timers": "Timer"
+		},
+		"ntfyTitle": "Freie Benachrichtigungen (ntfy), kostenlos und ohne Google",
+		"ntfyHint": "Auf einem Telefon ohne Google-Dienste (F-Droid) die ntfy-App installieren, ein langes Zufallsthema abonnieren und die Adresse hier einfügen.",
+		"ntfy": {
+			"saved": "Gespeichert. Benachrichtigungen gehen auch an dieses Thema.",
+			"removed": "Entfernt.",
+			"invalid": "Adresse nicht akzeptiert: https-Adresse mit einem Thema aus 8 bis 64 Buchstaben oder Ziffern verwenden.",
+			"failed": "Speichern nicht möglich. Erneut versuchen."
 		}
 	},
 	"product": {

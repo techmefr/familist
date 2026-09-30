@@ -2062,3 +2062,18 @@ html[data-motion='none'] .fl-mascot-eyes {
 html:has(dialog[data-test-id='create-menu'][open]) .fl-create-icon {
 	rotate: 45deg;
 }
+
+/* A ringing timer breathes instead of flashing: opacity only, slow, and still under the global motion guards. */
+@keyframes fl-ring-pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.45;
+	}
+}
+
+.fl-ring-pulse {
+	animation: fl-ring-pulse 1.6s ease-in-out infinite;
+}

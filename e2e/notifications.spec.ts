@@ -56,3 +56,23 @@ test('une discussion de liste peut être mise en sourdine depuis son en-tête', 
 	await mute.click();
 	await expect(mute).toHaveAttribute('aria-pressed', 'true');
 });
+
+test('les notifications sans Google : une adresse ntfy invalide est refusée, une valide est gardée puis retirée', async ({
+	signedInPage: page
+}) => {
+	await page.goto('/profile/notifications');
+	await page.waitForLoadState('networkidle');
+
+	await page.getByTestId('ntfy-topic').fill('http://evil.example/x');
+	await page.getByTestId('ntfy-save').click();
+	await expect(page.getByTestId('ntfy-status')).toContainText(/./);
+	await expect(page.getByTestId('ntfy-status')).not.toHaveText(/^$/);
+
+	await page.getByTestId('ntfy-topic').fill('https://ntfy.sh/familiste-e2e-topic');
+	await page.getByTestId('ntfy-save').click();
+	await expect(page.getByTestId('ntfy-status')).toBeVisible();
+
+	await page.getByTestId('ntfy-topic').fill('');
+	await page.getByTestId('ntfy-save').click();
+	await expect(page.getByTestId('ntfy-status')).toBeVisible();
+});

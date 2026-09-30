@@ -1,3 +1,5 @@
+import { parseProviderList, type ProviderId } from './oauth';
+
 /**
  * Which Supabase instance the app talks to, read when the page opens rather than baked into the bundle.
  *
@@ -16,6 +18,8 @@ export type InstanceConfig = {
 	sentryDsn?: string;
 	/** Code de site GoatCounter (le sous-domaine avant `.goatcounter.com`), ou absent : aucune mesure envoyee. */
 	goatcounterSite?: string;
+	/** Identifiants des fournisseurs de connexion proposes (`google,apple`), ou absents : aucun bouton. */
+	oauthProviders?: ProviderId[];
 };
 
 /**
@@ -46,12 +50,14 @@ export function readInstanceConfig(source: unknown): InstanceConfig | null {
 	// absence, pas erreur.
 	const sentryDsn = clean(raw.sentryDsn);
 	const goatcounterSite = clean(raw.goatcounterSite);
+	const oauthProviders = parseProviderList(raw.oauthProviders);
 
 	return {
 		url,
 		anonKey,
 		...(sentryDsn ? { sentryDsn } : {}),
-		...(goatcounterSite ? { goatcounterSite } : {})
+		...(goatcounterSite ? { goatcounterSite } : {}),
+		...(oauthProviders.length > 0 ? { oauthProviders } : {})
 	};
 }
 
@@ -92,7 +98,12 @@ export function resolveInstanceConfig(
 ): InstanceConfig | null {
 	const override = readLocalInstanceConfig(local);
 	if (override) {
-		return { ...override, sentryDsn: build?.sentryDsn, goatcounterSite: build?.goatcounterSite };
+		return {
+			...override,
+			sentryDsn: build?.sentryDsn,
+			goatcounterSite: build?.goatcounterSite,
+			oauthProviders: build?.oauthProviders
+		};
 	}
 
 	return build;

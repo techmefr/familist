@@ -1171,7 +1171,9 @@
 		"resetInvalidTitle": "Invalid or expired link",
 		"resetInvalidBody": "This reset link is no longer valid. Ask for a new one from the sign-in screen.",
 		"resetDoneTitle": "Password updated",
-		"resetDoneBody": "You can now sign in with your new password."
+		"resetDoneBody": "You can now sign in with your new password.",
+		"moreProviders": "More sign-in options",
+		"fewerProviders": "Fewer options"
 	},
 	"welcome": {
 		"title": "Welcome",
@@ -2138,6 +2140,14 @@
 			"invitations": "Invitations",
 			"reminders": "Reminders",
 			"timers": "Timers"
+		},
+		"ntfyTitle": "Open-source push (ntfy), free and without Google",
+		"ntfyHint": "On a phone without Google services (F-Droid), install the ntfy app, subscribe to a long random topic and paste its address here.",
+		"ntfy": {
+			"saved": "Saved. Notifications will also go to this topic.",
+			"removed": "Removed.",
+			"invalid": "This address is not accepted: use an https address ending with a topic of 8 to 64 letters or digits.",
+			"failed": "Could not save. Try again."
 		}
 	},
 	"product": {

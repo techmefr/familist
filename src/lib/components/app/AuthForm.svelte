@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { session } from '$stores/session.svelte';
-	import { enabledProviders, type ProviderId } from '$domain/oauth';
+	import { Capacitor } from '@capacitor/core';
+	import { oauthProviders } from '$db/supabase';
+	import { enabledProviders, orderProviders, type Platform, type ProviderId } from '$domain/oauth';
 	import { t } from '$i18n/index.svelte';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
@@ -53,7 +55,12 @@
 	let forgotPassword = $state(false);
 	let resetSent = $state(false);
 
-	const providers = enabledProviders();
+	const providers = enabledProviders(oauthProviders);
+
+	/** The platform's own account first; every other service is one tap further, behind "More". */
+	const platform: Platform = Capacitor.getPlatform() === 'ios' ? 'ios' : Capacitor.getPlatform() === 'android' ? 'android' : 'web';
+	const ordered = orderProviders(providers, platform);
+	let showMore = $state(false);
 
 	const MODES = ['signin', 'signup'] as const;
 
@@ -261,19 +268,46 @@
 		{/each}
 	</fieldset>
 
-	{#if providers.length > 0}
-		<div class="mt-4 flex flex-wrap gap-2" data-test-id="auth-providers">
-			{#each providers as provider (provider.id)}
+	{#if ordered.primary}
+		<div class="mt-4 space-y-2" data-test-id="auth-providers">
+			<Button
+				variant="outline"
+				class="fl-press w-full"
+				disabled={busy}
+				onclick={() => continueWith(ordered.primary!.id)}
+				data-test-id="auth-provider-{ordered.primary.id}"
+			>
+				{t('auth.continueWith', { provider: ordered.primary.label })}
+			</Button>
+
+			{#if ordered.others.length > 0}
 				<Button
-					variant="outline"
-					class="fl-press flex-auto basis-[10rem]"
-					disabled={busy}
-					onclick={() => continueWith(provider.id)}
-					data-test-id="auth-provider-{provider.id}"
+					variant="ghost"
+					class="fl-press w-full"
+					aria-expanded={showMore}
+					aria-controls="auth-more-providers"
+					onclick={() => (showMore = !showMore)}
+					data-test-id="auth-providers-more"
 				>
-					{t('auth.continueWith', { provider: provider.label })}
+					{showMore ? t('auth.fewerProviders') : t('auth.moreProviders')}
 				</Button>
-			{/each}
+
+				{#if showMore}
+					<div id="auth-more-providers" class="flex flex-wrap gap-2" data-test-id="auth-more-list">
+						{#each ordered.others as provider (provider.id)}
+							<Button
+								variant="outline"
+								class="fl-press flex-auto basis-[10rem]"
+								disabled={busy}
+								onclick={() => continueWith(provider.id)}
+								data-test-id="auth-provider-{provider.id}"
+							>
+								{t('auth.continueWith', { provider: provider.label })}
+							</Button>
+						{/each}
+					</div>
+				{/if}
+			{/if}
 		</div>
 
 		<div class="text-muted-foreground text-caption mt-4 flex items-center gap-3">

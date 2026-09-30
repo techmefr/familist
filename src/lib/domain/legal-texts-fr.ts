@@ -156,6 +156,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 					'Brevo (Sendinblue SAS, France) : envoi des e-mails depuis noreply@familiste.fr ; reçoit votre adresse e-mail.',
 					'Fournisseur d’IA choisi par vous (par exemple Anthropic, Google, Mistral, Groq, OpenRouter, DeepSeek) : reçoit le texte de vos demandes, avec votre clé, directement depuis votre appareil.',
 					'Pollinations et Openverse : reçoivent la description ou le nom d’une recette pour générer ou rechercher une image.',
+					'Un serveur ntfy, uniquement si vous définissez un sujet pour recevoir les notifications sans Google : reçoit le titre et le texte de la notification pour ce sujet. Seuls les hôtes autorisés par l’instance sont contactés.',
 					'Open Food Facts (France, base de données ouverte) : reçoit le code-barres que vous scannez dans le scan de produit, rien d’autre, pour renvoyer le nom, les ingrédients et les allergènes du produit.',
 					'Google (Firebase Cloud Messaging, États-Unis) : achemine les notifications push sur Android ; reçoit le jeton de votre appareil et le titre, le texte et l’écran visé de la notification, jamais l’identifiant de votre compte.',
 					'GitHub : un signalement de bug ouvre un ticket qui ne contient que son numéro, sans donnée personnelle.',

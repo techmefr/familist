@@ -1160,7 +1160,9 @@
 		"resetInvalidTitle": "Link inválido ou expirado",
 		"resetInvalidBody": "Este link de redefinição já não é válido. Peça um novo na tela de login.",
 		"resetDoneTitle": "Senha atualizada",
-		"resetDoneBody": "Agora você pode entrar com a sua nova senha."
+		"resetDoneBody": "Agora você pode entrar com a sua nova senha.",
+		"moreProviders": "Mais formas de entrar",
+		"fewerProviders": "Menos opções"
 	},
 	"welcome": {
 		"title": "Bem-vindo",
@@ -2127,6 +2129,14 @@
 			"invitations": "Convites",
 			"reminders": "Lembretes",
 			"timers": "Temporizadores"
+		},
+		"ntfyTitle": "Notificações livres (ntfy), gratuitas e sem Google",
+		"ntfyHint": "Num telemóvel sem serviços Google (F-Droid), instale a app ntfy, subscreva um tópico longo e aleatório e cole aqui o endereço.",
+		"ntfy": {
+			"saved": "Guardado. As notificações irão também para este tópico.",
+			"removed": "Removido.",
+			"invalid": "Endereço recusado: use um endereço https que termine num tópico de 8 a 64 letras ou algarismos.",
+			"failed": "Não foi possível guardar. Tente de novo."
 		}
 	},
 	"product": {
