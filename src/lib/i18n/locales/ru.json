@@ -173,7 +173,8 @@
 				"hint": "Аккаунты, сообщения, сбои",
 				"keywords": "одобрить, подтвердить, роль, администратор, демо, сообщение, сбой, запрос GDPR"
 			}
-		}
+		},
+		"palette": "Цветовая тема"
 	},
 	"theme": {
 		"light": "Светлая",
@@ -1959,5 +1960,61 @@
 			"many": "{count} секунд",
 			"other": "{count} секунды"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Светлые",
+			"dark": "Тёмные"
+		},
+		"creamForest": "Сливки и лес",
+		"pastel": "Пастель",
+		"foret": "Лес",
+		"marine": "Море и песок",
+		"corail": "Коралл и персик",
+		"lavande": "Лаванда",
+		"ardoise": "Сланец и лимон",
+		"draculaLight": "Dracula Light (по мотивам)",
+		"night": "Ночь",
+		"dracula": "Dracula",
+		"create": "Создать свою тему",
+		"intro": "Выберите основной цвет. Остальные рассчитываются от него и подгоняются так, чтобы всё оставалось читаемым.",
+		"name": "Название",
+		"base": "Основа",
+		"seed": "Основной цвет",
+		"hex": "Код цвета",
+		"seedInvalid": "Введите цвет вида #4ea674.",
+		"tone": "Оттенок фона",
+		"radius": "Скругление углов",
+		"preview": "Предпросмотр",
+		"checks": "Проверки читаемости",
+		"pass": "Пройдено",
+		"fail": "Не пройдено",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "Сохранить тему",
+		"cancel": "Отмена",
+		"saved": "Тема сохранена.",
+		"refused": "Эта тема недостаточно читаема, чтобы её сохранить.",
+		"full": "Можно сохранить до {max} тем.",
+		"mine": "Мои темы ({count}/{max})",
+		"edit": "Изменить",
+		"delete": "Удалить",
+		"export": "Экспорт в JSON",
+		"import": "Импортировать файл",
+		"imported": "Импортировано тем: {count}.",
+		"importEmpty": "Из этого файла ничего не удалось импортировать."
 	}
 }

@@ -1,6 +1,9 @@
+import type { Json } from "$db/types";
 /** The appearance columns of `profiles`, in the shape the database expects. */
 export interface AppearanceRow {
 	theme: string;
+	theme_id: string;
+	custom_themes: Json;
 	accent_id: string;
 	type_scale: string;
 	font_id: string;

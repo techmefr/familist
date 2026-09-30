@@ -175,7 +175,8 @@
 				"hint": "الحسابات، البلاغات، الأعطال",
 				"keywords": "قبول، تحقق، دور، مدير، تجريبي، بلاغ، عطل، طلب بيانات"
 			}
-		}
+		},
+		"palette": "سمة الألوان"
 	},
 	"theme": {
 		"light": "فاتح",
@@ -1997,5 +1998,61 @@
 			"many": "{count} ثانية",
 			"other": "{count} ثانية"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "فاتحة",
+			"dark": "داكنة"
+		},
+		"creamForest": "كريم وغابة",
+		"pastel": "باستيل",
+		"foret": "غابة",
+		"marine": "بحري ورملي",
+		"corail": "مرجاني وخوخي",
+		"lavande": "لافندر",
+		"ardoise": "أردواز وليمون",
+		"draculaLight": "دراكولا فاتح (مستوحى)",
+		"night": "ليل",
+		"dracula": "دراكولا",
+		"create": "إنشاء سمتي",
+		"intro": "اختر لونًا رئيسيًا. تُحسب بقية الألوان منه وتُعدَّل ليبقى كل شيء مقروءًا.",
+		"name": "الاسم",
+		"base": "الأساس",
+		"seed": "اللون الرئيسي",
+		"hex": "رمز اللون",
+		"seedInvalid": "أدخل لونًا مثل #4ea674.",
+		"tone": "درجة الخلفية",
+		"radius": "استدارة الزوايا",
+		"preview": "معاينة",
+		"checks": "فحوصات القراءة",
+		"pass": "ناجح",
+		"fail": "فشل",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "حفظ السمة",
+		"cancel": "إلغاء",
+		"saved": "تم حفظ السمة.",
+		"refused": "هذه السمة غير مقروءة بما يكفي لحفظها.",
+		"full": "يمكنك الاحتفاظ بما يصل إلى {max} سمات.",
+		"mine": "سماتي ({count}/{max})",
+		"edit": "تعديل",
+		"delete": "حذف",
+		"export": "تصدير بصيغة JSON",
+		"import": "استيراد ملف",
+		"imported": "تم استيراد {count} سمة.",
+		"importEmpty": "تعذّر استيراد أي شيء من هذا الملف."
 	}
 }

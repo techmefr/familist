@@ -8,6 +8,7 @@
  * Neither covers Cyrillic or Arabic: Russian and Arabic fall back on the system stack, hence the importance
  * of keeping it complete in --fl-font-system.
  */
+@import './themes.css';
 @import '@fontsource/atkinson-hyperlegible/400.css';
 @import '@fontsource/atkinson-hyperlegible/700.css';
 @import '@fontsource/schibsted-grotesk/400.css';
@@ -40,7 +41,8 @@
 @custom-variant full (@media (width >= 48rem) and (orientation: landscape));
 @custom-variant compact (@media not ((width >= 48rem) and (orientation: landscape)));
 
-:root {
+:root,
+[data-theme-preview='cream-forest'] {
 	--background: #f1ede5;
 	--foreground: #1c1917;
 	--card: #ffffff;
@@ -65,7 +67,7 @@
 	--secondary-foreground: #ffffff;
 	--muted: #e5e0d5;
 	--muted-foreground: #57534e;
-	--accent: #d8d2c5;
+	--accent: #e2ddd1;
 	--accent-foreground: #1c1917;
 	--destructive: #b91c1c;
 	--destructive-foreground: #ffffff;

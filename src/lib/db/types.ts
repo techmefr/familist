@@ -1087,6 +1087,8 @@ export type Database = {
       profiles: {
         Row: {
           accent_id: string
+          custom_themes: Json
+          theme_id: string
           avatar: string
           created_at: string
           display_name: string
@@ -1113,6 +1115,8 @@ export type Database = {
         }
         Insert: {
           accent_id?: string
+          custom_themes?: Json
+          theme_id?: string
           avatar?: string
           created_at?: string
           display_name?: string
@@ -1139,6 +1143,8 @@ export type Database = {
         }
         Update: {
           accent_id?: string
+          custom_themes?: Json
+          theme_id?: string
           avatar?: string
           created_at?: string
           display_name?: string

@@ -171,7 +171,8 @@
 				"hint": "Konten, Meldungen, Abstürze",
 				"keywords": "freigeben, bestätigen, Rolle, Administrator, Demo, Meldung, Absturz, DSGVO-Anfrage"
 			}
-		}
+		},
+		"palette": "Farbthema"
 	},
 	"theme": {
 		"light": "Hell",
@@ -1921,5 +1922,61 @@
 			"one": "{count} Sekunde",
 			"other": "{count} Sekunden"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Hell",
+			"dark": "Dunkel"
+		},
+		"creamForest": "Creme & Wald",
+		"pastel": "Pastell",
+		"foret": "Wald",
+		"marine": "Marine & Sand",
+		"corail": "Koralle & Pfirsich",
+		"lavande": "Lavendel",
+		"ardoise": "Schiefer & Zitrone",
+		"draculaLight": "Dracula Light (inspiriert)",
+		"night": "Nacht",
+		"dracula": "Dracula",
+		"create": "Mein Thema erstellen",
+		"intro": "Wählen Sie eine Hauptfarbe. Die übrigen Farben werden daraus berechnet und angepasst, damit alles lesbar bleibt.",
+		"name": "Name",
+		"base": "Basis",
+		"seed": "Hauptfarbe",
+		"hex": "Farbcode",
+		"seedInvalid": "Geben Sie eine Farbe wie #4ea674 ein.",
+		"tone": "Hintergrundton",
+		"radius": "Eckenrundung",
+		"preview": "Vorschau",
+		"checks": "Lesbarkeitsprüfung",
+		"pass": "Bestanden",
+		"fail": "Nicht bestanden",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "Thema speichern",
+		"cancel": "Abbrechen",
+		"saved": "Thema gespeichert.",
+		"refused": "Dieses Thema ist nicht lesbar genug, um gespeichert zu werden.",
+		"full": "Sie können bis zu {max} Themen behalten.",
+		"mine": "Meine Themen ({count}/{max})",
+		"edit": "Bearbeiten",
+		"delete": "Löschen",
+		"export": "Als JSON exportieren",
+		"import": "Datei importieren",
+		"imported": "{count} Thema/Themen importiert.",
+		"importEmpty": "Aus dieser Datei konnte nichts importiert werden."
 	}
 }

@@ -171,7 +171,8 @@
 				"hint": "Kaonty, tatitra, fianjerana",
 				"keywords": "manaiky, manamarina, anjara, mpitantana, demo, tatitra, fianjerana, fangatahana RGPD"
 			}
-		}
+		},
+		"palette": "Lohateny loko"
 	},
 	"theme": {
 		"light": "Mazava",
@@ -1912,5 +1913,61 @@
 			"one": "{count} segondra",
 			"other": "{count} segondra"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Mazava",
+			"dark": "Maizina"
+		},
+		"creamForest": "Crème sy ala",
+		"pastel": "Pastel",
+		"foret": "Ala",
+		"marine": "Ranomasina sy fasika",
+		"corail": "Korailla sy paiso",
+		"lavande": "Lavandy",
+		"ardoise": "Kirihitra sy voasary",
+		"draculaLight": "Dracula Light (nahazoana aingam-panahy)",
+		"night": "Alina",
+		"dracula": "Dracula",
+		"create": "Amorona ny lohateniko",
+		"intro": "Mifidiana loko fototra. Ny hafa dia kajiana avy amin’izany ary hamboarina mba hahafahana mamaky foana.",
+		"name": "Anarana",
+		"base": "Fototra",
+		"seed": "Loko fototra",
+		"hex": "Kaody loko",
+		"seedInvalid": "Ampidiro loko toa #4ea674.",
+		"tone": "Hatevin’ny elanelana",
+		"radius": "Fiolahana ny zoro",
+		"preview": "Topimaso",
+		"checks": "Fanamarinana ny fahaizana vakiana",
+		"pass": "Nahomby",
+		"fail": "Tsy nahomby",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "Tehirizo ny lohateny",
+		"cancel": "Foana",
+		"saved": "Voatahiry ny lohateny.",
+		"refused": "Tsy azo vakina ampy ity lohateny ity ka tsy azo tehirizina.",
+		"full": "Afaka mitahiry hatramin’ny {max} ianao.",
+		"mine": "Ny lohateniko ({count}/{max})",
+		"edit": "Hanova",
+		"delete": "Fafana",
+		"export": "Alefa ho JSON",
+		"import": "Ampidiro rakitra",
+		"imported": "Voampiditra ny lohateny {count}.",
+		"importEmpty": "Tsy nisy azo nampidirina tamin’ity rakitra ity."
 	}
 }

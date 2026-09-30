@@ -26,12 +26,29 @@
 
 				try {
 					const saved = JSON.parse(localStorage.getItem('familist:appearance') ?? '{}');
-					const dark =
-						saved.theme === 'dark' ||
-						((saved.theme ?? 'system') === 'system' &&
-							matchMedia('(prefers-color-scheme: dark)').matches);
+					// The preset modes below mirror THEME_PRESETS (themes.test.ts keeps them equal). A custom theme is
+					// stored with its derived tokens precisely so they can be applied here, before the first frame.
+					const DARK_PRESETS = ['night', 'dracula'];
+					const LIGHT_PRESETS = ['pastel', 'foret', 'marine', 'corail', 'lavande', 'ardoise', 'dracula-light'];
+					const id = saved.themeId ?? 'cream-forest';
+					const custom = (saved.customThemes ?? []).find(t => t.id === id);
+					const dark = custom
+						? custom.base === 'dark'
+						: DARK_PRESETS.includes(id)
+							? true
+							: LIGHT_PRESETS.includes(id)
+								? false
+								: saved.theme === 'dark' ||
+									((saved.theme ?? 'system') === 'system' &&
+										matchMedia('(prefers-color-scheme: dark)').matches);
 
 					if (dark) root.classList.add('dark');
+					root.dataset.theme = custom ? 'custom' : id;
+					if (custom) {
+						for (const [name, value] of Object.entries(custom.tokens ?? {}))
+							root.style.setProperty('--' + name, value);
+						root.style.setProperty('--radius', custom.radius + 'rem');
+					}
 					root.dataset.accent = saved.accentId ?? 'terracotta';
 					root.dataset.scale = saved.fontScaleId ?? 'sm';
 					root.dataset.font = saved.fontId ?? 'system';
@@ -42,11 +59,20 @@
 					// under the person's eyes.
 					root.dataset.hand = saved.hand ?? 'right';
 
-					if (dark) {
-						document
-							.querySelector('meta[name="theme-color"]')
-							.setAttribute('content', '#0a0907');
-					}
+					const THEME_COLORS = {
+						night: '#0f1420',
+						dracula: '#282a36',
+						pastel: '#fbf1f0',
+						foret: '#e9f8e7',
+						marine: '#ebe7e1',
+						corail: '#fae9d7',
+						lavande: '#f3eff8',
+						ardoise: '#f4f3ea',
+						'dracula-light': '#f6f4fa'
+					};
+					const bar = custom ? custom.tokens.background : (THEME_COLORS[id] ?? (dark ? '#0a0907' : null));
+					if (bar)
+						document.querySelector('meta[name="theme-color"]').setAttribute('content', bar);
 				} catch {}
 
 				try {

@@ -171,7 +171,8 @@
 				"hint": "Contas, relatórios, falhas",
 				"keywords": "aprovar, validar, função, administrador, demo, relatório, falha, pedido RGPD"
 			}
-		}
+		},
+		"palette": "Tema de cores"
 	},
 	"theme": {
 		"light": "Claro",
@@ -1921,5 +1922,61 @@
 			"one": "{count} segundo",
 			"other": "{count} segundos"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Claros",
+			"dark": "Escuros"
+		},
+		"creamForest": "Creme e floresta",
+		"pastel": "Pastel",
+		"foret": "Floresta",
+		"marine": "Marinho e areia",
+		"corail": "Coral e pêssego",
+		"lavande": "Lavanda",
+		"ardoise": "Ardósia e limão",
+		"draculaLight": "Dracula Light (inspirado)",
+		"night": "Noite",
+		"dracula": "Dracula",
+		"create": "Criar o meu tema",
+		"intro": "Escolha uma cor principal. As outras são calculadas a partir dela e ajustadas para tudo continuar legível.",
+		"name": "Nome",
+		"base": "Base",
+		"seed": "Cor principal",
+		"hex": "Código de cor",
+		"seedInvalid": "Introduza uma cor como #4ea674.",
+		"tone": "Tom do fundo",
+		"radius": "Arredondamento dos cantos",
+		"preview": "Pré-visualização",
+		"checks": "Verificações de legibilidade",
+		"pass": "Aprovado",
+		"fail": "Reprovado",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "Guardar tema",
+		"cancel": "Cancelar",
+		"saved": "Tema guardado.",
+		"refused": "Este tema não é legível o suficiente para ser guardado.",
+		"full": "Pode guardar até {max} temas.",
+		"mine": "Os meus temas ({count}/{max})",
+		"edit": "Editar",
+		"delete": "Eliminar",
+		"export": "Exportar como JSON",
+		"import": "Importar um ficheiro",
+		"imported": "{count} tema(s) importado(s).",
+		"importEmpty": "Não foi possível importar nada deste ficheiro."
 	}
 }

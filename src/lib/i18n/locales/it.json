@@ -171,7 +171,8 @@
 				"hint": "Account, segnalazioni, arresti anomali",
 				"keywords": "approvare, convalidare, ruolo, amministratore, demo, segnalazione, crash, richiesta GDPR"
 			}
-		}
+		},
+		"palette": "Tema di colori"
 	},
 	"theme": {
 		"light": "Chiaro",
@@ -1919,5 +1920,61 @@
 			"one": "{count} secondo",
 			"other": "{count} secondi"
 		}
+	},
+	"themes": {
+		"group": {
+			"light": "Chiari",
+			"dark": "Scuri"
+		},
+		"creamForest": "Crema e foresta",
+		"pastel": "Pastello",
+		"foret": "Foresta",
+		"marine": "Blu e sabbia",
+		"corail": "Corallo e pesca",
+		"lavande": "Lavanda",
+		"ardoise": "Ardesia e limone",
+		"draculaLight": "Dracula Light (ispirato)",
+		"night": "Notte",
+		"dracula": "Dracula",
+		"create": "Crea il mio tema",
+		"intro": "Scegli un colore principale. Gli altri vengono calcolati da esso e regolati perché tutto resti leggibile.",
+		"name": "Nome",
+		"base": "Base",
+		"seed": "Colore principale",
+		"hex": "Codice colore",
+		"seedInvalid": "Inserisci un colore come #4ea674.",
+		"tone": "Tono dello sfondo",
+		"radius": "Arrotondamento degli angoli",
+		"preview": "Anteprima",
+		"checks": "Controlli di leggibilità",
+		"pass": "Superato",
+		"fail": "Non superato",
+		"check": {
+			"text": "Text on background",
+			"textOnCard": "Text on cards",
+			"mutedText": "Secondary text",
+			"mutedTextOnCard": "Secondary text on cards",
+			"textOnButton": "Text on buttons",
+			"textOnSecondary": "Text on secondary buttons",
+			"accentText": "Accent text",
+			"accentOnSoft": "Accent on soft ground",
+			"textOnSoft": "Text on soft ground",
+			"danger": "Error text",
+			"icon": "Icons",
+			"focusRing": "Focus ring",
+			"mutedIcon": "Muted icons"
+		},
+		"save": "Salva tema",
+		"cancel": "Annulla",
+		"saved": "Tema salvato.",
+		"refused": "Questo tema non è abbastanza leggibile per essere salvato.",
+		"full": "Puoi conservare fino a {max} temi.",
+		"mine": "I miei temi ({count}/{max})",
+		"edit": "Modifica",
+		"delete": "Elimina",
+		"export": "Esporta come JSON",
+		"import": "Importa un file",
+		"imported": "{count} tema/i importato/i.",
+		"importEmpty": "Non è stato possibile importare nulla da questo file."
 	}
 }
