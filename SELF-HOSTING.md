@@ -203,3 +203,32 @@ approval in `/admin`.
 
 **A reloaded page returns a 404.** You are not going through the provided container, and the host
 does not rewrite to `index.html`.
+
+
+## Sign in with Google, Apple and other services
+
+Email and password work out of the box. To offer other services:
+
+1. At each provider, create an OAuth application. The return URL to declare is
+   `https://<your-project>.supabase.co/auth/v1/callback`.
+2. In Supabase, Authentication, Sign In / Providers: enable the provider and paste its client id and secret.
+3. Set `PUBLIC_OAUTH_PROVIDERS` (for example `google,apple,github`) and restart the container. No rebuild
+   is needed: the list is read from `config.js` when the page opens.
+
+The first service shown is the platform's own (Google on Android, Apple on iOS, Google then Apple on the
+web); the others are behind a "More" button. An id that is listed here but not enabled in Supabase shows a
+button that fails, so keep the two lists equal. Apple is required by the App Store as soon as another social
+sign-in is offered in the iOS app.
+
+## An entirely open-source and free stack
+
+Nothing here requires a proprietary service:
+
+- **Push notifications**: use ntfy (open source, free, self-hostable). Run your own server or use ntfy.sh, add
+  its host to `NTFY_ALLOWED_HOSTS` if it is your own, and each person gives their topic address in
+  Profile, Notifications. Firebase Cloud Messaging is optional and only matters for people who want push on
+  a phone with Google services without installing ntfy; leave `FCM_SERVICE_ACCOUNT` unset to never use it.
+- **Sign-in**: email works alone. For single sign-on, `keycloak` (or GitHub, GitLab) are open choices;
+  Google and Apple are offered only if you list them in `PUBLIC_OAUTH_PROVIDERS`.
+- **Product data**: Open Food Facts, an open database.
+- **Database and accounts**: Supabase, which can be self-hosted.

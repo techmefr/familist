@@ -1164,7 +1164,9 @@
 		"resetInvalidTitle": "Enlace no válido o caducado",
 		"resetInvalidBody": "Este enlace de restablecimiento ya no es válido. Solicita uno nuevo desde la pantalla de inicio de sesión.",
 		"resetDoneTitle": "Contraseña actualizada",
-		"resetDoneBody": "Ya puedes iniciar sesión con tu nueva contraseña."
+		"resetDoneBody": "Ya puedes iniciar sesión con tu nueva contraseña.",
+		"moreProviders": "Más formas de acceder",
+		"fewerProviders": "Menos opciones"
 	},
 	"welcome": {
 		"title": "Bienvenido",
@@ -2132,7 +2134,7 @@
 			"reminders": "Recordatorios",
 			"timers": "Temporizadores"
 		},
-		"ntfyTitle": "Sin Google: tema de ntfy",
+		"ntfyTitle": "Notificaciones libres (ntfy), gratis y sin Google",
 		"ntfyHint": "En un teléfono sin servicios de Google (F-Droid), instala la app ntfy, suscríbete a un tema largo y aleatorio y pega aquí su dirección.",
 		"ntfy": {
 			"saved": "Guardado. Las notificaciones irán también a este tema.",

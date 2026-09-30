@@ -1203,7 +1203,9 @@
 		"resetInvalidTitle": "Lien invalide ou expiré",
 		"resetInvalidBody": "Ce lien de réinitialisation n'est plus valable. Demandez-en un nouveau depuis l'écran de connexion.",
 		"resetDoneTitle": "Mot de passe mis à jour",
-		"resetDoneBody": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
+		"resetDoneBody": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+		"moreProviders": "Autres moyens de connexion",
+		"fewerProviders": "Moins d’options"
 	},
 	"welcome": {
 		"title": "Bienvenue",
@@ -2174,7 +2176,7 @@
 			"reminders": "Rappels",
 			"timers": "Minuteurs"
 		},
-		"ntfyTitle": "Sans Google : sujet ntfy",
+		"ntfyTitle": "Notifications libres (ntfy), gratuites et sans Google",
 		"ntfyHint": "Sur un téléphone sans services Google (F-Droid), installez l’appli ntfy, abonnez-vous à un sujet long et aléatoire et collez son adresse ici.",
 		"ntfy": {
 			"saved": "Enregistré. Les notifications iront aussi vers ce sujet.",

@@ -80,6 +80,26 @@
 
 <Card.Root class="mt-6">
 	<Card.Content class="fl-divided">
+		<div class="fl-setting" id="setting-ntfy" data-test-id="notifications-ntfy">
+			<Label for="ntfy-topic" class="text-label font-medium">{t('notifications.ntfyTitle')}</Label>
+			<p class="text-muted-foreground text-caption mt-1">{t('notifications.ntfyHint')}</p>
+			<div class="mt-2 flex flex-wrap gap-2">
+				<Input
+					id="ntfy-topic"
+					type="url"
+					bind:value={ntfyTopic}
+					placeholder="https://ntfy.sh/familiste-xxxxxxxx"
+					autocomplete="off"
+					class="min-w-0 flex-1"
+					data-test-id="ntfy-topic"
+				/>
+				<Button variant="outline" onclick={saveNtfy} data-test-id="ntfy-save">{t('common.save')}</Button>
+			</div>
+			{#if ntfyStatus}
+				<p class="text-caption mt-2" role="status" data-test-id="ntfy-status">{t(`notifications.ntfy.${ntfyStatus}`)}</p>
+			{/if}
+		</div>
+
 		<div class="fl-setting" data-test-id="notifications-permission">
 			<p class="text-label font-medium">{t('notifications.permissionTitle')}</p>
 
@@ -103,26 +123,6 @@
 				<Button onclick={enable} class="mt-3" data-test-id="notifications-enable">
 					{t('notifications.enable')}
 				</Button>
-			{/if}
-		</div>
-
-		<div class="fl-setting" id="setting-ntfy" data-test-id="notifications-ntfy">
-			<Label for="ntfy-topic" class="text-label font-medium">{t('notifications.ntfyTitle')}</Label>
-			<p class="text-muted-foreground text-caption mt-1">{t('notifications.ntfyHint')}</p>
-			<div class="mt-2 flex flex-wrap gap-2">
-				<Input
-					id="ntfy-topic"
-					type="url"
-					bind:value={ntfyTopic}
-					placeholder="https://ntfy.sh/familiste-xxxxxxxx"
-					autocomplete="off"
-					class="min-w-0 flex-1"
-					data-test-id="ntfy-topic"
-				/>
-				<Button variant="outline" onclick={saveNtfy} data-test-id="ntfy-save">{t('common.save')}</Button>
-			</div>
-			{#if ntfyStatus}
-				<p class="text-caption mt-2" role="status" data-test-id="ntfy-status">{t(`notifications.ntfy.${ntfyStatus}`)}</p>
 			{/if}
 		</div>
 

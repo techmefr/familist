@@ -1158,7 +1158,9 @@
 		"resetInvalidTitle": "Link non valido o scaduto",
 		"resetInvalidBody": "Questo link di reimpostazione non è più valido. Richiedine uno nuovo dalla schermata di accesso.",
 		"resetDoneTitle": "Password aggiornata",
-		"resetDoneBody": "Ora puoi accedere con la tua nuova password."
+		"resetDoneBody": "Ora puoi accedere con la tua nuova password.",
+		"moreProviders": "Altri modi di accedere",
+		"fewerProviders": "Meno opzioni"
 	},
 	"welcome": {
 		"title": "Benvenuto",
@@ -2126,7 +2128,7 @@
 			"reminders": "Promemoria",
 			"timers": "Timer"
 		},
-		"ntfyTitle": "Senza Google: argomento ntfy",
+		"ntfyTitle": "Notifiche libere (ntfy), gratuite e senza Google",
 		"ntfyHint": "Su un telefono senza servizi Google (F-Droid), installa l’app ntfy, iscriviti a un argomento lungo e casuale e incolla qui l’indirizzo.",
 		"ntfy": {
 			"saved": "Salvato. Le notifiche andranno anche a questo argomento.",

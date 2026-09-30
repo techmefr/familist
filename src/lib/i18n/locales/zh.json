@@ -1150,7 +1150,9 @@
 		"resetInvalidTitle": "链接无效或已过期",
 		"resetInvalidBody": "此重置链接已失效。请从登录页面重新申请。",
 		"resetDoneTitle": "密码已更新",
-		"resetDoneBody": "您现在可以使用新密码登录。"
+		"resetDoneBody": "您现在可以使用新密码登录。",
+		"moreProviders": "更多登录方式",
+		"fewerProviders": "收起"
 	},
 	"welcome": {
 		"title": "欢迎",
@@ -2107,7 +2109,7 @@
 			"reminders": "提醒",
 			"timers": "计时器"
 		},
-		"ntfyTitle": "无 Google：ntfy 主题",
+		"ntfyTitle": "开源推送（ntfy），免费且无需 Google",
 		"ntfyHint": "在没有 Google 服务的手机（F-Droid）上，安装 ntfy 应用，订阅一个随机长主题，并把地址粘贴到这里。",
 		"ntfy": {
 			"saved": "已保存，通知也会发送到此主题。",

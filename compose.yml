@@ -22,4 +22,5 @@ services:
       PUBLIC_SENTRY_DSN: ${PUBLIC_SENTRY_DSN:-}
       # Optional: your own GoatCounter site code, cookie-free audience measurement. Leave empty for none.
       PUBLIC_GOATCOUNTER_SITE: ${PUBLIC_GOATCOUNTER_SITE:-}
+      PUBLIC_OAUTH_PROVIDERS: ${PUBLIC_OAUTH_PROVIDERS:-}
     restart: unless-stopped

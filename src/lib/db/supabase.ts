@@ -19,6 +19,9 @@ export const isConfigured = instanceConfig !== null;
 /** DSN Sentry propre a cette instance, ou null si l'installateur n'en a defini aucun. */
 export const sentryDsn = instanceConfig?.sentryDsn ?? null;
 
+/** Fournisseurs de connexion de cette instance, dans l'ordre voulu par l'installateur (aucun par defaut). */
+export const oauthProviders = instanceConfig?.oauthProviders ?? [];
+
 /** Site GoatCounter propre a cette instance, ou null si l'installateur n'en a defini aucun. */
 export const goatcounterSite = instanceConfig?.goatcounterSite ?? null;
 
