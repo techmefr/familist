@@ -19,6 +19,9 @@
 	import { pushAppearance, syncAppearance } from '$sync/appearance';
 	import { registerServiceWorker } from '$native/pwa';
 	import { registerPush } from '$native/push';
+	import { isBackgroundEnabled, prepareNotices, showNotice, startBackground } from '$native/background';
+	import { noticeFor, type Change } from '$domain/background-notice';
+	import { sync } from '$sync/index.svelte';
 	import { watchCrashes } from '$crash/reporter';
 	import { install } from '$stores/install.svelte';
 	import { menuReminderPlans, reminderPlans } from '$domain/reminder';
@@ -299,6 +302,48 @@
 	$effect(() => {
 		const id = session.user?.id;
 		if (id) void syncAppearance(settings, id);
+	});
+
+	/**
+	 * The background listener (Android, no Google services), when the person turned it on: a live change that
+	 * lands while the app is out of sight becomes a local notification, by the same rules as the server push.
+	 */
+	$effect(() => {
+		if (!session.user || !isBackgroundEnabled()) return;
+
+		void prepareNotices(path => void goto(path), key => t(`notifications.channels.${key}`));
+		void startBackground(t('notifications.backgroundTitle'), t('notifications.backgroundBody'));
+
+		const lastSent = new Map<string, number>();
+		return sync.onApplied(plan => {
+			if (plan.kind !== 'put') return;
+
+			const change: Change =
+				plan.table === 'messages'
+					? {
+							table: 'messages',
+							listId: plan.row.listId ?? null,
+							conversationId: plan.row.conversationId ?? null,
+							authorId: plan.row.userId ?? null,
+							isSystem: plan.row.isSystem ?? false,
+							body: plan.row.body ?? ''
+						}
+					: { table: 'items', listId: plan.row.listId, name: plan.row.name };
+
+			const notice = noticeFor(change, {
+				me: session.user?.id ?? '',
+				isHidden: document.visibilityState === 'hidden',
+				now: new Date(),
+				settings: settings.notifications,
+				listName: id => data.lists.find(list => list.id === id)?.name ?? '',
+				memberName: id => data.member(id)?.name ?? '',
+				lastSent
+			});
+			if (!notice) return;
+
+			lastSent.set(notice.groupKey, Date.now());
+			void showNotice(notice);
+		});
 	});
 
 	/**

@@ -47,6 +47,9 @@ importers:
       '@capacitor/status-bar':
         specifier: ^8.0.3
         version: 8.0.3(@capacitor/core@8.5.0)
+      '@capawesome-team/capacitor-android-foreground-service':
+        specifier: ^8.1.0
+        version: 8.1.0(@capacitor/core@8.5.0)
       '@capgo/capacitor-speech-recognition':
         specifier: ^8.3.2
         version: 8.3.2(@capacitor/core@8.5.0)
@@ -282,6 +285,11 @@ packages:
 
   '@capacitor/synapse@1.0.4':
     resolution: {integrity: sha512-/C1FUo8/OkKuAT4nCIu/34ny9siNHr9qtFezu4kxm6GY1wNFxrCFWjfYx5C1tUhVGz3fxBABegupkpjXvjCHrw==}
+
+  '@capawesome-team/capacitor-android-foreground-service@8.1.0':
+    resolution: {integrity: sha512-q1LaZQ5K2cu2IXjbabwssF+RpUBikLxkOHYS69ahXz6a1kIsr2jC4RU1bwAEBTopRz0ccgfai0dSSTdqbtEwhw==}
+    peerDependencies:
+      '@capacitor/core': '>=8.0.0'
 
   '@capgo/capacitor-speech-recognition@8.3.2':
     resolution: {integrity: sha512-o91dTZy3gmqPO+nyujoCUezGTvv2Tozm1HDAfvaUZcHsQgs6KjhnO0qV9FIvuazyhdk6dOlqRyEQza0n5fUZxQ==}
@@ -2066,6 +2074,10 @@ snapshots:
       '@capacitor/core': 8.5.0
 
   '@capacitor/synapse@1.0.4': {}
+
+  '@capawesome-team/capacitor-android-foreground-service@8.1.0(@capacitor/core@8.5.0)':
+    dependencies:
+      '@capacitor/core': 8.5.0
 
   '@capgo/capacitor-speech-recognition@8.3.2(@capacitor/core@8.5.0)':
     dependencies:

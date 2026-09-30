@@ -2137,7 +2137,11 @@
 			"removed": "Removido.",
 			"invalid": "Endereço recusado: use um endereço https que termine num tópico de 8 a 64 letras ou algarismos.",
 			"failed": "Não foi possível guardar. Tente de novo."
-		}
+		},
+		"backgroundSwitch": "Manter a ligação em segundo plano",
+		"backgroundHint": "Só Android, sem Google: a app mantém a sua própria ligação aberta e avisa-o de mensagens e alterações nas listas. O Android mostra um aviso permanente e gasta um pouco mais de bateria. Se o telemóvel a parar, exclua o Familiste da poupança de bateria.",
+		"backgroundTitle": "O Familiste está a ouvir",
+		"backgroundBody": "Será avisado de novas mensagens e alterações nas listas."
 	},
 	"product": {
 		"title": "Ler um produto",

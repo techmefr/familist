@@ -2141,7 +2141,11 @@
 			"removed": "Quitado.",
 			"invalid": "Dirección rechazada: usa una dirección https que termine en un tema de 8 a 64 letras o cifras.",
 			"failed": "No se pudo guardar. Inténtalo de nuevo."
-		}
+		},
+		"backgroundSwitch": "Mantener la conexión en segundo plano",
+		"backgroundHint": "Solo Android, sin Google: la app mantiene su propia conexión abierta y te avisa de mensajes y cambios de listas. Android muestra un aviso permanente y gasta algo más de batería. Si tu teléfono la detiene, excluye Familiste del ahorro de batería.",
+		"backgroundTitle": "Familiste está escuchando",
+		"backgroundBody": "Se te avisará de mensajes nuevos y cambios de listas."
 	},
 	"product": {
 		"title": "Escanear un producto",

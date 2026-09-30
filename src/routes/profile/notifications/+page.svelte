@@ -16,6 +16,8 @@
 		sendTestNotification,
 		type PushPermission
 	} from '$native/push';
+	import { backgroundSupported, isBackgroundEnabled, rememberBackground, startBackground, stopBackground } from '$native/background';
+	import { requestReminderPermission } from '$native/reminders';
 	import { highlightSettingTarget } from '$components/app/setting-target';
 	import * as Card from '$components/ui/card';
 	import { Button } from '$components/ui/button';
@@ -48,6 +50,31 @@
 		const id = session.user?.id;
 		if (id) ntfyTopic = await loadNtfyTopic(id);
 	});
+
+	let isBackground = $state(isBackgroundEnabled());
+
+	/**
+	 * Turning it on is the gesture that asks for the notification permission, then starts the service; turning it
+	 * off stops it. A refusal of the permission leaves it off rather than running silently.
+	 */
+	async function toggleBackground(on: boolean) {
+		if (!on) {
+			rememberBackground(false);
+			isBackground = false;
+			await stopBackground();
+			return;
+		}
+
+		const permission = await requestReminderPermission();
+		if (permission !== 'granted') {
+			isBackground = false;
+			return;
+		}
+
+		rememberBackground(true);
+		isBackground = true;
+		await startBackground(t('notifications.backgroundTitle'), t('notifications.backgroundBody'));
+	}
 
 	async function saveNtfy() {
 		const id = session.user?.id;
@@ -99,6 +126,22 @@
 				<p class="text-caption mt-2" role="status" data-test-id="ntfy-status">{t(`notifications.ntfy.${ntfyStatus}`)}</p>
 			{/if}
 		</div>
+
+		{#if backgroundSupported()}
+			<div class="fl-setting flex items-start justify-between gap-3" id="setting-background" data-test-id="notifications-background">
+				<div class="min-w-0">
+					<Label for="background-listening" class="text-label font-medium">{t('notifications.backgroundSwitch')}</Label>
+					<p class="text-muted-foreground text-caption mt-1">{t('notifications.backgroundHint')}</p>
+				</div>
+				<Switch
+					id="background-listening"
+					size="lg"
+					checked={isBackground}
+					onCheckedChange={toggleBackground}
+					data-test-id="background-listening"
+				/>
+			</div>
+		{/if}
 
 		<div class="fl-setting" data-test-id="notifications-permission">
 			<p class="text-label font-medium">{t('notifications.permissionTitle')}</p>
