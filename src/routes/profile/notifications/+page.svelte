@@ -219,23 +219,25 @@
 				/>
 			</div>
 			<div class="mt-3 flex flex-wrap gap-4">
-				<div>
+				<div class="min-w-0 flex-1">
 					<Label for="quiet-start">{t('notifications.quietStart')}</Label>
 					<Input
 						id="quiet-start"
 						type="time"
 						value={settings.notifications.quiet.start}
 						onchange={event => settings.setQuietHours({ start: event.currentTarget.value })}
+						class="w-full min-w-0"
 						data-test-id="quiet-start"
 					/>
 				</div>
-				<div>
+				<div class="min-w-0 flex-1">
 					<Label for="quiet-end">{t('notifications.quietEnd')}</Label>
 					<Input
 						id="quiet-end"
 						type="time"
 						value={settings.notifications.quiet.end}
 						onchange={event => settings.setQuietHours({ end: event.currentTarget.value })}
+						class="w-full min-w-0"
 						data-test-id="quiet-end"
 					/>
 				</div>

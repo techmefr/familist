@@ -19,16 +19,16 @@
 <span
 	data-theme-preview={custom ? undefined : themeId}
 	{style}
-	class="bg-background pointer-events-none grid h-14 w-full gap-1 overflow-hidden rounded-md border p-1.5"
+	class="bg-background pointer-events-none grid h-[56px] w-full min-w-0 gap-1 overflow-hidden rounded-md border p-[6px]"
 	aria-hidden="true"
 >
-	<span class="bg-card flex items-center gap-1 rounded-sm px-1.5 py-1 shadow-sm">
-		<span class="bg-primary size-2.5 rounded-full"></span>
-		<span class="bg-foreground/70 h-1.5 w-8 rounded-full"></span>
+	<span class="bg-card flex min-w-0 items-center gap-1 overflow-hidden rounded-sm px-[6px] py-1 shadow-sm">
+		<span class="bg-primary size-[10px] shrink-0 rounded-full"></span>
+		<span class="bg-foreground/70 h-[6px] w-[32px] shrink-0 rounded-full"></span>
 	</span>
-	<span class="flex gap-1">
-		<span class="bg-primary h-3 w-10 rounded-full"></span>
-		<span class="bg-accent h-3 w-6 rounded-full"></span>
-		<span class="bg-secondary h-3 w-3 rounded-full"></span>
+	<span class="flex min-w-0 gap-1 overflow-hidden">
+		<span class="bg-primary h-[12px] w-[40px] shrink-0 rounded-full"></span>
+		<span class="bg-accent h-[12px] w-[24px] shrink-0 rounded-full"></span>
+		<span class="bg-secondary size-[12px] shrink-0 rounded-full"></span>
 	</span>
 </span>

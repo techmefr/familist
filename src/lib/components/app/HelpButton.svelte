@@ -87,7 +87,7 @@
 	type="button"
 	onclick={show}
 	data-test-id="help"
-	class="fl-press text-muted-foreground text-label hover:bg-muted flex min-h-[max(2.25rem,36px)] items-center gap-1.5 rounded-full px-3"
+	class="fl-press text-muted-foreground text-label hover:bg-muted flex min-h-[max(2.25rem,36px)] items-center gap-1.5 rounded-full px-[clamp(8px,0.75rem,12px)]"
 >
 	<CircleQuestionMark size={18} aria-hidden="true" />
 	{t('helpMenu.button')}
