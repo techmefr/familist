@@ -220,6 +220,54 @@ web); the others are behind a "More" button. An id that is listed here but not e
 button that fails, so keep the two lists equal. Apple is required by the App Store as soon as another social
 sign-in is offered in the iOS app.
 
+## Push notifications
+
+Three ways, and an instance can offer more than one. Nothing is needed for the app itself to work.
+
+**Android, no other app.** Profile, Notifications, "Stay connected in the background": the app keeps its own
+connection to your Supabase open and raises local notifications. No Google, no server to run. Android shows a
+permanent notice and some phones need FamiList excluded from battery saving.
+
+**ntfy, for phones without Google services.** Each person installs the ntfy app (F-Droid), subscribes to a
+topic and gives its address in Profile, Notifications.
+
+- With the public server, use a topic nobody can guess (`familiste-` followed by random letters): anyone who
+  knows the name can read it, and notifications carry list names and message extracts.
+- With your own server, from this repository:
+
+  ```sh
+  NTFY_BASE_URL=https://ntfy.example.org docker compose --profile ntfy up -d
+  docker compose exec ntfy ntfy user add --role=user alice
+  docker compose exec ntfy ntfy access alice 'familiste-*' read-only
+  ```
+
+  Put it behind an HTTPS reverse proxy: the `notify` function runs on your Supabase and posts to it from the
+  internet. Anyone can publish, only the accounts you create can read; each person adds their login in the
+  ntfy app. Then allow the host in the function and redeploy nothing else:
+
+  ```sh
+  pnpm exec supabase secrets set NTFY_ALLOWED_HOSTS=ntfy.example.org
+  ```
+
+**Firebase Cloud Messaging, for phones with Google services.** Nothing to install for the people using it.
+Create a Firebase project, register the Android app, then set the service account:
+
+```sh
+pnpm exec supabase secrets set FCM_SERVICE_ACCOUNT="$(cat service-account.json)"
+```
+
+Leave it unset to never use Firebase.
+
+Whichever you pick, the push path also needs two Vault secrets so the minute-by-minute job can reach the
+`notify` function (hosted Supabase: SQL editor; a stack at home: the same statements through `psql`):
+
+```sql
+select vault.create_secret('https://<your-project>.supabase.co/functions/v1', 'push_functions_url');
+select vault.create_secret('<the service_role key>', 'push_service_key');
+```
+
+Until both exist, notifications stay queued and nothing is sent.
+
 ## An entirely open-source and free stack
 
 Nothing here requires a proprietary service:
