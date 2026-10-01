@@ -12,7 +12,7 @@ export const DURATION = {
 	/** Something leaving, or a panel unfolding. */
 	leave: 280,
 	/** A page sliding in or out. */
-	page: 320,
+	page: 420,
 	/** A sheet or a pop. */
 	in: 340,
 	/** A bar filling, a card settling. */
