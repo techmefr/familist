@@ -3,3 +3,5 @@
 
 alter table public.lists add column kind text not null default 'shopping'
   check (kind in ('shopping', 'meal-plan'));
+
+notify pgrst, 'reload schema';
