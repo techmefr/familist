@@ -123,7 +123,6 @@
 		)}
 		{#if winner && totalVotes > 0}
 			<Button
-				variant="outline"
 				onclick={() => data.setEventDate(listId, winner.label)}
 				data-test-class="poll-set-date"
 				class="mt-3"

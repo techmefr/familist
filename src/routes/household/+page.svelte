@@ -278,7 +278,7 @@
 					data-test-id="circle-name"
 					class="min-w-0 flex-1 basis-[12rem]"
 				/>
-				<Button type="submit" variant="outline" disabled={busy} data-test-id="circle-rename">
+				<Button type="submit" disabled={busy} data-test-id="circle-rename">
 					{t('household.rename')}
 				</Button>
 			</div>

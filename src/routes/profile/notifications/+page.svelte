@@ -120,7 +120,7 @@
 					class="min-w-0 flex-1"
 					data-test-id="ntfy-topic"
 				/>
-				<Button variant="outline" onclick={saveNtfy} data-test-id="ntfy-save">{t('common.save')}</Button>
+				<Button onclick={saveNtfy} data-test-id="ntfy-save">{t('common.save')}</Button>
 			</div>
 			{#if ntfyStatus}
 				<p class="text-caption mt-2" role="status" data-test-id="ntfy-status">{t(`notifications.ntfy.${ntfyStatus}`)}</p>
