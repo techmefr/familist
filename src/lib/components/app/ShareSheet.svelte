@@ -127,7 +127,7 @@
 
 		{#if roster.length <= 1}
 			<p class="text-muted-foreground text-label mt-4">{t('share.alone')}</p>
-			<Button variant="outline" href="/household" class="fl-press mt-3" data-test-id="share-invite">
+			<Button href="/household" class="fl-press mt-3" data-test-id="share-invite">
 				{t('share.invite')}
 			</Button>
 		{/if}

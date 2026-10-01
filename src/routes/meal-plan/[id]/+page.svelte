@@ -92,7 +92,6 @@
 	</div>
 
 	<Button
-		variant="outline"
 		onclick={() => picker?.show()}
 		data-test-id="meal-plan-pick"
 		class="fl-press mt-4"

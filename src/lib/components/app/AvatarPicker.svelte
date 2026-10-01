@@ -85,7 +85,6 @@
 
 			<div class="flex flex-wrap gap-2">
 				<Button
-					variant="outline"
 					onclick={() => input?.click()}
 					disabled={busy}
 					data-test-id="avatar-choose"
