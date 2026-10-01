@@ -24,3 +24,25 @@ services:
       PUBLIC_GOATCOUNTER_SITE: ${PUBLIC_GOATCOUNTER_SITE:-}
       PUBLIC_OAUTH_PROVIDERS: ${PUBLIC_OAUTH_PROVIDERS:-}
     restart: unless-stopped
+
+  # Optional push server for phones without Google services: `docker compose --profile ntfy up -d`.
+  # Anyone may publish (the notify function does, without credentials); only accounts you create with
+  # `docker compose exec ntfy ntfy user add` can read a topic. It must be reachable over HTTPS from the
+  # internet, since the function runs on your Supabase, and its host goes in NTFY_ALLOWED_HOSTS.
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    profiles: ['ntfy']
+    command: serve
+    ports:
+      - '${NTFY_PORT:-8081}:80'
+    environment:
+      NTFY_BASE_URL: ${NTFY_BASE_URL:-}
+    volumes:
+      - ./docker/ntfy/server.yml:/etc/ntfy/server.yml:ro
+      - ntfy-cache:/var/cache/ntfy
+      - ntfy-data:/var/lib/ntfy
+    restart: unless-stopped
+
+volumes:
+  ntfy-cache:
+  ntfy-data:
