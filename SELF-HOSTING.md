@@ -222,9 +222,10 @@ sign-in is offered in the iOS app.
 
 ## Push notifications
 
-Three ways, and an instance can offer more than one. Nothing is needed for the app itself to work.
+Three ways, and an instance can offer more than one: each person picks. Start with the first, the recommended
+one: it needs no server and no other app. Nothing is needed for the app itself to work.
 
-**Android, no other app.** Profile, Notifications, "Stay connected in the background": the app keeps its own
+**Android, no other app (recommended).** Profile, Notifications, "Stay connected in the background": the app keeps its own
 connection to your Supabase open and raises local notifications. No Google, no server to run. Android shows a
 permanent notice and some phones need FamiList excluded from battery saving.
 
