@@ -21,6 +21,8 @@ declare global {
 	}
 }
 
+const PATH_PREFIX = '/familist';
+
 let scriptLoading: Promise<void> | null = null;
 
 function loadScript(site: string): Promise<void> {
@@ -47,5 +49,5 @@ function loadScript(site: string): Promise<void> {
 export function trackPageview(path: string): void {
 	if (typeof window === 'undefined' || !goatcounterSite) return;
 
-	void loadScript(goatcounterSite).then(() => window.goatcounter?.count?.({ path }));
+	void loadScript(goatcounterSite).then(() => window.goatcounter?.count?.({ path: PATH_PREFIX + path }));
 }
