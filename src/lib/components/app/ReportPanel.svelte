@@ -43,7 +43,7 @@
 		aria-labelledby="report-title"
 		data-test-id="report-panel"
 		data-minimized={report.minimized ? 'true' : 'false'}
-		class="bg-card shadow-fl-3 fixed inset-x-0 bottom-[var(--fl-navbar-h,0px)] z-20 mx-auto w-full max-w-xl rounded-t-2xl border md:inset-x-auto md:end-4 md:bottom-4 md:mx-0 md:rounded-2xl"
+		class="fl-panel bg-card shadow-fl-3 fixed inset-x-0 bottom-[var(--fl-navbar-h,0px)] z-20 mx-auto w-full max-w-xl rounded-t-2xl border md:inset-x-auto md:end-4 md:bottom-4 md:mx-0 md:rounded-2xl"
 		class:fl-rise={settings.animates && !report.minimized}
 	>
 		<div class="flex items-center gap-2 px-4 py-3">

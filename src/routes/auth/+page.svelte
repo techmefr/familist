@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { t } from '$i18n/index.svelte';
 	import Logo from '$components/app/Logo.svelte';
 	import AuthForm from '$components/app/AuthForm.svelte';
@@ -25,16 +26,16 @@
 	screen, the way a paid app's welcome screen introduces itself before asking anything.
 -->
 <div
-	class="bg-primary text-primary-foreground shadow-fl-2 mx-auto flex size-16 items-center justify-center rounded-[1.375rem]"
+	class="fl-auth-logo bg-card shadow-fl-1 mx-auto flex size-20 items-center justify-center rounded-[1.375rem]"
 >
-	<Logo class="h-8" />
+	<Logo class="h-14" />
 </div>
 
 <p class="text-muted-foreground text-label mt-4 text-center font-medium tracking-wide uppercase">
 	{t('app.name')}
 </p>
 
-<h1 class="text-display mt-2 text-center leading-tight font-semibold tracking-tight">{title}</h1>
+<PageHeading class="text-display mt-2 text-center leading-tight font-semibold tracking-tight">{title}</PageHeading>
 <p class="text-muted-foreground mt-2 text-center text-balance">{body}</p>
 
 <AuthForm bind:mode />

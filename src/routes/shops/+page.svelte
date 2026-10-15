@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Store as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { data } from '$stores/data.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { tintForWhiteText } from '$domain/tint';
@@ -48,16 +50,16 @@
 	<title>{t('shops.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('shops.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('shops.title')}</PageHeading>
 
-<div class="bg-card mt-6 rounded-xl border p-4">
+<div class="fl-panel bg-card mt-6 rounded-xl border p-4">
 	<ShopForm />
 </div>
 
 {#if data.shops.length === 0}
 	<EmptyState illustration="shop" text={t('shops.empty')} testId="shops-empty" />
 {:else}
-	<ul class="mt-6 space-y-3">
+	<ul class="fl-collection-grid mt-6">
 		{#each data.shops as shop (shop.id)}
 			{@const learned = data.layouts.find((l) => l.shopId === shop.id)?.learned}
 			<li>
@@ -160,7 +162,7 @@
 <h2 class="text-h2 mt-10 font-semibold">{t('aisles.title')}</h2>
 <p class="text-muted-foreground text-label mt-1">{t('aisles.hint')}</p>
 
-<form onsubmit={addAisle} class="bg-card mt-6 space-y-3 rounded-xl border p-4" data-test-id="add-aisle">
+<form onsubmit={addAisle} class="fl-panel bg-card mt-6 space-y-3 rounded-xl border p-4" data-test-id="add-aisle">
 	<div class="grid gap-3 sm:grid-cols-[auto_1fr]">
 		<div class="w-20">
 			<Label for="aisle-emoji">{t('aisles.emoji')}</Label>

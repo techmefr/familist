@@ -28,14 +28,14 @@
 	{href}
 	data-test-id={testId}
 	data-test-class={testClass}
-	class="fl-press hover:bg-muted focus-visible:ring-ring flex min-h-16 w-full items-center gap-4 px-4 py-3 text-start outline-none focus-visible:ring-3 focus-visible:ring-inset"
+	class="fl-settings-row fl-press hover:bg-muted focus-visible:ring-ring flex min-h-16 w-full items-center gap-4 px-4 py-3 text-start outline-none focus-visible:ring-3 focus-visible:ring-inset"
 >
 	{#if Icon}
 		<span
-			class="text-primary grid size-11 shrink-0 place-items-center rounded-full bg-[var(--fl-primary-tint)]"
+			class="fl-settings-symbol text-primary grid size-11 shrink-0 place-items-center rounded-full bg-[var(--fl-primary-tint)]"
 			aria-hidden="true"
 		>
-			<Icon size={22} />
+			<Icon size={24} />
 		</span>
 	{/if}
 	<span class="min-w-0 flex-1">

@@ -2171,5 +2171,6 @@
 		"saturatedFat": "di cui acidi grassi saturi",
 		"sugars": "Zuccheri",
 		"salt": "Sale"
-	}
+	},
+	"keyboard": { "title": "Scorciatoie da tastiera" }
 }

@@ -363,7 +363,7 @@
 					<p class="text-product text-white/70">{t('magnifier.starting')}</p>
 				{:else}
 					<div
-						class="max-w-sm min-w-0 rounded-lg border border-white/15 bg-white/5 p-6"
+						class="fl-camera-notice max-w-sm min-w-0 rounded-lg border border-white/15 bg-white/5 p-6"
 						data-test-id="magnifier-unavailable"
 					>
 						<Camera size={32} class="mx-auto text-[var(--primary)]" aria-hidden="true" />

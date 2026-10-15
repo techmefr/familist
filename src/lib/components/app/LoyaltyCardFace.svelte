@@ -29,7 +29,7 @@
 </script>
 
 <article
-	class="relative flex h-full min-h-[7.5rem] flex-col gap-3 rounded-lg p-4 text-white shadow-fl-2 {actions
+	class="fl-loyalty-face relative flex h-full min-h-[7.5rem] flex-col gap-3 rounded-lg p-4 text-white shadow-fl-2 {actions
 		? 'pb-14'
 		: ''}"
 	style="background: {tintForWhiteText(themedTint(card.tint || DEFAULT_TINT, settings.themeId))}"

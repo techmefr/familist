@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { page } from '$app/state';
 	import { flip } from 'svelte/animate';
 	import { fly, slide } from 'svelte/transition';
@@ -260,10 +261,10 @@
 		{t('list.back')}
 	</a>
 
-	<h1 class="text-h1 mt-2 flex flex-wrap items-center gap-3 font-semibold">
+	<PageHeading class="text-h1 mt-2 flex flex-wrap items-center gap-3 font-semibold">
 		<span aria-hidden="true">{list.emoji}</span>
 		<span class="min-w-0 break-words">{list.name}</span>
-	</h1>
+	</PageHeading>
 	<p class="text-muted-foreground text-label mt-1">{t('lists.progress', { done, total })}</p>
 
 	<!-- The text above already says the progress: the bar is only there to show it move. -->

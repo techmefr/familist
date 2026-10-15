@@ -1,6 +1,10 @@
 <script lang="ts">
 	import '../app.css';
+	import { onMount, tick } from 'svelte';
+	import { Capacitor } from '@capacitor/core';
+	import LaunchScreen from '$components/app/LaunchScreen.svelte';
 	import { browser } from '$app/environment';
+	import { keyboardAction } from '$domain/keyboard';
 	import { page } from '$app/state';
 	import { goto, onNavigate, afterNavigate } from '$app/navigation';
 	import { trackPageview } from '$native/analytics';
@@ -44,6 +48,16 @@
 	let search = $state<SearchSheet | null>(null);
 
 
+
+	onMount(() => {
+		if (!Capacitor.isNativePlatform()) return;
+		void (async () => {
+			await tick();
+			await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+			const { SplashScreen } = await import('@capacitor/splash-screen');
+			await SplashScreen.hide();
+		})().catch((error) => console.warn('Unable to hide launch screen', error));
+	});
 
 	i18n.init();
 	registerServiceWorker();
@@ -379,17 +393,22 @@
 	});
 
 
-	/**
-	 * Ctrl+K, ⌘K on Mac: the shortcut everyone already tries in order to search. It doubles the header
-	 * button, it does not replace it — on a phone there is no keyboard to type it, and that is where the
-	 * application serves most.
-	 */
 	function surRaccourci(event: KeyboardEvent) {
-		if (event.key !== 'k' || !(event.ctrlKey || event.metaKey) || event.altKey) return;
-		if (!session.isApproved) return;
-
+		if (!session.isApproved || event.defaultPrevented || document.querySelector('dialog[open]')) return;
+		const target = event.target instanceof Element ? event.target : null;
+		const editing = Boolean(target?.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], [role="combobox"]'));
+		const action = keyboardAction(event, editing);
+		if (!action) return;
+		if (action === 'create' && (
+			page.url.pathname.startsWith('/magnifier') ||
+			page.url.pathname.startsWith('/chat/d/') ||
+			/^\/l\/[^/]+\/chat/.test(page.url.pathname) ||
+			page.url.pathname === '/profile'
+		)) return;
 		event.preventDefault();
-		void search?.show();
+		if (action === 'search') void search?.show();
+		else if (action === 'create') menu?.show();
+		else void goto(action);
 	}
 
 
@@ -447,9 +466,7 @@
 {#if !isConfigured}
 	<SetupNeeded />
 {:else if session.loading}
-	<main class="grid min-h-dvh place-items-center px-4">
-		<p class="text-muted-foreground">{t('common.loading')}</p>
-	</main>
+	<LaunchScreen />
 {:else if !session.isApproved}
 	<!--
 		The signed-out screens fit in a single card: set at the top, they left two thirds of a page empty
@@ -463,7 +480,7 @@
 			aria-hidden="true"
 		>
 			<div class="flex items-center gap-3">
-				<div class="flex size-11 items-center justify-center rounded-2xl bg-white/10 text-white">
+				<div class="flex size-11 items-center justify-center rounded-2xl bg-[#f1ede5]">
 					<Logo class="h-6" />
 				</div>
 				<p class="text-label font-semibold tracking-tight text-white">{t('app.name')}</p>
@@ -482,7 +499,7 @@
 			<p class="text-caption mt-8 max-w-sm text-white/40">{t('auth.brandFooter')}</p>
 		</div>
 
-		<main class="fl-rise mx-auto flex w-full max-w-md flex-col justify-center-safe px-4 py-10">
+		<main class="fl-auth-main fl-rise mx-auto flex w-full max-w-md flex-col justify-center-safe px-4 py-10">
 			{@render children()}
 		</main>
 	</div>

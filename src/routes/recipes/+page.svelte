@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { CookingPot as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
@@ -525,7 +527,7 @@
 	<title>{t('recipes.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('recipes.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('recipes.title')}</PageHeading>
 <p class="text-muted-foreground text-label mt-1">{t('recipes.intro')}</p>
 
 <!--
@@ -568,7 +570,7 @@
 {/if}
 
 {#if creating}
-	<form onsubmit={goNext} class="bg-card mt-4 scroll-mt-4 space-y-5 rounded-xl border p-4" data-test-id="recipe-form">
+	<form onsubmit={goNext} class="fl-panel bg-card mt-4 scroll-mt-4 space-y-5 rounded-xl border p-4" data-test-id="recipe-form">
 		<h2
 			bind:this={formHeading}
 			tabindex="-1"
@@ -1080,7 +1082,7 @@
 		{@const generatingRecipe = data.recipe(generatingFor)}
 		{#if generatingRecipe}
 			<div
-				class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
+				class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
 				class:fl-rise={settings.animates}
 				data-test-class="recipe-generate-form"
 			>
@@ -1149,7 +1151,7 @@
 	{#if toDelete}
 		{@const deletingRecipe = data.recipe(toDelete)}
 		{#if deletingRecipe}
-			<div class="bg-card relative space-y-3 rounded-t-2xl border p-4 md:rounded-2xl" class:fl-rise={settings.animates}>
+			<div class="fl-panel bg-card relative space-y-3 rounded-t-2xl border p-4 md:rounded-2xl" class:fl-rise={settings.animates}>
 				<p id="recipe-delete-title" class="text-label">
 					{t('recipes.deleteConfirm', { name: deletingRecipe.name })}
 				</p>

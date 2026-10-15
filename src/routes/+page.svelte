@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { browser } from '$app/environment';
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';
@@ -316,7 +317,20 @@
 	<title>{t('lists.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('lists.title')}</h1>
+<div class="fl-home-heading">
+<div><p class="fl-home-eyebrow">{t('app.name')}</p>
+<PageHeading class="text-h1 font-semibold">{t('lists.title')}</PageHeading></div>
+{#if !creating && data.ready && data.lists.length > 0}
+<Button type="button" onclick={openCreate} class="phone:hidden fl-home-new fl-press" data-test-id="header-new-list">
+<Plus size={20} aria-hidden="true" />{t('lists.new')}
+</Button>
+{/if}
+</div>
+<nav class="fl-home-shortcuts" aria-label={t('nav.main')}>
+<a href="/meal-plan"><span class="fl-home-shortcut-icon"><CalendarDays size={24} aria-hidden="true" /></span><span>{t('nav.mealPlan')}</span></a>
+<a href="/recipes"><span class="fl-home-shortcut-icon"><UtensilsCrossed size={24} aria-hidden="true" /></span><span>{t('nav.recipes')}</span></a>
+<a href="/household"><span class="fl-home-shortcut-icon"><Users size={24} aria-hidden="true" /></span><span>{t('nav.household')}</span></a>
+</nav>
 
 {#if creating}
 	<form
@@ -547,7 +561,7 @@
 		aria-label={t('lists.filters')}
 		data-test-id="lists-filter-sheet"
 	>
-		<div class="bg-card space-y-4 rounded-t-2xl border p-4 md:rounded-2xl">
+		<div class="fl-panel bg-card space-y-4 rounded-t-2xl border p-4 md:rounded-2xl">
 			<div>
 				<p class="text-caption text-muted-foreground mb-2 font-medium">{t('lists.kindFilterLabel')}</p>
 				<!-- No "All" pill (#402): tapping the active one again clears it, same as never having tapped it. -->
@@ -612,7 +626,7 @@
 		</p>
 	{/if}
 
-	<ul class="mt-3 space-y-3">
+	<ul class="fl-home-grid mt-6">
 		{#each visibleLists as list, index (list.id)}
 			{@const { total, done } = stats(list.id)}
 			<li

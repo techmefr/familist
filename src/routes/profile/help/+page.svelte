@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { t } from '$i18n/index.svelte';
 	import { settings } from '$stores/settings.svelte';
@@ -23,7 +25,7 @@
 	<title>{t(category.title)} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t(category.title)}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t(category.title)}</PageHeading>
 
 <Card.Root class="mt-6">
 	<Card.Content>

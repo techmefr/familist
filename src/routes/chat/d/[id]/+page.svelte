@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { unread } from '$stores/unread.svelte';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
@@ -64,12 +65,12 @@
 		{t('chat.backToChats')}
 	</a>
 
-	<h1 class="text-h1 mt-2 flex items-center gap-3 font-semibold">
+	<PageHeading class="text-h1 mt-2 flex items-center gap-3 font-semibold">
 		{#if other}
 			<Avatar member={other} size={36} />
 		{/if}
 		{otherName}
-	</h1>
+	</PageHeading>
 
 	<p class="text-caption text-muted-foreground mt-2">{t('chat.directsHint')}</p>
 
@@ -83,6 +84,7 @@
 				<li
 					class="flex flex-col {mine ? 'items-end' : 'items-start'}"
 					data-test-class="direct-message"
+					data-mine={mine}
 				>
 					<p class="text-muted-foreground text-caption">
 						{mine ? t('household.role.self') : otherName} — {time(message.createdAt)}
@@ -90,7 +92,7 @@
 
 					{#if message.body}
 						<p
-							class="text-product mt-1 max-w-[85%] rounded-md px-4 py-2
+							class="fl-message-bubble text-product mt-1 max-w-[85%] rounded-md px-4 py-2
 								{mine ? 'bg-[var(--fl-primary-tint)] text-primary' : 'bg-card border'}"
 						>
 							{message.body}
@@ -110,7 +112,7 @@
 		<AiRecipeEntry />
 	</div>
 
-	<form onsubmit={send} class="mt-4 flex items-center gap-2" data-test-id="direct-form">
+	<form onsubmit={send} class="fl-message-composer mt-4 flex items-center gap-2" data-test-id="direct-form">
 		<Input
 			bind:value={body}
 			aria-label={t('chat.messageLabel')}

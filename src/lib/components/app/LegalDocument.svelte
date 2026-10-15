@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { Button } from '$components/ui/button';
 	import {
@@ -33,9 +34,9 @@
 	{/each}
 {/snippet}
 
-<article {lang} class="flex flex-col gap-6" data-test-id="legal-{doc}">
+<article {lang} class="fl-legal-document flex flex-col gap-6" data-test-id="legal-{doc}">
 	<header>
-		<h1 class="text-h1 font-semibold" data-test-id="legal-title">{text.title}</h1>
+		<PageHeading class="text-h1 font-semibold" data-test-id="legal-title">{text.title}</PageHeading>
 		<p class="text-muted-foreground text-caption mt-1">
 			{t('legal.updated')}
 			{@render rich(text.updated)}

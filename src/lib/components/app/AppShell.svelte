@@ -2,7 +2,8 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
-	import { User } from '@lucide/svelte';
+	import { User, Keyboard } from '@lucide/svelte';
+	import KeyboardShortcuts from '$components/app/KeyboardShortcuts.svelte';
 	import AnimatedIcon from '$components/app/AnimatedIcon.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { session } from '$stores/session.svelte';
@@ -52,6 +53,7 @@
 	 * where the measurement counts.
 	 */
 	let navbarH = $state(0);
+	let shortcuts = $state<KeyboardShortcuts | null>(null);
 
 	/** The logo block that tops the full column: the create button sits right under it. */
 	let logoH = $state(0);
@@ -255,7 +257,7 @@
 			<header
 				bind:clientHeight={headerH}
 				inert={headerHidden}
-				class="bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl flex-wrap items-center
+				class="fl-app-header bg-background sticky top-0 z-10 mx-auto flex w-full max-w-5xl flex-wrap items-center
 					justify-between gap-x-4 gap-y-1 px-4 pt-3 pb-1 transition-transform duration-200 ease-out
 					{headerHidden ? '-translate-y-full' : 'translate-y-0'}"
 			>
@@ -279,14 +281,18 @@
 							onSearch();
 						}}
 						data-test-id="header-search"
+						aria-keyshortcuts="Control+k Meta+k"
 						aria-label={t('search.open')}
 						aria-haspopup="dialog"
-						class="fl-press text-muted-foreground hover:text-foreground flex size-[clamp(44px,2.5rem,52px)] items-center justify-center rounded-full"
+						class="phone:hidden fl-press text-muted-foreground hover:text-foreground flex size-[clamp(44px,2.5rem,52px)] items-center justify-center rounded-full"
 					>
 						<AnimatedIcon name="search" />
 					</button>
 					{/if}
-					<HelpButton />
+					<button type="button" onclick={() => shortcuts?.show()} aria-label={t('keyboard.title')} data-test-id="keyboard-shortcuts" class="phone:hidden fl-press text-muted-foreground grid size-11 place-items-center rounded-full">
+<Keyboard size={20} aria-hidden="true" />
+</button>
+<HelpButton />
 					<a
 						href="/profile"
 						data-test-id="header-profile"
@@ -308,7 +314,8 @@
 				`fl-above-nav`'s so the two amounts cannot drift apart.
 			-->
 			<main
-				class="mx-auto w-full max-w-5xl px-4 pt-2 pb-[calc(var(--fl-navbar-h,4rem)+58px+1.5rem)] md:pb-10"
+				data-section={page.url.pathname.split('/')[1] || 'lists'}
+				class="fl-app-main mx-auto w-full max-w-5xl px-4 pt-2 pb-[calc(var(--fl-navbar-h,4rem)+58px+1.5rem)] md:pb-10"
 			>
 				{@render children()}
 			</main>
@@ -323,3 +330,5 @@
 		<ReportPanel />
 	</div>
 
+
+<KeyboardShortcuts bind:this={shortcuts} />

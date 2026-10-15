@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { LEGAL_DOCUMENTS, legalPath } from '$domain/legal';
 	import { PRIVACY_REQUEST_PATH } from '$domain/privacy-request';
@@ -14,7 +16,7 @@
 	<title>{t(category.title)} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t(category.title)}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t(category.title)}</PageHeading>
 
 <Card.Root class="mt-6 gap-0 py-0">
 	<ul class="divide-border divide-y">

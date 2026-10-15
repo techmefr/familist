@@ -246,7 +246,7 @@
 	aria-labelledby="recipe-image-picker-title"
 	data-test-id="recipe-image-picker"
 >
-	<div class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl">
+	<div class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl">
 		{#if view === 'menu'}
 			<h2 id="recipe-image-picker-title" class="text-h2 pe-12 font-semibold">
 				{photoPath ? t('ai.photoChange') : t('ai.photoAdd')}

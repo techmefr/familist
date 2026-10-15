@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { session, type Factor } from '$stores/session.svelte';
 	import { t } from '$i18n/index.svelte';
@@ -102,7 +103,7 @@
 	<Card.Content class="space-y-4">
 		{#if mode === 'totp'}
 			<ShieldCheck size={40} class="text-primary mx-auto" aria-hidden="true" />
-			<h1 class="text-h1 text-center font-semibold">{t('mfa.title')}</h1>
+			<PageHeading class="text-h1 text-center font-semibold">{t('mfa.title')}</PageHeading>
 
 			{#if offerDevice}
 				<section class="space-y-3" data-test-id="mfa-device">
@@ -199,7 +200,7 @@
 			</Button>
 		{:else}
 			<LifeBuoy size={40} class="text-primary mx-auto" aria-hidden="true" />
-			<h1 class="text-h1 text-center font-semibold">{t('mfa.backupTitle')}</h1>
+			<PageHeading class="text-h1 text-center font-semibold">{t('mfa.backupTitle')}</PageHeading>
 			<p class="text-muted-foreground">{t('mfa.backupBody')}</p>
 
 			<form onsubmit={useBackupCode} class="space-y-4" data-test-id="mfa-backup-form">

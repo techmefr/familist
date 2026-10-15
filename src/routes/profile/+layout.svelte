@@ -13,7 +13,7 @@
 	let cameFromProfile = $state(false);
 
 	afterNavigate(({ from, to }) => {
-		if (from?.url.pathname !== to?.url.pathname) cameFromProfile = from?.url.pathname === '/profile';
+		if (from?.url?.pathname !== to?.url.pathname) cameFromProfile = from?.url?.pathname === '/profile';
 		highlightSettingTarget(to?.url);
 	});
 

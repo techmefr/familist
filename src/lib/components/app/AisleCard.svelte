@@ -51,7 +51,7 @@
 	The rule under the header separates what describes the aisle from what it contains. Without it, the card
 	is only a column of items of the same weight and the title gets lost among its own items.
 -->
-<section class="bg-card shadow-fl-1 overflow-hidden rounded-xl border" data-test-class="aisle-group">
+<section class="fl-aisle-card bg-card shadow-fl-1 overflow-hidden rounded-xl border" data-test-class="aisle-group">
 	<div class="flex items-stretch">
 		<!--
 			The handle doubles the arrows, it does not replace them. It is neither focusable nor announced: its only
@@ -131,7 +131,7 @@
 		<div
 			id={panel}
 			transition:slide={{ duration: motionMs(DURATION.leave), easing: cubicOut }}
-			class="space-y-2 border-t p-2"
+			class="fl-aisle-items space-y-2 border-t p-2"
 		>
 			{@render children()}
 		</div>

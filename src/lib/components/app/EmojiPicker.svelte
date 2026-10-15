@@ -62,7 +62,7 @@
 	data-test-id="emoji-picker"
 >
 	<div
-		class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
+		class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
 		class:fl-rise={settings.animates}
 	>
 		<h2 id="emoji-title" class="text-h2 pe-12 font-semibold">{t('emojiPicker.title')}</h2>

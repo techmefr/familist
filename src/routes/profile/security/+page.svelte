@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { session, type Factor, type OpenSession } from '$stores/session.svelte';
 	import { t, i18n } from '$i18n/index.svelte';
@@ -388,7 +390,7 @@
 	<title>{t('security.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('security.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('security.title')}</PageHeading>
 <p class="text-muted-foreground mt-1">{t('security.subtitle')}</p>
 
 <Card.Root id="setting-password" tabindex={-1} class="fl-setting mt-6">

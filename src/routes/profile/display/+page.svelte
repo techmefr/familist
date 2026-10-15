@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import {
 		settings,
 		ACCENT_PRESETS,
@@ -28,7 +30,7 @@
 	<title>{t(category.title)} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t(category.title)}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t(category.title)}</PageHeading>
 
 <!--
 	Size and font come first: whoever needs them cannot read what follows until they are set.

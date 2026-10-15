@@ -2219,5 +2219,6 @@
 		"saturatedFat": "Dont acides gras saturés",
 		"sugars": "Sucres",
 		"salt": "Sel"
-	}
+	},
+	"keyboard": { "title": "Raccourcis clavier" }
 }

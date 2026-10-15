@@ -39,7 +39,7 @@
 		class="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-[calc(env(safe-area-inset-top)+0.5rem)]"
 	>
 		<div
-			class="text-caption bg-card text-foreground pointer-events-auto flex max-w-full flex-col gap-2 rounded-2xl border px-4 py-2 shadow-md"
+			class="fl-panel text-caption bg-card text-foreground pointer-events-auto flex max-w-full flex-col gap-2 rounded-2xl border px-4 py-2 shadow-md"
 			role="status"
 			data-test-id="sync-status"
 		>

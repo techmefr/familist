@@ -59,7 +59,7 @@
 	data-test-id="share-sheet"
 >
 	<div
-		class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
+		class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
 		class:fl-rise={settings.animates}
 	>
 		<h2 id="share-title" class="text-h2 pe-12 font-semibold">{t('share.title')}</h2>

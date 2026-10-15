@@ -402,7 +402,7 @@
 		</p>
 	{/if}
 
-	<form onsubmit={submit} class="bg-card space-y-3 rounded-xl border p-4" data-test-id="ai-chat-form">
+	<form onsubmit={submit} class="fl-panel bg-card space-y-3 rounded-xl border p-4" data-test-id="ai-chat-form">
 		<Label for="ai-chat-message">{t('ai.chat.messageLabel')}</Label>
 		<textarea
 			id="ai-chat-message"

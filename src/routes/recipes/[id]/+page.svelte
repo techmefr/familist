@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
@@ -88,12 +89,12 @@
 {:else if !recipe}
 	<p class="text-muted-foreground mt-4" data-test-id="recipe-not-found">{t('recipes.notFound')}</p>
 {:else}
-	<div class="mt-2 space-y-5" data-test-id="recipe-detail">
+	<div class="fl-recipe-detail mt-2 space-y-5" data-test-id="recipe-detail">
 		<div class="flex flex-wrap items-start gap-2">
-			<h1 class="text-h1 min-w-0 flex-1 font-semibold break-words">{recipe.name}</h1>
+			<PageHeading class="text-h1 min-w-0 flex-1 font-semibold break-words">{recipe.name}</PageHeading>
 			<!-- Explicit ("for 4 people"), not a bare number (#400): the badge is the only place this reads at a glance. -->
 			<span
-				class="bg-primary text-primary-foreground text-label mt-1 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 font-semibold"
+				class="fl-recipe-servings bg-primary text-primary-foreground text-label mt-1 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 font-semibold"
 			>
 				<UtensilsCrossed size={14} aria-hidden="true" />
 				{t('recipes.servingsCount', { count: recipe.servings })}
@@ -119,7 +120,7 @@
 		/>
 
 		{#if ingredients.length}
-			<div>
+			<div class="fl-recipe-section fl-recipe-ingredients">
 				<h2 class="text-label text-muted-foreground flex items-center gap-1.5 font-semibold tracking-wide uppercase">
 					<ShoppingBasket size={14} aria-hidden="true" />
 					{t('recipes.step.ingredients')}
@@ -144,7 +145,7 @@
 		{/if}
 
 		{#if recipe.notes}
-			<div>
+			<div class="fl-recipe-section">
 				<h2 class="text-label text-muted-foreground flex items-center gap-1.5 font-semibold tracking-wide uppercase">
 					<NotebookPen size={14} aria-hidden="true" />
 					{t('recipes.notes')}
@@ -154,7 +155,7 @@
 		{/if}
 
 		{#if steps.length}
-			<div>
+			<div class="fl-recipe-section fl-recipe-steps">
 				<h2 class="text-label text-muted-foreground flex items-center gap-1.5 font-semibold tracking-wide uppercase">
 					<CookingPot size={14} aria-hidden="true" />
 					{t('recipes.step.steps')}

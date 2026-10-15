@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { i18n, t, LOCALES, type Locale } from '$i18n/index.svelte';
 	import { flagForLocale } from '$i18n/flags';
@@ -100,9 +101,9 @@
 	<WelcomeAnimation />
 {/if}
 
-<h1
-	bind:this={heading}
-	tabindex="-1"
+<PageHeading
+	bind:ref={heading}
+	tabindex={-1}
 	class="text-h1 mt-6 font-semibold outline-none {step < STEPS ? 'px-1' : ''}"
 >
 	{#if step === 1}
@@ -114,7 +115,7 @@
 	{:else}
 		{t('welcome.accountTitle')}
 	{/if}
-</h1>
+</PageHeading>
 
 {#if step === 1}
 	<p class="text-muted-foreground mt-2 px-1">{t('welcome.langBody')}</p>

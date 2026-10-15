@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { supabase } from '$db/supabase';
 	import { session } from '$stores/session.svelte';
 	import { t, i18n } from '$i18n/index.svelte';
@@ -242,7 +243,7 @@
 		);
 </script>
 
-<h1 class="text-h1 font-semibold">{t('admin.title')}</h1>
+<PageHeading class="text-h1 font-semibold">{t('admin.title')}</PageHeading>
 
 {#if !session.isAdmin}
 	<p class="text-muted-foreground mt-6" data-test-id="admin-denied">{t('admin.denied')}</p>
@@ -273,7 +274,7 @@
 	{/if}
 
 	{#if accounts.some((account) => account.is_demo)}
-		<div class="bg-card mt-6 rounded-xl border p-4">
+		<div class="fl-panel bg-card mt-6 rounded-xl border p-4">
 			<p class="text-label">{t('admin.demoHint')}</p>
 			<Button variant="outline" onclick={resetDemo} data-test-id="reset-demo" class="mt-3">
 				<RotateCcw size={18} aria-hidden="true" />

@@ -2177,5 +2177,6 @@
 		"saturatedFat": "de las cuales saturadas",
 		"sugars": "Azúcares",
 		"salt": "Sal"
-	}
+	},
+	"keyboard": { "title": "Atajos de teclado" }
 }

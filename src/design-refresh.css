@@ -1,0 +1,569 @@
+.fl-home-heading {
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	flex-wrap:wrap;
+	gap:1rem;
+	padding-block:1.5rem;
+}
+
+.fl-home-heading h1 {
+	font-size:2rem;
+	line-height:1.2;
+	letter-spacing:-0.035em;
+}
+
+.fl-home-eyebrow {
+	color:var(--secondary);
+	font-size:var(--fl-label);
+	font-weight:600;
+	margin-block-end:0.5rem;
+}
+
+.fl-home-new {
+	min-block-size:3rem;
+	border-radius:var(--radius-xl);
+	padding-inline:1.25rem;
+}
+
+.fl-home-shortcuts {
+	display:grid;
+	grid-template-columns:repeat(3,minmax(0,1fr));
+	gap:0.75rem;
+	margin-block-end:1.5rem;
+}
+
+.fl-home-shortcuts a {
+	display:flex;
+	align-items:center;
+	gap:0.75rem;
+	min-inline-size:0;
+	padding:1rem;
+	border:1px solid var(--border);
+	border-radius:var(--radius-xl);
+	background:var(--card);
+	color:var(--foreground);
+	font-size:var(--fl-label);
+	font-weight:600;
+	overflow-wrap:anywhere;
+}
+
+.fl-home-shortcut-icon {
+	display:grid;
+	place-items:center;
+	flex:none;
+	inline-size:3rem;
+	block-size:3rem;
+	border-radius:var(--radius-lg);
+	background:var(--fl-secondary-tint);
+	color:var(--secondary);
+}
+
+.fl-home-shortcuts a:nth-child(2) .fl-home-shortcut-icon {
+	background:var(--fl-primary-tint);
+	color:var(--primary);
+}
+
+.fl-home-grid {
+	display:grid;
+	grid-template-columns:minmax(0,1fr);
+	gap:1rem;
+}
+
+.fl-home-grid > li {
+	min-inline-size:0;
+}
+
+.fl-home-grid .fl-home-card {
+	height:100%;
+	border-radius:var(--radius-xl);
+	box-shadow:var(--fl-shadow-1);
+	gap:1.25rem;
+	transition:border-color var(--fl-dur-tap) var(--fl-ease),box-shadow var(--fl-dur-tap) var(--fl-ease);
+}
+
+.fl-home-grid [data-slot='card-content'] {
+	padding-inline:1.25rem;
+}
+
+.fl-home-grid [data-slot='card-footer'] {
+	padding:1rem 1.25rem;
+	background:color-mix(in srgb,var(--muted) 25%,var(--card));
+	border-block-start:1px solid var(--border);
+	margin-block-start:auto;
+}
+
+.fl-home-grid .fl-home-emoji {
+	border-radius:var(--radius-lg);
+}
+
+.fl-navbar a[aria-current='page'] {
+	font-weight:700;
+}
+
+.fl-app-header {
+	border-block-end:1px solid var(--border);
+}
+
+@media (hover:hover) {
+	.fl-home-shortcuts a:hover {
+		border-color:var(--secondary);
+	}
+	.fl-home-grid .fl-home-card:hover {
+		border-color:var(--fl-border-strong);
+		box-shadow:var(--fl-shadow-2);
+	}
+}
+
+@media (width >= 48rem) {
+	.fl-app-main {
+		padding-inline:2rem;
+	}
+	.fl-app-header {
+		padding-inline:2rem;
+		padding-block:0.75rem;
+	}
+	.fl-home-heading {
+		padding-block:2rem;
+	}
+}
+
+@media (width >= 80rem) {
+	.fl-home-grid {
+		grid-template-columns:repeat(2,minmax(0,1fr));
+	}
+}
+
+@media (width < 48rem) {
+	.fl-home-shortcuts a {
+		flex-direction:column;
+		align-items:flex-start;
+		padding:0.75rem;
+		gap:0.5rem;
+	}
+	.fl-home-shortcut-icon {
+		inline-size:2.5rem;
+		block-size:2.5rem;
+	}
+	.fl-home-heading h1 {
+		font-size:1.75rem;
+	}
+	.fl-navbar {
+		box-shadow:0 -4px 16px color-mix(in srgb,var(--foreground) 5%,transparent);
+	}
+}
+
+html:is([data-scale='lg'],[data-scale='xl'],[data-scale='xxl'],[data-scale='comfort']) .fl-home-shortcuts,
+html:is([data-scale='lg'],[data-scale='xl'],[data-scale='xxl'],[data-scale='comfort']) .fl-home-grid {
+	grid-template-columns:minmax(0,1fr);
+}
+
+html:is([data-scale='lg'],[data-scale='xl'],[data-scale='xxl'],[data-scale='comfort']) .fl-home-shortcuts a {
+	flex-direction:row;
+	align-items:center;
+}
+
+.fl-page-title {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	min-inline-size: 0;
+	margin-block: 1.5rem 0;
+	font-size: 2rem;
+	line-height: 1.2;
+	letter-spacing: -0.035em;
+	font-weight: 700;
+}
+.fl-page-title-text {
+	min-inline-size: 0;
+	overflow-wrap: anywhere;
+}
+.fl-page-symbol,
+.fl-collection-symbol {
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	inline-size: 3rem;
+	block-size: 3rem;
+	border-radius: var(--radius-xl);
+	background: var(--fl-secondary-tint);
+	color: var(--secondary);
+}
+.fl-page-title + p {
+	max-inline-size: 65ch;
+	margin-block-start: 0.75rem;
+	line-height: 1.6;
+}
+.fl-home-heading .fl-page-title {
+	margin-block: 0;
+}
+.fl-app-main :is([data-slot='card'], .fl-panel, .fl-aisle-card) {
+	border-radius: var(--radius-xl);
+	border-color: var(--border);
+	box-shadow: var(--fl-shadow-1);
+}
+.fl-app-main [data-slot='card'] {
+	--card-spacing: 1.25rem;
+}
+.fl-app-main [data-slot='card-header'] {
+	padding-block-end: 0.25rem;
+}
+.fl-app-main [data-slot='card-title'] {
+	line-height: 1.4;
+	letter-spacing: -0.015em;
+}
+.fl-app-main .fl-panel {
+	padding: 1.25rem;
+}
+.fl-app-main :is(input:not([type='checkbox']):not([type='radio']):not([type='range']), textarea, select) {
+	border-radius: var(--radius-lg);
+	background-color: var(--card);
+	border-color: var(--fl-border-strong);
+	box-shadow: none;
+}
+.fl-app-main :is(input, textarea, select):focus-visible {
+	outline: 2px solid var(--ring);
+	outline-offset: 3px;
+}
+.fl-app-main [data-slot='button'] {
+	border-radius: var(--radius-lg);
+	font-weight: 600;
+}
+.fl-app-main [data-slot='button'].bg-primary {
+	padding-inline: 1.25rem;
+}
+.fl-app-main [data-slot='badge'] {
+	padding-block: 0.25rem;
+}
+.fl-app-main :is(.fl-search-bar, [data-composer], .fl-message-composer) {
+	border: 1px solid var(--border);
+	border-radius: calc(var(--radius-xl) + 0.5rem);
+	background: var(--card);
+	box-shadow: var(--fl-shadow-1);
+	padding: 0.5rem;
+}
+.fl-app-main .fl-search-bar input {
+	border-color: transparent;
+	border-radius: 9999px;
+	background: var(--card);
+}
+.fl-app-main .fl-search-bar-filters {
+	background: var(--fl-secondary-tint);
+	color: var(--secondary);
+	border-radius: 9999px;
+}
+.fl-app-main .fl-dock {
+	box-shadow: var(--fl-shadow-2);
+}
+.fl-empty-state {
+	margin-block: 1.5rem;
+	padding: 2.5rem 1.5rem;
+	border: 1px dashed var(--fl-border-strong);
+	border-radius: var(--radius-xl);
+	background: color-mix(in srgb, var(--card) 65%, transparent);
+}
+.fl-empty-state > p {
+	line-height: 1.7;
+}
+.fl-collection-grid,
+.fl-price-grid,
+.fl-meal-entries {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1rem;
+}
+.fl-collection-grid > li,
+.fl-price-grid > *,
+.fl-meal-entries > li {
+	min-inline-size: 0;
+	margin-block: 0;
+}
+.fl-collection-grid > li > a {
+	display: block;
+	height: 100%;
+}
+.fl-collection-grid [data-slot='card'] {
+	height: 100%;
+}
+.fl-collection-symbol {
+	inline-size: 3.5rem;
+	block-size: 3.5rem;
+}
+.fl-settings-directory[data-slot='card'] {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	--tw-ring-shadow: 0 0 transparent;
+	overflow: visible;
+}
+.fl-settings-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 0.75rem;
+}
+.fl-settings-grid > li {
+	min-inline-size: 0;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	background: var(--card);
+	box-shadow: var(--fl-shadow-1);
+}
+.fl-settings-grid .fl-settings-row {
+	height: 100%;
+	min-block-size: 6rem;
+	padding: 1.25rem;
+}
+.fl-settings-symbol {
+	border-radius: var(--radius-lg);
+	background: var(--fl-secondary-tint);
+	color: var(--secondary);
+}
+.fl-settings-row .text-label {
+	font-weight: 600;
+}
+.fl-settings-row .text-caption {
+	line-height: 1.5;
+}
+.fl-settings-search {
+	padding: 1.25rem;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+}
+.fl-app-main .fl-divided > .fl-setting {
+	padding-block: 1.5rem;
+}
+.fl-app-main .fl-choice {
+	border-radius: var(--radius-lg);
+}
+.fl-app-main .fl-choice:has(:checked) {
+	box-shadow: inset 0 0 0 1px var(--primary);
+}
+.fl-app-main .fl-aisle-card > div:first-child {
+	background: color-mix(in srgb, var(--fl-secondary-tint) 40%, var(--card));
+}
+.fl-app-main .fl-aisle-items {
+	padding: 0.75rem;
+}
+.fl-app-main .fl-item-row {
+	border-radius: var(--radius-lg);
+	border-color: var(--border);
+	padding: 0.75rem;
+}
+.fl-item-row[data-checked='true'] {
+	background: color-mix(in srgb, var(--fl-secondary-tint) 35%, var(--card));
+}
+.fl-item-row input[type='checkbox'] {
+	inline-size: 1.5rem;
+	block-size: 1.5rem;
+	accent-color: var(--secondary);
+}
+.fl-item-row [data-test-class='item-remove'] {
+	border-radius: 50%;
+}
+.fl-loyalty-face {
+	border-radius: var(--radius-xl);
+	min-block-size: 10rem;
+	padding: 1.25rem;
+	box-shadow: var(--fl-shadow-1);
+}
+.fl-loyalty-face:has(+ *) {
+	padding-block-end: 3.5rem;
+}
+.fl-app-main .fl-recipe-grid {
+	columns: 10rem;
+	gap: 1rem;
+}
+.fl-recipe-grid > li {
+	margin-block-end: 1rem;
+}
+.fl-recipe-grid [data-test-class='recipe-cover-emoji'] {
+	aspect-ratio: 5 / 4;
+	font-size: 3rem;
+	background: color-mix(in srgb, var(--fl-secondary-tint) 65%, var(--card));
+}
+.fl-recipe-grid [data-test-class='recipe-cover-photo'] {
+	max-block-size: 20rem;
+}
+.fl-recipe-detail .fl-page-title {
+	margin-block-start: 0;
+}
+.fl-recipe-section {
+	padding: 1.5rem;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	box-shadow: var(--fl-shadow-1);
+}
+.fl-recipe-section h2 {
+	font-size: var(--fl-h2);
+	color: var(--foreground);
+	text-transform: none;
+	letter-spacing: -0.015em;
+	margin-block-end: 1rem;
+}
+.fl-recipe-section [data-test-class='recipe-ingredient'] {
+	padding-block: 0.75rem;
+	border-block-end-style: solid;
+}
+.fl-recipe-section [data-test-class='recipe-step-body'] {
+	line-height: 1.7;
+	padding-block: 0.5rem;
+}
+.fl-recipe-section [data-test-class='recipe-step-body'] > span:first-child {
+	background: var(--fl-secondary-tint);
+	color: var(--secondary);
+}
+.fl-meal-entry {
+	padding: 1.25rem;
+	border-radius: var(--radius-xl);
+	box-shadow: var(--fl-shadow-1);
+}
+.fl-plan-name {
+	border: 1px solid var(--border);
+	background: var(--card);
+}
+.fl-conversation-list {
+	display: grid;
+	gap: 0.75rem;
+}
+.fl-conversation-list > li {
+	min-inline-size: 0;
+	margin-block: 0;
+}
+.fl-conversation-list [data-slot='card-content'] {
+	min-block-size: 5rem;
+}
+.fl-message-bubble {
+	border-radius: 1.25rem;
+	padding: 0.875rem 1.25rem;
+	line-height: 1.6;
+	overflow-wrap: anywhere;
+	box-shadow: var(--fl-shadow-1);
+}
+[data-mine='true'] .fl-message-bubble {
+	border-end-end-radius: 0.25rem;
+	background: var(--fl-secondary-tint);
+	color: var(--foreground);
+}
+[data-mine='false'] .fl-message-bubble {
+	border-end-start-radius: 0.25rem;
+}
+.fl-message-composer input {
+	min-inline-size: 0;
+}
+.fl-legal-document {
+	max-inline-size: 70ch;
+	margin-inline: auto;
+	padding-block-end: 2rem;
+}
+.fl-legal-document > header {
+	padding-block-end: 1.5rem;
+	border-block-end: 1px solid var(--fl-border-strong);
+}
+.fl-legal-document section {
+	line-height: 1.8;
+}
+.fl-legal-document section h2 {
+	margin-block-end: 0.5rem;
+}
+.fl-auth-main {
+	max-inline-size: 32rem;
+}
+.fl-auth-main .fl-page-title {
+	display: block;
+	text-align: center;
+	margin-block-start: 1.5rem;
+}
+.fl-auth-main .fl-auth-card,
+.fl-auth-main [data-slot='card'] {
+	border-radius: var(--radius-xl);
+	box-shadow: var(--fl-shadow-1);
+}
+.fl-auth-logo {
+	border: 1px solid var(--border);
+}
+.fl-camera-notice {
+	border-radius: var(--radius-xl);
+	padding: 2rem;
+}
+.fl-sheet > .fl-panel {
+	border-radius: var(--radius-xl);
+	padding: 1.5rem;
+}
+.fl-sheet [data-slot='button'] {
+	border-radius: var(--radius-lg);
+}
+@media (hover: hover) {
+	.fl-settings-grid > li:hover,
+	.fl-collection-grid [data-slot='card']:hover,
+	.fl-conversation-list [data-slot='card']:hover {
+		border-color: var(--fl-border-strong);
+		box-shadow: var(--fl-shadow-2);
+	}
+	.fl-item-row [data-test-class='item-remove']:hover {
+		color: var(--destructive);
+		background: color-mix(in srgb, var(--destructive) 10%, var(--card));
+	}
+}
+@media (width >= 48rem) {
+	.fl-page-title {
+		margin-block-start: 2rem;
+	}
+	.fl-settings-grid,
+	.fl-collection-grid,
+	.fl-meal-entries,
+	.fl-price-grid {
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+	}
+	.fl-app-main .fl-recipe-grid {
+		columns: 14rem;
+	}
+}
+@media (width >= 48rem) and (orientation: landscape) {
+	.fl-navbar .fl-nav-label {
+		text-align: start;
+	}
+}
+@media (width < 48rem) {
+	.fl-page-title {
+		font-size: 1.75rem;
+		gap: 0.75rem;
+	}
+	.fl-page-symbol {
+		inline-size: 2.75rem;
+		block-size: 2.75rem;
+	}
+	.fl-app-main .fl-panel,
+	.fl-recipe-section {
+		padding: 1rem;
+	}
+	.fl-loyalty-face {
+		min-block-size: 9rem;
+		padding: 1rem;
+	}
+	.fl-app-main .fl-item-row {
+		gap: 0.5rem;
+	}
+}
+html:is([data-scale='lg'], [data-scale='xl'], [data-scale='xxl'], [data-scale='comfort']) .fl-app-main .fl-recipe-grid {
+	columns: 1;
+}
+html:is([data-scale='lg'], [data-scale='xl'], [data-scale='xxl'], [data-scale='comfort']) :is(.fl-settings-grid, .fl-collection-grid, .fl-meal-entries, .fl-price-grid, .fl-meal-fields) {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.fl-app-main .fl-recipe-servings {
+	display: inline-block;
+	max-inline-size: 100%;
+	min-inline-size: 0;
+	flex-shrink: 1;
+	white-space: normal;
+	overflow-wrap: anywhere;
+}
+.fl-recipe-servings > svg {
+	display: inline;
+	vertical-align: middle;
+	margin-inline-end: 0.25rem;
+}

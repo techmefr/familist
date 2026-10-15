@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { CreditCard as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { flip } from 'svelte/animate';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
@@ -348,7 +350,7 @@
 	<title>{t('cards.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('cards.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('cards.title')}</PageHeading>
 
 {#if !data.ready}
 	<p class="text-muted-foreground mt-6">{t('common.loading')}</p>
@@ -427,7 +429,7 @@
 		<form
 			onsubmit={submit}
 			transition:slide={{ duration: motionMs(DURATION.enter), easing: cubicOut }}
-			class="bg-card mt-6 space-y-4 rounded-xl border p-4"
+			class="fl-panel bg-card mt-6 space-y-4 rounded-xl border p-4"
 			data-test-id="card-form"
 		>
 			<!--
@@ -755,7 +757,7 @@
 	aria-labelledby="cards-filter-title"
 	data-test-id="cards-filter-sheet"
 >
-	<div class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl">
+	<div class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl">
 		<h2 id="cards-filter-title" class="text-h2 pe-12 font-semibold">{t('cards.filterTitle')}</h2>
 
 		<fieldset class="mt-4">

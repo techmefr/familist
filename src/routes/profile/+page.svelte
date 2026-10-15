@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import type { Component } from 'svelte';
 	import { settings, FONT_PRESETS, FONT_SCALE_PRESETS } from '$stores/settings.svelte';
 	import { t } from '$i18n/index.svelte';
@@ -70,7 +72,7 @@
 	<title>{t('profile.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('profile.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('profile.title')}</PageHeading>
 
 <!--
 	Text size and font sit above everything, search included: the people who need them cannot read the rest
@@ -86,7 +88,7 @@
 	/>
 </Card.Root>
 
-<div role="search" class="mt-6">
+<div role="search" class="fl-settings-search mt-6">
 	<Label for="settings-search">{t('profile.search')}</Label>
 	<IconField icon={Search}>
 		<Input
@@ -122,8 +124,8 @@
 		</p>
 	{/if}
 {:else}
-	<Card.Root class="mt-4 gap-0 py-0">
-		<ul class="divide-border divide-y" data-test-id="profile-categories">
+	<Card.Root class="fl-settings-directory mt-6 gap-0 py-0">
+		<ul class="fl-settings-grid" data-test-id="profile-categories">
 			{#each categories as category (category.id)}
 				<li>
 					<SettingsRow
