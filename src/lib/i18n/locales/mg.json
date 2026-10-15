@@ -12,7 +12,7 @@
 		"admin": "Kaonty",
 		"household": "Ankohonana",
 		"mealPlan": "Sakafo",
-		"magnifier": "Fitarafana",
+		"magnifier": "Loupe sy scan",
 		"create": "Hamorona",
 		"chat": "Resaka",
 		"prices": "Vidiny",
@@ -1477,7 +1477,7 @@
 		}
 	},
 	"magnifier": {
-		"title": "Fitarafana",
+		"title": "Loupe sy scan",
 		"starting": "Manomboka ny fakan-tsary…",
 		"denied": "Tsy navela hampiasa ny fakan-tsary. Avelao ao amin’ny kirakira mba hamaky soratra kely.",
 		"unsupported": "Tsy misy fakan-tsary eto. Miasa amin’ny findainao ny fitarafana.",
@@ -2153,6 +2153,16 @@
 		"addTo": "Ampio amin’ny lisitra",
 		"add": "Ampio",
 		"added": "Nampiana tao amin’ny {list}.",
-		"attribution": "Angona momba ny vokatra avy amin’ny"
+		"attribution": "Angona momba ny vokatra avy amin’ny",
+		"nutriScore": "Nutri-Score",
+		"ecoScore": "Eco-Score",
+		"nova": "NOVA {group}",
+		"noScore": "Tsy misy naotyho an’ity vokatra ity.",
+		"nutrition": "Sanda isaky ny 100 g",
+		"energy": "Angovo",
+		"fat": "Menaka",
+		"saturatedFat": "ao anatin’izany ny menaka matevina",
+		"sugars": "Siramamy",
+		"salt": "Sira"
 	}
 }

@@ -12,7 +12,7 @@
 		"admin": "Contas",
 		"household": "Casa",
 		"mealPlan": "Plano",
-		"magnifier": "Lupa",
+		"magnifier": "Lupa e leitor",
 		"create": "Criar",
 		"chat": "Conversas",
 		"prices": "Preços",
@@ -1486,7 +1486,7 @@
 		}
 	},
 	"magnifier": {
-		"title": "Lupa",
+		"title": "Lupa e leitor",
 		"starting": "A ativar a câmara…",
 		"denied": "Acesso à câmara recusado. Autorize nas definições para ler um rótulo de perto.",
 		"unsupported": "A câmara não está disponível aqui. A lupa funciona no seu telemóvel.",
@@ -2162,6 +2162,16 @@
 		"addTo": "Adicionar a uma lista",
 		"add": "Adicionar",
 		"added": "Adicionado a {list}.",
-		"attribution": "Dados do produto de"
+		"attribution": "Dados do produto de",
+		"nutriScore": "Nutri-Score",
+		"ecoScore": "Eco-Score",
+		"nova": "NOVA {group}",
+		"noScore": "Nenhuma pontuação disponível para este produto.",
+		"nutrition": "Valores por 100 g",
+		"energy": "Energia",
+		"fat": "Gorduras",
+		"saturatedFat": "das quais saturadas",
+		"sugars": "Açúcares",
+		"salt": "Sal"
 	}
 }

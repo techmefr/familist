@@ -12,7 +12,7 @@
 		"admin": "账号",
 		"household": "家庭",
 		"mealPlan": "菜单",
-		"magnifier": "放大镜",
+		"magnifier": "放大镜和扫描",
 		"create": "新建",
 		"chat": "讨论",
 		"prices": "价格",
@@ -1472,7 +1472,7 @@
 		}
 	},
 	"magnifier": {
-		"title": "放大镜",
+		"title": "放大镜和扫描",
 		"starting": "正在启动相机…",
 		"denied": "相机权限被拒绝。请在设置中允许，以便放大查看标签。",
 		"unsupported": "此处无法使用相机。放大镜可在手机上使用。",
@@ -2141,6 +2141,16 @@
 		"addTo": "添加到清单",
 		"add": "添加",
 		"added": "已添加到 {list}。",
-		"attribution": "商品数据来自"
+		"attribution": "商品数据来自",
+		"nutriScore": "Nutri-Score",
+		"ecoScore": "Eco-Score",
+		"nova": "NOVA {group}",
+		"noScore": "该商品暂无评分。",
+		"nutrition": "每100克含量",
+		"energy": "能量",
+		"fat": "脂肪",
+		"saturatedFat": "其中饱和脂肪",
+		"sugars": "糖",
+		"salt": "盐"
 	}
 }

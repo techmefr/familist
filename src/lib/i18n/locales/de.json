@@ -12,7 +12,7 @@
 		"admin": "Konten",
 		"household": "Haushalt",
 		"mealPlan": "Essensplan",
-		"magnifier": "Lupe",
+		"magnifier": "Lupe und Scan",
 		"create": "Erstellen",
 		"chat": "Unterhaltungen",
 		"prices": "Preise",
@@ -1486,7 +1486,7 @@
 		}
 	},
 	"magnifier": {
-		"title": "Lupe",
+		"title": "Lupe und Scan",
 		"starting": "Kamera wird gestartet…",
 		"denied": "Kamerazugriff verweigert. Erlauben Sie ihn in den Einstellungen, um ein Etikett groß zu lesen.",
 		"unsupported": "Die Kamera ist hier nicht verfügbar. Die Lupe funktioniert auf Ihrem Telefon.",
@@ -2162,6 +2162,16 @@
 		"addTo": "Zu einer Liste hinzufügen",
 		"add": "Hinzufügen",
 		"added": "Zu {list} hinzugefügt.",
-		"attribution": "Produktdaten von"
+		"attribution": "Produktdaten von",
+		"nutriScore": "Nutri-Score",
+		"ecoScore": "Eco-Score",
+		"nova": "NOVA {group}",
+		"noScore": "Keine Bewertung für dieses Produkt verfügbar.",
+		"nutrition": "Werte pro 100 g",
+		"energy": "Energie",
+		"fat": "Fett",
+		"saturatedFat": "davon gesättigte Fettsäuren",
+		"sugars": "Zucker",
+		"salt": "Salz"
 	}
 }
