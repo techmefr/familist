@@ -19,7 +19,11 @@ const FIELDS = [
 	'traces_tags',
 	'labels_tags',
 	'ingredients_text',
-	'generic_name'
+	'generic_name',
+	'nutriscore_grade',
+	'nova_group',
+	'ecoscore_grade',
+	'nutriments'
 ];
 
 export function productUrl(ean: string, locale: string): string {
@@ -58,7 +62,33 @@ export interface Product {
 	otherAllergens: string[];
 	isVegan: boolean;
 	isVegetarian: boolean;
+	nutriScore: Grade | null;
+	ecoScore: Grade | null;
+	novaGroup: 1 | 2 | 3 | 4 | null;
+	nutrition: Nutrition;
 }
+
+export type Grade = 'a' | 'b' | 'c' | 'd' | 'e';
+
+/** Per 100 g (or 100 ml); each value is null when the product does not declare it. */
+export interface Nutrition {
+	energyKcal: number | null;
+	fat: number | null;
+	saturatedFat: number | null;
+	sugars: number | null;
+	salt: number | null;
+}
+
+const grade = (value: unknown): Grade | null =>
+	typeof value === 'string' && /^[a-e]$/.test(value) ? (value as Grade) : null;
+
+const novaGroup = (value: unknown): Product['novaGroup'] =>
+	value === 1 || value === 2 || value === 3 || value === 4 ? value : null;
+
+const amount = (source: Record<string, unknown>, key: string): number | null => {
+	const value = source[`${key}_100g`];
+	return typeof value === 'number' && Number.isFinite(value) ? value : null;
+};
 
 const text = (value: unknown): string | null => {
 	if (typeof value !== 'string') return null;
@@ -93,9 +123,14 @@ export function parseProduct(raw: unknown, locale: string): Product | null {
 	const pick = (base: string): string | null =>
 		text(product[`${base}_${language}`]) ?? text(product[`${base}_en`]) ?? text(product[base]);
 
-	const name = pick('product_name') ?? pick('generic_name');
+	const brand = text(product.brands)?.split(',')[0].trim() ?? null;
 	const ean = text(root.code) ?? text(product.code);
+	const name = pick('product_name') ?? pick('generic_name') ?? brand ?? (Object.keys(product).length > 1 ? ean : null);
 	if (!name || !ean) return null;
+	const nutriments =
+		product.nutriments && typeof product.nutriments === 'object'
+			? (product.nutriments as Record<string, unknown>)
+			: {};
 
 	const allergens = mapAllergens(tags(product.allergens_tags));
 	const traces = mapAllergens(tags(product.traces_tags));
@@ -104,7 +139,7 @@ export function parseProduct(raw: unknown, locale: string): Product | null {
 	return {
 		ean,
 		name,
-		brand: text(product.brands)?.split(',')[0].trim() ?? null,
+		brand,
 		quantity: text(product.quantity),
 		ingredients: pick('ingredients_text'),
 		imageUrl: text(product.image_front_small_url),
@@ -112,7 +147,17 @@ export function parseProduct(raw: unknown, locale: string): Product | null {
 		traces: traces.standard.filter(id => !allergens.standard.includes(id)),
 		otherAllergens: allergens.other,
 		isVegan: labels.includes('en:vegan'),
-		isVegetarian: labels.includes('en:vegetarian') || labels.includes('en:vegan')
+		isVegetarian: labels.includes('en:vegetarian') || labels.includes('en:vegan'),
+		nutriScore: grade(product.nutriscore_grade),
+		ecoScore: grade(product.ecoscore_grade),
+		novaGroup: novaGroup(product.nova_group),
+		nutrition: {
+			energyKcal: amount(nutriments, 'energy-kcal'),
+			fat: amount(nutriments, 'fat'),
+			saturatedFat: amount(nutriments, 'saturated-fat'),
+			sugars: amount(nutriments, 'sugars'),
+			salt: amount(nutriments, 'salt')
+		}
 	};
 }
 

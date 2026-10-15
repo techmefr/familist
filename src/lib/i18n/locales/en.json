@@ -12,7 +12,7 @@
 		"admin": "Accounts",
 		"household": "Household",
 		"mealPlan": "Meal plan",
-		"magnifier": "Magnifier",
+		"magnifier": "Magnifier & scan",
 		"create": "Create",
 		"chat": "Chats",
 		"prices": "Prices",
@@ -1497,7 +1497,7 @@
 		}
 	},
 	"magnifier": {
-		"title": "Magnifier",
+		"title": "Magnifier & scan",
 		"starting": "Starting the camera…",
 		"denied": "Camera access denied. Allow it in your settings to read a label up close.",
 		"unsupported": "The camera is not available here. The magnifier works on your phone.",
@@ -2173,6 +2173,16 @@
 		"addTo": "Add to a list",
 		"add": "Add",
 		"added": "Added to {list}.",
-		"attribution": "Product data from"
+		"attribution": "Product data from",
+		"nutriScore": "Nutri-Score",
+		"ecoScore": "Eco-Score",
+		"nova": "NOVA {group}",
+		"noScore": "No score available for this product.",
+		"nutrition": "Nutrition per 100 g",
+		"energy": "Energy",
+		"fat": "Fat",
+		"saturatedFat": "Saturated fat",
+		"sugars": "Sugars",
+		"salt": "Salt"
 	}
 }

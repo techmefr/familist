@@ -3,7 +3,7 @@
 	import { feedback } from '$stores/feedback.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
 	import { DEFAULT_UNIT } from '$domain/units';
-	import { lookupProduct, OFF_ATTRIBUTION_URL, type Lookup, type Product } from '$domain/openfoodfacts';
+	import { lookupProduct, OFF_ATTRIBUTION_URL, type Grade, type Lookup, type Product } from '$domain/openfoodfacts';
 	import { productWarnings, type Eater } from '$domain/person-profile';
 	import type { ScanResult } from '$scan/scanner';
 	import MagnifierModes from '$components/app/MagnifierModes.svelte';
@@ -29,6 +29,29 @@
 			profile: data.profileOf(person.id) ?? null
 		}))
 	);
+	const gradeColor: Record<Grade, string> = {
+		a: 'bg-green-700',
+		b: 'bg-lime-700',
+		c: 'bg-yellow-700',
+		d: 'bg-orange-700',
+		e: 'bg-red-700'
+	};
+
+	const round = (value: number) => Math.round(value * 10) / 10;
+
+	const nutritionRows = $derived.by(() => {
+		if (!product) return [];
+		const { energyKcal, fat, saturatedFat, sugars, salt } = product.nutrition;
+		const rows = [
+			{ key: 'energy', value: energyKcal, unit: 'kcal' },
+			{ key: 'fat', value: fat, unit: 'g' },
+			{ key: 'saturatedFat', value: saturatedFat, unit: 'g' },
+			{ key: 'sugars', value: sugars, unit: 'g' },
+			{ key: 'salt', value: salt, unit: 'g' }
+		];
+		return rows.flatMap(row => (row.value === null ? [] : [{ ...row, value: round(row.value) }]));
+	});
+
 	const warnings = $derived(product ? productWarnings(product.allergens, eaters) : []);
 
 	async function search(code: string) {
@@ -118,7 +141,42 @@
 					</div>
 				</div>
 
-				{#if warnings.length > 0}
+								<ul class="flex flex-wrap gap-2" data-test-id="product-scores">
+						{#if product.nutriScore}
+							<li class="text-caption flex items-center gap-2 rounded-full border px-2 py-0.5 font-medium">
+								<span class="rounded px-1.5 font-bold text-white uppercase {gradeColor[product.nutriScore]}">{product.nutriScore}</span>
+								{t('product.nutriScore')}
+							</li>
+						{/if}
+						{#if product.novaGroup}
+							<li class="text-caption rounded-full border px-2 py-0.5 font-medium">
+								{t('product.nova', { group: String(product.novaGroup) })}
+							</li>
+						{/if}
+						{#if product.ecoScore}
+							<li class="text-caption flex items-center gap-2 rounded-full border px-2 py-0.5 font-medium">
+								<span class="rounded px-1.5 font-bold text-white uppercase {gradeColor[product.ecoScore]}">{product.ecoScore}</span>
+								{t('product.ecoScore')}
+							</li>
+						{/if}
+						{#if !product.nutriScore && !product.novaGroup && !product.ecoScore}
+							<li class="text-muted-foreground text-caption">{t('product.noScore')}</li>
+						{/if}
+					</ul>
+
+					{#if nutritionRows.length > 0}
+						<div>
+							<h3 class="text-label font-semibold">{t('product.nutrition')}</h3>
+							<dl class="text-label mt-1 grid grid-cols-[1fr_auto] gap-x-4 gap-y-0.5" data-test-id="product-nutrition">
+								{#each nutritionRows as row (row.key)}
+									<dt class="text-muted-foreground">{t(`product.${row.key}`)}</dt>
+									<dd class="text-right">{row.value} {row.unit}</dd>
+								{/each}
+							</dl>
+						</div>
+					{/if}
+
+					{#if warnings.length > 0}
 					<ul class="space-y-1" data-test-id="product-warnings">
 						{#each warnings as warning, index (index)}
 							<li class="text-label flex items-start gap-2">

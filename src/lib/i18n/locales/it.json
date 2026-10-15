@@ -12,7 +12,7 @@
 		"admin": "Account",
 		"household": "Casa",
 		"mealPlan": "Menu",
-		"magnifier": "Lente",
+		"magnifier": "Lente e scansione",
 		"create": "Crea",
 		"chat": "Conversazioni",
 		"prices": "Prezzi",
@@ -1484,7 +1484,7 @@
 		}
 	},
 	"magnifier": {
-		"title": "Lente",
+		"title": "Lente e scansione",
 		"starting": "Attivazione della fotocamera…",
 		"denied": "Accesso alla fotocamera negato. Consentilo nelle impostazioni per leggere un’etichetta da vicino.",
 		"unsupported": "La fotocamera non è disponibile qui. La lente funziona sul tuo telefono.",
@@ -2160,6 +2160,16 @@
 		"addTo": "Aggiungi a una lista",
 		"add": "Aggiungi",
 		"added": "Aggiunto a {list}.",
-		"attribution": "Dati prodotto da"
+		"attribution": "Dati prodotto da",
+		"nutriScore": "Nutri-Score",
+		"ecoScore": "Eco-Score",
+		"nova": "NOVA {group}",
+		"noScore": "Nessun punteggio disponibile per questo prodotto.",
+		"nutrition": "Valori per 100 g",
+		"energy": "Energia",
+		"fat": "Grassi",
+		"saturatedFat": "di cui acidi grassi saturi",
+		"sugars": "Zuccheri",
+		"salt": "Sale"
 	}
 }

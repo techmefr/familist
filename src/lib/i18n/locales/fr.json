@@ -12,7 +12,7 @@
 		"admin": "Comptes",
 		"household": "Foyer",
 		"mealPlan": "Menu",
-		"magnifier": "Loupe",
+		"magnifier": "Loupe et scan",
 		"create": "Créer",
 		"chat": "Discussions",
 		"prices": "Prix",
@@ -1529,7 +1529,7 @@
 		}
 	},
 	"magnifier": {
-		"title": "Loupe",
+		"title": "Loupe et scan",
 		"starting": "Activation de la caméra…",
 		"denied": "Accès à la caméra refusé. Autorisez-la dans les réglages pour lire une étiquette en gros.",
 		"unsupported": "La caméra n’est pas disponible ici. La loupe fonctionne sur votre téléphone.",
@@ -2208,6 +2208,16 @@
 		"addTo": "Ajouter à une liste",
 		"add": "Ajouter",
 		"added": "Ajouté à {list}.",
-		"attribution": "Données produit issues de"
+		"attribution": "Données produit issues de",
+		"nutriScore": "Nutri-Score",
+		"ecoScore": "Eco-Score",
+		"nova": "NOVA {group}",
+		"noScore": "Aucun score disponible pour ce produit.",
+		"nutrition": "Valeurs pour 100 g",
+		"energy": "Énergie",
+		"fat": "Matières grasses",
+		"saturatedFat": "Dont acides gras saturés",
+		"sugars": "Sucres",
+		"salt": "Sel"
 	}
 }
