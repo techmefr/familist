@@ -20,6 +20,10 @@ export type InstanceConfig = {
 	goatcounterSite?: string;
 	/** Identifiants des fournisseurs de connexion proposes (`google,apple`), ou absents : aucun bouton. */
 	oauthProviders?: ProviderId[];
+	/** Client id web de Google : requis par le selecteur de comptes natif d'Android (et sert de serveur sur iOS). */
+	googleClientId?: string;
+	/** Client id iOS de Google, requis par le selecteur de comptes natif d'iOS. */
+	googleIosClientId?: string;
 };
 
 /**
@@ -51,13 +55,17 @@ export function readInstanceConfig(source: unknown): InstanceConfig | null {
 	const sentryDsn = clean(raw.sentryDsn);
 	const goatcounterSite = clean(raw.goatcounterSite);
 	const oauthProviders = parseProviderList(raw.oauthProviders);
+	const googleClientId = clean(raw.googleClientId);
+	const googleIosClientId = clean(raw.googleIosClientId);
 
 	return {
 		url,
 		anonKey,
 		...(sentryDsn ? { sentryDsn } : {}),
 		...(goatcounterSite ? { goatcounterSite } : {}),
-		...(oauthProviders.length > 0 ? { oauthProviders } : {})
+		...(oauthProviders.length > 0 ? { oauthProviders } : {}),
+		...(googleClientId ? { googleClientId } : {}),
+		...(googleIosClientId ? { googleIosClientId } : {})
 	};
 }
 
@@ -102,7 +110,9 @@ export function resolveInstanceConfig(
 			...override,
 			sentryDsn: build?.sentryDsn,
 			goatcounterSite: build?.goatcounterSite,
-			oauthProviders: build?.oauthProviders
+			oauthProviders: build?.oauthProviders,
+			googleClientId: build?.googleClientId,
+			googleIosClientId: build?.googleIosClientId
 		};
 	}
 

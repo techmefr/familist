@@ -23,6 +23,9 @@ services:
       # Optional: your own GoatCounter site code, cookie-free audience measurement. Leave empty for none.
       PUBLIC_GOATCOUNTER_SITE: ${PUBLIC_GOATCOUNTER_SITE:-}
       PUBLIC_OAUTH_PROVIDERS: ${PUBLIC_OAUTH_PROVIDERS:-}
+      # Optional: Google client ids for the native account picker of the Android and iOS apps.
+      PUBLIC_GOOGLE_CLIENT_ID: ${PUBLIC_GOOGLE_CLIENT_ID:-}
+      PUBLIC_GOOGLE_IOS_CLIENT_ID: ${PUBLIC_GOOGLE_IOS_CLIENT_ID:-}
     restart: unless-stopped
 
   # Optional push server for phones without Google services: `docker compose --profile ntfy up -d`.

@@ -22,6 +22,12 @@ export const sentryDsn = instanceConfig?.sentryDsn ?? null;
 /** Fournisseurs de connexion de cette instance, dans l'ordre voulu par l'installateur (aucun par defaut). */
 export const oauthProviders = instanceConfig?.oauthProviders ?? [];
 
+/** Client ids Google du selecteur de comptes natif, absents tant que l'installateur n'en a defini aucun. */
+export const googleClientIds = {
+	web: instanceConfig?.googleClientId ?? null,
+	ios: instanceConfig?.googleIosClientId ?? null
+};
+
 /** Site GoatCounter propre a cette instance, ou null si l'installateur n'en a defini aucun. */
 export const goatcounterSite = instanceConfig?.goatcounterSite ?? null;
 

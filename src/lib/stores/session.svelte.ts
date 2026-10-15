@@ -1,10 +1,18 @@
 import { browser } from '$app/environment';
-import { supabase } from '$db/supabase';
-import { OAUTH_PROVIDERS, type ProviderId } from '$domain/oauth';
+import { Capacitor } from '@capacitor/core';
+import { googleClientIds, supabase } from '$db/supabase';
+import { nativeFlowFor } from '$domain/native-sign-in';
+import { OAUTH_PROVIDERS, type Platform, type ProviderId } from '$domain/oauth';
+import { nativeIdToken } from '$native/social-login';
 import type { KnownFactor } from '$domain/device-unlock';
 import { rememberDeviceFactor, rememberedDeviceFactor } from '$native/device-unlock';
 import { sync } from '$sync/index.svelte';
 import type { Session, User } from '@supabase/supabase-js';
+
+const platform = (): Platform => {
+	const current = Capacitor.getPlatform();
+	return current === 'ios' || current === 'android' ? current : 'web';
+};
 
 export type AccountStatus = 'pending' | 'approved' | 'rejected';
 
@@ -187,6 +195,17 @@ class SessionStore {
 	 */
 	async signInWithProvider(id: ProviderId) {
 		this.error = null;
+
+		const flow = nativeFlowFor(id, platform(), googleClientIds);
+		if (flow) {
+			const outcome = await nativeIdToken(flow, googleClientIds);
+			if (outcome.status === 'cancelled') return false;
+			if (outcome.status === 'token') {
+				const { error } = await supabase.auth.signInWithIdToken({ provider: flow, token: outcome.token });
+				if (error) this.error = error.message;
+				return !error;
+			}
+		}
 
 		const provider = OAUTH_PROVIDERS.find((candidate) => candidate.id === id);
 		const { error } = await supabase.auth.signInWithOAuth({
