@@ -29,7 +29,10 @@ function instanceConfig(mode: string): Plugin {
 			// personnelles). Absent partout ailleurs, il ne change rien.
 			goatcounterSite: env.PUBLIC_GOATCOUNTER_SITE ?? '',
 			// Facultatif : fournisseurs de connexion proposes, separes par des virgules (`google,apple`).
-			oauthProviders: env.PUBLIC_OAUTH_PROVIDERS ?? ''
+			oauthProviders: env.PUBLIC_OAUTH_PROVIDERS ?? '',
+			// Facultatif : client ids Google du selecteur de comptes natif (apps Android et iOS).
+			googleClientId: env.PUBLIC_GOOGLE_CLIENT_ID ?? '',
+			googleIosClientId: env.PUBLIC_GOOGLE_IOS_CLIENT_ID ?? ''
 		})};\n`;
 	};
 

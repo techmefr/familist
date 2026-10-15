@@ -20,6 +20,8 @@ declare global {
 				sentryDsn?: string;
 				goatcounterSite?: string;
 				oauthProviders?: string;
+				googleClientId?: string;
+				googleIosClientId?: string;
 		  }
 		| undefined;
 }

@@ -220,6 +220,25 @@ web); the others are behind a "More" button. An id that is listed here but not e
 button that fails, so keep the two lists equal. Apple is required by the App Store as soon as another social
 sign-in is offered in the iOS app.
 
+### Native account pickers in the Android and iOS apps
+
+In the apps, Google (Android and iOS) and Apple (iOS) open the system account picker instead of a browser
+page, then hand the ID token to Supabase. The web redirect stays as the fallback, and is what the web app and
+the F-Droid build always use. Closing the picker cancels the sign-in; it does not open the browser.
+
+- **Android, Google.** In Google Cloud, create an OAuth client of type *Web* (the one already used for the
+  Supabase provider) and an *Android* client for the package `fr.techmefr.familist` with the SHA-1 of your
+  signing key. Set `PUBLIC_GOOGLE_CLIENT_ID` to the web client id.
+- **iOS, Google.** Create an *iOS* OAuth client for the bundle id and set `PUBLIC_GOOGLE_IOS_CLIENT_ID`
+  (the web client id above is also needed).
+- **iOS, Apple.** Enable the *Sign in with Apple* capability on the app id and in the Xcode target. There is
+  no identifier to set here; in Supabase, add the bundle id to the Apple provider's client ids.
+- In Supabase, the Google provider must list the web, Android and iOS client ids, and tick *Skip nonce
+  checks* for Google (the native picker does not return a nonce Supabase can check).
+
+If the same email already has a password account, Supabase links the provider identity to it only when the
+provider confirms the address; it never merges two accounts silently.
+
 ## Push notifications
 
 Three ways, and an instance can offer more than one: each person picks. Start with the first, the recommended
