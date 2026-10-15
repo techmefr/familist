@@ -10,6 +10,7 @@
  */
 @import './themes.css';
 @import './design-refresh.css';
+@import './auth-refresh.css';
 @import '@fontsource/atkinson-hyperlegible/400.css';
 @import '@fontsource/atkinson-hyperlegible/700.css';
 @import '@fontsource/schibsted-grotesk/400.css';

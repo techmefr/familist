@@ -1,8 +1,10 @@
 <script lang="ts">
 	import PageHeading from '$components/app/PageHeading.svelte';
+	import { tick } from 'svelte';
+	import Logo from '$components/app/Logo.svelte';
 	import { goto } from '$app/navigation';
 	import { i18n, t, LOCALES, type Locale } from '$i18n/index.svelte';
-	import { flagForLocale } from '$i18n/flags';
+	import LanguageLabel from '$components/app/LanguageLabel.svelte';
 	import {
 		settings,
 		ACCENT_PRESETS,
@@ -14,7 +16,6 @@
 	import { Button } from '$components/ui/button';
 	import { Label } from '$components/ui/label';
 	import AuthForm from '$components/app/AuthForm.svelte';
-	import WelcomeAnimation from '$components/app/WelcomeAnimation.svelte';
 	import { ArrowRight, Check } from '@lucide/svelte';
 
 	const STEPS = 4;
@@ -47,8 +48,9 @@
 	 * The heading takes focus at every step: without that, a screen reader stays on the "Continue" button and
 	 * never announces the screen that has just opened.
 	 */
-	function go(next: number) {
+	async function go(next: number) {
 		step = next;
+		await tick();
 		heading?.focus();
 
 		// Getting as far as the account is enough: we do not offer the walkthrough again to somebody who has
@@ -71,7 +73,10 @@
 	<title>{t('welcome.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<div class="fl-welcome-scene" aria-hidden="true"></div>
+<section class="fl-onboarding">
+<div class="fl-onboarding-top">
+	<a href="/auth" class="fl-access-brand"><Logo class="fl-access-logo" /><span>{t('app.name')}</span></a>
+</div>
 
 <p class="text-muted-foreground text-caption" data-test-id="welcome-step">
 	{t('welcome.step', { current: step, total: STEPS })}
@@ -97,9 +102,7 @@
 	premium card as the auth screens; the last step hands off to `AuthForm`, which already brings its own
 	card — nesting the two would stack a shadow on a shadow.
 -->
-{#if step === 1}
-	<WelcomeAnimation />
-{/if}
+
 
 <PageHeading
 	bind:ref={heading}
@@ -128,9 +131,9 @@
 	-->
 	<fieldset class="fl-auth-card fl-rise mt-4">
 		<legend class="sr-only">{t('profile.language')}</legend>
-		<div class="flex flex-wrap gap-2">
+		<div class="fl-onboarding-options fl-onboarding-languages">
 			{#each LOCALES as locale (locale.code)}
-				{@const flag = flagForLocale(locale.code)}
+
 				<Label class={optionClass}>
 					<input
 						type="radio"
@@ -140,10 +143,8 @@
 						data-test-id="welcome-locale-{locale.code}"
 						class="sr-only"
 					/>
-					{#if flag}
-						<span aria-hidden="true">{flag}</span>
-					{/if}
-					<span lang={locale.code} dir={locale.dir}>{locale.native}</span>
+					<LanguageLabel {locale} />
+					{#if i18n.locale === locale.code}<Check class="fl-onboarding-selected" size={20} aria-hidden="true" />{/if}
 				</Label>
 			{/each}
 		</div>
@@ -192,7 +193,7 @@
 	<div class="fl-auth-card fl-rise mt-4">
 		<fieldset>
 			<legend class="text-label mb-2 font-medium">{t('profile.theme')}</legend>
-			<div class="flex flex-wrap gap-2">
+			<div class="fl-onboarding-options">
 				{#each themes as value (value)}
 					<Label class={optionClass}>
 						<input
@@ -211,7 +212,7 @@
 
 		<fieldset class="mt-6">
 			<legend class="text-label mb-2 font-medium">{t('profile.accent')}</legend>
-			<div class="flex flex-wrap gap-2">
+			<div class="fl-onboarding-options">
 				{#each ACCENT_PRESETS as accent (accent.id)}
 					{@const active = settings.accentId === accent.id}
 					<Label class={optionClass}>
@@ -245,7 +246,7 @@
 		-->
 		<fieldset class="mt-6">
 			<legend class="text-label mb-2 font-medium">{t('profile.motion')}</legend>
-			<div class="flex flex-wrap gap-2">
+			<div class="fl-onboarding-options">
 				{#each MOTION_PREFERENCES as value (value)}
 					<Label class={optionClass}>
 						<input
@@ -266,36 +267,20 @@
 {:else}
 	<p class="text-muted-foreground mt-2 px-1">{t('welcome.accountBody')}</p>
 
-	<AuthForm mode="signup" />
+	<div class="fl-access-form fl-onboarding-account"><AuthForm mode="signup" /></div>
 {/if}
 
-<div class="mt-8 flex flex-wrap items-center gap-3">
+<div class="fl-onboarding-actions">
 	{#if step > 1}
-		<Button
-			variant="outline"
-			class="fl-press"
-			onclick={() => go(step - 1)}
-			data-test-id="welcome-back"
-		>
-			{t('welcome.back')}
-		</Button>
+		<Button variant="outline" onclick={() => go(step - 1)} data-test-id="welcome-back">{t('welcome.back')}</Button>
 	{/if}
-
 	{#if step < STEPS}
-		<Button
-			class="fl-press fl-auth-submit flex-auto"
-			onclick={() => go(step + 1)}
-			data-test-id="welcome-next"
-		>
-			{t('welcome.next')}
-		</Button>
+		<Button class="fl-auth-submit" onclick={() => go(step + 1)} data-test-id="welcome-next">{t('welcome.next')}</Button>
+	{:else}
+		<Button class="fl-auth-submit" onclick={finish} data-test-id="welcome-skip">{t('welcome.skip')}</Button>
 	{/if}
 </div>
-
-<!--
-	Emergency exit, present at every step: somebody who already has an account has nothing to set here, their
-	preferences are waiting for them in their profile.
--->
-<Button variant="ghost" class="mt-4 w-full" onclick={finish} data-test-id="welcome-skip">
-	{step === STEPS ? t('welcome.skip') : t('welcome.haveAccount')}
-</Button>
+{#if step < STEPS}
+	<Button variant="ghost" class="fl-onboarding-account-link" onclick={finish} data-test-id="welcome-skip">{t('welcome.haveAccount')}</Button>
+{/if}
+</section>

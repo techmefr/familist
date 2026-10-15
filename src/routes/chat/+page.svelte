@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MessagesSquare as PageIcon } from '@lucide/svelte';
-	import PageHeading from '$components/app/PageHeading.svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { settings } from '$stores/settings.svelte';
@@ -124,7 +124,7 @@
 	<title>{t('chat.indexTitle')} — {t('app.name')}</title>
 </svelte:head>
 
-<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('chat.indexTitle')}</PageHeading>
+<PageHero icon={PageIcon} title={t('chat.indexTitle')} description={t('chat.directsHint')} />
 
 {#if hasAnything}
 	<SearchFilterBar

@@ -327,9 +327,9 @@
 {/if}
 </div>
 <div class="fl-home-shortcuts">
-<a href="/meal-plan"><span class="fl-home-shortcut-icon"><CalendarDays size={24} aria-hidden="true" /></span><span>{t('nav.mealPlan')}</span></a>
-<a href="/recipes"><span class="fl-home-shortcut-icon"><UtensilsCrossed size={24} aria-hidden="true" /></span><span>{t('nav.recipes')}</span></a>
-<a href="/household"><span class="fl-home-shortcut-icon"><Users size={24} aria-hidden="true" /></span><span>{t('nav.household')}</span></a>
+<a href="/meal-plan"><span class="fl-home-shortcut-icon"><CalendarDays size={24} aria-hidden="true" /></span><span>{t('nav.mealPlan')}</span><strong class="fl-shortcut-count">{data.mealPlans.length}</strong></a>
+<a href="/recipes"><span class="fl-home-shortcut-icon"><UtensilsCrossed size={24} aria-hidden="true" /></span><span>{t('nav.recipes')}</span><strong class="fl-shortcut-count">{data.recipes.length}</strong></a>
+<a href="/household"><span class="fl-home-shortcut-icon"><Users size={24} aria-hidden="true" /></span><span>{t('nav.household')}</span><strong class="fl-shortcut-count">{data.circles.length}</strong></a>
 </div>
 
 {#if creating}

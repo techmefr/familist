@@ -38,3 +38,21 @@ test.describe('accueil et premier lancement', () => {
 		await expect(page).toHaveURL(/\/auth/);
 	});
 });
+
+for (const width of [320, 390, 768]) {
+ test(`drapeaux et noms natifs visibles a ${width}px`, async ({ page }) => {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto('/welcome');
+  const labels = page.locator('.fl-language-label');
+  await expect(labels).toHaveCount(10);
+  for (const label of await labels.all()) {
+   const flag = label.locator('img');
+   await expect(flag).toBeVisible();
+   await expect.poll(() => flag.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+   const name = label.locator('span[lang]');
+   await expect(name).toBeVisible();
+   expect(await name.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+ });
+}

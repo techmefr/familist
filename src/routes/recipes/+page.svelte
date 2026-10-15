@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CookingPot as PageIcon } from '@lucide/svelte';
-	import PageHeading from '$components/app/PageHeading.svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
@@ -527,8 +527,7 @@
 	<title>{t('recipes.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('recipes.title')}</PageHeading>
-<p class="text-muted-foreground text-label mt-1">{t('recipes.intro')}</p>
+<PageHero icon={PageIcon} title={t('recipes.title')} description={t('recipes.intro')} items={[{ label: t('nav.recipes'), value: data.recipes.length }, { label: t('nav.mealPlan'), value: data.mealPlans.length }]} />
 
 <!--
 	The meal plan is a separate screen, not a mode of this one: picking several recipes for the week is a

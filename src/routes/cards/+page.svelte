@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CreditCard as PageIcon } from '@lucide/svelte';
-	import PageHeading from '$components/app/PageHeading.svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { flip } from 'svelte/animate';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
@@ -350,7 +350,7 @@
 	<title>{t('cards.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('cards.title')}</PageHeading>
+<PageHero icon={PageIcon} title={t('cards.title')} items={[{ label: t('nav.cards'), value: data.cards.length }]} />
 
 {#if !data.ready}
 	<p class="text-muted-foreground mt-6">{t('common.loading')}</p>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Store as PageIcon } from '@lucide/svelte';
-	import PageHeading from '$components/app/PageHeading.svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { data } from '$stores/data.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { tintForWhiteText } from '$domain/tint';
@@ -50,7 +50,7 @@
 	<title>{t('shops.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('shops.title')}</PageHeading>
+<PageHero icon={PageIcon} title={t('shops.title')} items={[{ label: t('shops.title'), value: data.shops.length }, { label: t('aisles.title'), value: data.aisles.length }]} />
 
 <div class="fl-panel bg-card mt-6 rounded-xl border p-4">
 	<ShopForm />

@@ -35,6 +35,7 @@
 	import { NAV } from '$components/app/nav-entries';
 	import CreateMenu from '$components/app/CreateMenu.svelte';
 	import Logo from '$components/app/Logo.svelte';
+	import AuthBrand from '$components/app/AuthBrand.svelte';
 	import ChangelogModal from '$components/app/ChangelogModal.svelte';
 	import Toaster from '$components/app/Toaster.svelte';
 	import SearchSheet from '$components/app/SearchSheet.svelte';
@@ -474,32 +475,10 @@
 		height, the alignment falls back to the top instead of cutting off the start, which happens as soon
 		as a software keyboard opens.
 	-->
-	<div class="grid min-h-dvh w-full md:grid-cols-2">
-		<div
-			class="fl-auth-brand relative hidden flex-col justify-between overflow-hidden p-12 md:flex"
-			aria-hidden="true"
-		>
-			<div class="flex items-center gap-3">
-				<div class="flex size-11 items-center justify-center rounded-2xl bg-[#f1ede5]">
-					<Logo class="h-6" />
-				</div>
-				<p class="text-label font-semibold tracking-tight text-white">{t('app.name')}</p>
-			</div>
+	<div class="fl-access-layout">
+		<AuthBrand />
 
-			<div class="mt-auto">
-				<h1 class="text-display max-w-md text-balance font-semibold tracking-tight text-white">
-					{t('auth.brandHeadline')}
-					<span class="text-[#e8885e]">{t('auth.brandHeadlineAccent')}</span>
-				</h1>
-				<p class="mt-4 max-w-sm text-balance text-white/70">
-					{t('auth.brandTagline')}
-				</p>
-			</div>
-
-			<p class="text-caption mt-8 max-w-sm text-white/40">{t('auth.brandFooter')}</p>
-		</div>
-
-		<main class="fl-auth-main fl-rise mx-auto flex w-full max-w-md flex-col justify-center-safe px-4 py-10">
+		<main class="fl-auth-main fl-access-main mx-auto flex w-full flex-col justify-center-safe">
 			{@render children()}
 		</main>
 	</div>

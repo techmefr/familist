@@ -10,7 +10,7 @@
 		type Theme
 	} from '$stores/settings.svelte';
 	import { i18n, t, LOCALES, type Locale } from '$i18n/index.svelte';
-	import { flagForLocale } from '$i18n/flags';
+	import LanguageLabel from '$components/app/LanguageLabel.svelte';
 	import { categoryById } from '$domain/settings-categories';
 	import ThemePicker from '$components/app/ThemePicker.svelte';
 	import { THEME_PRESETS } from '$domain/themes';
@@ -172,7 +172,7 @@
 			<legend class="text-label mb-2 font-medium">{t('profile.language')}</legend>
 			<div class="flex flex-wrap gap-2">
 				{#each LOCALES as locale (locale.code)}
-					{@const flag = flagForLocale(locale.code)}
+
 					<Label class="fl-choice">
 						<input
 							type="radio"
@@ -183,10 +183,7 @@
 							data-test-id="locale-{locale.code}"
 							class="sr-only"
 						/>
-						{#if flag}
-							<span aria-hidden="true">{flag}</span>
-						{/if}
-						<span lang={locale.code}>{locale.native}</span>
+						<LanguageLabel {locale} />
 					</Label>
 				{/each}
 			</div>

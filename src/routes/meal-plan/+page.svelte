@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CalendarDays as PageIcon } from '@lucide/svelte';
-	import PageHeading from '$components/app/PageHeading.svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
@@ -46,8 +46,7 @@
 	<title>{t('mealPlan.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('mealPlan.title')}</PageHeading>
-<p class="text-muted-foreground text-label mt-1">{t('mealPlan.intro')}</p>
+<PageHero icon={PageIcon} title={t('mealPlan.title')} description={t('mealPlan.intro')} items={[{ label: t('nav.mealPlan'), value: data.mealPlans.length }, { label: t('nav.recipes'), value: data.recipes.length }]} />
 
 {#if data.mealPlans.length > 0}
 	<SearchFilterBar
