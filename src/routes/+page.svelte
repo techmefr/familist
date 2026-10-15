@@ -326,11 +326,11 @@
 </Button>
 {/if}
 </div>
-<nav class="fl-home-shortcuts" aria-label={t('nav.main')}>
+<div class="fl-home-shortcuts">
 <a href="/meal-plan"><span class="fl-home-shortcut-icon"><CalendarDays size={24} aria-hidden="true" /></span><span>{t('nav.mealPlan')}</span></a>
 <a href="/recipes"><span class="fl-home-shortcut-icon"><UtensilsCrossed size={24} aria-hidden="true" /></span><span>{t('nav.recipes')}</span></a>
 <a href="/household"><span class="fl-home-shortcut-icon"><Users size={24} aria-hidden="true" /></span><span>{t('nav.household')}</span></a>
-</nav>
+</div>
 
 {#if creating}
 	<form

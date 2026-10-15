@@ -567,3 +567,29 @@ html:is([data-scale='lg'], [data-scale='xl'], [data-scale='xxl'], [data-scale='c
 	vertical-align: middle;
 	margin-inline-end: 0.25rem;
 }
+
+@media (width < 48rem) {
+	.fl-app-main .fl-search-bar-filters {
+		min-inline-size: 0;
+		max-inline-size: 100%;
+		flex-shrink: 1;
+		flex-wrap: wrap;
+		overflow-wrap: anywhere;
+		padding-inline: 0.5rem;
+	}
+	.fl-app-main .fl-search-bar [data-slot='field'] > input:not([type='checkbox']):not([type='radio']) {
+		padding-inline-start: calc(0.75rem + 20px);
+		padding-inline-end: 0.5rem;
+	}
+	.fl-app-main .fl-search-bar [data-slot='field'] > svg {
+		inset-inline-start: 0.5rem;
+	}
+	.fl-app-main .fl-search-bar [data-slot='field']:has([data-slot='field-action'] button) > input:not([type='checkbox']):not([type='radio']) {
+		padding-inline-end: 48px;
+	}
+	.fl-app-main .fl-search-bar [data-slot='field-action'] button {
+		inline-size: 44px;
+		block-size: 44px;
+		margin-inline-end: 0;
+	}
+}
