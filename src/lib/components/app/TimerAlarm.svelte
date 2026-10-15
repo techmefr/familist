@@ -29,7 +29,7 @@
 		<!-- Fixed pixel margins: at the largest text size, rem padding would eat half the phone's width. -->
 		<div class="flex min-h-full items-center justify-center">
 			<div
-				class="border-destructive bg-card text-card-foreground w-full max-w-md rounded-2xl border-4 p-[14px] shadow-xl motion-safe:animate-pulse"
+				class="fl-panel border-destructive bg-card text-card-foreground w-full max-w-md rounded-2xl border-4 p-[14px] shadow-xl motion-safe:animate-pulse"
 			>
 				<h2
 					id="timer-alarm-title"

@@ -2152,5 +2152,6 @@
 		"saturatedFat": "其中饱和脂肪",
 		"sugars": "糖",
 		"salt": "盐"
-	}
+	},
+	"keyboard": { "title": "键盘快捷键" }
 }

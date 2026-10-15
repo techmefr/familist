@@ -99,8 +99,9 @@
 </script>
 
 <div
-	class="bg-card flex flex-wrap items-center gap-3 rounded-md border px-3 py-2 transition-colors"
+	class="fl-item-row bg-card flex flex-wrap items-center gap-3 rounded-md border px-3 py-2 transition-colors"
 	data-test-class="item-row"
+	data-checked={item.checked}
 >
 	<!--
 		The handle. It doubles the arrows without replacing them: those stay the keyboard's path, this is the

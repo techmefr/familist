@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { supabase } from '$db/supabase';
 	import { session } from '$stores/session.svelte';
 	import { t } from '$i18n/index.svelte';
@@ -60,7 +61,7 @@
 	<title>{t('legal.request.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('legal.request.title')}</h1>
+<PageHeading class="text-h1 font-semibold">{t('legal.request.title')}</PageHeading>
 <p class="text-muted-foreground mt-2">{t('legal.request.intro')}</p>
 <p class="text-muted-foreground text-label mt-2" data-test-id="privacy-request-deadline">
 	{t('legal.request.deadline')}

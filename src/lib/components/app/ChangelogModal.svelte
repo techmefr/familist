@@ -115,7 +115,7 @@
 	data-test-id="changelog-modal"
 >
 	<div
-		class="bg-card relative max-h-[85dvh] overflow-y-auto rounded-t-2xl border px-4 pt-4 md:rounded-2xl"
+		class="fl-panel bg-card relative max-h-[85dvh] overflow-y-auto rounded-t-2xl border px-4 pt-4 md:rounded-2xl"
 		class:fl-rise={settings.animates}
 	>
 		<h2

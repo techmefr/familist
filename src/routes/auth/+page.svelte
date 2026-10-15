@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { t } from '$i18n/index.svelte';
 	import Logo from '$components/app/Logo.svelte';
 	import AuthForm from '$components/app/AuthForm.svelte';
@@ -18,37 +19,26 @@
 	<title>{title} — {t('app.name')}</title>
 </svelte:head>
 
-<div class="fl-auth-glow" aria-hidden="true"></div>
+<div class="fl-access-page">
+	<a href="/welcome" class="fl-access-brand" aria-label={t('app.name')}>
+		<Logo class="fl-access-logo" />
+		<span>{t('app.name')}</span>
+	</a>
 
-<!--
-	The brand mark, on its own, in a coloured badge: a single focal point at the top of an otherwise empty
-	screen, the way a paid app's welcome screen introduces itself before asking anything.
--->
-<div
-	class="bg-primary text-primary-foreground shadow-fl-2 mx-auto flex size-16 items-center justify-center rounded-[1.375rem]"
->
-	<Logo class="h-8" />
+	<div class="fl-access-intro">
+		<PageHeading>{title}</PageHeading>
+		<p>{body}</p>
+	</div>
+
+	<div class="fl-access-form">
+		<AuthForm bind:mode />
+	</div>
+
+	<nav aria-label={t('legal.title')} class="fl-access-legal">
+		<ul>
+			{#each LEGAL_DOCUMENTS as id (id)}
+				<li><a href={legalPath(id)} data-test-id="auth-legal-link-{id}">{t(`legal.${id}`)}</a></li>
+			{/each}
+		</ul>
+	</nav>
 </div>
-
-<p class="text-muted-foreground text-label mt-4 text-center font-medium tracking-wide uppercase">
-	{t('app.name')}
-</p>
-
-<h1 class="text-display mt-2 text-center leading-tight font-semibold tracking-tight">{title}</h1>
-<p class="text-muted-foreground mt-2 text-center text-balance">{body}</p>
-
-<AuthForm bind:mode />
-
-<nav aria-label={t('legal.title')} class="mt-6">
-	<ul class="text-caption flex flex-wrap justify-center gap-x-4 gap-y-2">
-		{#each LEGAL_DOCUMENTS as id (id)}
-			<li>
-				<a
-					href={legalPath(id)}
-					class="text-muted-foreground hover:text-foreground underline"
-					data-test-id="auth-legal-link-{id}">{t(`legal.${id}`)}</a
-				>
-			</li>
-		{/each}
-	</ul>
-</nav>

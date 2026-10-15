@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { MessagesSquare as PageIcon } from '@lucide/svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { settings } from '$stores/settings.svelte';
@@ -122,7 +124,7 @@
 	<title>{t('chat.indexTitle')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('chat.indexTitle')}</h1>
+<PageHero icon={PageIcon} title={t('chat.indexTitle')} description={t('chat.directsHint')} />
 
 {#if hasAnything}
 	<SearchFilterBar
@@ -161,7 +163,7 @@
 {/if}
 
 {#if picking}
-	<div class="bg-card mt-4 rounded-xl border p-4" data-test-id="direct-picker">
+	<div class="fl-panel bg-card mt-4 rounded-xl border p-4" data-test-id="direct-picker">
 		<h2 class="text-label font-medium">{t('chat.newDirectTitle')}</h2>
 
 		{#if data.directCandidates.length === 0}
@@ -192,7 +194,7 @@
 	</div>
 {/if}
 
-<ul class="mt-4 space-y-3" data-test-id="chat-list">
+<ul class="fl-conversation-list mt-6" data-test-id="chat-list">
 	<li>
 		<a href="/chat/assistant" data-test-id="chat-assistant" class="fl-press block">
 			<Card.Root class="border-primary/40 hover:border-primary transition-colors">

@@ -58,7 +58,7 @@
 	aria-labelledby="meal-plan-picker-title"
 	data-test-id="meal-plan-recipe-picker"
 >
-	<div class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl">
+	<div class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl">
 		<h2 id="meal-plan-picker-title" class="text-h2 pe-12 font-semibold">
 			{t('mealPlan.pickRecipes')}
 		</h2>

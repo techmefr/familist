@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Users as PageIcon } from '@lucide/svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { tick } from 'svelte';
 	import { afterNavigate, goto } from '$app/navigation';
 	import { supabase } from '$db/supabase';
@@ -185,7 +187,7 @@
 	<title>{t('household.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('household.title')}</h1>
+<PageHero icon={PageIcon} title={t('household.title')} items={[{ label: t('household.members'), value: data.members.length }, { label: t('household.circles'), value: data.circles.length }]} />
 
 {#if error}
 	<div class="mt-6" role="alert" data-test-id="household-error">

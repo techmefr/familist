@@ -1,36 +1,19 @@
 <script lang="ts">
-	let { class: className = '' }: { class?: string } = $props();
+ let { class: className = '' }: { class?: string } = $props();
 </script>
 
-<!--
-	Decorative, therefore silent: the brand is always placed next to the written name, and "Familiste Familiste"
-	would serve nobody. The speaking version lives in static/logo.svg.
-
-	Height in `em`, colour in `currentColor`: the drawing follows the neighbouring text, including when the
-	font is enlarged. `shrink-0` because an SVG is a replaced element — it would let itself be squashed in
-	width instead of pushing.
--->
-<svg
-	xmlns="http://www.w3.org/2000/svg"
-	viewBox="6 9 54 47"
-	class="h-[1.15em] w-auto shrink-0 {className}"
-	aria-hidden="true"
-	focusable="false"
->
-	<g fill="currentColor" transform="translate(0 -1.5)">
-		<path
-			d="M8.8 14.5h6.1l2.3 7"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="4.4"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		/>
-		<path
-			d="M17.5 21.5H55.5L50 41.5H25.5Z M30.5 24H44V28.5H35.5V30.5H40.5V34.7H35.5V38H30.5Z"
-			fill-rule="evenodd"
-		/>
-		<circle cx="27.5" cy="49.2" r="4.4" />
-		<circle cx="45.5" cy="49.2" r="4.4" />
-	</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="h-[1.4em] w-auto shrink-0 {className}" aria-hidden="true" focusable="false">
+<g stroke="#24513b" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+<path d="M17 34C17 7 47 7 47 34" fill="none"/>
+<path d="M14 34L12 22C11 16 18 13 21 19L27 34" fill="#e6b779"/>
+<path class="detail" d="M15 22L18 20M17 28L20 26" fill="none" stroke="#a56c36" stroke-width="2"/>
+<rect x="25" y="12" width="19" height="26" rx="3" fill="#fffaf0" transform="rotate(8 34 25)"/>
+<path d="M29 21L31 23L35 19M29 29L31 31L35 27" fill="none" stroke-width="2"/>
+<path class="detail" d="M38 22H40M38 30H40" fill="none" stroke-width="2"/>
+<path d="M42 25C49 20 56 25 53 33L50 39H42L39 32C38 28 39 26 42 25Z" fill="#c25a2c"/>
+<path d="M46 25C44 20 48 17 52 18C52 22 49 24 46 25Z" fill="#628359" stroke-width="2"/>
+<path d="M10 33H54L50 53C49.5 56 47 57 44 57H20C17 57 14.5 56 14 53Z" fill="#deb47d"/>
+<path class="detail" d="M14 41H50M16 49H48M23 35L26 55M32 35V55M41 35L38 55" fill="none" stroke="#ac7947" stroke-width="1.8"/>
+<path d="M10 33H54" fill="none" stroke-width="4"/>
+</g>
 </svg>

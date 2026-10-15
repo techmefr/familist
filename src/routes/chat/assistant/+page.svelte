@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { MessagesSquare as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
@@ -43,11 +45,11 @@
 	{t('chat.assistantBack')}
 </a>
 
-<h1 class="text-h1 font-semibold">{t('chat.assistantTitle')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('chat.assistantTitle')}</PageHeading>
 
 <div class="mt-4" data-test-id="assistant-panel">
 	{#if !ai.configured}
-		<div class="bg-card space-y-3 rounded-xl border p-4" data-test-id="assistant-needs-key">
+		<div class="fl-panel bg-card space-y-3 rounded-xl border p-4" data-test-id="assistant-needs-key">
 			<p class="text-label flex items-center gap-2 font-semibold">
 				<KeyRound size={18} aria-hidden="true" />
 				{t('recipes.create.needsKey')}

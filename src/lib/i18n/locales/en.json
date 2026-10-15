@@ -2184,5 +2184,6 @@
 		"saturatedFat": "Saturated fat",
 		"sugars": "Sugars",
 		"salt": "Salt"
-	}
+	},
+	"keyboard": { "title": "Keyboard shortcuts" }
 }

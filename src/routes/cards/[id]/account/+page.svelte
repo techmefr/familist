@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -262,7 +263,7 @@
 {#if !card}
 	<p class="text-muted-foreground mt-6" data-test-id="card-account-missing">{t('cards.accountNotFound')}</p>
 {:else}
-	<h1 class="text-h1 mt-2 font-semibold">{t('cards.accountTitle', { name: card.name })}</h1>
+	<PageHeading class="text-h1 mt-2 font-semibold">{t('cards.accountTitle', { name: card.name })}</PageHeading>
 
 	<div aria-live="polite">
 		{#if error}
@@ -274,7 +275,7 @@
 	</div>
 
 	{#if online && gate === 'enrol'}
-		<section class="bg-card mt-6 rounded-xl border p-4" data-test-id="card-account-needs-mfa">
+		<section class="fl-panel bg-card mt-6 rounded-xl border p-4" data-test-id="card-account-needs-mfa">
 			<p class="text-label flex items-start gap-3">
 				<ShieldCheck size={20} aria-hidden="true" class="mt-0.5 shrink-0" />
 				{t('cards.accountNeedsMfa')}
@@ -288,7 +289,7 @@
 			</a>
 		</section>
 	{:else if online && gate === 'allowed'}
-		<section class="bg-card mt-6 space-y-3 rounded-xl border p-4" data-test-id="card-account-secret">
+		<section class="fl-panel bg-card mt-6 space-y-3 rounded-xl border p-4" data-test-id="card-account-secret">
 			{#if account?.email}
 				<p class="text-caption text-muted-foreground">{t('cards.accountEmail')}</p>
 				<p class="text-label break-all" data-test-id="card-account-email">{account.email}</p>
@@ -418,7 +419,7 @@
 			<p class="text-muted-foreground text-caption mt-4">{t('cards.accountReadOnly')}</p>
 		{/if}
 	{:else if !online}
-		<section class="bg-card mt-6 space-y-3 rounded-xl border p-4" data-test-id="card-account-offline">
+		<section class="fl-panel bg-card mt-6 space-y-3 rounded-xl border p-4" data-test-id="card-account-offline">
 			{#if password !== null}
 				<p
 					class="text-label rounded-md bg-[var(--fl-primary-tint)] p-3 font-mono break-all"

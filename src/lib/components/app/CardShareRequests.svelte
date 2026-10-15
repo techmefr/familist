@@ -34,7 +34,7 @@
 
 {#if requests.length > 0 || error}
 	<section
-		class="bg-card mt-6 rounded-xl border p-4"
+		class="fl-panel bg-card mt-6 rounded-xl border p-4"
 		aria-labelledby="card-requests-title"
 		data-test-id="card-share-requests"
 	>

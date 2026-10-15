@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { settings } from '$stores/settings.svelte';
 	import { t } from '$i18n/index.svelte';
 	import {
@@ -110,7 +112,7 @@
 	<title>{t('themes.create')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('themes.create')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('themes.create')}</PageHeading>
 <p class="text-muted-foreground text-caption mt-1">{t('themes.intro')}</p>
 
 <Card.Root class="mt-6">

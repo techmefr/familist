@@ -37,7 +37,7 @@
 	aria-label={title}
 	data-test-id="action-sheet"
 >
-	<div class="bg-card rounded-t-2xl border p-2 md:rounded-2xl">
+	<div class="fl-panel bg-card rounded-t-2xl border p-2 md:rounded-2xl">
 		<p class="text-caption text-muted-foreground truncate px-3 pt-2 pb-1 font-medium">{title}</p>
 		<ul>
 			{#each actions as action (action.id)}

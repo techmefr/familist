@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { MessageSquareText as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { page } from '$app/state';
 	import { untrack } from 'svelte';
 	import { t } from '$i18n/index.svelte';
@@ -30,7 +32,7 @@
 	<title>{t(`bugReport.title.${report.kind}`)} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t(`bugReport.title.${report.kind}`)}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t(`bugReport.title.${report.kind}`)}</PageHeading>
 <p class="text-muted-foreground mt-2">{t(`bugReport.subtitle.${report.kind}`)}</p>
 
 <div class="mt-6">

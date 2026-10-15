@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { CalendarDays as PageIcon } from '@lucide/svelte';
+	import PageHero from '$components/app/PageHero.svelte';
 	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
@@ -44,8 +46,7 @@
 	<title>{t('mealPlan.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('mealPlan.title')}</h1>
-<p class="text-muted-foreground text-label mt-1">{t('mealPlan.intro')}</p>
+<PageHero icon={PageIcon} title={t('mealPlan.title')} description={t('mealPlan.intro')} items={[{ label: t('nav.mealPlan'), value: data.mealPlans.length }, { label: t('nav.recipes'), value: data.recipes.length }]} />
 
 {#if data.mealPlans.length > 0}
 	<SearchFilterBar
@@ -79,15 +80,15 @@
 		testId="meal-plan-empty"
 	/>
 {:else}
-	<ul class="mt-4 space-y-3" data-test-id="meal-plan-list">
+	<ul class="fl-collection-grid mt-6" data-test-id="meal-plan-list">
 		{#each plans as plan (plan.id)}
 			<li>
 				<a href="/meal-plan/{plan.id}" data-test-class="meal-plan-open">
 					<Card.Root class="fl-press hover:bg-muted/50 transition-colors">
 						<Card.Content class="flex items-center gap-3">
-							<CalendarDays size={22} aria-hidden="true" class="text-muted-foreground shrink-0" />
+							<span class="fl-collection-symbol"><CalendarDays size={24} aria-hidden="true" /></span>
 							<div class="min-w-0 flex-1">
-								<p class="text-label truncate font-medium">{plan.name}</p>
+								<p class="text-product font-semibold break-words">{plan.name}</p>
 								<p class="text-muted-foreground text-caption">
 									{t('mealPlan.recipeCount', { count: recipeCount(plan.id) })}
 								</p>

@@ -2173,5 +2173,6 @@
 		"saturatedFat": "davon gesättigte Fettsäuren",
 		"sugars": "Zucker",
 		"salt": "Salz"
-	}
+	},
+	"keyboard": { "title": "Tastenkombinationen" }
 }

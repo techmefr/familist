@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import {
 		settings,
 		ACCENT_PRESETS,
@@ -8,7 +10,7 @@
 		type Theme
 	} from '$stores/settings.svelte';
 	import { i18n, t, LOCALES, type Locale } from '$i18n/index.svelte';
-	import { flagForLocale } from '$i18n/flags';
+	import LanguageLabel from '$components/app/LanguageLabel.svelte';
 	import { categoryById } from '$domain/settings-categories';
 	import ThemePicker from '$components/app/ThemePicker.svelte';
 	import { THEME_PRESETS } from '$domain/themes';
@@ -28,7 +30,7 @@
 	<title>{t(category.title)} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t(category.title)}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t(category.title)}</PageHeading>
 
 <!--
 	Size and font come first: whoever needs them cannot read what follows until they are set.
@@ -170,7 +172,7 @@
 			<legend class="text-label mb-2 font-medium">{t('profile.language')}</legend>
 			<div class="flex flex-wrap gap-2">
 				{#each LOCALES as locale (locale.code)}
-					{@const flag = flagForLocale(locale.code)}
+
 					<Label class="fl-choice">
 						<input
 							type="radio"
@@ -181,10 +183,7 @@
 							data-test-id="locale-{locale.code}"
 							class="sr-only"
 						/>
-						{#if flag}
-							<span aria-hidden="true">{flag}</span>
-						{/if}
-						<span lang={locale.code}>{locale.native}</span>
+						<LanguageLabel {locale} />
 					</Label>
 				{/each}
 			</div>

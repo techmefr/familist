@@ -35,7 +35,7 @@
 	}
 </script>
 
-<div class="bg-card mt-2 rounded-xl border p-4" data-test-class="poll-card">
+<div class="fl-panel bg-card mt-2 rounded-xl border p-4" data-test-class="poll-card">
 	<p class="text-product font-medium">{poll.question}</p>
 
 	<ul class="mt-3 space-y-2">

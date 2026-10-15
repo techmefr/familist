@@ -52,7 +52,7 @@
 	aria-labelledby="recipe-actions-title"
 	data-test-id="recipe-actions-sheet"
 >
-	<div class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl" class:fl-rise={settings.animates}>
+	<div class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl" class:fl-rise={settings.animates}>
 		<h2 id="recipe-actions-title" class="text-h2 pe-12 font-semibold break-words">{recipeName}</h2>
 
 		<div class="mt-4 flex flex-col gap-2">

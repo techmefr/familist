@@ -56,7 +56,7 @@
 		{#if !available}
 			<p class="text-label" role="status" data-test-id="recipe-scan-unavailable">{t('recipeScan.unavailable')}</p>
 		{:else if recipeScan.status === 'ready'}
-			<div class="bg-card space-y-3 rounded-xl border p-4" data-test-id="recipe-scan-ready">
+			<div class="fl-panel bg-card space-y-3 rounded-xl border p-4" data-test-id="recipe-scan-ready">
 				<p class="text-label font-semibold">{t('recipeScan.readyTitle')}</p>
 				<p class="text-label">{t('recipeScan.readyBody')}</p>
 				<Button onclick={open} data-test-id="recipe-scan-open" class="fl-press w-full">
@@ -85,7 +85,7 @@
 				</Button>
 			</div>
 		{:else}
-			<div class="bg-card rounded-xl border p-4">
+			<div class="fl-panel bg-card rounded-xl border p-4">
 				<p class="text-label font-semibold">{t('recipeScan.tipsTitle')}</p>
 				<ul class="text-label mt-2 list-disc space-y-1 ps-5">
 					<li>{t('recipeScan.tipSteady')}</li>
@@ -147,7 +147,7 @@
 		{/if}
 
 		{#if aiCanRead && !recipeScan.reading}
-			<div class="bg-card space-y-2 rounded-xl border p-4" data-test-id="recipe-scan-ai-offer">
+			<div class="fl-panel bg-card space-y-2 rounded-xl border p-4" data-test-id="recipe-scan-ai-offer">
 				<p class="text-label flex items-center gap-2 font-semibold">
 					<Sparkles size={18} aria-hidden="true" />
 					{t('recipeScan.aiTitle')}

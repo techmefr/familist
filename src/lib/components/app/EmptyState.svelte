@@ -24,7 +24,7 @@
 	decorative: the sentence carries all the meaning.
 -->
 <div
-	class="flex flex-col items-center gap-4 py-10 text-center"
+	class="fl-empty-state flex flex-col items-center gap-4 py-10 text-center"
 	class:fl-rise={settings.animates}
 	data-test-id={testId}
 >

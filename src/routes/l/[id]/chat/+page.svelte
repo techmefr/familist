@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	/** Messages from the same person closer than this read as one run and share a single name line. */
 	const GROUP_GAP_MS = 5 * 60 * 1000;
 	import AnimatedIcon from '$components/app/AnimatedIcon.svelte';
@@ -202,10 +203,10 @@
 	</a>
 
 	<div class="mt-2 flex flex-wrap items-center justify-between gap-2">
-		<h1 class="text-h1 flex items-center gap-3 font-semibold">
+		<PageHeading class="text-h1 flex items-center gap-3 font-semibold">
 			<span aria-hidden="true">{list.emoji}</span>
 			{list.name}
-		</h1>
+		</PageHeading>
 		<button
 			type="button"
 			onclick={toggleSearch}
@@ -288,6 +289,7 @@
 					in:fly={{ y: 10, duration: motionMs(DURATION.enter) }}
 					class="flex flex-col {mine ? 'items-end' : 'items-start'} {index === 0 ? '' : startsGroup ? 'mt-4' : 'mt-1'}"
 					data-test-class="chat-message"
+					data-mine={mine}
 				>
 					{#if startsGroup}
 						<p class="text-muted-foreground text-caption">
@@ -297,7 +299,7 @@
 
 					{#if message.body}
 						<p
-							class="text-product mt-1 max-w-[85%] rounded-md px-4 py-2
+							class="fl-message-bubble text-product mt-1 max-w-[85%] rounded-md px-4 py-2
 								{mine ? 'bg-[var(--fl-primary-tint)] text-primary' : 'bg-card border'}"
 						>
 							{message.body}
@@ -319,7 +321,7 @@
 	{/if}
 
 	{#if composing}
-		<form onsubmit={createPoll} class="bg-card mt-6 space-y-4 rounded-xl border p-4" data-test-id="poll-form">
+		<form onsubmit={createPoll} class="fl-panel bg-card mt-6 space-y-4 rounded-xl border p-4" data-test-id="poll-form">
 			<div>
 				<Label for="poll-question">{t('chat.question')}</Label>
 				<IconField icon={MessageCircleQuestionMark}>
@@ -377,6 +379,7 @@
 		onsubmit={send}
 		class="mt-4 flex items-center gap-2 pb-[env(safe-area-inset-bottom)]"
 		data-test-id="chat-form"
+		data-composer
 	>
 		<div class="min-w-0 flex-1">
 			<Input

@@ -123,7 +123,7 @@
 		data-test-id="{testPrefix}-filters-open"
 		class="fl-press fl-search-bar-filters bg-muted text-foreground text-label flex min-h-[max(3rem,48px)] flex-[1_0_auto] items-center justify-center gap-2 rounded-full px-4 font-medium"
 	>
-		<SlidersHorizontal size={18} aria-hidden="true" />
+		<SlidersHorizontal size={20} aria-hidden="true" />
 		{t('common.filters')}
 		{#if active > 0}
 			<span

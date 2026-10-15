@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { CookingPot as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { tick } from 'svelte';
 	import { goto, pushState } from '$app/navigation';
 	import { page } from '$app/state';
@@ -58,18 +60,18 @@
 		{t('recipes.create.back')}
 	</Button>
 
-	<h1
-		bind:this={heading}
-		tabindex="-1"
+	<PageHeading icon={PageIcon}
+		bind:ref={heading}
+		tabindex={-1}
 		class="text-h1 mt-4 font-semibold outline-none"
 		data-test-id="recipe-source-title"
 	>
 		{t(`recipes.create.sources.${active.id}.title`)}
-	</h1>
+	</PageHeading>
 
 	<div class="mt-4" data-test-id="recipe-source-panel">
 		{#if locked(active)}
-			<div class="bg-card space-y-3 rounded-xl border p-4" data-test-id="recipe-source-needs-key">
+			<div class="fl-panel bg-card space-y-3 rounded-xl border p-4" data-test-id="recipe-source-needs-key">
 				<p class="text-label flex items-center gap-2 font-semibold">
 					<KeyRound size={18} aria-hidden="true" />
 					{t('recipes.create.needsKey')}
@@ -94,7 +96,7 @@
 		{t('recipes.create.backToRecipes')}
 	</a>
 
-	<h1 class="text-h1 mt-2 font-semibold">{t('recipes.create.title')}</h1>
+	<PageHeading icon={PageIcon} class="text-h1 mt-2 font-semibold">{t('recipes.create.title')}</PageHeading>
 	<p class="text-muted-foreground text-label mt-1">{t('recipes.create.intro')}</p>
 
 	<ul class="mt-4 grid gap-3 md:grid-cols-2" data-test-id="recipe-sources">

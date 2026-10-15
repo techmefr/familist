@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { supabase } from '$db/supabase';
@@ -58,9 +59,9 @@
 <div class="fl-auth-glow" aria-hidden="true"></div>
 
 <div
-	class="bg-primary text-primary-foreground shadow-fl-2 mx-auto flex size-16 items-center justify-center rounded-[1.375rem]"
+	class="fl-auth-logo bg-card shadow-fl-1 mx-auto flex size-20 items-center justify-center rounded-[1.375rem]"
 >
-	<Logo class="h-8" />
+	<Logo class="h-14" />
 </div>
 
 {#if status === 'checking'}
@@ -99,7 +100,7 @@
 		{t('auth.backToSignIn')}
 	</Button>
 {:else}
-	<h1 class="text-display mt-6 text-center leading-tight font-semibold tracking-tight">{t('auth.resetTitle')}</h1>
+	<PageHeading class="text-display mt-6 text-center leading-tight font-semibold tracking-tight">{t('auth.resetTitle')}</PageHeading>
 	<p class="text-muted-foreground mt-2 text-center text-balance">{t('auth.resetBody')}</p>
 
 	<form

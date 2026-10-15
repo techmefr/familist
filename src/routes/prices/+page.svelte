@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Tags as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { goto } from '$app/navigation';
 	import { data } from '$stores/data.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
@@ -37,13 +39,13 @@
 	<title>{t('prices.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 pt-2 font-semibold">{t('prices.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 pt-2 font-semibold">{t('prices.title')}</PageHeading>
 <p class="text-muted-foreground text-label mt-1">{t('prices.intro')}</p>
 
 {#if products.length === 0}
 	<EmptyState illustration="cart" text={t('prices.empty')} testId="prices-empty" />
 {:else}
-	<div class="mt-6 flex flex-col gap-4" data-test-id="prices-list">
+	<div class="fl-price-grid mt-6" data-test-id="prices-list">
 		{#each products as product (product.slug)}
 			{@const shops = data.priceComparison(product.slug)}
 			<Card.Root data-test-class="price-product">

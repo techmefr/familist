@@ -68,7 +68,7 @@
 	data-test-id="{testPrefix}-sheet"
 >
 	<div
-		class="bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
+		class="fl-panel bg-card relative rounded-t-2xl border p-4 md:rounded-2xl"
 		class:fl-rise={settings.animates}
 	>
 		<h2 id={titleId} class="text-h2 pe-12 font-semibold">{title}</h2>

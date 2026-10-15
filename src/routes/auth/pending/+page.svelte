@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { session } from '$stores/session.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { Button } from '$components/ui/button';
@@ -16,11 +17,11 @@
 	<Card.Content class="space-y-4 text-center">
 		{#if rejected}
 			<Ban size={40} class="text-destructive mx-auto" aria-hidden="true" />
-			<h1 class="text-h1 font-semibold">{t('auth.rejectedTitle')}</h1>
+			<PageHeading class="text-h1 font-semibold">{t('auth.rejectedTitle')}</PageHeading>
 			<p class="text-muted-foreground">{t('auth.rejectedBody')}</p>
 		{:else}
 			<Clock size={40} class="text-primary mx-auto" aria-hidden="true" />
-			<h1 class="text-h1 font-semibold">{t('auth.pendingTitle')}</h1>
+			<PageHeading class="text-h1 font-semibold">{t('auth.pendingTitle')}</PageHeading>
 			<p class="text-muted-foreground">{t('auth.pendingBody')}</p>
 		{/if}
 

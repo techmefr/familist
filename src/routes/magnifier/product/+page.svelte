@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { ScanLine as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { data } from '$stores/data.svelte';
 	import { feedback } from '$stores/feedback.svelte';
 	import { i18n, t } from '$i18n/index.svelte';
@@ -90,7 +92,7 @@
 
 <MagnifierModes active="product" />
 
-<h1 class="text-h1 mt-4 font-semibold">{t('product.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 mt-4 font-semibold">{t('product.title')}</PageHeading>
 <p class="text-muted-foreground text-label mt-1">{t('product.intro')}</p>
 
 <div class="mt-4 space-y-3">

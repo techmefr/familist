@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Settings2 as PageIcon } from '@lucide/svelte';
+	import PageHeading from '$components/app/PageHeading.svelte';
 	import { t } from '$i18n/index.svelte';
 	import { imageBanks } from '$stores/image-banks.svelte';
 	import { placeCredentials } from '$stores/place-credentials.svelte';
@@ -74,7 +76,7 @@
 	<title>{t('imageBanks.title')} — {t('app.name')}</title>
 </svelte:head>
 
-<h1 class="text-h1 font-semibold">{t('imageBanks.title')}</h1>
+<PageHeading icon={PageIcon} class="text-h1 font-semibold">{t('imageBanks.title')}</PageHeading>
 <p class="text-muted-foreground mt-1">{t('imageBanks.subtitle')}</p>
 
 <Card.Root class="mt-6">

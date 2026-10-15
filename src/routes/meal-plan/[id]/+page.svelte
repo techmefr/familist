@@ -1,4 +1,6 @@
 <script lang="ts">
+ import PageHeading from '$components/app/PageHeading.svelte';
+ import { CalendarDays as PageIcon } from '@lucide/svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
@@ -81,7 +83,9 @@
 		{t('mealPlan.back')}
 	</a>
 
-	<div class="mt-3">
+	<PageHeading icon={PageIcon}>{plan.name}</PageHeading>
+
+	<div class="fl-panel fl-plan-name mt-4">
 		<Label for="meal-plan-name">{t('mealPlan.name')}</Label>
 		<Input
 			id="meal-plan-name"
@@ -105,11 +109,11 @@
 	{#if entries.length === 0}
 		<EmptyState illustration="lists" text={t('mealPlan.noneYet')} testId="meal-plan-recipes-empty" />
 	{:else}
-		<ul class="mt-4 space-y-3" data-test-id="meal-plan-recipes">
+		<ul class="fl-meal-entries mt-6" data-test-id="meal-plan-recipes">
 			{#each entries as entry (entry.id)}
 				{@const recipe = recipeOf(entry.recipeId)}
 				{#if recipe}
-					<li class="bg-card rounded-xl border p-3">
+					<li class="fl-meal-entry bg-card rounded-xl border p-4">
 						<div class="flex items-center gap-3">
 							<span aria-hidden="true" class="text-h2">{recipe.emoji}</span>
 							<span class="text-label min-w-0 flex-1 truncate font-medium">{recipe.name}</span>
@@ -124,7 +128,7 @@
 							</button>
 						</div>
 
-						<div class="mt-2 grid grid-cols-2 gap-2">
+						<div class="fl-meal-fields mt-4 grid grid-cols-2 gap-3">
 							<div>
 								<Label for="meal-plan-people-{entry.id}">{t('mealPlan.people')}</Label>
 								<IconField icon={Users}>
@@ -161,7 +165,7 @@
 			{/each}
 		</ul>
 
-		<div class="bg-card mt-4 space-y-3 rounded-xl border p-4">
+		<div class="fl-panel bg-card mt-4 space-y-3 rounded-xl border p-4">
 			<h2 class="text-h2 font-semibold">{t('mealPlan.generate')}</h2>
 
 			<div>
