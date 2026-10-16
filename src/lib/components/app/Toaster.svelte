@@ -2,7 +2,7 @@
 	import { t } from '$i18n/index.svelte';
 	import { toasts } from '$stores/toast.svelte';
 	import type { Toast } from '$domain/toast';
-	import { CircleAlert, CircleCheck, LoaderCircle, X } from '@lucide/svelte';
+	import { CircleAlert, CircleCheck, Info, LoaderCircle, X } from '@lucide/svelte';
 
 	function act(toast: Toast) {
 		toasts.dismiss(toast.id);
@@ -20,18 +20,17 @@
 			role={toast.tone === 'error' ? 'alert' : 'status'}
 			data-test-class="toast"
 			data-tone={toast.tone}
-			class="bg-card text-card-foreground pointer-events-auto rounded-xl border p-3 shadow-lg {toast.tone ===
-			'error'
-				? 'border-destructive'
-				: ''}"
+			class="fl-toast bg-card text-card-foreground pointer-events-auto rounded-xl border p-3 shadow-lg"
 		>
 			<div class="flex items-center gap-3">
 				{#if toast.tone === 'error'}
 					<CircleAlert size={22} class="text-destructive shrink-0" aria-hidden="true" />
 				{:else if toast.tone === 'progress'}
-					<LoaderCircle size={22} class="text-primary shrink-0 motion-safe:animate-spin" aria-hidden="true" />
+					<LoaderCircle size={22} class="fl-toast-icon shrink-0 motion-safe:animate-spin" aria-hidden="true" />
+				{:else if toast.tone === 'info'}
+					<Info size={22} class="fl-toast-icon shrink-0" aria-hidden="true" />
 				{:else}
-					<CircleCheck size={22} class="text-primary shrink-0" aria-hidden="true" />
+					<CircleCheck size={22} class="fl-toast-icon shrink-0" aria-hidden="true" />
 				{/if}
 				<p class="text-label min-w-0 flex-1 [overflow-wrap:anywhere]">{toast.message}</p>
 				<button
@@ -56,7 +55,7 @@
 					class="bg-muted mt-2 h-2 overflow-hidden rounded-full"
 				>
 					<div
-						class="bg-primary h-full rounded-full transition-[width]"
+						class="fl-toast-bar h-full rounded-full transition-[width]"
 						style:width="{Math.round((toast.progress ?? 0) * 100)}%"
 					></div>
 				</div>
@@ -74,3 +73,11 @@
 		</div>
 	{/each}
 </div>
+
+<style>
+ .fl-toast { --toast-color: var(--fl-info); border-inline-start: 4px solid var(--toast-color); }
+ .fl-toast[data-tone='success'] { --toast-color: var(--fl-success); }
+ .fl-toast[data-tone='error'] { --toast-color: var(--destructive); }
+ .fl-toast :global(.fl-toast-icon) { color: var(--toast-color); }
+ .fl-toast-bar { background: var(--toast-color); }
+</style>

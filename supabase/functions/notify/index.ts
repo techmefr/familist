@@ -12,6 +12,7 @@
  * Configuration: the secret FCM_SERVICE_ACCOUNT (the service account JSON). Without it the rows are released
  * and stay buffered, which is how a fresh instance or an F-Droid-only one behaves.
  */
+import { sendWebPush } from '../_shared/web-push.ts';
 import { callRpc, serviceKey } from '../_shared/rpc.ts';
 import { FcmClient, buildMessage, type ServiceAccount } from '../_shared/fcm.ts';
 import { decide, groupRows, parseSettings, type OutboxRow } from '../_shared/notify-rules.ts';
@@ -103,6 +104,14 @@ Deno.serve(async req => {
 				for (const device of row.tokens) {
 					if (device.platform === 'ntfy') {
 						const outcome = await sendNtfy(device.token, push.title, push.body);
+						if (outcome === 'ok') delivered = true;
+						else if (outcome === 'dead') dead.push(device.token);
+						else failed = true;
+						continue;
+					}
+
+					if (device.platform === 'web') {
+						const outcome = await sendWebPush(device.token, locale, push.path);
 						if (outcome === 'ok') delivered = true;
 						else if (outcome === 'dead') dead.push(device.token);
 						else failed = true;

@@ -64,7 +64,6 @@ function mockThumbnails(page: import('@playwright/test').Page) {
 	});
 }
 
-const successToast = '[data-test-class="toast"][data-tone="success"]';
 
 async function clearAiKeys(page: import('@playwright/test').Page) {
 	await page.goto('/profile/ai');
@@ -158,7 +157,7 @@ test.describe("choisir l'image d'une recette", () => {
 			await picker.getByTestId('recipe-image-source-generate').click();
 
 			await expect(picker).toBeHidden({ timeout: 15_000 });
-			await expect(page.locator(successToast)).toBeVisible();
+			await expect(page.locator('[data-test-class="toast"][data-tone="success"]')).toHaveCount(0);
 			await expect(card.page().locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
 			expect(openRouter.imagePrompts[0]).toContain(DESCRIBED);
 		} finally {
@@ -202,7 +201,7 @@ test.describe("choisir l'image d'une recette", () => {
 		await results.nth(1).click();
 
 		await expect(picker).toBeHidden({ timeout: 15_000 });
-		await expect(page.locator(successToast)).toBeVisible();
+		await expect(page.locator('[data-test-class="toast"][data-tone="success"]')).toHaveCount(0);
 		await expect(card.page().locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
 
 		await card.page().locator('[data-test-class="recipe-photo-button"]').click();
@@ -233,7 +232,7 @@ test.describe("choisir l'image d'une recette", () => {
 		});
 
 		await expect(picker).toBeHidden({ timeout: 15_000 });
-		await expect(page.locator(successToast)).toBeVisible();
+		await expect(page.locator('[data-test-class="toast"][data-tone="success"]')).toHaveCount(0);
 		await expect(card.page().locator('[data-test-class="recipe-photo"]')).toBeVisible({ timeout: 15_000 });
 	});
 

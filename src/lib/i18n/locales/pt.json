@@ -2100,10 +2100,10 @@
 	"notifications": {
 		"title": "Notificações",
 		"permissionTitle": "Notificações neste dispositivo",
-		"unsupported": "As notificações push funcionam nas apps Android e iOS. Os lembretes de data continuam onde são suportados.",
+		"unsupported": "Este ambiente não suporta notificações push. As notificações na aplicação continuam disponíveis.",
 		"enable": "Ativar notificações",
 		"granted": "As notificações estão ativas neste dispositivo.",
-		"denied": "As notificações estão bloqueadas. Abra as Definições do telemóvel, depois Aplicações, Familiste, Notificações, e permita-as.",
+		"denied": "As notificações estão bloqueadas. Permita-as nas definições do navegador ou da aplicação.",
 		"test": "Enviar uma notificação de teste",
 		"testTitle": "Familiste",
 		"testBody": "Funciona. Será avisado assim.",
@@ -2141,7 +2141,16 @@
 		"backgroundSwitch": "Manter a ligação em segundo plano",
 		"backgroundHint": "Só Android, sem Google: a app mantém a sua própria ligação aberta e avisa-o de mensagens e alterações nas listas. O Android mostra um aviso permanente e gasta um pouco mais de bateria. Se o telemóvel a parar, exclua o Familiste da poupança de bateria.",
 		"backgroundTitle": "O Familiste está a ouvir",
-		"backgroundBody": "Será avisado de novas mensagens e alterações nas listas."
+		"backgroundBody": "Será avisado de novas mensagens e alterações nas listas.",
+		"center": {
+			"empty": "Nada de novo",
+			"emptyBody": "Os pedidos de cartões e conversas não lidas aparecerão aqui.",
+			"error": "Não foi possível carregar os pedidos de cartões.",
+			"sent": "Pedido de partilha enviado para {name}.",
+			"settings": "Definições de notificações",
+			"markRead": "Marcar {name} como lido",
+			"pushFailed": "Não foi possível ativar as notificações. Tente novamente ou contacte o administrador."
+		}
 	},
 	"product": {
 		"title": "Ler um produto",
@@ -2174,5 +2183,7 @@
 		"sugars": "Açúcares",
 		"salt": "Sal"
 	},
-	"keyboard": { "title": "Atalhos de teclado" }
+	"keyboard": {
+		"title": "Atalhos de teclado"
+	}
 }

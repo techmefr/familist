@@ -1,4 +1,4 @@
-export type ToastTone = 'success' | 'error' | 'progress';
+export type ToastTone = 'success' | 'error' | 'info' | 'progress';
 
 /** A button on the toast itself, for news that leads somewhere: "the recipe is ready — open it". */
 export interface ToastAction {
@@ -18,6 +18,7 @@ export interface Toast {
 /** Long enough to be read at the largest text size; an error stays longer, it usually says what to do next. */
 export const TOAST_DURATION_MS: Record<Exclude<ToastTone, 'progress'>, number> = {
 	success: 5000,
+	info: 5000,
 	error: 9000
 };
 

@@ -28,7 +28,7 @@ test.describe('accessibilite', () => {
 	// transparent is ignored, and the same screen reports sometimes two violations, sometimes none.
 	test.use({ reducedMotion: 'reduce' });
 
-	test('connexion', async ({ page }) => {
+	test('connexion', { tag: '@critical' }, async ({ page }) => {
 		await presetAppearance(page);
 		await page.goto('/auth');
 		await expect(page.getByTestId('auth-submit')).toBeVisible({ timeout: 15_000 });
@@ -58,7 +58,7 @@ test.describe('accessibilite', () => {
 	});
 
 	for (const { screen, path, ready } of ROUTES) {
-		test(screen, async ({ signedInPage: page }) => {
+		test(screen, { tag: screen === 'accueil' ? '@critical' : [] }, async ({ signedInPage: page }) => {
 			await page.goto(path);
 			await expect(page.getByTestId(ready)).toBeVisible({ timeout: 15_000 });
 

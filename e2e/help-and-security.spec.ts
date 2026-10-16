@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 
-test('le bouton d’aide ouvre un tour guidé propre à l’écran ouvert', async ({
+test('le bouton d’aide ouvre un tour guidé propre à l’écran ouvert', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	await page.goto('/shops');

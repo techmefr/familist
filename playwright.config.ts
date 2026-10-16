@@ -7,6 +7,7 @@ import { defineConfig, devices } from '@playwright/test';
  * sign-up to replay, no email to wait for.
  */
 const PORT = 4173;
+const critical = process.env.E2E_SUITE === 'critical';
 const SUPABASE_URL = process.env.E2E_SUPABASE_URL ?? 'http://127.0.0.1:54321';
 const SUPABASE_ANON_KEY =
 	process.env.E2E_SUPABASE_ANON_KEY ??
@@ -16,7 +17,10 @@ export default defineConfig({
 	testDir: './e2e',
 	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
-	retries: process.env.CI ? 1 : 0,
+	retries: process.env.CI && !critical ? 1 : 0,
+	grep: critical ? /@critical/ : undefined,
+	globalTimeout: process.env.CI ? (critical ? 6 : 25) * 60_000 : undefined,
+	maxFailures: process.env.CI ? (critical ? 3 : 10) : undefined,
 	// A single worker in CI: the tests share the same fixed account and the same database, and a second
 	// worker would sometimes see the other's writes in the middle of an assertion.
 	workers: process.env.CI ? 1 : undefined,

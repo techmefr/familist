@@ -19,7 +19,7 @@ async function signedIn(email: string): Promise<{ client: SupabaseClient; userId
  * mock: a profile is readable, changeable and sharable by the account that wrote it and nobody else, not
  * even another member of the same household.
  */
-test('a person profile is invisible to every other account', async () => {
+test('a person profile is invisible to every other account', { tag: '@critical' }, async () => {
 	const owner = await signedIn(FIXTURE_EMAIL);
 	const other = await signedIn(SECOND_EMAIL);
 
@@ -72,7 +72,7 @@ test('a person profile is invisible to every other account', async () => {
 	await owner.client.from('household_persons').delete().eq('id', personId);
 });
 
-test('turning sharing on exposes the warning labels and nothing else', async () => {
+test('turning sharing on exposes the warning labels and nothing else', { tag: '@critical' }, async () => {
 	const owner = await signedIn(FIXTURE_EMAIL);
 	const household = await owner.client.rpc('ensure_household');
 	const householdId = household.data as string;

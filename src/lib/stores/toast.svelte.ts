@@ -17,6 +17,10 @@ class Toasts {
 		return this.#show({ tone: 'success', message, action });
 	}
 
+	info(message: string, action?: ToastAction): number {
+		return this.#show({ tone: 'info', message, action });
+	}
+
 	error(message: string, action?: ToastAction): number {
 		return this.#show({ tone: 'error', message, action });
 	}
@@ -37,7 +41,7 @@ class Toasts {
 	#show(toast: Omit<Toast, 'id'>): number {
 		const id = this.#nextId++;
 		this.items = pushToast(this.items, { id, ...toast });
-		if (toast.tone !== 'progress') feedback.play(toast.tone);
+		if (toast.tone === 'success' || toast.tone === 'error') feedback.play(toast.tone);
 		if (!isSticky(toast) && toast.tone !== 'progress') {
 			setTimeout(() => this.dismiss(id), TOAST_DURATION_MS[toast.tone]);
 		}

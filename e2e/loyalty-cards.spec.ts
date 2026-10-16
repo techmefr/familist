@@ -243,15 +243,18 @@ test.describe('compte de la carte', () => {
 async function showCircleWith(page: Page, name: string) {
 	await page.goto('/cards');
 	await expect(page.getByTestId('nav-create')).toBeVisible({ timeout: 15_000 });
-	if (await cardEntry(page, name).isVisible()) return;
+	// Visibility alone also matches a shared card: management belongs to its owner circle.
+	const ownerActions = cardEntry(page, name).locator('..').locator('[data-test-class="card-actions"]');
+	await expect(page.getByTestId('cards-wallet').or(page.getByTestId('cards-empty'))).toBeVisible();
+	if (await ownerActions.isVisible()) return;
 
 	await page.goto('/household');
 	await page.locator('[data-test-class="circle-option"]:not([aria-current])').first().click();
 	await page.goto('/cards');
-	await expect(cardEntry(page, name)).toBeVisible({ timeout: 15_000 });
+	await expect(ownerActions).toBeVisible({ timeout: 15_000 });
 }
 
-test('partager une carte avec un autre cercle, puis retirer le partage', async ({
+test('partager une carte avec un autre cercle, puis retirer le partage', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	test.setTimeout(120_000);

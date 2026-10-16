@@ -2098,10 +2098,10 @@
 	"notifications": {
 		"title": "Notifiche",
 		"permissionTitle": "Notifiche su questo dispositivo",
-		"unsupported": "Le notifiche push funzionano nelle app Android e iOS. I promemoria di data continuano dove supportati.",
+		"unsupported": "Questo ambiente non supporta le notifiche push. Le notifiche nell’app restano disponibili.",
 		"enable": "Attiva le notifiche",
 		"granted": "Le notifiche sono attive su questo dispositivo.",
-		"denied": "Le notifiche sono bloccate. Apri Impostazioni del telefono, poi App, Familiste, Notifiche, e consentile.",
+		"denied": "Le notifiche sono bloccate. Consentile nelle impostazioni del browser o dell’app.",
 		"test": "Invia una notifica di prova",
 		"testTitle": "Familiste",
 		"testBody": "Funziona. Sarai avvisato così.",
@@ -2139,7 +2139,16 @@
 		"backgroundSwitch": "Restare connessi in background",
 		"backgroundHint": "Solo Android, senza Google: l’app mantiene la propria connessione aperta e ti avvisa di messaggi e modifiche alle liste. Android mostra un avviso permanente e consuma un po’ più di batteria. Se il telefono la ferma, escludi Familiste dal risparmio energetico.",
 		"backgroundTitle": "Familiste è in ascolto",
-		"backgroundBody": "Verrai avvisato di nuovi messaggi e modifiche alle liste."
+		"backgroundBody": "Verrai avvisato di nuovi messaggi e modifiche alle liste.",
+		"center": {
+			"empty": "Niente di nuovo",
+			"emptyBody": "Qui appariranno le richieste di carte e le conversazioni non lette.",
+			"error": "Impossibile caricare le richieste di carte.",
+			"sent": "Richiesta di condivisione inviata per {name}.",
+			"settings": "Impostazioni notifiche",
+			"markRead": "Segna {name} come letto",
+			"pushFailed": "Impossibile attivare le notifiche. Riprova o contatta l’amministratore."
+		}
 	},
 	"product": {
 		"title": "Scansiona un prodotto",
@@ -2172,5 +2181,7 @@
 		"sugars": "Zuccheri",
 		"salt": "Sale"
 	},
-	"keyboard": { "title": "Scorciatoie da tastiera" }
+	"keyboard": {
+		"title": "Scorciatoie da tastiera"
+	}
 }

@@ -2100,10 +2100,10 @@
 	"notifications": {
 		"title": "Benachrichtigungen",
 		"permissionTitle": "Benachrichtigungen auf diesem Gerät",
-		"unsupported": "Push-Benachrichtigungen funktionieren in den Android- und iOS-Apps. Datumserinnerungen funktionieren weiter, wo sie unterstützt werden.",
+		"unsupported": "Push-Nachrichten werden hier nicht unterstützt. Die Mitteilungen in der App bleiben verfügbar.",
 		"enable": "Benachrichtigungen aktivieren",
 		"granted": "Benachrichtigungen sind auf diesem Gerät aktiv.",
-		"denied": "Benachrichtigungen sind blockiert. Öffnen Sie die Telefoneinstellungen, dann Apps, Familiste, Benachrichtigungen, und erlauben Sie sie.",
+		"denied": "Benachrichtigungen sind blockiert. Erlaube sie in den Browser- oder App-Einstellungen.",
 		"test": "Testbenachrichtigung senden",
 		"testTitle": "Familiste",
 		"testBody": "Es funktioniert. So werden Sie benachrichtigt.",
@@ -2141,7 +2141,16 @@
 		"backgroundSwitch": "Im Hintergrund verbunden bleiben",
 		"backgroundHint": "Nur Android, ohne Google: Die App hält ihre eigene Verbindung offen und meldet neue Nachrichten und Listenänderungen. Android zeigt einen dauerhaften Hinweis, und es verbraucht etwas mehr Akku. Stoppt Ihr Telefon sie, nehmen Sie Familiste vom Energiesparen aus.",
 		"backgroundTitle": "Familiste hört zu",
-		"backgroundBody": "Neue Nachrichten und Listenänderungen werden gemeldet."
+		"backgroundBody": "Neue Nachrichten und Listenänderungen werden gemeldet.",
+		"center": {
+			"empty": "Nichts Neues",
+			"emptyBody": "Neue Kartenanfragen und ungelesene Chats erscheinen hier.",
+			"error": "Kartenanfragen konnten nicht geladen werden.",
+			"sent": "Freigabeanfrage für {name} gesendet.",
+			"settings": "Benachrichtigungseinstellungen",
+			"markRead": "{name} als gelesen markieren",
+			"pushFailed": "Benachrichtigungen konnten nicht aktiviert werden. Erneut versuchen oder den Administrator kontaktieren."
+		}
 	},
 	"product": {
 		"title": "Produkt scannen",
@@ -2174,5 +2183,7 @@
 		"sugars": "Zucker",
 		"salt": "Salz"
 	},
-	"keyboard": { "title": "Tastenkombinationen" }
+	"keyboard": {
+		"title": "Tastenkombinationen"
+	}
 }

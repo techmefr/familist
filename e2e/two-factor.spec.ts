@@ -57,7 +57,7 @@ test.afterEach(async ({ page }) => {
 	await removeSecondStep(page);
 });
 
-test('activer la 2FA, se reconnecter avec un code, puis la retirer', async ({
+test('activer la 2FA, se reconnecter avec un code, puis la retirer', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	await page.goto('/profile/security');

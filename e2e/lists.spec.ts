@@ -7,7 +7,7 @@ import { test, expect } from './fixtures';
  */
 const listName = () => `Courses e2e ${Date.now()}`;
 
-test('créer une liste, y ajouter un article, le cocher, puis tout supprimer', async ({
+test('créer une liste, y ajouter un article, le cocher, puis tout supprimer', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	const name = listName();
@@ -66,7 +66,7 @@ test('une liste sans article affiche un état vide illustré', async ({ signedIn
  * to an RLS policy went unnoticed. Emptying the cache and reloading is what separates the two: what comes
  * back is what the server really holds.
  */
-test('une liste créée survit à un cache local vidé', async ({ signedInPage: page }) => {
+test('une liste créée survit à un cache local vidé', { tag: '@critical' }, async ({ signedInPage: page }) => {
 	const name = listName();
 
 	await page.goto('/');
@@ -104,7 +104,7 @@ test('une liste créée survit à un cache local vidé', async ({ signedInPage: 
 	});
 });
 
-test('une liste créée hors ligne reste affichée, y compris après rechargement', async ({
+test('une liste créée hors ligne reste affichée, y compris après rechargement', { tag: '@critical' }, async ({
 	signedInPage: page,
 	context
 }) => {

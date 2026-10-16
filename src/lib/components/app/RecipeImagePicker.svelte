@@ -3,7 +3,6 @@
 	import { ai } from '$stores/ai.svelte';
 	import { data } from '$stores/data.svelte';
 	import { imageBanks } from '$stores/image-banks.svelte';
-	import { toasts } from '$stores/toast.svelte';
 	import {
 		recipeImagePrompt,
 		photoFailureKey,
@@ -75,7 +74,6 @@
 
 	function done() {
 		hide();
-		toasts.success(t('ai.photoSaved'));
 	}
 
 	function openSearch() {
@@ -207,7 +205,6 @@
 		await ai.removeRecipePhoto(removed);
 		busy = null;
 		hide();
-		toasts.success(t('ai.photoRemoved'));
 	}
 </script>
 

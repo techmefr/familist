@@ -92,3 +92,36 @@ worker.addEventListener('fetch', event => {
 	// router does the rest once the shell is shown.
 	event.respondWith(networkFirst(request, ENTRY));
 });
+
+worker.addEventListener('push', event => {
+ let payload: { title?: string; body?: string; path?: string } = {};
+ try { payload = event.data?.json() ?? {}; } catch { /* Show a generic notification even for malformed data. */ }
+ event.waitUntil((async () => {
+  await worker.registration.showNotification('Familiste', {
+   body: typeof payload.body === 'string' ? payload.body : '',
+   icon: `${base}/icon-192.png`,
+   tag: typeof payload.path === 'string' ? payload.path : 'familiste',
+   data: { path: typeof payload.path === 'string' ? payload.path : '/' }
+  });
+  for (const client of await worker.clients.matchAll({ type: 'window', includeUncontrolled: true })) client.postMessage({ type: 'familist:notification' });
+ })());
+});
+
+worker.addEventListener('notificationclick', event => {
+ event.notification.close();
+ event.waitUntil((async () => {
+  const path = event.notification.data?.path;
+  let target = new URL(`${base}/`, worker.location.origin);
+  if (typeof path === 'string' && path.startsWith('/')) {
+   const candidate = new URL(path, worker.location.origin);
+   if (candidate.origin === worker.location.origin) target = candidate;
+  }
+  for (const client of await worker.clients.matchAll({ type: 'window' })) {
+   if (new URL(client.url).origin !== worker.location.origin) continue;
+   await client.navigate(target.href);
+   await client.focus();
+   return;
+  }
+  await worker.clients.openWindow(target.href);
+ })());
+});

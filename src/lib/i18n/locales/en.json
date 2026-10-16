@@ -2111,10 +2111,10 @@
 	"notifications": {
 		"title": "Notifications",
 		"permissionTitle": "Notifications on this device",
-		"unsupported": "Push notifications work in the Android and iOS apps. Date reminders keep working where they are supported.",
+		"unsupported": "Push notifications are not supported here. The in-app notification center remains available.",
 		"enable": "Turn on notifications",
 		"granted": "Notifications are on for this device.",
-		"denied": "Notifications are blocked. Open your phone’s Settings, then Apps, Familiste, Notifications, and allow them.",
+		"denied": "Notifications are blocked. Allow them in your browser or app settings.",
 		"test": "Send a test notification",
 		"testTitle": "Familiste",
 		"testBody": "It works. You will be notified like this.",
@@ -2152,7 +2152,16 @@
 		"backgroundSwitch": "Stay connected in the background",
 		"backgroundHint": "Android only, no Google: the app keeps its own connection open and notifies you of new messages and list changes. Android shows one permanent notice and this uses a little more battery. If your phone stops it, exclude Familiste from battery saving.",
 		"backgroundTitle": "Familiste is listening",
-		"backgroundBody": "New messages and list changes will notify you."
+		"backgroundBody": "New messages and list changes will notify you.",
+		"center": {
+			"empty": "Nothing new",
+			"emptyBody": "New card requests and unread conversations will appear here.",
+			"error": "Could not load card requests.",
+			"sent": "Share request sent for {name}.",
+			"settings": "Notification settings",
+			"markRead": "Mark {name} as read",
+			"pushFailed": "Notifications could not be enabled. Try again or contact your administrator."
+		}
 	},
 	"product": {
 		"title": "Scan a product",
@@ -2185,5 +2194,7 @@
 		"sugars": "Sugars",
 		"salt": "Salt"
 	},
-	"keyboard": { "title": "Keyboard shortcuts" }
+	"keyboard": {
+		"title": "Keyboard shortcuts"
+	}
 }

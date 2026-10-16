@@ -35,7 +35,7 @@ test('un code inconnu est refusé en toutes lettres, pas en jargon de base', asy
  * The test cleans up after itself: the second account leaves the household at the end, otherwise a second
  * run on the same database would start from a state where both accounts are already together.
  */
-test('rejoindre un foyer avec un code, puis le quitter', async ({ signedInPage: page }) => {
+test('rejoindre un foyer avec un code, puis le quitter', { tag: '@critical' }, async ({ signedInPage: page }) => {
 	await page.goto('/household');
 	await page.getByTestId('invite-create').click();
 

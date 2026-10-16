@@ -2104,10 +2104,10 @@
 	"notifications": {
 		"title": "Notificaciones",
 		"permissionTitle": "Notificaciones en este dispositivo",
-		"unsupported": "Las notificaciones push funcionan en las apps de Android e iOS. Los recordatorios de fecha siguen donde se admiten.",
+		"unsupported": "Este entorno no admite notificaciones push. Las notificaciones dentro de la aplicación siguen disponibles.",
 		"enable": "Activar notificaciones",
 		"granted": "Las notificaciones están activadas en este dispositivo.",
-		"denied": "Las notificaciones están bloqueadas. Abre Ajustes del teléfono, luego Aplicaciones, Familiste, Notificaciones, y permítelas.",
+		"denied": "Las notificaciones están bloqueadas. Permítelas en los ajustes del navegador o de la aplicación.",
 		"test": "Enviar una notificación de prueba",
 		"testTitle": "Familiste",
 		"testBody": "Funciona. Así recibirás los avisos.",
@@ -2145,7 +2145,16 @@
 		"backgroundSwitch": "Mantener la conexión en segundo plano",
 		"backgroundHint": "Solo Android, sin Google: la app mantiene su propia conexión abierta y te avisa de mensajes y cambios de listas. Android muestra un aviso permanente y gasta algo más de batería. Si tu teléfono la detiene, excluye Familiste del ahorro de batería.",
 		"backgroundTitle": "Familiste está escuchando",
-		"backgroundBody": "Se te avisará de mensajes nuevos y cambios de listas."
+		"backgroundBody": "Se te avisará de mensajes nuevos y cambios de listas.",
+		"center": {
+			"empty": "Nada nuevo",
+			"emptyBody": "Aquí aparecerán las solicitudes de tarjetas y conversaciones sin leer.",
+			"error": "No se pudieron cargar las solicitudes de tarjetas.",
+			"sent": "Solicitud enviada para {name}.",
+			"settings": "Ajustes de notificaciones",
+			"markRead": "Marcar {name} como leído",
+			"pushFailed": "No se pudieron activar las notificaciones. Inténtalo de nuevo o contacta con tu administrador."
+		}
 	},
 	"product": {
 		"title": "Escanear un producto",
@@ -2178,5 +2187,7 @@
 		"sugars": "Azúcares",
 		"salt": "Sal"
 	},
-	"keyboard": { "title": "Atajos de teclado" }
+	"keyboard": {
+		"title": "Atajos de teclado"
+	}
 }

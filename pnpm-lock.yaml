@@ -111,8 +111,8 @@ importers:
         specifier: ^4.4.4
         version: 4.4.4
       driver.js:
-        specifier: ^1.8.0
-        version: 1.8.0
+        specifier: ^1.10.1
+        version: 1.10.1
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -1037,8 +1037,8 @@ packages:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
-  driver.js@1.8.0:
-    resolution: {integrity: sha512-+8/IO7h1v14IzWh2GP60N7T3PFZweXwdn5e5POuxRSBoCYUojsBxzqawPeXh3YZIibRy7EehYNEyxe7slwwtdg==}
+  driver.js@1.10.1:
+    resolution: {integrity: sha512-mpcJ15eIRWnGMykeIWjr0CdQF00/JzImFOEXy/VponYgMbP/y46t24MPBDO3PV/rH6CjdSe3T7WQ9cP3GvEPdQ==}
 
   eciesjs@0.5.0:
     resolution: {integrity: sha512-s0J9SEVYAEPg7J63GFMApLYzPH9VNIQIyC6s15JpnqVc0TqcKWdbgFlnAweEBRyMmko2dcs2sfC83Hj4J43tuA==}
@@ -2746,7 +2746,7 @@ snapshots:
 
   dotenv@17.4.2: {}
 
-  driver.js@1.8.0: {}
+  driver.js@1.10.1: {}
 
   eciesjs@0.5.0:
     dependencies:
