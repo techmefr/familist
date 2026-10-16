@@ -22,7 +22,7 @@
 <div class="fl-access-page">
 	<a href="/welcome" class="fl-access-brand" aria-label={t('app.name')}>
 		<Logo class="fl-access-logo" />
-		<span>{t('app.name')}</span>
+		<span class="fl-wordmark">{t('app.name')}</span>
 	</a>
 
 	<div class="fl-access-intro">

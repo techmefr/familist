@@ -75,7 +75,7 @@
 
 <section class="fl-onboarding">
 <div class="fl-onboarding-top">
-	<a href="/auth" class="fl-access-brand"><Logo class="fl-access-logo" /><span>{t('app.name')}</span></a>
+	<a href="/auth" class="fl-access-brand"><Logo class="fl-access-logo" /><span class="fl-wordmark">{t('app.name')}</span></a>
 </div>
 
 <p class="text-muted-foreground text-caption" data-test-id="welcome-step">

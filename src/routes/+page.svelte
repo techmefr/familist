@@ -318,7 +318,7 @@
 </svelte:head>
 
 <div class="fl-home-heading">
-<div><p class="fl-home-eyebrow">{t('app.name')}</p>
+<div><p class="fl-home-eyebrow fl-wordmark">{t('app.name')}</p>
 <PageHeading class="text-h1 font-semibold">{t('lists.title')}</PageHeading></div>
 {#if !creating && data.ready && data.lists.length > 0}
 <Button type="button" onclick={openCreate} class="phone:hidden fl-home-new fl-press" data-test-id="header-new-list">

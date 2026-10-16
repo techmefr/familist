@@ -156,7 +156,7 @@
 				class="text-h2 hidden min-w-0 items-center gap-2.5 px-6 py-6 font-semibold full:flex"
 			>
 				<Logo />
-				<span class="min-w-0 shrink truncate">{t('app.name')}</span>
+				<span class="fl-wordmark min-w-0 shrink truncate">{t('app.name')}</span>
 			</p>
 
 			<ul class="flex overflow-x-auto md:gap-1 md:px-3">
@@ -272,7 +272,7 @@
 			>
 				<p class="text-h2 flex min-w-0 items-center gap-2 font-semibold full:hidden">
 					<Logo />
-					<span class="min-w-0 shrink truncate">{t('app.name')}</span>
+					<span class="fl-wordmark min-w-0 shrink truncate">{t('app.name')}</span>
 				</p>
 
 				<div class="ms-auto flex max-w-full shrink-0 flex-wrap items-center justify-end gap-0.5">
