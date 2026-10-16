@@ -15,9 +15,9 @@ test('les lectures se synchronisent entre appareils sans traverser les comptes',
  const other = await login(SECOND_EMAIL);
  const household = await owner.client.rpc('ensure_household');
  expect(household.error).toBeNull();
- const list = await owner.client.from('lists').insert({ name: 'Read markers CI', household_id: household.data }).select('id').single();
+ const id = crypto.randomUUID();
+ const list = await owner.client.from('lists').insert({ id, name: 'Read markers CI', household_id: household.data });
  expect(list.error).toBeNull();
- const id = list.data!.id;
  try {
   const mark = (client: typeof owner.client, read_at: number, expected_user = owner.id) => client.rpc('mark_conversation_read', { target: id, read_at, expected_user });
   expect((await mark(owner.client, 2000)).error).toBeNull();
