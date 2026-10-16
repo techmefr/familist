@@ -45,6 +45,7 @@ export function registerServiceWorker(): (() => void) | undefined {
    const timer = setTimeout(() => { channel.port1.close(); armed = false; reject(new Error('Update handshake timed out')); }, 8000);
    channel.port1.onmessage = async event => {
     if (event.data?.type === 'blocked') {
+     armed = false;
      pwaUpdate.blocker = 'tabs'; clearTimeout(timer); channel.port1.close(); resolve();
     } else if (event.data?.type === 'ready') {
      pwaUpdate.blocker = await safe();

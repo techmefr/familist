@@ -60,6 +60,17 @@ describe('PWA update lifecycle', () => {
   });
   await apply(); expect(state.pwa.blocker).toBe('sync'); expect(state.reload).not.toHaveBeenCalled();
  });
+ it('unlocks the page if another tab opens during activation', async () => {
+  const apply = await start();
+  registration.waiting.postMessage.mockImplementation((_data, ports) => {
+   ports[0].onmessage = () => { ports[0].postMessage({ type: 'blocked' }); ports[0].close(); };
+   ports[0].postMessage({ type: 'ready' });
+  });
+  await apply();
+  serviceWorker.dispatchEvent(new Event('controllerchange'));
+  const click = new Event('click', { cancelable: true }); document.dispatchEvent(click);
+  expect(click.defaultPrevented).toBe(false); expect(state.reload).not.toHaveBeenCalled();
+ });
  it('reloads only after the safe activation handshake succeeds', async () => {
   const apply = await start();
   registration.waiting.postMessage.mockImplementation((_data, ports) => {
