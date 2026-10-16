@@ -252,7 +252,7 @@ export async function scan(
 	if (support === 'native') {
 		try { return await scanNative(); }
 		catch {
-			if (video && navigator.mediaDevices?.getUserMedia) return scanBrowser(video, signal, options);
+			if (video && typeof navigator.mediaDevices?.getUserMedia === 'function') return scanBrowser(video, signal, options);
 			throw new Error('Camera unavailable');
 		}
 	}

@@ -31,7 +31,6 @@ const config: CapacitorConfig = {
 	appName: 'Familiste',
 	webDir: 'build',
 	android: {
-		adjustMarginsForEdgeToEdge: 'auto',
 		flavor: isFdroid ? 'fdroid' : 'play',
 		includePlugins: androidPlugins()
 	},
