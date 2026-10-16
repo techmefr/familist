@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import { User, Keyboard, LogOut } from '@lucide/svelte';
 	import { goto } from '$app/navigation';
+	import NotificationCenter from '$components/app/NotificationCenter.svelte';
 	import ActionSheet from '$components/app/ActionSheet.svelte';
 	import type { Action } from '$domain/action-sheet';
 	import KeyboardShortcuts from '$components/app/KeyboardShortcuts.svelte';
@@ -301,6 +302,7 @@
 <Keyboard size={20} aria-hidden="true" />
 </button>
 <HelpButton />
+<NotificationCenter />
 					<button
 						type="button"
 						onclick={() => profileMenu?.show()}

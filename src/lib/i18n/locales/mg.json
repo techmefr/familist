@@ -2132,7 +2132,14 @@
 		"backgroundSwitch": "Hijanona mifandray any aoriana",
 		"backgroundHint": "Android ihany, tsy misy Google: mitazona ny fifandraisana ny app ary manoro anao ny hafatra sy ny fiovan’ny lisitra. Mampiseho fampandrenesana maharitra ny Android ary mihinana batterie kokoa kely. Raha ajanony ny findainao, esory ny Familiste amin’ny fitsitsiana batterie.",
 		"backgroundTitle": "Familiste mihaino",
-		"backgroundBody": "Ho fantarinao ny hafatra vaovao sy ny fiovan’ny lisitra."
+		"backgroundBody": "Ho fantarinao ny hafatra vaovao sy ny fiovan’ny lisitra.",
+		"center": {
+			"empty": "Tsy misy vaovao",
+			"emptyBody": "Hiseho eto ny fangatahana karatra sy ny resaka mbola tsy novakiana.",
+			"error": "Tsy voaray ny fangatahana karatra.",
+			"sent": "Nalefa ny fangatahana fizarana {name}.",
+			"settings": "Fikirana fampandrenesana"
+		}
 	},
 	"product": {
 		"title": "Hijery vokatra",
@@ -2165,5 +2172,7 @@
 		"sugars": "Siramamy",
 		"salt": "Sira"
 	},
-	"keyboard": { "title": "Hitsin-dalana amin’ny kitendry" }
+	"keyboard": {
+		"title": "Hitsin-dalana amin’ny kitendry"
+	}
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { LoyaltyCard } from '$db/schema';
 	import { data } from '$stores/data.svelte';
+	import { toasts } from '$stores/toast.svelte';
 	import { feedback } from '$stores/feedback.svelte';
 	import { settings } from '$stores/settings.svelte';
 	import { requestCardShare, withdrawCardShare } from '$stores/card-account';
@@ -33,6 +34,7 @@
 			? await requestCardShare(card.id, householdId)
 			: await withdrawCardShare(card.id, householdId);
 		error = result.ok ? '' : result.error;
+		if (result.ok && request) toasts.success(t('notifications.center.sent', { name: card.name }));
 		busy = null;
 	}
 </script>

@@ -2141,7 +2141,14 @@
 		"backgroundSwitch": "Im Hintergrund verbunden bleiben",
 		"backgroundHint": "Nur Android, ohne Google: Die App hält ihre eigene Verbindung offen und meldet neue Nachrichten und Listenänderungen. Android zeigt einen dauerhaften Hinweis, und es verbraucht etwas mehr Akku. Stoppt Ihr Telefon sie, nehmen Sie Familiste vom Energiesparen aus.",
 		"backgroundTitle": "Familiste hört zu",
-		"backgroundBody": "Neue Nachrichten und Listenänderungen werden gemeldet."
+		"backgroundBody": "Neue Nachrichten und Listenänderungen werden gemeldet.",
+		"center": {
+			"empty": "Nichts Neues",
+			"emptyBody": "Neue Kartenanfragen und ungelesene Chats erscheinen hier.",
+			"error": "Kartenanfragen konnten nicht geladen werden.",
+			"sent": "Freigabeanfrage für {name} gesendet.",
+			"settings": "Benachrichtigungseinstellungen"
+		}
 	},
 	"product": {
 		"title": "Produkt scannen",
@@ -2174,5 +2181,7 @@
 		"sugars": "Zucker",
 		"salt": "Salz"
 	},
-	"keyboard": { "title": "Tastenkombinationen" }
+	"keyboard": {
+		"title": "Tastenkombinationen"
+	}
 }

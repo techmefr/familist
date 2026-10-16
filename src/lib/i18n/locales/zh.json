@@ -2120,7 +2120,14 @@
 		"backgroundSwitch": "在后台保持连接",
 		"backgroundHint": "仅限 Android，无需 Google：应用保持自己的连接，并在有新消息和清单变化时通知你。Android 会显示一条常驻通知，耗电略多。若手机将其停止，请将 Familiste 从省电限制中排除。",
 		"backgroundTitle": "Familiste 正在监听",
-		"backgroundBody": "新消息和清单变化会通知你。"
+		"backgroundBody": "新消息和清单变化会通知你。",
+		"center": {
+			"empty": "暂无新通知",
+			"emptyBody": "新的卡片请求和未读对话会显示在这里。",
+			"error": "无法加载卡片请求。",
+			"sent": "已发送 {name} 的共享请求。",
+			"settings": "通知设置"
+		}
 	},
 	"product": {
 		"title": "扫描商品",
@@ -2153,5 +2160,7 @@
 		"sugars": "糖",
 		"salt": "盐"
 	},
-	"keyboard": { "title": "键盘快捷键" }
+	"keyboard": {
+		"title": "键盘快捷键"
+	}
 }

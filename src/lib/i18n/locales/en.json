@@ -2152,7 +2152,14 @@
 		"backgroundSwitch": "Stay connected in the background",
 		"backgroundHint": "Android only, no Google: the app keeps its own connection open and notifies you of new messages and list changes. Android shows one permanent notice and this uses a little more battery. If your phone stops it, exclude Familiste from battery saving.",
 		"backgroundTitle": "Familiste is listening",
-		"backgroundBody": "New messages and list changes will notify you."
+		"backgroundBody": "New messages and list changes will notify you.",
+		"center": {
+			"empty": "Nothing new",
+			"emptyBody": "New card requests and unread conversations will appear here.",
+			"error": "Could not load card requests.",
+			"sent": "Share request sent for {name}.",
+			"settings": "Notification settings"
+		}
 	},
 	"product": {
 		"title": "Scan a product",
@@ -2185,5 +2192,7 @@
 		"sugars": "Sugars",
 		"salt": "Salt"
 	},
-	"keyboard": { "title": "Keyboard shortcuts" }
+	"keyboard": {
+		"title": "Keyboard shortcuts"
+	}
 }

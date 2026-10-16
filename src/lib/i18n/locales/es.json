@@ -2145,7 +2145,14 @@
 		"backgroundSwitch": "Mantener la conexión en segundo plano",
 		"backgroundHint": "Solo Android, sin Google: la app mantiene su propia conexión abierta y te avisa de mensajes y cambios de listas. Android muestra un aviso permanente y gasta algo más de batería. Si tu teléfono la detiene, excluye Familiste del ahorro de batería.",
 		"backgroundTitle": "Familiste está escuchando",
-		"backgroundBody": "Se te avisará de mensajes nuevos y cambios de listas."
+		"backgroundBody": "Se te avisará de mensajes nuevos y cambios de listas.",
+		"center": {
+			"empty": "Nada nuevo",
+			"emptyBody": "Aquí aparecerán las solicitudes de tarjetas y conversaciones sin leer.",
+			"error": "No se pudieron cargar las solicitudes de tarjetas.",
+			"sent": "Solicitud enviada para {name}.",
+			"settings": "Ajustes de notificaciones"
+		}
 	},
 	"product": {
 		"title": "Escanear un producto",
@@ -2178,5 +2185,7 @@
 		"sugars": "Azúcares",
 		"salt": "Sal"
 	},
-	"keyboard": { "title": "Atajos de teclado" }
+	"keyboard": {
+		"title": "Atajos de teclado"
+	}
 }
