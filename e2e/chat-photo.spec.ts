@@ -52,7 +52,7 @@ async function createList(page: import('@playwright/test').Page, name: string) {
 	await expect(page.getByTestId('chat-input')).toBeVisible();
 }
 
-test('envoyer une photo dans la discussion d’une liste, la voir en fil puis en plein écran', async ({
+test('envoyer une photo dans la discussion d’une liste, la voir en fil puis en plein écran', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	const mocks = mockChatPhotoStorage(page);
@@ -61,8 +61,7 @@ test('envoyer une photo dans la discussion d’une liste, la voir en fil puis en
 	const name = `Repas photo e2e ${Date.now()}`;
 	await createList(page, name);
 
-	await page.getByTestId('chat-compose-open').click();
-	await page.getByTestId('action-sheet-photo').click();
+	await page.getByTestId('chat-photo-open').click();
 
 	await page.getByTestId('chat-photo-input').setInputFiles({
 		name: 'plat.png',
@@ -96,8 +95,7 @@ test('une photo trop lourde est refusée sans être envoyée', async ({ signedIn
 	const name = `Repas photo trop lourde e2e ${Date.now()}`;
 	await createList(page, name);
 
-	await page.getByTestId('chat-compose-open').click();
-	await page.getByTestId('action-sheet-photo').click();
+	await page.getByTestId('chat-photo-open').click();
 
 	// A buffer bigger than CHAT_PHOTO_MAX_BYTES (25MB): no decoding, no upload attempt, no network call to mock.
 	const tooBig = Buffer.alloc(26 * 1024 * 1024, 1);

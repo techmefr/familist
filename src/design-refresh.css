@@ -728,3 +728,52 @@ html:is([data-scale='lg'], [data-scale='xl'], [data-scale='xxl'], [data-scale='c
 .fl-profile-session [data-slot='button'] {
 	min-block-size: 2.75rem;
 }
+
+/* Stable message controls: messages scroll independently and focusing never resizes the field. */
+.fl-chat-thread {
+ block-size: clamp(12rem, 44svh, 32rem);
+ min-inline-size: 0;
+ overflow-y: auto;
+ overflow-x: hidden;
+ overscroll-behavior-y: contain;
+ overflow-anchor: none;
+ scrollbar-gutter: stable;
+ padding: 0.25rem;
+ scroll-padding-block: 0.5rem;
+}
+.fl-chat-thread:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.fl-message-composer {
+ display: flex;
+ align-items: center;
+ gap: 0.25rem;
+ min-inline-size: 0;
+ inline-size: 100%;
+ overflow-anchor: none;
+}
+.fl-app-main .fl-message-composer input.fl-composer-input {
+ flex: 1 1 0%;
+ inline-size: 0;
+ min-inline-size: 0;
+ min-block-size: 44px;
+ border: 0;
+ border-radius: 0;
+ background: transparent;
+ box-shadow: none;
+}
+.fl-message-composer :is(.fl-composer-attachment, .fl-composer-more, .fl-composer-send) {
+ display: grid;
+ place-items: center;
+ flex: 0 0 44px;
+ inline-size: 44px;
+ min-block-size: 44px;
+ padding: 0;
+ border-radius: 999px;
+}
+.fl-composer-attachment, .fl-composer-more { color: var(--muted-foreground); }
+.fl-message-composer:focus-within { border-color: var(--ring); }
+
+.fl-chat-status { min-block-size: max(3rem, 2lh); }
+/* Small text fields make touch browsers zoom on focus, which also displaces the page. */
+@media (pointer: coarse) {
+ :is([data-slot='input']:not([type='file']), textarea, select) { font-size: max(16px, 1em); }
+}

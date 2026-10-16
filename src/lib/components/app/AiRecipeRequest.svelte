@@ -20,6 +20,7 @@
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
+	import ChatThread from '$components/app/ChatThread.svelte';
 	import RecipeSuggestionCard from '$components/app/RecipeSuggestionCard.svelte';
 	import { Check, Mic, MicOff, Send, Sparkles, UserPlus, X } from '@lucide/svelte';
 
@@ -43,7 +44,6 @@
 	const language = $derived(LOCALES.find((l) => l.code === i18n.locale)?.native ?? 'Français');
 
 	let message = $state(untrack(() => initialMessage));
-	let thread = $state<HTMLOListElement | null>(null);
 	let field = $state<HTMLTextAreaElement | null>(null);
 
 	onDestroy(() => {
@@ -178,15 +178,14 @@
 		const last = conversation.turns.at(-1);
 		if (last?.recipe) feedback.play('success');
 
-		await tick();
-		thread?.lastElementChild?.scrollIntoView({ block: 'nearest' });
-		field?.focus({ preventScroll: true });
 	}
 
 	async function submit(event: SubmitEvent) {
 		event.preventDefault();
-		const text = message;
+		const text = message.trim();
+		if (!text || conversation.busy) return;
 		message = '';
+		field?.focus({ preventScroll: true });
 		await send(text);
 	}
 
@@ -313,8 +312,8 @@
 		</div>
 	</fieldset>
 
+	<ChatThread revision={`${conversation.turns.length}:${conversation.busy}`} label={t('ai.chat.threadLabel')}>
 	<ol
-		bind:this={thread}
 		role="log"
 		aria-label={t('ai.chat.threadLabel')}
 		class="space-y-4"
@@ -381,10 +380,11 @@
 			{/if}
 		{/each}
 	</ol>
+	</ChatThread>
 
 	<p
 		role="status"
-		class="text-label text-muted-foreground flex min-h-6 items-center gap-2 font-medium"
+		class="fl-chat-status text-label text-muted-foreground flex items-center gap-2 font-medium"
 		data-test-id="ai-chat-status"
 	>
 		{#if conversation.busy}
@@ -395,12 +395,6 @@
 			<span data-test-id="ai-request-listening">{t('ai.request.listening')}</span>
 		{/if}
 	</p>
-
-	{#if dictationError}
-		<p class="text-destructive text-label" role="alert" data-test-id="ai-request-dictate-error">
-			{t('ai.request.dictateError')}
-		</p>
-	{/if}
 
 	<form onsubmit={submit} class="fl-panel bg-card space-y-3 rounded-xl border p-4" data-test-id="ai-chat-form">
 		<Label for="ai-chat-message">{t('ai.chat.messageLabel')}</Label>
@@ -443,6 +437,12 @@
 			</Button>
 		</div>
 	</form>
+	{#if dictationError}
+		<p class="text-destructive text-label" role="alert" data-test-id="ai-request-dictate-error">
+			{t('ai.request.dictateError')}
+		</p>
+	{/if}
+
 </div>
 
 <style>

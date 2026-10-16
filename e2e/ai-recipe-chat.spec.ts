@@ -197,4 +197,28 @@ test.describe('discussion avec l IA pour creer une recette', () => {
 		await expect(page).toHaveURL(/\/recipes\/new$/);
 		await expect(page.getByTestId('ai-request-input')).toBeVisible();
 	});
+ test('une réponse IA ne vole pas le focus et ne déplace pas la saisie', { tag: '@critical' }, async ({ signedInPage: page }) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  let release!: () => void; let received = false;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  await page.route('https://api.anthropic.com/v1/messages', async route => {
+   received = true; await gate;
+   await route.fulfill({ json: { content: [{ text: JSON.stringify({ question: 'Quel légume préfères-tu ?' }) }] } });
+  });
+  try {
+   await openChat(page); await say(page, 'Une idée pour ce soir');
+   await expect.poll(() => received).toBe(true);
+   await page.getByTestId('ai-request-input').fill('Mon brouillon suivant');
+   await page.getByTestId('ai-chat-add-guest').click();
+   const guest = page.getByTestId('ai-chat-guest-name'); await expect(guest).toBeFocused();
+   const form = page.getByTestId('ai-chat-form');
+   const y = await form.evaluate(e => e.getBoundingClientRect().y + scrollY);
+   release();
+   await expect(page.locator('[data-test-class="ai-chat-question"]')).toContainText('Quel légume préfères-tu ?');
+   await expect(page.getByTestId('ai-request-asking')).toHaveCount(0);
+   await expect(guest).toBeFocused(); await expect(page.getByTestId('ai-request-input')).toHaveValue('Mon brouillon suivant');
+   await expect.poll(() => form.evaluate(e => e.getBoundingClientRect().y + scrollY)).toBe(y);
+  } finally { release(); }
+ });
+
 });

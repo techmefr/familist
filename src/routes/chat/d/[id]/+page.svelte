@@ -4,12 +4,12 @@
 	import { page } from '$app/state';
 	import { data } from '$stores/data.svelte';
 	import { t, i18n } from '$i18n/index.svelte';
-	import { Button } from '$components/ui/button';
-	import { Input } from '$components/ui/input';
-	import { ArrowLeft, ImagePlus, Send } from '@lucide/svelte';
+	import { ArrowLeft } from '@lucide/svelte';
 	import Avatar from '$components/app/Avatar.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
 	import AiRecipeEntry from '$components/app/AiRecipeEntry.svelte';
+	import MessageComposer from '$components/app/MessageComposer.svelte';
+	import ChatThread from '$components/app/ChatThread.svelte';
 	import ChatPhoto from '$components/app/ChatPhoto.svelte';
 	import ChatPhotoPicker from '$components/app/ChatPhotoPicker.svelte';
 
@@ -74,10 +74,14 @@
 
 	<p class="text-caption text-muted-foreground mt-2">{t('chat.directsHint')}</p>
 
+	<AiRecipeEntry />
+
+	{#key conversationId}
+	<ChatThread revision={`${messages.length}:${messages.at(-1)?.id ?? ''}`} label={t('chat.title')}>
 	{#if messages.length === 0}
 		<EmptyState illustration="chat" text={t('chat.empty')} testId="direct-empty" />
 	{:else}
-		<ol class="mt-6 space-y-4">
+		<ol class="space-y-4">
 			{#each messages as message (message.id)}
 				{@const mine = message.userId === data.me}
 
@@ -107,37 +111,11 @@
 		</ol>
 	{/if}
 
-	<!-- Only appears if an AI key is set in the settings; otherwise, nothing at all. -->
-	<div class="mt-6">
-		<AiRecipeEntry />
-	</div>
+	</ChatThread>
+	{/key}
 
-	<form onsubmit={send} class="fl-message-composer mt-4 flex items-center gap-2" data-test-id="direct-form">
-		<Input
-			bind:value={body}
-			aria-label={t('chat.messageLabel')}
-			placeholder={t('chat.placeholder')}
-			data-test-id="direct-input"
-			required
-		/>
-		<Button
-			type="submit"
-			class="min-w-[44px] shrink-0"
-			data-test-id="direct-send"
-			aria-label={t('chat.send')}
-		>
-			<Send size={18} aria-hidden="true" />
-		</Button>
-		<button
-			type="button"
-			onclick={() => photoPicker?.show()}
-			aria-label={t('chat.composePhoto')}
-			data-test-id="direct-photo-open"
-			class="fl-press bg-muted text-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
-		>
-			<ImagePlus size={18} aria-hidden="true" />
-		</button>
-	</form>
+
+	<MessageComposer bind:value={body} prefix="direct" onsubmit={send} onPhoto={() => photoPicker?.show()} />
 
 	<ChatPhotoPicker bind:this={photoPicker} scopeId={conversationId} onUploaded={sendPhoto} />
 {/if}
