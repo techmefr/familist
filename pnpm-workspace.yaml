@@ -1,3 +1,5 @@
 # tesseract.js only runs opencollective-postinstall (a funding banner): nothing the app needs.
 allowBuilds:
   tesseract.js: false
+minimumReleaseAgeExclude:
+  - driver.js@1.10.1

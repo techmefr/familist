@@ -49,6 +49,7 @@ export function startTour(pathname: string, onShown: () => void): boolean {
 		animate: settings.animates,
 		showProgress: steps.length > 1,
 		allowClose: true,
+		closeBtnLabel: t('common.close'),
 		nextBtnText: t('tour.next'),
 		prevBtnText: t('tour.back'),
 		doneBtnText: t('tour.done'),
