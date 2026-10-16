@@ -492,6 +492,7 @@
 	<CreateMenu bind:this={menu} />
 	<SearchSheet bind:this={search} />
 	<ChangelogModal />
-	<Toaster />
 	<TimerAlarm />
 {/if}
+
+<Toaster />

@@ -27,7 +27,7 @@ export default defineConfig({
 	reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'html',
 	use: {
 		baseURL: `http://127.0.0.1:${PORT}`,
-		trace: 'on-first-retry',
+		trace: critical ? 'retain-on-failure' : 'on-first-retry',
 		screenshot: 'only-on-failure',
 		// Repository convention: `data-test-id`, not Playwright's default `data-testid`.
 		testIdAttribute: 'data-test-id'

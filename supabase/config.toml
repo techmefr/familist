@@ -441,3 +441,21 @@ enabled = true
 # declarative_schema_path = "./database"
 # JSON string passed through to pg-delta SQL formatting.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":80,\"commaStyle\":\"trailing\"}"
+
+[functions.notify]
+verify_jwt = true
+
+[functions.test-instance-mail]
+verify_jwt = true
+
+[functions.publish-report-issues]
+verify_jwt = true
+
+[functions.import-recipe]
+verify_jwt = true
+
+[functions.notify-admins]
+verify_jwt = true
+
+[functions.web-push-config]
+verify_jwt = true

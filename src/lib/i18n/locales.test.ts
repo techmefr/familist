@@ -62,3 +62,12 @@ describe('locales completeness', () => {
 		}
 	});
 });
+
+describe('PWA update translations', () => {
+ it('covers the notification and every safety blocker in every locale', () => {
+  for (const locale of [fr, ...Object.values(ALL_LOCALES)]) {
+   expect(locale.updates.available).toBeTruthy(); expect(locale.updates.apply).toBeTruthy(); expect(locale.updates.body).toBeTruthy();
+   for (const key of ['offline', 'editing', 'sync', 'tabs', 'error'] as const) expect(locale.updates.blocked[key]).toBeTruthy();
+  }
+ });
+});

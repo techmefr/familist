@@ -2231,5 +2231,17 @@
 	},
 	"keyboard": {
 		"title": "Raccourcis clavier"
+	},
+	"updates": {
+		"available": "Une mise à jour est prête",
+		"apply": "Mettre à jour",
+		"body": "La nouvelle version est téléchargée. La mise à jour recharge l’application.",
+		"blocked": {
+			"offline": "Reconnectez-vous pour mettre à jour.",
+			"editing": "Terminez ou quittez le formulaire avant de mettre à jour.",
+			"sync": "Attendez la synchronisation de vos modifications.",
+			"tabs": "Fermez les autres onglets de Familiste, puis réessayez.",
+			"error": "La mise à jour n’a pas pu démarrer. Réessayez."
+		}
 	}
 }
