@@ -19,11 +19,11 @@ export interface ScanOptions {
 }
 
 /**
- * Three ways to read a barcode, from best to worst:
+ * Available decoding paths:
  *
- * - in the installed application, the native camera through ML Kit, when the build ships it (not the
- *   F-Droid one, which falls through to the two others);
- * - in a browser exposing BarcodeDetector (Chrome Android, desktop Chrome);
+ * - on iOS, the native camera through ML Kit when the plugin is available;
+ * - on Android (APK and PWA alike), the camera stream decoded locally with ZXing, without Play Services;
+ * - on other systems, a browser exposing BarcodeDetector;
  * - everywhere else, a JavaScript decoder loaded on demand.
  *
  * The third exists because the second is missing where you would least expect it: Chrome on Windows does
@@ -43,14 +43,16 @@ const resultOf = (value: string, format: string): ScanResult => ({
 });
 
 export function scanSupport(): ScanSupport {
-	if (Capacitor.isNativePlatform() && Capacitor.isPluginAvailable('BarcodeScanner')) return 'native';
-	if (typeof navigator !== 'undefined' && Boolean(navigator.mediaDevices)) return 'browser';
+	if (Capacitor.isNativePlatform() && Capacitor.getPlatform() !== 'android' && Capacitor.isPluginAvailable('BarcodeScanner')) return 'native';
+	if (typeof navigator !== 'undefined' && typeof navigator.mediaDevices?.getUserMedia === 'function') return 'browser';
 
 	return 'none';
 }
 
 /** True when the browser can decode by itself, without us loading the fallback decoder. */
-const aBarcodeDetector = () => typeof window !== 'undefined' && 'BarcodeDetector' in window;
+const isAndroid = () => Capacitor.getPlatform() === 'android' || (typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent));
+// Android's system detector may itself depend on Google Play Services. ZXing runs inside the app.
+const aBarcodeDetector = () => !isAndroid() && typeof window !== 'undefined' && 'BarcodeDetector' in window;
 
 interface DetectedBarcode {
 	rawValue: string;
@@ -129,25 +131,26 @@ async function scanBrowser(
 	signal: AbortSignal,
 	{ timeoutMs = SCAN_TIMEOUT_MS, onTrack }: ScanOptions = {}
 ): Promise<ScanResult | null> {
-	const detector = aBarcodeDetector() ? await newDetector() : null;
-	const reader = detector ? null : await fallbackReader();
+	let detector = aBarcodeDetector() ? await newDetector().catch(() => null) : null;
+	let reader = detector ? null : await fallbackReader();
 
 	const stream = await navigator.mediaDevices.getUserMedia({
 		video: { facingMode: 'environment' }
 	});
 
-	video.srcObject = stream;
-	await video.play();
-	onTrack?.(stream.getVideoTracks()[0] ?? null);
-
-	const end = Date.now() + timeoutMs;
-
 	try {
+		video.srcObject = stream;
+		await video.play();
+		onTrack?.(stream.getVideoTracks()[0] ?? null);
+		const end = Date.now() + timeoutMs;
 		while (!signal.aborted && Date.now() < end) {
 			if (detector) {
-				const [found] = await detector.detect(video);
-				if (found) return resultOf(found.rawValue, found.format);
-			} else if (reader) {
+				try {
+					const [found] = await detector.detect(video);
+					if (found) return resultOf(found.rawValue, found.format);
+				} catch { detector = null; reader = await fallbackReader(); }
+			}
+			if (!detector && reader) {
 				// One frame at a time, rather than `decodeOnce`: that one would take the camera itself and only hand
 				// back at the first code found, so never on a deliberate stop.
 				const result = await decodeOneFrame(reader, video);
@@ -209,8 +212,10 @@ export async function scanImage(file: File): Promise<ScanResult | null> {
 		// silence: it ignores formats common on loyalty cards, which the fallback decoder does read. Returning
 		// `null` here left the latter unused on all of Chrome, that is, on almost all of Android.
 		if (aBarcodeDetector()) {
-			const [found] = await (await newDetector()).detect(image).catch(() => []);
-			if (found) return resultOf(found.rawValue, found.format);
+			try {
+				const [found] = await (await newDetector()).detect(image);
+				if (found) return resultOf(found.rawValue, found.format);
+			} catch { /* The local decoder also covers an unavailable system detector. */ }
 		}
 
 		// A full-resolution phone photo often fails on a barcode, where the same image scaled down passes.
@@ -244,7 +249,13 @@ export async function scan(
 ): Promise<ScanResult | null> {
 	const support = scanSupport();
 
-	if (support === 'native') return scanNative();
+	if (support === 'native') {
+		try { return await scanNative(); }
+		catch {
+			if (video && typeof navigator.mediaDevices?.getUserMedia === 'function') return scanBrowser(video, signal, options);
+			throw new Error('Camera unavailable');
+		}
+	}
 	if (support === 'browser' && video) return scanBrowser(video, signal, options);
 
 	return null;

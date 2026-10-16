@@ -2176,5 +2176,17 @@
 	},
 	"keyboard": {
 		"title": "Hitsin-dalana amin’ny kitendry"
+	},
+	"updates": {
+		"available": "Vonona ny fanavaozana",
+		"apply": "Havaozy izao",
+		"body": "Efa voasintona ny kinova vaovao. Hamerina hampiditra ny rindranasa ny fanavaozana.",
+		"blocked": {
+			"offline": "Mifandraisa amin’ny tambajotra mba hanavao.",
+			"editing": "Fenoy na avelao ny taratasy alohan’ny fanavaozana.",
+			"sync": "Andraso ny fampifanarahana ny fanovanao.",
+			"tabs": "Akatony ny kiheba Familiste hafa, dia andramo indray.",
+			"error": "Tsy afaka nanomboka ny fanavaozana. Andramo indray."
+		}
 	}
 }

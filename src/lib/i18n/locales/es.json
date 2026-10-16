@@ -2189,5 +2189,17 @@
 	},
 	"keyboard": {
 		"title": "Atajos de teclado"
+	},
+	"updates": {
+		"available": "Hay una actualización disponible",
+		"apply": "Actualizar",
+		"body": "La nueva versión está descargada. La actualización recarga la aplicación.",
+		"blocked": {
+			"offline": "Vuelve a conectarte para actualizar.",
+			"editing": "Termina o sal del formulario antes de actualizar.",
+			"sync": "Espera a que se sincronicen tus cambios.",
+			"tabs": "Cierra las otras pestañas de Familiste y vuelve a intentarlo.",
+			"error": "No se pudo iniciar la actualización. Inténtalo de nuevo."
+		}
 	}
 }

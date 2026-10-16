@@ -1531,6 +1531,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      read_markers: { Args: never; Returns: { conversation_id: string; last_read_at: number }[] }
+      mark_conversation_read: { Args: { target: string; read_at: number; expected_user: string }; Returns: number }
       household_person_warnings: {
         Args: { p_household: string }
         Returns: { person_id: string; allergens: string[]; diets: string[] }[]

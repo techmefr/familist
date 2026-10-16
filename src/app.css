@@ -17,6 +17,7 @@
 @import '@fontsource/schibsted-grotesk/500.css';
 @import '@fontsource/schibsted-grotesk/600.css';
 @import '@fontsource/schibsted-grotesk/700.css';
+@import '@fontsource/fredoka/latin-600.css';
 
 /*
  * Token reference. Components read these and never a literal value.
@@ -2104,4 +2105,12 @@ html:has(dialog[data-test-id='create-menu'][open]) .fl-create-icon {
 
 .fl-ring-pulse {
 	animation: fl-ring-pulse 1.6s ease-in-out infinite;
+}
+
+/* The name alone carries the rounded brand typography. */
+.fl-wordmark {
+	font-family: "Fredoka", var(--fl-font-system);
+	font-weight: 600;
+	font-synthesis: none;
+	letter-spacing: -0.025em;
 }

@@ -37,6 +37,7 @@
 	import Logo from '$components/app/Logo.svelte';
 	import AuthBrand from '$components/app/AuthBrand.svelte';
 	import ChangelogModal from '$components/app/ChangelogModal.svelte';
+	import { unread } from '$stores/unread.svelte';
 	import Toaster from '$components/app/Toaster.svelte';
 	import SearchSheet from '$components/app/SearchSheet.svelte';
 	import SetupNeeded from '$components/app/SetupNeeded.svelte';
@@ -61,7 +62,8 @@
 	});
 
 	i18n.init();
-	registerServiceWorker();
+	onMount(registerServiceWorker);
+	$effect(() => { const id = session.user?.id; if (id && session.isApproved) return unread.connect(id); });
 
 	// The session is the first thing that calls the database. On an instance that has none, opening it
 	// would only produce failed requests behind the setup screen, and a session stuck on loading.
@@ -490,6 +492,7 @@
 	<CreateMenu bind:this={menu} />
 	<SearchSheet bind:this={search} />
 	<ChangelogModal />
-	<Toaster />
 	<TimerAlarm />
 {/if}
+
+<Toaster />

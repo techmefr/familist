@@ -2183,5 +2183,17 @@
 	},
 	"keyboard": {
 		"title": "Scorciatoie da tastiera"
+	},
+	"updates": {
+		"available": "Un aggiornamento è pronto",
+		"apply": "Aggiorna ora",
+		"body": "La nuova versione è scaricata. L’aggiornamento ricarica l’app.",
+		"blocked": {
+			"offline": "Riconnettiti per aggiornare.",
+			"editing": "Completa o lascia il modulo prima di aggiornare.",
+			"sync": "Attendi la sincronizzazione delle modifiche.",
+			"tabs": "Chiudi le altre schede di Familiste e riprova.",
+			"error": "Impossibile avviare l’aggiornamento. Riprova."
+		}
 	}
 }

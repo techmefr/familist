@@ -5,7 +5,7 @@
 </script>
 
 <aside class="fl-access-story" aria-hidden="true">
-	<div class="fl-access-story-brand"><Logo class="h-10" /><span>{t('app.name')}</span></div>
+	<div class="fl-access-story-brand"><Logo class="h-10" /><span class="fl-wordmark">{t('app.name')}</span></div>
 	<div class="fl-access-story-content">
 		<p class="fl-access-story-heading">{t('auth.brandHeadline')}<span>{t('auth.brandHeadlineAccent')}</span></p>
 		<p class="fl-access-story-caption">{t('auth.brandTagline')}</p>

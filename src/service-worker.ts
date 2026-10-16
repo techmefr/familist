@@ -29,8 +29,7 @@ const OCR_MODELS = `${OCR}lang/`;
 const PRECACHE = [ENTRY, ...build, ...files.filter(file => !file.startsWith(OCR))];
 
 worker.addEventListener('install', event => {
-// No `skipWaiting()`: an open tab keeps running on the code fragments of its own version, which stay in
-// its cache. The new worker takes over at the next cold start.
+// Activation waits for a safe client handshake or for every tab to close.
 	event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(PRECACHE)));
 });
 
@@ -38,7 +37,7 @@ worker.addEventListener('activate', event => {
 	event.waitUntil(
 		(async () => {
 			const keys = await caches.keys();
-			await Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)));
+			await Promise.all(keys.filter(key => key.startsWith('familist-') && key !== CACHE).map(key => caches.delete(key)));
 			await worker.clients.claim();
 		})()
 	);
@@ -123,5 +122,27 @@ worker.addEventListener('notificationclick', event => {
    return;
   }
   await worker.clients.openWindow(target.href);
+ })());
+});
+
+worker.addEventListener('message', event => {
+ if (event.data?.type !== 'familist:apply-update' || !event.ports[0]) return;
+ const port = event.ports[0];
+ event.waitUntil((async () => {
+  const alone = async () => {
+   const clients = await worker.clients.matchAll({ type: 'window', includeUncontrolled: true });
+   return clients.length === 1 && clients[0].id === (event.source && 'id' in event.source ? event.source.id : undefined);
+  };
+  if (!(await alone())) { port.postMessage({ type: 'blocked' }); port.close(); return; }
+  const confirmed = await new Promise<boolean>(resolve => {
+   const timer = setTimeout(() => resolve(false), 5000);
+   port.onmessage = reply => { clearTimeout(timer); resolve(reply.data?.type === 'confirm'); };
+   port.postMessage({ type: 'ready' });
+  });
+  if (confirmed && await alone()) {
+   port.postMessage({ type: 'activating' });
+   await worker.skipWaiting();
+  } else port.postMessage({ type: 'blocked' });
+  port.close();
  })());
 });

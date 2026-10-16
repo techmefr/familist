@@ -2196,5 +2196,17 @@
 	},
 	"keyboard": {
 		"title": "Keyboard shortcuts"
+	},
+	"updates": {
+		"available": "An update is ready",
+		"apply": "Update now",
+		"body": "The new version is downloaded. Updating reloads the app.",
+		"blocked": {
+			"offline": "Reconnect to update.",
+			"editing": "Finish or leave the form before updating.",
+			"sync": "Wait for your changes to sync.",
+			"tabs": "Close the other Familiste tabs, then try again.",
+			"error": "The update could not start. Try again."
+		}
 	}
 }

@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
 import type { CapacitorConfig } from '@capacitor/cli';
 
-// Both ship Google libraries (ML Kit, Firebase Messaging): F-Droid refuses them. Push there goes through
-// ntfy or the background listener instead.
+// Android scanning uses the WebView camera and ZXing in both flavours.
+// F-Droid also excludes Firebase; notifications there use ntfy or the background listener.
 const NON_FREE_PLUGINS = ['@capacitor-mlkit/barcode-scanning', '@capacitor/push-notifications'];
 
 // Open-source (MIT) plugins that do not start with `@capacitor` yet belong in the F-Droid build.
@@ -10,15 +10,16 @@ const EXTRA_FREE_PLUGINS = ['@capawesome-team/capacitor-android-foreground-servi
 
 const isFdroid = process.env.FAMILIST_FLAVOR === 'fdroid';
 
-function freePlugins(): string[] {
+function androidPlugins(): string[] {
 	const { dependencies } = JSON.parse(readFileSync('package.json', 'utf8')) as {
 		dependencies: Record<string, string>;
 	};
 
 	const free = Object.keys(dependencies).filter(
 		(name) =>
-			name.startsWith('@capacitor') &&
-			!NON_FREE_PLUGINS.includes(name) &&
+			(name.startsWith('@capacitor') || name.startsWith('@capgo/capacitor-')) &&
+			name !== '@capacitor-mlkit/barcode-scanning' &&
+			(!isFdroid || !NON_FREE_PLUGINS.includes(name)) &&
 			!['@capacitor/core', '@capacitor/android', '@capacitor/ios'].includes(name)
 	);
 
@@ -30,9 +31,8 @@ const config: CapacitorConfig = {
 	appName: 'Familiste',
 	webDir: 'build',
 	android: {
-		adjustMarginsForEdgeToEdge: 'auto',
 		flavor: isFdroid ? 'fdroid' : 'play',
-		...(isFdroid ? { includePlugins: freePlugins() } : {})
+		includePlugins: androidPlugins()
 	},
 	plugins: {
 		LocalNotifications: {

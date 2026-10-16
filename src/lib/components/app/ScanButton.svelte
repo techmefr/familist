@@ -59,8 +59,8 @@
 		applyTorch(torch);
 	}
 
-	function useTrack(track: MediaStreamTrack | null) {
-		track = track;
+	function useTrack(next: MediaStreamTrack | null) {
+		track = next;
 		hasTorch = ((track?.getCapabilities?.() ?? {}) as { torch?: boolean }).torch === true;
 		if (track && torch) applyTorch(true);
 	}
@@ -182,10 +182,9 @@
 				<ScanLine size={18} aria-hidden="true" />
 				{t('scan.start')}
 			</Button>
-
-			{@render photo?.()}
 		{/if}
 
+		{@render photo?.()}
 		{@render actions?.()}
 	{/if}
 

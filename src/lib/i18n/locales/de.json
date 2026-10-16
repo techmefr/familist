@@ -2185,5 +2185,17 @@
 	},
 	"keyboard": {
 		"title": "Tastenkombinationen"
+	},
+	"updates": {
+		"available": "Ein Update ist bereit",
+		"apply": "Jetzt aktualisieren",
+		"body": "Die neue Version ist heruntergeladen. Das Update lädt die App neu.",
+		"blocked": {
+			"offline": "Stelle die Verbindung wieder her.",
+			"editing": "Schließe das Formular ab oder verlasse es vor dem Update.",
+			"sync": "Warte, bis deine Änderungen synchronisiert sind.",
+			"tabs": "Schließe die anderen Familiste-Tabs und versuche es erneut.",
+			"error": "Das Update konnte nicht starten. Versuche es erneut."
+		}
 	}
 }

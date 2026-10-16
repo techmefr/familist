@@ -1,8 +1,9 @@
 <script lang="ts">
  import { onMount, untrack } from 'svelte';
- import { Bell, X, MessageCircle, CreditCard, Check } from '@lucide/svelte';
+ import { Bell, X, MessageCircle, CreditCard, Check, RefreshCw } from '@lucide/svelte';
  import { data } from '$stores/data.svelte';
  import { settings } from '$stores/settings.svelte';
+ import { pwaUpdate } from '$stores/pwa-update.svelte';
  import { unread } from '$stores/unread.svelte';
  import { badgeText } from '$domain/unread';
  import { pendingCardShares, decideCardShare, type PendingCardShare } from '$stores/card-account';
@@ -20,7 +21,7 @@
  let ringTimer: ReturnType<typeof setTimeout> | undefined;
  let generation = 0;
  $effect(() => {
-  const keys = [...requests.map(item => `card:${item.cardId}:${item.householdId}`), ...unread.ids.map(id => `chat:${id}`)];
+  const keys = [...requests.map(item => `card:${item.cardId}:${item.householdId}`), ...unread.ids.map(id => `chat:${id}`), ...(pwaUpdate.available ? ['app-update'] : [])];
   untrack(() => {
    const hasNew = keys.some(key => !previousKeys.has(key));
    previousKeys = new Set(keys);
@@ -30,7 +31,7 @@
   });
  });
  let disposed = false;
- const count = $derived(requests.length + unread.count);
+ const count = $derived(requests.length + unread.count + Number(pwaUpdate.available));
  const conversations = $derived([
   ...data.lists.filter(list => unread.isUnread(list.id)).map(list => ({ id: list.id, name: list.name, href: `/l/${list.id}/chat` })),
   ...data.directs.filter(summary => unread.isUnread(summary.conversationId)).map(summary => ({ id: summary.conversationId, name: data.member(summary.otherId)?.name ?? t('chat.someone'), href: `/chat/d/${summary.conversationId}` }))
@@ -89,6 +90,14 @@
   {#if error}<p role="alert" class="text-destructive">{t('notifications.center.error')}</p><Button variant="outline" onclick={() => void load()} disabled={loading}>{t('sync.retryNow')}</Button>{/if}
   {#if loading && count === 0}<p role="status">{t('common.loading')}</p>
   {:else if count === 0 && !error}<div class="fl-notifications-empty"><Bell size={32} aria-hidden="true" /><p class="font-semibold">{t('notifications.center.empty')}</p><p class="text-muted-foreground">{t('notifications.center.emptyBody')}</p></div>{/if}
+  {#if pwaUpdate.available}
+   <section data-test-id="notification-update" class="mb-4">
+    <h3 class="flex items-center gap-2"><RefreshCw size={20} aria-hidden="true" />{t('updates.available')}</h3>
+    <p class="text-caption text-muted-foreground">{t('updates.body')}</p>
+    {#if pwaUpdate.blocker}<p role="status" class="text-caption">{t(`updates.blocked.${pwaUpdate.blocker}`)}</p>{/if}
+    <Button disabled={pwaUpdate.applying} onclick={() => void pwaUpdate.apply()}>{t(pwaUpdate.applying ? 'common.loading' : 'updates.apply')}</Button>
+   </section>
+  {/if}
   {#if requests.length > 0}
    <h3 class="text-label font-semibold">{t('cards.requestsTitle')}</h3>
    <ul>

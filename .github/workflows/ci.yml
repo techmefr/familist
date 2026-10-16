@@ -25,13 +25,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  scope:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      app: ${{ steps.scope.outputs.app }}
+      backend: ${{ steps.scope.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - id: scope
+        env:
+          CI_EVENT: ${{ github.event_name }}
+          CI_DIFF_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          CI_DIFF_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: node scripts/ci-scope.mjs
+
   # Fast and with no external dependency: svelte-check plus unit coverage of the pure logic.
   # Kept apart from the rest to get feedback before Supabase has even finished starting in the
   # e2e job.
   check-and-unit:
+    needs: scope
+    if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.app == 'true' || needs.scope.outputs.backend == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Require a valid scope decision
+        if: needs.scope.result != 'success'
+        run: exit 1
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
@@ -44,29 +70,38 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - uses: denoland/setup-deno@v2
+        if: needs.scope.outputs.backend == 'true'
         with:
           deno-version: v2.x
 
-      - name: Check push Edge Functions
+      - name: Check Edge Functions
+        if: needs.scope.outputs.backend == 'true'
         env:
           DENO_NO_PACKAGE_JSON: "1"
-        run: deno check --node-modules-dir=none supabase/functions/notify/index.ts supabase/functions/web-push-config/index.ts
+        run: deno check --node-modules-dir=none supabase/functions/*/index.ts
 
       - name: Type check
+        if: needs.scope.outputs.app == 'true'
         run: pnpm run check
 
       - name: Unit tests (coverage ≥ 80% on pure logic)
         run: pnpm run test:coverage
 
       - name: Build
+        if: needs.scope.outputs.app == 'true'
         run: pnpm run build
 
   e2e:
+    needs: scope
+    if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.app == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: ${{ github.event.inputs.suite == 'full' && 35 || 15 }}
     env:
       E2E_SUITE: ${{ github.event.inputs.suite || 'critical' }}
     steps:
+      - name: Require a valid scope decision
+        if: needs.scope.result != 'success'
+        run: exit 1
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
@@ -100,5 +135,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report/
+          path: |
+            playwright-report/
+            test-results/
           retention-days: 7
