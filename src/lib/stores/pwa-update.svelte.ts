@@ -19,7 +19,13 @@ class PwaUpdate {
   this.blocker = null;
   try { await this.#apply(); }
   catch { this.blocker = 'error'; }
-  finally { this.applying = false; }
+  finally {
+   this.applying = false;
+   if (this.blocker) {
+    if (this.#toast !== null) toasts.dismiss(this.#toast);
+    this.#toast = toasts.info(t(`updates.blocked.${this.blocker}`), { label: t('updates.apply'), run: () => { void this.apply(); } });
+   }
+  }
  }
  reset() {
   this.available = false; this.applying = false; this.blocker = null; this.#apply = null;
