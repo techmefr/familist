@@ -8,7 +8,7 @@ import { test, expect, FIXTURE_EMAIL, FIXTURE_PASSWORD, SECOND_EMAIL, signIn, si
  * The household is left at the end, as in the invitation journey: both fixture accounts are shared by the
  * whole suite and must be given back as they were borrowed.
  */
-test('écrire en privé à quelqu’un d’un cercle commun', async ({ signedInPage: page }) => {
+test('écrire en privé à quelqu’un d’un cercle commun', { tag: '@critical' }, async ({ signedInPage: page }) => {
 	await page.goto('/household');
 	await page.getByTestId('invite-create').click();
 
@@ -33,7 +33,12 @@ test('écrire en privé à quelqu’un d’un cercle commun', async ({ signedInP
 	await page.locator('[data-test-class="direct-candidate"]').first().click();
 	await expect(page).toHaveURL(/\/chat\/d\//, { timeout: 15_000 });
 
-	await page.getByTestId('direct-input').fill(body);
+	await page.evaluate(() => document.fonts.ready);
+	const field = page.getByTestId('direct-input');
+	const before = await field.boundingBox();
+	await field.fill(body);
+	expect(Math.abs((await field.boundingBox())!.width - before!.width)).toBeLessThan(1);
+	await expect(page.getByTestId('direct-form').getByTestId('direct-photo-open')).toBeVisible();
 
 	/**
 	 * The screen shows the message before the server knows it: sending goes through the write queue, and that

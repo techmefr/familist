@@ -2,7 +2,6 @@
 	import PageHeading from '$components/app/PageHeading.svelte';
 	/** Messages from the same person closer than this read as one run and share a single name line. */
 	const GROUP_GAP_MS = 5 * 60 * 1000;
-	import AnimatedIcon from '$components/app/AnimatedIcon.svelte';
 	import { tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -23,7 +22,6 @@
 		ArrowLeft,
 		Bell,
 		BellOff,
-		Plus,
 		Search,
 		X,
 		CalendarDays,
@@ -34,6 +32,8 @@
 	} from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
+	import MessageComposer from '$components/app/MessageComposer.svelte';
+	import ChatThread from '$components/app/ChatThread.svelte';
 	import ChatPhoto from '$components/app/ChatPhoto.svelte';
 	import ChatPhotoPicker from '$components/app/ChatPhotoPicker.svelte';
 
@@ -71,7 +71,6 @@
 	}
 
 	let body = $state('');
-	let bodyFocused = $state(false);
 	let composing = $state<'date' | 'apport' | null>(null);
 	let question = $state('');
 	let choices = $state('');
@@ -267,6 +266,8 @@
 		</p>
 	{/if}
 
+	{#key listId}
+	<ChatThread revision={`${messages.length}:${messages.at(-1)?.id ?? ''}:${searchQuery}`} label={t('chat.title')}>
 	{#if messages.length === 0}
 		<EmptyState
 			illustration="chat"
@@ -274,7 +275,7 @@
 			testId={searchQuery.trim() ? 'chat-search-empty' : 'chat-empty'}
 		/>
 	{:else}
-		<ol class="mt-6">
+		<ol>
 			{#each messages as message, index (message.id)}
 				{@const previous = messages[index - 1]}
 				{@const startsGroup =
@@ -320,6 +321,9 @@
 		</ol>
 	{/if}
 
+	</ChatThread>
+	{/key}
+
 	{#if composing}
 		<form onsubmit={createPoll} class="fl-panel bg-card mt-6 space-y-4 rounded-xl border p-4" data-test-id="poll-form">
 			<div>
@@ -364,52 +368,8 @@
 		</form>
 	{/if}
 
+	<MessageComposer bind:value={body} prefix="chat" onsubmit={send} onPhoto={() => photoPicker?.show()} onMore={() => { feedback.play('tap'); composeSheet?.show(); }} />
 	<ChatPhotoPicker bind:this={photoPicker} scopeId={listId} onUploaded={sendPhoto} />
-
-	<!--
-		At rest, a compact field next to the single button that opens every other action: a date poll, the
-		"who brings what" poll, asking the AI for a recipe, sending a photo. The three buttons this replaces
-		said everything at once, all the time, for something typed a few times per list at most.
-
-		The field grows to the full row on focus — typing a real message deserves the room, the compact
-		width was only ever an at-rest state. `aria-label` and not only the placeholder: the latter is not an
-		accessible name, and it disappears at the first letter typed.
-	-->
-	<form
-		onsubmit={send}
-		class="mt-4 flex items-center gap-2 pb-[env(safe-area-inset-bottom)]"
-		data-test-id="chat-form"
-		data-composer
-	>
-		<div class="min-w-0 flex-1">
-			<Input
-				bind:value={body}
-				onfocus={() => (bodyFocused = true)}
-				onblur={() => (bodyFocused = false)}
-				aria-label={t('chat.messageLabel')}
-				placeholder={t('chat.placeholder')}
-				data-test-id="chat-input"
-				class="transition-all duration-200 {bodyFocused ? '' : 'max-w-[14rem]'}"
-				required
-			/>
-		</div>
-		<Button type="submit" class="min-w-[44px] shrink-0" data-test-id="chat-send" aria-label={t('chat.send')}>
-			<AnimatedIcon name="send" size={18} />
-		</Button>
-		<button
-			type="button"
-			onclick={() => {
-				feedback.play('tap');
-				composeSheet?.show();
-			}}
-			aria-haspopup="dialog"
-			aria-label={t('chat.composeOpen')}
-			data-test-id="chat-compose-open"
-			class="fl-press bg-primary text-primary-foreground grid size-11 min-w-[44px] shrink-0 place-items-center rounded-full"
-		>
-			<Plus size={20} aria-hidden="true" />
-		</button>
-	</form>
 
 	<ActionSheet bind:this={composeSheet} title={t('chat.composeOpen')} actions={composeActions} />
 {/if}
