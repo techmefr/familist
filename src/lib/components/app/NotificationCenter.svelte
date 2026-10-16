@@ -107,7 +107,7 @@
 
 <style>
  @keyframes notification-ring { 0%, 100% { transform: rotate(0); } 20%, 60% { transform: rotate(10deg); } 40%, 80% { transform: rotate(-10deg); } }
- @media (prefers-reduced-motion: no-preference) { :global(html:not([data-motion="reduce"])) .fl-notifications-ring > :global(svg) { animation: notification-ring 0.8s ease-in-out; transform-origin: 50% 15%; } }
+ @media (prefers-reduced-motion: no-preference) { :global(html:not([data-motion="none"])) .fl-notifications-ring > :global(svg) { animation: notification-ring 0.8s ease-in-out; transform-origin: 50% 15%; } }
  .fl-notifications-trigger { display: grid; place-items: center; position: relative; min-inline-size: 44px; min-block-size: 44px; border-radius: 50%; color: var(--muted-foreground); }
  .fl-notifications-badge { position: absolute; inset-block-start: 0; inset-inline-end: 0; border-radius: 999px; min-inline-size: 1.125rem; padding: 0 0.2rem; font-size: 0.7rem; background: var(--fl-info); color: var(--background); font-weight: 700; }
  .fl-notifications-dialog { position: fixed; inset-block: max(1rem, env(safe-area-inset-top)) auto; inset-inline: auto max(1rem, env(safe-area-inset-right)); margin: 0; inline-size: min(26rem, calc(100vw - 2rem)); max-block-size: calc(100dvh - 2rem); overflow-y: auto; border: 1px solid var(--border); border-radius: 1.25rem; background: var(--card); color: var(--card-foreground); box-shadow: var(--fl-shadow-3); padding: 0; }

@@ -251,7 +251,7 @@ async function showCircleWith(page: Page, name: string) {
 	await expect(cardEntry(page, name)).toBeVisible({ timeout: 15_000 });
 }
 
-test('partager une carte avec un autre cercle, puis retirer le partage', async ({
+test('partager une carte avec un autre cercle, puis retirer le partage', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	test.setTimeout(120_000);

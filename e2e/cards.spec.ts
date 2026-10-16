@@ -17,7 +17,7 @@ async function saveCard(page: Page, name: string, code: string) {
 	await expect(cardFace(page, name)).toBeVisible();
 }
 
-test('enregistrer une carte de fidélité par saisie manuelle du code', async ({
+test('enregistrer une carte de fidélité par saisie manuelle du code', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	const name = `Carte e2e ${Date.now()}`;

@@ -7,7 +7,7 @@ import { test, expect } from './fixtures';
  * justement cette clé pour neutraliser ce même écran dans les autres suites.
  */
 test.describe('accueil et premier lancement', () => {
-	test('un premier lancement atterrit sur l ecran de bienvenue', async ({ page }) => {
+	test('un premier lancement atterrit sur l ecran de bienvenue', { tag: '@critical' }, async ({ page }) => {
 		await page.goto('/');
 
 		await expect(page).toHaveURL(/\/welcome/);
@@ -40,7 +40,7 @@ test.describe('accueil et premier lancement', () => {
 });
 
 for (const width of [320, 390, 768]) {
- test(`drapeaux et noms natifs visibles a ${width}px`, async ({ page }) => {
+ test(`drapeaux et noms natifs visibles a ${width}px`, { tag: width === 390 ? '@critical' : [] }, async ({ page }) => {
   await page.setViewportSize({ width, height: 900 });
   await page.goto('/welcome');
   const labels = page.locator('.fl-language-label');

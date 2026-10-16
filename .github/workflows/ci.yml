@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: E2E suite
+        type: choice
+        options: [critical, full]
+        default: critical
 
 # Both jobs compile the app, which reads these variables at build time. They are the ones of the
 # local Supabase stack, public by design: CI reaches no online project.
@@ -23,6 +30,7 @@ jobs:
   # e2e job.
   check-and-unit:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +54,9 @@ jobs:
 
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: ${{ github.event.inputs.suite == 'full' && 35 || 15 }}
+    env:
+      E2E_SUITE: ${{ github.event.inputs.suite || 'critical' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,23 +69,21 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Cache Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
       - name: Playwright browser
         run: pnpm exec playwright install --with-deps chromium
 
-      # The CLI comes from `package.json`, not from an action tracking a floating version: CI and
-      # the developer's machine then apply the same migrations with the same tool. A CLI that is
-      # too old rejects `supabase/config.toml`, and nobody wants to find that out here.
-      #
-      # `db reset` applies the migrations then `supabase/seed.sql`, which creates the fixed account
-      # used by the E2E tests (e2e@familist.test), confirmed and approved without mail or service key.
+      # Hosted runners start with an empty database: start applies migrations and seed once.
+      # Keep auth, storage and realtime; skip the admin UI and observability containers.
       - name: Local Supabase stack
-        run: |
-          pnpm run db:start
-          pnpm run db:reset
+        run: pnpm exec supabase start --exclude studio,postgres-meta,logflare,vector,supavisor
 
-      # Includes `e2e/a11y.spec.ts`: axe-core runs on the main screens, signed-in ones included, and
-      # fails on any violation missing from `e2e/a11y-baseline.json`.
-      - name: E2E and accessibility tests
+      - name: E2E (${{ env.E2E_SUITE }})
         run: pnpm exec playwright test
 
       - name: Playwright report

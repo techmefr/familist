@@ -15,7 +15,7 @@ import { test, expect } from './fixtures';
 
 const RAIL_WIDTH_PX = 88; // --fl-rail-w: 5.5rem, at the default 16px root size.
 
-test('sur tablette en portrait, la navigation est un rail sur le bord et non une barre ni une colonne pleine', async ({
+test('sur tablette en portrait, la navigation est un rail sur le bord et non une barre ni une colonne pleine', { tag: '@critical' }, async ({
 	signedInPage: page
 }) => {
 	await page.goto('/');

@@ -1,7 +1,7 @@
 import { test, expect } from './fixtures';
 
 test.describe('modifier une recette', () => {
-	test('le bouton modifier amene au formulaire rempli, et l enregistrement revient sur la carte', async ({
+	test('le bouton modifier amene au formulaire rempli, et l enregistrement revient sur la carte', { tag: '@critical' }, async ({
 		signedInPage: page
 	}) => {
 		const name = `Recette a modifier e2e ${Date.now()}`;

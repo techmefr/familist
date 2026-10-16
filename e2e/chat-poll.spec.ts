@@ -19,7 +19,7 @@ async function createList(page: import('@playwright/test').Page, name: string) {
  * message end to end: written, sent, shown, and still there after a reload — it is the reload that tells a
  * message that left for the database from one that stayed on the screen.
  */
-test('écrire un message dans la conversation d’une liste', async ({ signedInPage: page }) => {
+test('écrire un message dans la conversation d’une liste', { tag: '@critical' }, async ({ signedInPage: page }) => {
 	const name = listName();
 	await createList(page, name);
 

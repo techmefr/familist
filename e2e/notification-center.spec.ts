@@ -1,7 +1,7 @@
 import { test, expect } from './fixtures';
 
 for (const width of [320, 768, 1280]) {
- test(`la cloche affiche les demandes de cartes a ${width}px`, async ({ signedInPage: page }) => {
+ test(`la cloche affiche les demandes de cartes a ${width}px`, { tag: '@critical' }, async ({ signedInPage: page }) => {
   await page.setViewportSize({ width, height: 900 });
   let pending = true;
   await page.route('**/rest/v1/rpc/pending_loyalty_card_shares', route => route.fulfill({
@@ -29,7 +29,7 @@ for (const width of [320, 768, 1280]) {
  });
 }
 
-test('une erreur de chargement propose de reessayer sans notification vide trompeuse', async ({ signedInPage: page }) => {
+test('une erreur de chargement propose de reessayer sans notification vide trompeuse', { tag: '@critical' }, async ({ signedInPage: page }) => {
  await page.route('**/rest/v1/rpc/pending_loyalty_card_shares', route => route.fulfill({ status: 503, json: { message: 'Unavailable' } }));
  await page.getByTestId('header-notifications').click();
  const center = page.getByTestId('notification-center');
