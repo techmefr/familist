@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { textOfLines, type PlacedLine } from '$domain/recipe-ocr';
 
 /**
@@ -37,6 +38,7 @@ type TextDetectorConstructor = new () => { detect(source: ImageBitmapSource): Pr
 
 function textDetector(): TextDetectorConstructor | null {
 	if (typeof window === 'undefined' || !('TextDetector' in window)) return null;
+	if (Capacitor.getPlatform() === 'android' || /Android/i.test(navigator.userAgent)) return null;
 	return (window as unknown as { TextDetector: TextDetectorConstructor }).TextDetector;
 }
 
