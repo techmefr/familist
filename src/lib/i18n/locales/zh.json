@@ -2126,7 +2126,8 @@
 			"emptyBody": "新的卡片请求和未读对话会显示在这里。",
 			"error": "无法加载卡片请求。",
 			"sent": "已发送 {name} 的共享请求。",
-			"settings": "通知设置"
+			"settings": "通知设置",
+			"markRead": "将 {name} 标为已读"
 		}
 	},
 	"product": {

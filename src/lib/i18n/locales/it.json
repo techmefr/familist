@@ -2145,7 +2145,8 @@
 			"emptyBody": "Qui appariranno le richieste di carte e le conversazioni non lette.",
 			"error": "Impossibile caricare le richieste di carte.",
 			"sent": "Richiesta di condivisione inviata per {name}.",
-			"settings": "Impostazioni notifiche"
+			"settings": "Impostazioni notifiche",
+			"markRead": "Segna {name} come letto"
 		}
 	},
 	"product": {

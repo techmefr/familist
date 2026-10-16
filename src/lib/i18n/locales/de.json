@@ -2147,7 +2147,8 @@
 			"emptyBody": "Neue Kartenanfragen und ungelesene Chats erscheinen hier.",
 			"error": "Kartenanfragen konnten nicht geladen werden.",
 			"sent": "Freigabeanfrage für {name} gesendet.",
-			"settings": "Benachrichtigungseinstellungen"
+			"settings": "Benachrichtigungseinstellungen",
+			"markRead": "{name} als gelesen markieren"
 		}
 	},
 	"product": {

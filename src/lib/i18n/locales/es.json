@@ -2151,7 +2151,8 @@
 			"emptyBody": "Aquí aparecerán las solicitudes de tarjetas y conversaciones sin leer.",
 			"error": "No se pudieron cargar las solicitudes de tarjetas.",
 			"sent": "Solicitud enviada para {name}.",
-			"settings": "Ajustes de notificaciones"
+			"settings": "Ajustes de notificaciones",
+			"markRead": "Marcar {name} como leído"
 		}
 	},
 	"product": {

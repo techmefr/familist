@@ -2138,7 +2138,8 @@
 			"emptyBody": "Hiseho eto ny fangatahana karatra sy ny resaka mbola tsy novakiana.",
 			"error": "Tsy voaray ny fangatahana karatra.",
 			"sent": "Nalefa ny fangatahana fizarana {name}.",
-			"settings": "Fikirana fampandrenesana"
+			"settings": "Fikirana fampandrenesana",
+			"markRead": "Mariho ho voavaky ny {name}"
 		}
 	},
 	"product": {

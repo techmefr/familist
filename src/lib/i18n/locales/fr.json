@@ -2193,7 +2193,8 @@
 			"emptyBody": "Les nouvelles demandes de cartes et les discussions non lues apparaîtront ici.",
 			"error": "Impossible de charger les demandes de cartes.",
 			"sent": "Demande de partage envoyée pour {name}.",
-			"settings": "Réglages des notifications"
+			"settings": "Réglages des notifications",
+			"markRead": "Marquer {name} comme lu"
 		}
 	},
 	"product": {

@@ -1,7 +1,8 @@
 <script lang="ts">
  import { onMount, untrack } from 'svelte';
- import { Bell, X, MessageCircle, CreditCard } from '@lucide/svelte';
+ import { Bell, X, MessageCircle, CreditCard, Check } from '@lucide/svelte';
  import { data } from '$stores/data.svelte';
+ import { settings } from '$stores/settings.svelte';
  import { unread } from '$stores/unread.svelte';
  import { badgeText } from '$domain/unread';
  import { pendingCardShares, decideCardShare, type PendingCardShare } from '$stores/card-account';
@@ -14,7 +15,20 @@
  let error = $state(false);
  let loading = $state(false);
  let busy = $state('');
+ let ringing = $state(false);
+ let previousKeys = new Set<string>();
+ let ringTimer: ReturnType<typeof setTimeout> | undefined;
  let generation = 0;
+ $effect(() => {
+  const keys = [...requests.map(item => `card:${item.cardId}:${item.householdId}`), ...unread.ids.map(id => `chat:${id}`)];
+  untrack(() => {
+   const hasNew = keys.some(key => !previousKeys.has(key));
+   previousKeys = new Set(keys);
+   if (hasNew && settings.animates && !dialog?.open) {
+    ringing = true; clearTimeout(ringTimer); ringTimer = setTimeout(() => { ringing = false; }, 850);
+   }
+  });
+ });
  let disposed = false;
  const count = $derived(requests.length + unread.count);
  const conversations = $derived([
@@ -44,7 +58,7 @@
   const timer = setInterval(() => { if (document.visibilityState === 'visible') void load(); }, 60000);
   const refresh = () => { if (document.visibilityState === 'visible') void load(); };
   document.addEventListener('visibilitychange', refresh);
-  return () => { disposed = true; generation++; clearInterval(timer); document.removeEventListener('visibilitychange', refresh); };
+  return () => { disposed = true; generation++; clearTimeout(ringTimer); clearInterval(timer); document.removeEventListener('visibilitychange', refresh); };
  });
  function show() { dialog?.showModal(); void load(); }
  async function answer(request: PendingCardShare, decision: CardShareDecision) {
@@ -60,7 +74,7 @@
  }
 </script>
 
-<button type="button" onclick={show} aria-label={t('notifications.title')} aria-haspopup="dialog" class="fl-notifications-trigger fl-press" data-test-id="header-notifications">
+<button type="button" onclick={show} aria-label={t('notifications.title')} aria-haspopup="dialog" class="fl-notifications-trigger fl-press" class:fl-notifications-ring={ringing} data-test-id="header-notifications">
  <Bell size={22} aria-hidden="true" />
  {#if count > 0}<span class="fl-notifications-badge" data-test-id="notifications-count" aria-hidden="true">{badgeText(count)}</span><span class="sr-only">{count}</span>{/if}
 </button>
@@ -86,12 +100,14 @@
     {/each}
    </ul>
   {/if}
-  {#if conversations.length > 0}<h3 class="text-label font-semibold">{t('nav.unread', { count: conversations.length })}</h3><ul>{#each conversations as conversation (conversation.id)}<li><MessageCircle size={20} aria-hidden="true" /><a href={conversation.href} onclick={() => dialog?.close()} class="fl-press fl-notification-link">{conversation.name}</a></li>{/each}</ul>{/if}
+  {#if conversations.length > 0}<h3 class="text-label font-semibold">{t('nav.unread', { count: conversations.length })}</h3><ul>{#each conversations as conversation (conversation.id)}<li><MessageCircle size={20} aria-hidden="true" /><a href={conversation.href} onclick={() => dialog?.close()} class="fl-press fl-notification-link">{conversation.name}</a><button type="button" onclick={() => unread.markRead(conversation.id)} aria-label={t('notifications.center.markRead', { name: conversation.name })} class="fl-notifications-close fl-press" data-test-class="notification-mark-read"><Check size={20} aria-hidden="true" /></button></li>{/each}</ul>{/if}
  </div>
  <footer><a href="/profile/notifications" onclick={() => dialog?.close()} class="fl-press">{t('notifications.center.settings')}</a></footer>
 </dialog>
 
 <style>
+ @keyframes notification-ring { 0%, 100% { transform: rotate(0); } 20%, 60% { transform: rotate(10deg); } 40%, 80% { transform: rotate(-10deg); } }
+ @media (prefers-reduced-motion: no-preference) { :global(html:not([data-motion="reduce"])) .fl-notifications-ring > :global(svg) { animation: notification-ring 0.8s ease-in-out; transform-origin: 50% 15%; } }
  .fl-notifications-trigger { display: grid; place-items: center; position: relative; min-inline-size: 44px; min-block-size: 44px; border-radius: 50%; color: var(--muted-foreground); }
  .fl-notifications-badge { position: absolute; inset-block-start: 0; inset-inline-end: 0; border-radius: 999px; min-inline-size: 1.125rem; padding: 0 0.2rem; font-size: 0.7rem; background: var(--fl-info); color: var(--background); font-weight: 700; }
  .fl-notifications-dialog { position: fixed; inset-block: max(1rem, env(safe-area-inset-top)) auto; inset-inline: auto max(1rem, env(safe-area-inset-right)); margin: 0; inline-size: min(26rem, calc(100vw - 2rem)); max-block-size: calc(100dvh - 2rem); overflow-y: auto; border: 1px solid var(--border); border-radius: 1.25rem; background: var(--card); color: var(--card-foreground); box-shadow: var(--fl-shadow-3); padding: 0; }

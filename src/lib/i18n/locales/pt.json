@@ -2147,7 +2147,8 @@
 			"emptyBody": "Os pedidos de cartões e conversas não lidas aparecerão aqui.",
 			"error": "Não foi possível carregar os pedidos de cartões.",
 			"sent": "Pedido de partilha enviado para {name}.",
-			"settings": "Definições de notificações"
+			"settings": "Definições de notificações",
+			"markRead": "Marcar {name} como lido"
 		}
 	},
 	"product": {

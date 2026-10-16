@@ -2158,7 +2158,8 @@
 			"emptyBody": "New card requests and unread conversations will appear here.",
 			"error": "Could not load card requests.",
 			"sent": "Share request sent for {name}.",
-			"settings": "Notification settings"
+			"settings": "Notification settings",
+			"markRead": "Mark {name} as read"
 		}
 	},
 	"product": {
