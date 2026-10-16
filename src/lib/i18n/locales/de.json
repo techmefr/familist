@@ -2103,7 +2103,7 @@
 		"unsupported": "Push-Nachrichten werden hier nicht unterstützt. Die Mitteilungen in der App bleiben verfügbar.",
 		"enable": "Benachrichtigungen aktivieren",
 		"granted": "Benachrichtigungen sind auf diesem Gerät aktiv.",
-		"denied": "Benachrichtigungen sind blockiert. Öffnen Sie die Telefoneinstellungen, dann Apps, Familiste, Benachrichtigungen, und erlauben Sie sie.",
+		"denied": "Benachrichtigungen sind blockiert. Erlaube sie in den Browser- oder App-Einstellungen.",
 		"test": "Testbenachrichtigung senden",
 		"testTitle": "Familiste",
 		"testBody": "Es funktioniert. So werden Sie benachrichtigt.",

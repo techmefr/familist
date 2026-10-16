@@ -2149,7 +2149,7 @@
 		"unsupported": "Cet environnement ne prend pas en charge les notifications push. La cloche dans l’application reste disponible.",
 		"enable": "Activer les notifications",
 		"granted": "Les notifications sont activées sur cet appareil.",
-		"denied": "Les notifications sont bloquées. Ouvrez les Réglages du téléphone, puis Applications, Familiste, Notifications, et autorisez-les.",
+		"denied": "Les notifications sont bloquées. Autorisez-les dans les réglages du navigateur ou de l’application.",
 		"test": "Envoyer une notification de test",
 		"testTitle": "Familiste",
 		"testBody": "Ça marche. Vous serez prévenu ainsi.",

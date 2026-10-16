@@ -2101,7 +2101,7 @@
 		"unsupported": "Questo ambiente non supporta le notifiche push. Le notifiche nell’app restano disponibili.",
 		"enable": "Attiva le notifiche",
 		"granted": "Le notifiche sono attive su questo dispositivo.",
-		"denied": "Le notifiche sono bloccate. Apri Impostazioni del telefono, poi App, Familiste, Notifiche, e consentile.",
+		"denied": "Le notifiche sono bloccate. Consentile nelle impostazioni del browser o dell’app.",
 		"test": "Invia una notifica di prova",
 		"testTitle": "Familiste",
 		"testBody": "Funziona. Sarai avvisato così.",

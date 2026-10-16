@@ -2114,7 +2114,7 @@
 		"unsupported": "Push notifications are not supported here. The in-app notification center remains available.",
 		"enable": "Turn on notifications",
 		"granted": "Notifications are on for this device.",
-		"denied": "Notifications are blocked. Open your phone’s Settings, then Apps, Familiste, Notifications, and allow them.",
+		"denied": "Notifications are blocked. Allow them in your browser or app settings.",
 		"test": "Send a test notification",
 		"testTitle": "Familiste",
 		"testBody": "It works. You will be notified like this.",

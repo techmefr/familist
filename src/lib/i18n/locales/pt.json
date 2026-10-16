@@ -2103,7 +2103,7 @@
 		"unsupported": "Este ambiente não suporta notificações push. As notificações na aplicação continuam disponíveis.",
 		"enable": "Ativar notificações",
 		"granted": "As notificações estão ativas neste dispositivo.",
-		"denied": "As notificações estão bloqueadas. Abra as Definições do telemóvel, depois Aplicações, Familiste, Notificações, e permita-as.",
+		"denied": "As notificações estão bloqueadas. Permita-as nas definições do navegador ou da aplicação.",
 		"test": "Enviar uma notificação de teste",
 		"testTitle": "Familiste",
 		"testBody": "Funciona. Será avisado assim.",

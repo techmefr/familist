@@ -2082,7 +2082,7 @@
 		"unsupported": "此环境不支持推送通知。应用内通知仍然可用。",
 		"enable": "开启通知",
 		"granted": "此设备已开启通知。",
-		"denied": "通知已被阻止。请打开手机设置，进入应用、Familiste、通知并允许。",
+		"denied": "通知已被阻止。请在浏览器或应用设置中允许通知。",
 		"test": "发送测试通知",
 		"testTitle": "Familiste",
 		"testBody": "一切正常，你会这样收到通知。",

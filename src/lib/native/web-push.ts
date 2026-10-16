@@ -33,7 +33,8 @@ export async function registerWebPush(userId: string, deviceId: string): Promise
 }
 
 export async function unregisterWebPush(): Promise<void> {
- try { await (await (await registration())?.pushManager.getSubscription())?.unsubscribe(); } catch { /* Token is also removed server-side. */ }
+ if (!webPushSupported()) return;
+ try { await (await (await navigator.serviceWorker.getRegistration())?.pushManager.getSubscription())?.unsubscribe(); } catch { /* Token is also removed server-side. */ }
 }
 
 export async function testWebPush(title: string, body: string): Promise<boolean> {
