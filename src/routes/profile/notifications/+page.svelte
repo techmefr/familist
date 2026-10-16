@@ -43,6 +43,8 @@
 
 	let permission = $state<PushPermission>('unsupported');
 	let testSent = $state<boolean | null>(null);
+	let deliveryReady = $state(false);
+	let registering = $state(false);
 
 	let ntfyTopic = $state('');
 	let ntfyStatus = $state<'saved' | 'removed' | 'invalid' | 'failed' | null>(null);
@@ -50,6 +52,11 @@
 	onMount(async () => {
 		permission = await pushPermission();
 		const id = session.user?.id;
+		if (permission === 'granted' && id) {
+			registering = true;
+			deliveryReady = await registerPush(id, path => void goto(path), key => t(`notifications.channels.${key}`));
+			registering = false;
+		}
 		if (id) ntfyTopic = await loadNtfyTopic(id);
 	});
 
@@ -84,11 +91,13 @@
 	}
 
 	async function enable() {
+		registering = true;
 		permission = await requestPushPermission();
 		const id = session.user?.id;
 		if (permission === 'granted' && id) {
-			await registerPush(id, path => void goto(path), key => t(`notifications.channels.${key}`));
+			deliveryReady = await registerPush(id, path => void goto(path), key => t(`notifications.channels.${key}`));
 		}
+		registering = false;
 	}
 
 	async function test() {
@@ -152,6 +161,11 @@
 				<p class="text-muted-foreground text-label mt-1" data-test-id="notifications-unsupported">
 					{t('notifications.unsupported')}
 				</p>
+			{:else if registering}
+				<p role="status">{t('common.loading')}</p>
+			{:else if permission === 'granted' && !deliveryReady}
+				<p role="alert" data-test-id="notifications-registration-error">{t('notifications.center.pushFailed')}</p>
+				<Button variant="outline" onclick={enable}>{t('sync.retryNow')}</Button>
 			{:else if permission === 'granted'}
 				<p class="text-label mt-1" data-test-id="notifications-granted">{t('notifications.granted')}</p>
 				<Button variant="outline" onclick={test} class="mt-3" data-test-id="notifications-test">

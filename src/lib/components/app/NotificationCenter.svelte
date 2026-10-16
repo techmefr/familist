@@ -58,7 +58,9 @@
   const timer = setInterval(() => { if (document.visibilityState === 'visible') void load(); }, 60000);
   const refresh = () => { if (document.visibilityState === 'visible') void load(); };
   document.addEventListener('visibilitychange', refresh);
-  return () => { disposed = true; generation++; clearTimeout(ringTimer); clearInterval(timer); document.removeEventListener('visibilitychange', refresh); };
+  const pushed = (event: MessageEvent) => { if (event.data?.type === 'familist:notification') void load(); };
+  navigator.serviceWorker?.addEventListener('message', pushed);
+  return () => { disposed = true; generation++; clearTimeout(ringTimer); clearInterval(timer); document.removeEventListener('visibilitychange', refresh); navigator.serviceWorker?.removeEventListener('message', pushed); };
  });
  function show() { dialog?.showModal(); void load(); }
  async function answer(request: PendingCardShare, decision: CardShareDecision) {

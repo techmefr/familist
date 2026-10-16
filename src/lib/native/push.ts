@@ -1,5 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { supabase } from '$db/supabase';
+import { webPushSupported, registerWebPush, unregisterWebPush, testWebPush } from './web-push';
 import { parseTopicUrl } from '$domain/ntfy';
 
 /**
@@ -7,15 +8,15 @@ import { parseTopicUrl } from '$domain/ntfy';
  *
  * What was a deliberate absence (see `reminders.ts`) is now an Edge Function (`notify`) fed by triggers; this
  * file is the device's half: ask for the permission on a gesture, hand the token to the account, open the
- * right screen when a notification is tapped. On the web there is no push, and the F-Droid build has no FCM:
- * `pushSupported()` is false there and everything below does nothing, local reminders keep working.
+ * right screen when a notification is tapped. The web uses standard Web Push with generic notification text.
+ * Unsupported browsers keep the in-app center and local reminders.
  */
 export type PushPermission = 'granted' | 'denied' | 'prompt' | 'unsupported';
 
 const DEVICE_KEY = 'familist:push-device';
 
 export function pushSupported(): boolean {
-	return Capacitor.isNativePlatform();
+	return Capacitor.isNativePlatform() || webPushSupported();
 }
 
 function deviceId(): string {
@@ -40,6 +41,7 @@ const CHANNELS = [
 ] as const;
 
 export async function pushPermission(): Promise<PushPermission> {
+	if (!Capacitor.isNativePlatform() && webPushSupported()) return Notification.permission === 'default' ? 'prompt' : Notification.permission;
 	if (!pushSupported()) return 'unsupported';
 	try {
 		const { PushNotifications } = await import('@capacitor/push-notifications');
@@ -52,6 +54,9 @@ export async function pushPermission(): Promise<PushPermission> {
 
 /** Asking, only on a gesture: a refusal is final after twice on Android 13. */
 export async function requestPushPermission(): Promise<PushPermission> {
+	if (!Capacitor.isNativePlatform() && webPushSupported()) {
+		try { const permission = await Notification.requestPermission(); return permission === 'default' ? 'prompt' : permission; } catch { return 'unsupported'; }
+	}
 	if (!pushSupported()) return 'unsupported';
 	try {
 		const { PushNotifications } = await import('@capacitor/push-notifications');
@@ -72,8 +77,9 @@ export async function registerPush(
 	userId: string,
 	open: (path: string) => void,
 	channelName: (id: string) => string
-): Promise<void> {
-	if ((await pushPermission()) !== 'granted') return;
+): Promise<boolean> {
+	if ((await pushPermission()) !== 'granted') return false;
+	if (!Capacitor.isNativePlatform()) return registerWebPush(userId, deviceId());
 
 	try {
 		const { PushNotifications } = await import('@capacitor/push-notifications');
@@ -108,16 +114,18 @@ export async function registerPush(
 		}
 
 		await PushNotifications.register();
+		return true;
 	} catch {
-		// Push is a convenience: a failure here leaves the app working without it.
+		return false;
 	}
 }
 
 /** On sign-out the device stops receiving this account's notifications. */
 export async function unregisterPush(userId: string): Promise<void> {
+	if (!Capacitor.isNativePlatform()) await unregisterWebPush();
 	await supabase.from('push_tokens').delete().match({ user_id: userId, device_id: deviceId() });
 
-	if (!pushSupported()) return;
+	if (!Capacitor.isNativePlatform()) return;
 	try {
 		const { PushNotifications } = await import('@capacitor/push-notifications');
 		await PushNotifications.unregister();
@@ -128,6 +136,7 @@ export async function unregisterPush(userId: string): Promise<void> {
 
 /** A local notification to check the whole path on this device without waiting for a real event. */
 export async function sendTestNotification(title: string, body: string): Promise<boolean> {
+	if (!Capacitor.isNativePlatform()) return testWebPush(title, body);
 	if (!pushSupported()) return false;
 	try {
 		const { LocalNotifications } = await import('@capacitor/local-notifications');

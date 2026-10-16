@@ -2146,7 +2146,7 @@
 	"notifications": {
 		"title": "Notifications",
 		"permissionTitle": "Notifications sur cet appareil",
-		"unsupported": "Les notifications push fonctionnent dans les applications Android et iOS. Les rappels de date continuent là où ils sont pris en charge.",
+		"unsupported": "Cet environnement ne prend pas en charge les notifications push. La cloche dans l’application reste disponible.",
 		"enable": "Activer les notifications",
 		"granted": "Les notifications sont activées sur cet appareil.",
 		"denied": "Les notifications sont bloquées. Ouvrez les Réglages du téléphone, puis Applications, Familiste, Notifications, et autorisez-les.",
@@ -2194,7 +2194,8 @@
 			"error": "Impossible de charger les demandes de cartes.",
 			"sent": "Demande de partage envoyée pour {name}.",
 			"settings": "Réglages des notifications",
-			"markRead": "Marquer {name} comme lu"
+			"markRead": "Marquer {name} comme lu",
+			"pushFailed": "Les notifications n’ont pas pu être activées. Réessayez ou contactez votre administrateur."
 		}
 	},
 	"product": {

@@ -2079,7 +2079,7 @@
 	"notifications": {
 		"title": "通知",
 		"permissionTitle": "此设备上的通知",
-		"unsupported": "推送通知适用于 Android 和 iOS 应用。日期提醒在支持的地方继续可用。",
+		"unsupported": "此环境不支持推送通知。应用内通知仍然可用。",
 		"enable": "开启通知",
 		"granted": "此设备已开启通知。",
 		"denied": "通知已被阻止。请打开手机设置，进入应用、Familiste、通知并允许。",
@@ -2127,7 +2127,8 @@
 			"error": "无法加载卡片请求。",
 			"sent": "已发送 {name} 的共享请求。",
 			"settings": "通知设置",
-			"markRead": "将 {name} 标为已读"
+			"markRead": "将 {name} 标为已读",
+			"pushFailed": "无法启用通知。请重试或联系管理员。"
 		}
 	},
 	"product": {

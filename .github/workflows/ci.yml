@@ -43,6 +43,13 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Check push Edge Functions
+        run: deno check --node-modules-dir=auto supabase/functions/notify/index.ts supabase/functions/web-push-config/index.ts
+
       - name: Type check
         run: pnpm run check
 

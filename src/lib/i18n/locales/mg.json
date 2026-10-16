@@ -2091,7 +2091,7 @@
 	"notifications": {
 		"title": "Fampandrenesana",
 		"permissionTitle": "Fampandrenesana amin’ity fitaovana ity",
-		"unsupported": "Miasa ao amin’ny app Android sy iOS ny push. Mitohy ny fampahatsiahivana daty izay tohanana.",
+		"unsupported": "Tsy manohana fampandrenesana push ity tontolo ity. Mbola misy ny fampandrenesana ao amin’ny fampiharana.",
 		"enable": "Ampandehano ny fampandrenesana",
 		"granted": "Mandeha ny fampandrenesana amin’ity fitaovana ity.",
 		"denied": "Voasakana ny fampandrenesana. Sokafy ny Fandrindrana > Fampiharana > Familiste > Fampandrenesana ary avelao.",
@@ -2139,7 +2139,8 @@
 			"error": "Tsy voaray ny fangatahana karatra.",
 			"sent": "Nalefa ny fangatahana fizarana {name}.",
 			"settings": "Fikirana fampandrenesana",
-			"markRead": "Mariho ho voavaky ny {name}"
+			"markRead": "Mariho ho voavaky ny {name}",
+			"pushFailed": "Tsy afaka navitrika ny fampandrenesana. Andramo indray na mifandraisa amin’ny mpitantana."
 		}
 	},
 	"product": {

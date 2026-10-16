@@ -2111,7 +2111,7 @@
 	"notifications": {
 		"title": "Notifications",
 		"permissionTitle": "Notifications on this device",
-		"unsupported": "Push notifications work in the Android and iOS apps. Date reminders keep working where they are supported.",
+		"unsupported": "Push notifications are not supported here. The in-app notification center remains available.",
 		"enable": "Turn on notifications",
 		"granted": "Notifications are on for this device.",
 		"denied": "Notifications are blocked. Open your phone’s Settings, then Apps, Familiste, Notifications, and allow them.",
@@ -2159,7 +2159,8 @@
 			"error": "Could not load card requests.",
 			"sent": "Share request sent for {name}.",
 			"settings": "Notification settings",
-			"markRead": "Mark {name} as read"
+			"markRead": "Mark {name} as read",
+			"pushFailed": "Notifications could not be enabled. Try again or contact your administrator."
 		}
 	},
 	"product": {

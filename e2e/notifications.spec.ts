@@ -7,6 +7,7 @@ import { test, expect } from './fixtures';
 test('les notifications : message honnête sur le web, réglages conservés', async ({
 	signedInPage: page
 }) => {
+	await page.addInitScript(() => { Reflect.deleteProperty(window, 'PushManager'); });
 	await page.goto('/profile/notifications');
 	// The first sync pulls the stored preferences and applies them: touching a switch before it lands would
 	// have the pull overwrite the change.

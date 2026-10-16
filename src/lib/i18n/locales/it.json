@@ -2098,7 +2098,7 @@
 	"notifications": {
 		"title": "Notifiche",
 		"permissionTitle": "Notifiche su questo dispositivo",
-		"unsupported": "Le notifiche push funzionano nelle app Android e iOS. I promemoria di data continuano dove supportati.",
+		"unsupported": "Questo ambiente non supporta le notifiche push. Le notifiche nell’app restano disponibili.",
 		"enable": "Attiva le notifiche",
 		"granted": "Le notifiche sono attive su questo dispositivo.",
 		"denied": "Le notifiche sono bloccate. Apri Impostazioni del telefono, poi App, Familiste, Notifiche, e consentile.",
@@ -2146,7 +2146,8 @@
 			"error": "Impossibile caricare le richieste di carte.",
 			"sent": "Richiesta di condivisione inviata per {name}.",
 			"settings": "Impostazioni notifiche",
-			"markRead": "Segna {name} come letto"
+			"markRead": "Segna {name} come letto",
+			"pushFailed": "Impossibile attivare le notifiche. Riprova o contatta l’amministratore."
 		}
 	},
 	"product": {
