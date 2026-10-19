@@ -183,6 +183,7 @@ export type Database = {
           description: string
           id: string
           issue_claimed_at: string | null
+          issue_closed_at: string | null
           issue_number: number | null
           issue_published_at: string | null
           issue_requested_at: string | null
@@ -201,6 +202,7 @@ export type Database = {
           description: string
           id?: string
           issue_claimed_at?: string | null
+          issue_closed_at?: string | null
           issue_number?: number | null
           issue_published_at?: string | null
           issue_requested_at?: string | null
@@ -219,6 +221,7 @@ export type Database = {
           description?: string
           id?: string
           issue_claimed_at?: string | null
+          issue_closed_at?: string | null
           issue_number?: number | null
           issue_published_at?: string | null
           issue_requested_at?: string | null

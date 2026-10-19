@@ -1201,6 +1201,8 @@
 		"magnifierBody": "Read a label that is too small, using the camera.",
 		"cardsTitle": "Your cards",
 		"cardsBody": "Loyalty cards, ready to show at the till.",
+		"recipesTitle": "Your recipes",
+		"recipesBody": "Cook step by step and add the ingredients to your lists.",
 		"profileTitle": "Your settings",
 		"profileBody": "Text size, colours, language, sharing with your family: it is all set here.",
 		"next": "Next",

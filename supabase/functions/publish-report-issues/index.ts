@@ -71,7 +71,62 @@ async function openIssue(
 	return { number: created.number, url: created.html_url };
 }
 
+/**
+ * Closes the issues of the reports resolved since the last wake-up.
+ *
+ * Idempotent on purpose: closing an issue already closed is not an error for the tracker, so no claim is
+ * needed — an interruption in the middle only means the next round starts again from the same rows.
+ */
+async function closeResolvedIssues(): Promise<number> {
+	const resolved = await rpc<{ id: string; issue_number: number }[]>('list_resolved_report_issues', {});
+	if (resolved.length === 0) return 0;
+
+	const settings = await loadTrackerSettings();
+	const token = settings.issue_tracker_token;
+	const repo = settings.issue_tracker_repo;
+	if (!token || !repo) return 0;
+
+	const api = settings.issue_tracker_api ?? 'https://api.github.com';
+	let closed = 0;
+
+	for (const report of resolved) {
+		const response = await fetch(`${api}/repos/${repo}/issues/${report.issue_number}`, {
+			method: 'PATCH',
+			headers: {
+				Accept: 'application/vnd.github+json',
+				'X-GitHub-Api-Version': '2022-11-28',
+				'User-Agent': 'familiste-publish-report-issues',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify({ state: 'closed', state_reason: 'completed' })
+		});
+
+		// An issue deleted or moved by hand answers 404/410: nothing left to close, so the row is marked rather
+		// than retried every minute for ever.
+		if (!response.ok && response.status !== 404 && response.status !== 410) {
+			throw new Error(`issues close: ${response.status} ${await response.text()}`);
+		}
+
+		await rpc('mark_bug_report_issue_closed', { target: report.id });
+		closed += 1;
+	}
+
+	return closed;
+}
+
 Deno.serve(async () => {
+	const closed = await closeResolvedIssues().catch((error) => {
+		console.error('close-resolved-issues', error);
+		return 0;
+	});
+
+	const publication = await publishPending();
+
+	return Response.json({ closed, publication: await publication.json() });
+});
+
+async function publishPending(): Promise<Response> {
 	let claimed: string[] = [];
 
 	try {
@@ -114,4 +169,4 @@ Deno.serve(async () => {
 
 		return Response.json({ status: 'failed', error: String(error) });
 	}
-});
+}

@@ -26,6 +26,7 @@ export const NAV_STEPS: TourStep[] = [
 	{ selector: '[data-test-id="nav-/chat"]', key: 'chat' },
 	{ selector: '[data-test-id="nav-/shops"]', key: 'shops' },
 	{ selector: '[data-test-id="nav-/cards"]', key: 'cards' },
+	{ selector: '[data-test-id="nav-/recipes"]', key: 'recipes' },
 	// The profile is in the column on a large screen and in the header on a phone. Two markers, one step:
 	// `pickSteps` keeps the one that is visible and drops the other.
 	{ selector: '[data-test-id="nav-/profile"]', key: 'profile' },
