@@ -20,6 +20,10 @@
 		KeyRound,
 		LifeBuoy,
 		CircleDot,
+		CircleCheck,
+		CircleAlert,
+		Bug,
+		Lightbulb,
 		ExternalLink
 	} from '@lucide/svelte';
 	import EmptyState from '$components/app/EmptyState.svelte';
@@ -87,6 +91,33 @@
 	let privacyRequests = $state<PrivacyRequest[]>([]);
 	let accounts = $state<PendingAccount[]>([]);
 	let reports = $state<BugReport[]>([]);
+
+	/**
+	 * What is left to do comes first, what is done sinks to the bottom: the list is read to find work, and a
+	 * resolved report above an open one hides it. The order inside each group stays the arrival order.
+	 */
+	const sortedReports = $derived(
+		[...reports].sort((a, b) => Number(a.status === 'resolved') - Number(b.status === 'resolved'))
+	);
+
+	const STATUS_STYLE = {
+		open: {
+			icon: CircleAlert,
+			badge: 'border-[var(--fl-warning)] text-[var(--fl-warning)]',
+			card: 'border-s-[var(--fl-warning)]'
+		},
+		resolved: {
+			icon: CircleCheck,
+			badge: 'border-[var(--fl-success)] text-[var(--fl-success)]',
+			card: 'border-s-[var(--fl-success)] opacity-70'
+		}
+	} as const;
+
+	const KIND_ICON = { bug: Bug, suggestion: Lightbulb } as const;
+	const KIND_STYLE = {
+		bug: 'border-[var(--destructive)] text-[var(--destructive)]',
+		suggestion: 'border-primary text-primary'
+	} as const;
 	let crashes = $state<ClientError[]>([]);
 	let loading = $state(true);
 	let errors = $state<string[]>([]);
@@ -460,9 +491,12 @@
 		<EmptyState illustration="inbox" text={t('admin.reportsEmpty')} testId="admin-reports-empty" />
 	{:else}
 		<ul class="mt-6 space-y-3" data-test-id="bug-reports">
-			{#each reports as report (report.id)}
+			{#each sortedReports as report (report.id)}
+				{@const status = STATUS_STYLE[report.status as keyof typeof STATUS_STYLE] ?? STATUS_STYLE.open}
+				{@const StatusIcon = status.icon}
+				{@const KindIcon = KIND_ICON[report.kind as keyof typeof KIND_ICON] ?? Bug}
 				<li>
-					<Card.Root data-test-class="bug-report">
+					<Card.Root data-test-class="bug-report" class="border-s-4 {status.card}">
 						<Card.Content class="space-y-3">
 							<div class="flex flex-wrap items-start justify-between gap-4">
 								<div class="min-w-0 flex-1 basis-[16rem]">
@@ -475,8 +509,15 @@
 									</p>
 								</div>
 								<div class="flex shrink-0 flex-wrap gap-2">
-									<Badge variant="secondary">{t(`admin.reportKind.${report.kind}`)}</Badge>
-									<Badge variant={report.status === 'open' ? 'secondary' : 'default'}>
+									<Badge
+										variant="outline"
+										class={KIND_STYLE[report.kind as keyof typeof KIND_STYLE] ?? KIND_STYLE.bug}
+									>
+										<KindIcon aria-hidden="true" />
+										{t(`admin.reportKind.${report.kind}`)}
+									</Badge>
+									<Badge variant="outline" class={status.badge}>
+										<StatusIcon aria-hidden="true" />
 										{t(`admin.reportStatus.${report.status}`)}
 									</Badge>
 								</div>

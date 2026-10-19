@@ -35,3 +35,13 @@ describe('diagnostics retention migration', () => {
 		expect(sql.match(/security definer/g)?.length).toBe(sql.match(/set search_path = ''/g)?.length);
 	});
 });
+
+describe("resolved report purge delay", () => {
+	it("purges a resolved report after 14 days", () => {
+		const latest = readFileSync(
+			join(process.cwd(), "supabase/migrations/20261019120000_purge_resolved_reports_sooner.sql"),
+			"utf8"
+		);
+		expect(latest).toMatch(/status = .resolved.[\s\S]*interval .14 days./);
+	});
+});

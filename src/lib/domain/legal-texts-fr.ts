@@ -141,7 +141,7 @@ export const LEGAL_FR: Record<LegalDocumentId, LegalText> = {
 				items: [
 					'Données du compte et contenus : tant que le compte existe ; supprimés lors de la suppression du compte.',
 					'Contenus partagés au sein du foyer : conservés pour les autres membres selon les règles du foyer.',
-					'Signalements de bugs : capture d’écran effacée dès que le signalement est résolu ; signalement supprimé 3 mois après sa résolution, ou 6 mois après sa création s’il n’est pas résolu.',
+					'Signalements de bugs : capture d’écran effacée dès que le signalement est résolu ; signalement supprimé 14 jours après sa résolution, ou 6 mois après sa création s’il n’est pas résolu.',
 					'Erreurs de l’application : supprimées au plus tard 3 mois après leur dernière occurrence.',
 					'Signalements et erreurs liés à un compte : supprimés avec le compte.',
 					'Demandes relatives à vos données : conservées 3 ans après leur clôture, comme preuve de leur traitement, puis supprimées.',

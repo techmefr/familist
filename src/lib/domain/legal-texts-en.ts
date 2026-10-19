@@ -141,7 +141,7 @@ export const LEGAL_EN: Record<LegalDocumentId, LegalText> = {
 				items: [
 					'Account data and content: as long as the account exists; deleted when the account is deleted.',
 					'Content shared within the household: kept for the other members according to the household’s rules.',
-					'Bug reports: screenshot erased as soon as the report is resolved; report deleted 3 months after it is resolved, or 6 months after it was created if it is never resolved.',
+					'Bug reports: screenshot erased as soon as the report is resolved; report deleted 14 days after it is resolved, or 6 months after it was created if it is never resolved.',
 					'Application errors: deleted at most 3 months after their last occurrence.',
 					'Reports and errors tied to an account: deleted with the account.',
 					'Requests about your data: kept for 3 years after they are closed, as proof that they were handled, then deleted.',
