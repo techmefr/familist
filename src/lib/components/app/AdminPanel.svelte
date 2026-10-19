@@ -113,7 +113,17 @@
 		}
 	} as const;
 
-	const KIND_ICON = { bug: Bug, suggestion: Lightbulb } as const;
+	let zoomedScreenshot = $state<string | null>(null);
+	let screenshotDialog = $state<HTMLDialogElement | null>(null);
+
+	$effect(() => {
+		if (!screenshotDialog) return;
+
+		if (zoomedScreenshot && !screenshotDialog.open) screenshotDialog.showModal();
+		if (!zoomedScreenshot && screenshotDialog.open) screenshotDialog.close();
+	});
+
+	const KIND_ICON ={ bug: Bug, suggestion: Lightbulb } as const;
 	const KIND_STYLE = {
 		bug: 'border-[var(--destructive)] text-[var(--destructive)]',
 		suggestion: 'border-primary text-primary'
@@ -499,6 +509,12 @@
 					<Card.Root data-test-class="bug-report" class="border-s-4 {status.card}">
 						<Card.Content class="space-y-3">
 							<div class="flex flex-wrap items-start justify-between gap-4">
+								<span
+									class="grid size-11 shrink-0 place-items-center rounded-full border-2 {status.badge}"
+									data-test-class="bug-report-icon"
+								>
+									<StatusIcon size={24} aria-hidden="true" />
+								</span>
 								<div class="min-w-0 flex-1 basis-[16rem]">
 									<p class="text-label font-medium" data-test-class="bug-report-number">
 										{t('admin.reportNumber', { number: report.number })}
@@ -507,6 +523,9 @@
 									<p class="text-muted-foreground text-caption mt-1">
 										{report.email ?? '—'} · {report.path ?? '—'} · {formatDate(report.created_at)}
 									</p>
+									{#if report.user_agent}
+										<p class="text-muted-foreground text-caption mt-1 break-all">{report.user_agent}</p>
+									{/if}
 								</div>
 								<div class="flex shrink-0 flex-wrap gap-2">
 									<Badge
@@ -524,11 +543,18 @@
 							</div>
 
 							{#if report.screenshot}
-								<img
-									src={report.screenshot}
-									alt={t('bugReport.screenshotAlt')}
-									class="max-h-64 rounded-lg border"
-								/>
+								<button
+									type="button"
+									onclick={() => (zoomedScreenshot = report.screenshot)}
+									data-test-class="bug-screenshot"
+									class="block cursor-zoom-in"
+								>
+									<img
+										src={report.screenshot}
+										alt={t('bugReport.screenshotAlt')}
+										class="max-h-64 rounded-lg border"
+									/>
+								</button>
 							{/if}
 
 							<div class="flex flex-wrap items-center gap-3">
@@ -655,3 +681,36 @@
 	-->
 	<InstanceSettings onRefused={(message) => refuse([message])} />
 {/if}
+
+<!--
+	The capture at full size: a report is read to find what went wrong, and a thumbnail does not show it.
+	The native dialog brings Escape and focus return; a click on the backdrop closes it too.
+-->
+<dialog
+	bind:this={screenshotDialog}
+	onclose={() => (zoomedScreenshot = null)}
+	onclick={(event) => {
+		if (event.target === screenshotDialog) screenshotDialog?.close();
+	}}
+	class="m-auto max-h-[95svh] max-w-[95vw] rounded-lg bg-transparent p-0 backdrop:bg-black/70"
+	aria-label={t('bugReport.screenshotAlt')}
+	data-test-id="bug-screenshot-dialog"
+>
+	{#if zoomedScreenshot}
+		<div class="relative">
+			<img
+				src={zoomedScreenshot}
+				alt={t('bugReport.screenshotAlt')}
+				class="max-h-[95svh] max-w-[95vw] rounded-lg object-contain"
+			/>
+			<button
+				type="button"
+				onclick={() => screenshotDialog?.close()}
+				aria-label={t('common.close')}
+				class="bg-card text-foreground absolute end-3 top-3 grid size-11 place-items-center rounded-full border"
+			>
+				<X size={22} aria-hidden="true" />
+			</button>
+		</div>
+	{/if}
+</dialog>
