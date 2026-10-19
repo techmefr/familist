@@ -109,7 +109,7 @@ describe('shouldOffer', () => {
 	});
 
 	it('attend une ouverture de plus à la première visite', () => {
-		expect(shouldOffer({ ...base, openings: 1 })).toBe(false);
+		expect(shouldOffer({ ...base, openings: 0 })).toBe(false);
 		expect(shouldOffer({ ...base, openings: MIN_OPENINGS - 1 })).toBe(false);
 	});
 

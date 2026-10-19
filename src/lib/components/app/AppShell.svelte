@@ -2,11 +2,8 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
-	import { User, Keyboard, LogOut } from '@lucide/svelte';
-	import { goto } from '$app/navigation';
+	import { User, Keyboard } from '@lucide/svelte';
 	import NotificationCenter from '$components/app/NotificationCenter.svelte';
-	import ActionSheet from '$components/app/ActionSheet.svelte';
-	import type { Action } from '$domain/action-sheet';
 	import KeyboardShortcuts from '$components/app/KeyboardShortcuts.svelte';
 	import AnimatedIcon from '$components/app/AnimatedIcon.svelte';
 	import { t } from '$i18n/index.svelte';
@@ -57,11 +54,6 @@
 	 * where the measurement counts.
 	 */
 	let navbarH = $state(0);
-	let profileMenu = $state<ActionSheet | null>(null);
-	const profileActions = $derived<Action[]>([
-		{ id: 'sign-out', label: t('auth.signOut'), icon: LogOut, onSelect: () => { void session.signOut(); } },
-		{ id: 'profile', label: t('nav.profile'), icon: User, onSelect: () => { void goto('/profile'); } }
-	]);
 	let shortcuts = $state<KeyboardShortcuts | null>(null);
 
 	/** The logo block that tops the full column: the create button sits right under it. */
@@ -303,17 +295,15 @@
 </button>
 <HelpButton />
 <NotificationCenter />
-					<button
-						type="button"
-						onclick={() => profileMenu?.show()}
-						aria-haspopup="dialog"
+					<a
+						href="/profile"
 						data-test-id="header-profile"
 						aria-label={t('nav.profile')}
 						aria-current={isActive('/profile') ? 'page' : undefined}
 						class="fl-press text-muted-foreground flex size-[clamp(44px,2.5rem,52px)] items-center justify-center rounded-full full:hidden"
 					>
 						<User size={22} aria-hidden="true" />
-					</button>
+					</a>
 				</div>
 			</header>
 
@@ -344,5 +334,3 @@
 
 
 <KeyboardShortcuts bind:this={shortcuts} />
-
-<ActionSheet bind:this={profileMenu} title={t('nav.profile')} actions={profileActions} />

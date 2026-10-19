@@ -20,6 +20,7 @@
 	import IconField from '$components/app/IconField.svelte';
 	import SettingsRow from '$components/app/SettingsRow.svelte';
 	import InstallEntry from '$components/app/InstallEntry.svelte';
+	import TutorialEntry from '$components/app/TutorialEntry.svelte';
 	import {
 		ALargeSmall,
 		Bell,
@@ -77,11 +78,14 @@
 <PageHero icon={PageIcon} title={t('profile.title')} description={readingSummary} />
 <div class="fl-profile-session">
 	<p>{t('profile.signedInAs', { email: session.user?.email ?? '' })}</p>
-	<Button variant="outline" onclick={() => session.signOut()} data-test-id="profile-sign-out">
+	<Button onclick={() => session.signOut()} data-test-id="profile-sign-out">
 		<LogOut size={20} aria-hidden="true" />
 		{t('auth.signOut')}
 	</Button>
 </div>
+
+<InstallEntry />
+<TutorialEntry />
 
 <!--
 	Text size and font sit above everything, search included: the people who need them cannot read the rest
@@ -153,5 +157,3 @@
 <p class="sr-only" role="status">
 	{searching && matches.length === 0 ? t('profile.searchEmpty', { query: query.trim() }) : ''}
 </p>
-
-<InstallEntry />

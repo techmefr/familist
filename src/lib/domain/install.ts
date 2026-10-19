@@ -8,13 +8,13 @@
  */
 
 /**
- * The number of openings before offering anything.
+ * The number of openings before offering anything: none to wait for, the offer comes on the first one.
  *
- * On the first visit, nobody yet knows whether they like the application; asking them to put it on their
- * home screen amounts to asking for a commitment before the first service rendered. Three openings is not
- * a measure of enthusiasm, but it is already somebody who came back on their own — twice.
+ * Someone arriving from a link does not know that the application can sit on their home screen, nor how
+ * to do it; the banner is the only place that tells them, so it cannot wait for a third visit. The
+ * refusal below keeps it from turning into a nuisance.
  */
-export const MIN_OPENINGS = 3;
+export const MIN_OPENINGS = 1;
 
 /**
  * How long a refusal is held as given: six months.
