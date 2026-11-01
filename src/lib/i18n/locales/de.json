@@ -1139,9 +1139,9 @@
 		"rejectedTitle": "Zugang verweigert",
 		"rejectedBody": "Ihre Anfrage wurde nicht angenommen.",
 		"passwordless": "Ohne Passwort anmelden",
-		"usePassword": "Mein Passwort verwenden",
-		"sendCode": "Code zusenden",
-		"codeSent": "Ein Code ist an {email} unterwegs.",
+		"usePassword": "Mit Passwort anmelden",
+		"sendCode": "Link per E-Mail erhalten",
+		"codeSent": "Eine E-Mail mit Link und Code ist unterwegs an {email}.",
 		"code": "Erhaltener Code",
 		"codeHint": "Sechs Ziffern. Die E-Mail enthält auch einen Link, der genauso funktioniert.",
 		"verify": "Bestätigen",
@@ -1162,7 +1162,9 @@
 		"resetDoneTitle": "Passwort aktualisiert",
 		"resetDoneBody": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden.",
 		"moreProviders": "Weitere Anmeldearten",
-		"fewerProviders": "Weniger Optionen"
+		"fewerProviders": "Weniger Optionen",
+		"orContinueWith": "oder weiter mit",
+		"codeIntro": "Melde dich mit deiner E-Mail an: Du erhältst einen Anmeldelink."
 	},
 	"welcome": {
 		"title": "Willkommen",
@@ -1598,7 +1600,13 @@
 		"deleteErrorLastAdmin": "Sie sind die einzige Administratorin oder der einzige Administrator. Ernennen Sie jemand anderen, bevor Sie gehen, sonst kann niemand mehr Anmeldungen bestätigen.",
 		"deleteErrorDemo": "Das Demokonto lässt sich nicht löschen.",
 		"deleteErrorSecondFactor": "Bestätigen Sie Ihren zweiten Faktor, bevor Sie Ihr Konto löschen.",
-		"deleteErrorUnknown": "Die Löschung ist nicht erfolgt. Es wurde nichts gelöscht."
+		"deleteErrorUnknown": "Die Löschung ist nicht erfolgt. Es wurde nichts gelöscht.",
+		"passwordCurrentHint": "Leer lassen, wenn du dich per Magic Link oder mit Google oder Apple anmeldest: Du erhältst einen Code per E-Mail.",
+		"passwordSendCode": "Code per E-Mail erhalten",
+		"passwordCodeSent": "Ein sechsstelliger Code wurde dir gerade per E-Mail geschickt. Gib ihn ein, um das neue Passwort zu bestätigen.",
+		"passwordRules": {
+			"length": "Mindestens 8 Zeichen"
+		}
 	},
 	"bugReport": {
 		"button": "Fehler melden",

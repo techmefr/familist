@@ -1141,6 +1141,7 @@
 		"displayName": "Name",
 		"namePlaceholder": "Helen",
 		"continueWith": "Continue with {provider}",
+		"orContinueWith": "or continue with",
 		"orEmail": "or with email",
 		"approvalNotice": "Your account will need to be approved before you can use the app.",
 		"signedUpTitle": "Account created",
@@ -1150,9 +1151,9 @@
 		"rejectedTitle": "Access refused",
 		"rejectedBody": "Your request was not accepted.",
 		"passwordless": "Sign in without a password",
-		"usePassword": "Use my password",
-		"sendCode": "Send me a code",
-		"codeSent": "A code is on its way to {email}.",
+		"usePassword": "Sign in with a password",
+		"sendCode": "Email me a link",
+		"codeSent": "An email is on its way to {email}, with a link and a code.",
 		"code": "Code received",
 		"codeHint": "Six digits. The email also holds a link, which works just as well.",
 		"verify": "Confirm",
@@ -1173,7 +1174,8 @@
 		"resetDoneTitle": "Password updated",
 		"resetDoneBody": "You can now sign in with your new password.",
 		"moreProviders": "More sign-in options",
-		"fewerProviders": "Fewer options"
+		"fewerProviders": "Fewer options",
+		"codeIntro": "Sign in with your email: you will receive a sign-in link."
 	},
 	"welcome": {
 		"title": "Welcome",
@@ -1560,6 +1562,12 @@
 		"subtitle": "Your password, two-step verification, and the devices you are signed in on.",
 		"passwordTitle": "Password",
 		"passwordBody": "The old one is asked for again: without it, a screen left open would be enough to take the account.",
+		"passwordCurrentHint": "Leave empty if you sign in with a magic link or with Google or Apple: a code will be emailed to you.",
+		"passwordSendCode": "Email me a code",
+		"passwordCodeSent": "A six-digit code has just been emailed to you. Enter it to confirm the new password.",
+		"passwordRules": {
+			"length": "At least 8 characters"
+		},
 		"passwordCurrent": "Current password",
 		"passwordNext": "New password",
 		"passwordSubmit": "Change password",

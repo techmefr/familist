@@ -1130,9 +1130,9 @@
 		"rejectedTitle": "Lavina ny fidirana",
 		"rejectedBody": "Tsy nekena ny fangatahanao.",
 		"passwordless": "Hiditra tsy misy teny miafina",
-		"usePassword": "Hampiasa ny teny miafina",
-		"sendCode": "Andefaso kaody aho",
-		"codeSent": "Nalefa any amin'ny {email} ny kaody.",
+		"usePassword": "Hiditra amin'ny teny miafina",
+		"sendCode": "Mandray rohy",
+		"codeSent": "Misy mailaka misy rohy sy kaody mankany amin'i {email}.",
 		"code": "Kaody voaray",
 		"codeHint": "Isa enina. Misy rohy koa ao anaty mailaka, mitovy ihany ny vokany.",
 		"verify": "Hamarino",
@@ -1153,7 +1153,9 @@
 		"resetDoneTitle": "Voavaozina ny tenimiafina",
 		"resetDoneBody": "Afaka miditra amin ny tenimiafina vaovao ianao izao.",
 		"moreProviders": "Fomba hafa hiditra",
-		"fewerProviders": "Tsy dia be loatra"
+		"fewerProviders": "Tsy dia be loatra",
+		"orContinueWith": "na tohizo amin'ny",
+		"codeIntro": "Midira amin'ny mailakao: handray rohy fidirana ianao."
 	},
 	"welcome": {
 		"title": "Tongasoa",
@@ -1589,7 +1591,13 @@
 		"deleteErrorLastAdmin": "Ianao irery no mpitantana. Tendreo olon-kafa alohan'ny handehananao, raha tsy izany dia tsy hisy afaka hanamarina ny fisoratana anarana.",
 		"deleteErrorDemo": "Tsy voafafa ny kaonty fanehoana.",
 		"deleteErrorSecondFactor": "Hamafiso ny fanamarinana faharoa alohan'ny hamafana ny kaontinao.",
-		"deleteErrorUnknown": "Tsy tanteraka ny famafana. Tsy nisy voafafa."
+		"deleteErrorUnknown": "Tsy tanteraka ny famafana. Tsy nisy voafafa.",
+		"passwordCurrentHint": "Avelao foana raha miditra amin'ny rohy majika na amin'ny Google na Apple ianao: halefa amin'ny mailaka ny kaody.",
+		"passwordSendCode": "Mandray kaody amin'ny mailaka",
+		"passwordCodeSent": "Vao nalefa tamin'ny mailaka ny kaody enina isa. Ampidiro mba hanamafisana ny teny miafina vaovao.",
+		"passwordRules": {
+			"length": "Farafahakeliny 8 ny karazan-tsoratra"
+		}
 	},
 	"bugReport": {
 		"button": "Milaza olana",

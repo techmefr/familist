@@ -9,7 +9,7 @@
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
 	import * as Card from '$components/ui/card';
-	import { CheckCircle2, User, Mail, Lock, Eye, EyeOff, KeyRound } from '@lucide/svelte';
+	import { CheckCircle2, User, Mail, Lock, Eye, EyeOff, KeyRound, Plus, X } from '@lucide/svelte';
 	import IconField from '$components/app/IconField.svelte';
 	import CodeField from '$components/app/CodeField.svelte';
 	import { isCompleteOtp, normalizeOtp } from '$domain/otp';
@@ -44,7 +44,7 @@
 	 * Limited to signing in: creating an account needs a name, and a mistyped address would make a ghost
 	 * account to sort out.
 	 */
-	let withoutPassword = $state(false);
+	let withoutPassword = $state(mode === 'signin');
 	let codeSent = $state(false);
 	let code = $state('');
 
@@ -60,7 +60,28 @@
 	/** The platform's own account first; every other service is one tap further, behind "More". */
 	const platform: Platform = Capacitor.getPlatform() === 'ios' ? 'ios' : Capacitor.getPlatform() === 'android' ? 'android' : 'web';
 	const ordered = orderProviders(providers, platform);
-	let showMore = $state(false);
+	const VISIBLE_PROVIDERS = 2;
+	const allProviders = ordered.primary ? [ordered.primary, ...ordered.others] : [];
+	const bubbleProviders = allProviders.slice(0, VISIBLE_PROVIDERS);
+	const hasMoreProviders = allProviders.length > VISIBLE_PROVIDERS;
+	let providersDialog = $state<HTMLDialogElement | null>(null);
+
+	function openProviders() {
+		providersDialog?.showModal();
+	}
+
+	function closeProviders() {
+		providersDialog?.close();
+	}
+
+	function closeOnBackdrop(event: MouseEvent) {
+		if (event.target === providersDialog) closeProviders();
+	}
+
+	async function chooseProvider(id: ProviderId) {
+		closeProviders();
+		await continueWith(id);
+	}
 
 	const MODES = ['signin', 'signup'] as const;
 
@@ -268,53 +289,8 @@
 		{/each}
 	</fieldset>
 
-	{#if ordered.primary}
-		<div class="mt-4 space-y-2" data-test-id="auth-providers">
-			<Button
-				variant="outline"
-				class="fl-press w-full"
-				disabled={busy}
-				onclick={() => continueWith(ordered.primary!.id)}
-				data-test-id="auth-provider-{ordered.primary.id}"
-			>
-				{t('auth.continueWith', { provider: ordered.primary.label })}
-			</Button>
-
-			{#if ordered.others.length > 0}
-				<Button
-					variant="ghost"
-					class="fl-press w-full"
-					aria-expanded={showMore}
-					aria-controls="auth-more-providers"
-					onclick={() => (showMore = !showMore)}
-					data-test-id="auth-providers-more"
-				>
-					{showMore ? t('auth.fewerProviders') : t('auth.moreProviders')}
-				</Button>
-
-				{#if showMore}
-					<div id="auth-more-providers" class="flex flex-wrap gap-2" data-test-id="auth-more-list">
-						{#each ordered.others as provider (provider.id)}
-							<Button
-								variant="outline"
-								class="fl-press flex-auto basis-[10rem]"
-								disabled={busy}
-								onclick={() => continueWith(provider.id)}
-								data-test-id="auth-provider-{provider.id}"
-							>
-								{t('auth.continueWith', { provider: provider.label })}
-							</Button>
-						{/each}
-					</div>
-				{/if}
-			{/if}
-		</div>
-
-		<div class="text-muted-foreground text-caption mt-4 flex items-center gap-3">
-			<span class="bg-border h-px flex-1"></span>
-			{t('auth.orEmail')}
-			<span class="bg-border h-px flex-1"></span>
-		</div>
+	{#if mode === 'signup'}
+		{@render providerBubbles()}
 	{/if}
 
 	{#if withoutPassword}
@@ -323,6 +299,12 @@
 			class="fl-auth-card mt-4 space-y-5"
 			data-test-id="auth-code-form"
 		>
+			{#if !codeSent}
+				<p class="text-muted-foreground text-label" data-test-id="auth-code-intro">
+					{t('auth.codeIntro')}
+				</p>
+			{/if}
+
 			<div>
 				<Label for="auth-otp-email">{t('auth.email')}</Label>
 				<IconField icon={Mail}>
@@ -384,13 +366,14 @@
 				</Button>
 			{/if}
 
-			<div class="border-border/60 -mx-1 border-t"></div>
-
-			<Button variant="ghost" class="w-full" onclick={toggle} data-test-id="auth-use-password">
-				<Lock size={18} aria-hidden="true" />
-				{t('auth.usePassword')}
-			</Button>
 		</form>
+
+		{@render providerBubbles()}
+
+		<Button variant="ghost" class="mt-2 w-full" onclick={toggle} data-test-id="auth-use-password">
+			<Lock size={18} aria-hidden="true" />
+			{t('auth.usePassword')}
+		</Button>
 	{:else}
 	<form
 		onsubmit={submit}
@@ -519,19 +502,93 @@
 			</p>
 		{/if}
 
-		{#if mode === 'signin'}
-			<div class="border-border/60 -mx-1 border-t"></div>
-
-			<Button
-				variant="ghost"
-				class="w-full"
-				onclick={toggle}
-				data-test-id="auth-passwordless"
-			>
-				<KeyRound size={18} aria-hidden="true" />
-				{t('auth.passwordless')}
-			</Button>
-		{/if}
 	</form>
+
+	{#if mode === 'signin'}
+		{@render providerBubbles()}
+
+		<Button variant="ghost" class="mt-2 w-full" onclick={toggle} data-test-id="auth-passwordless">
+			<KeyRound size={18} aria-hidden="true" />
+			{t('auth.passwordless')}
+		</Button>
+	{/if}
 	{/if}
 {/if}
+
+{#snippet providerBubbles()}
+	{#if bubbleProviders.length > 0}
+		<div class="text-muted-foreground text-caption mt-4 flex items-center gap-3">
+			<span class="bg-border h-px flex-1"></span>
+			{t('auth.orContinueWith')}
+			<span class="bg-border h-px flex-1"></span>
+		</div>
+
+		<div class="mt-4 flex flex-wrap justify-center gap-2" data-test-id="auth-providers">
+			{#each bubbleProviders as provider (provider.id)}
+				<Button
+					variant="outline"
+					class="fl-press rounded-full"
+					disabled={busy}
+					onclick={() => continueWith(provider.id)}
+					data-test-id="auth-provider-{provider.id}"
+				>
+					{provider.label}
+				</Button>
+			{/each}
+
+			{#if hasMoreProviders}
+				<Button
+					variant="outline"
+					size="icon"
+					class="fl-press rounded-full"
+					disabled={busy}
+					aria-label={t('auth.moreProviders')}
+					aria-haspopup="dialog"
+					onclick={openProviders}
+					data-test-id="auth-providers-more"
+				>
+					<Plus size={18} aria-hidden="true" />
+				</Button>
+			{/if}
+		</div>
+	{/if}
+{/snippet}
+
+<dialog
+	bind:this={providersDialog}
+	class="fl-providers-dialog bg-card text-card-foreground border-border m-auto w-[min(32rem,calc(100vw-2rem))]
+		max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border p-5 shadow-xl"
+	aria-labelledby="auth-providers-title"
+	onclick={closeOnBackdrop}
+	data-test-id="auth-providers-dialog"
+>
+	<div class="mb-4 flex items-center justify-between gap-3">
+		<h2 id="auth-providers-title" class="text-product font-medium">{t('auth.moreProviders')}</h2>
+		<Button
+			variant="ghost"
+			size="icon"
+			aria-label={t('common.close')}
+			onclick={closeProviders}
+			data-test-id="auth-providers-close"
+		>
+			<X size={18} aria-hidden="true" />
+		</Button>
+	</div>
+
+	<div
+		class="grid gap-2 [grid-template-columns:repeat(auto-fill,minmax(min(100%,10rem),1fr))]"
+		data-test-id="auth-more-list"
+	>
+		{#each allProviders as provider (provider.id)}
+			<Button
+				variant="outline"
+				class="fl-press w-full"
+				disabled={busy}
+				onclick={() => chooseProvider(provider.id)}
+				data-test-id="auth-dialog-provider-{provider.id}"
+			>
+				{t('auth.continueWith', { provider: provider.label })}
+			</Button>
+		{/each}
+	</div>
+</dialog>

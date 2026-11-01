@@ -12,6 +12,7 @@
 	import { feedback } from '$stores/feedback.svelte';
 	import { backupCodesText, formatBackupCode, isCompleteOtp, normalizeOtp } from '$domain/otp';
 	import { deviceLabel, deviceText } from '$domain/device';
+	import { isValidPassword, passwordRules } from '$domain/password';
 	import { deviceFactorName, factorsOfType } from '$domain/device-unlock';
 	import { deviceUnlockAvailable, rememberedDeviceFactor } from '$native/device-unlock';
 	import * as Card from '$components/ui/card';
@@ -60,6 +61,10 @@
 	let shown = $state(false);
 	let passwordChanged = $state(false);
 	let passwordError = $state('');
+	let passwordCodeSent = $state(false);
+	let passwordCode = $state('');
+	const hasCurrentPassword = $derived(oldPassword !== '');
+	const rules = $derived(passwordRules(newPassword));
 
 	const totpFactors = $derived(factorsOfType(factors, 'totp'));
 	const passkeys = $derived(factorsOfType(factors, 'webauthn'));
@@ -305,7 +310,7 @@
 		passwordError = '';
 		passwordChanged = false;
 
-		const ok = await session.changePassword(oldPassword, newPassword);
+		const ok = await submitPassword();
 		busy = false;
 
 		if (!ok) {
@@ -315,9 +320,21 @@
 
 		oldPassword = '';
 		newPassword = '';
+		passwordCode = '';
+		passwordCodeSent = false;
 		passwordChanged = true;
 		feedback.play('success');
 		await reload();
+	}
+
+	async function submitPassword() {
+		if (hasCurrentPassword) return session.changePassword(oldPassword, newPassword);
+		if (!passwordCodeSent) {
+			const sent = await session.sendPasswordCode();
+			if (sent) passwordCodeSent = true;
+			return false;
+		}
+		return session.setPasswordWithCode(newPassword, passwordCode);
 	}
 
 	let exportEnCours = $state(false);
@@ -413,9 +430,9 @@
 						bind:value={oldPassword}
 						autocomplete="current-password"
 						data-test-id="password-current"
-						required
 					/>
 				</IconField>
+				<p class="text-muted-foreground text-caption mt-2">{t('security.passwordCurrentHint')}</p>
 			</div>
 
 			<div>
@@ -457,10 +474,30 @@
 					{/snippet}
 				</IconField>
 
-				<p id="password-next-hint" class="text-muted-foreground text-caption mt-2">
-					{t('auth.passwordHint')}
-				</p>
+				<ul id="password-next-hint" class="text-caption mt-2 space-y-1" data-test-id="password-rules">
+					{#each rules as rule (rule.id)}
+						<li class={rule.isMet ? 'text-secondary' : 'text-muted-foreground'}>
+							{rule.isMet ? '✓' : '○'}
+							{t(`security.passwordRules.${rule.id}`)}
+						</li>
+					{/each}
+				</ul>
 			</div>
+
+			{#if !hasCurrentPassword && passwordCodeSent}
+				<p class="text-muted-foreground text-label" data-test-id="password-code-sent">
+					{t('security.passwordCodeSent')}
+				</p>
+				<CodeField
+					id="password-code"
+					label={t('auth.code')}
+					hint={t('auth.codeHint')}
+					bind:value={passwordCode}
+					normalize={normalizeOtp}
+					length={6}
+					testId="password-code"
+				/>
+			{/if}
 
 			{#if passwordError}
 				<p class="text-destructive text-label" role="alert" data-test-id="password-error">
@@ -478,10 +515,16 @@
 			<Button
 				type="submit"
 				class="fl-press"
-				disabled={busy || oldPassword === '' || newPassword.length < 8}
+				disabled={busy ||
+					!isValidPassword(newPassword) ||
+					(!hasCurrentPassword && passwordCodeSent && !isCompleteOtp(passwordCode))}
 				data-test-id="password-submit"
 			>
-				{busy ? t('common.loading') : t('security.passwordSubmit')}
+				{busy
+					? t('common.loading')
+					: !hasCurrentPassword && !passwordCodeSent
+						? t('security.passwordSendCode')
+						: t('security.passwordSubmit')}
 			</Button>
 		</form>
 	</Card.Content>

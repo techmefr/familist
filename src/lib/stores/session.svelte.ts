@@ -295,6 +295,32 @@ class SessionStore {
 	}
 
 	/**
+	 * Sends a code by email to confirm a password is being set by the account's owner.
+	 *
+	 * An account created through a magic link or a provider has no password to re-check, so
+	 * `changePassword` cannot be used there: the code received by email is the proof instead.
+	 */
+	async sendPasswordCode() {
+		this.error = null;
+		const { error } = await supabase.auth.reauthenticate();
+
+		if (error) this.error = error.message;
+		return !error;
+	}
+
+	async setPasswordWithCode(next: string, nonce: string) {
+		this.error = null;
+		const { error } = await supabase.auth.updateUser({ password: next, nonce });
+
+		if (error) {
+			this.error = error.message;
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * The account's verified factors, authenticator codes and device passkeys alike. Unfinished enrolments
 	 * do not count.
 	 *

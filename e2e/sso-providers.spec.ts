@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
  * to the page, the same as an operator setting PUBLIC_OAUTH_PROVIDERS: the platform's own account is the
  * first button and every other service sits behind "More".
  */
-test('le premier fournisseur est affiché, les autres derrière « Plus »', async ({ page }) => {
+test('deux fournisseurs en bulles, tous dans la fenêtre du « + »', async ({ page }) => {
 	await page.route('**/config.js', async route => {
 		const response = await route.fetch();
 		const body = await response.text();
@@ -18,15 +18,13 @@ test('le premier fournisseur est affiché, les autres derrière « Plus »', asy
 	await page.goto('/auth');
 
 	await expect(page.getByTestId('auth-provider-google')).toBeVisible();
-	await expect(page.getByTestId('auth-provider-apple')).toHaveCount(0);
+	await expect(page.getByTestId('auth-provider-apple')).toBeVisible();
 	await expect(page.getByTestId('auth-provider-github')).toHaveCount(0);
 
-	const more = page.getByTestId('auth-providers-more');
-	await expect(more).toHaveAttribute('aria-expanded', 'false');
-	await more.click();
-	await expect(more).toHaveAttribute('aria-expanded', 'true');
-	await expect(page.getByTestId('auth-provider-apple')).toBeVisible();
-	await expect(page.getByTestId('auth-provider-github')).toBeVisible();
+	await page.getByTestId('auth-providers-more').click();
+	await expect(page.getByTestId('auth-providers-dialog')).toBeVisible();
+	await expect(page.getByTestId('auth-dialog-provider-google')).toBeVisible();
+	await expect(page.getByTestId('auth-dialog-provider-github')).toBeVisible();
 });
 
 test('sans fournisseur configuré, aucun bouton ni séparateur', async ({ page }) => {

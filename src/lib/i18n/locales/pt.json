@@ -1139,9 +1139,9 @@
 		"rejectedTitle": "Acesso recusado",
 		"rejectedBody": "O seu pedido não foi aceite.",
 		"passwordless": "Entrar sem palavra-passe",
-		"usePassword": "Usar a minha palavra-passe",
-		"sendCode": "Enviar-me um código",
-		"codeSent": "Foi enviado um código para {email}.",
+		"usePassword": "Entrar com palavra-passe",
+		"sendCode": "Receber uma ligação",
+		"codeSent": "Um e-mail com uma ligação e um código está a caminho de {email}.",
 		"code": "Código recebido",
 		"codeHint": "Seis algarismos. A mensagem traz também uma ligação, que serve na mesma.",
 		"verify": "Validar",
@@ -1162,7 +1162,9 @@
 		"resetDoneTitle": "Senha atualizada",
 		"resetDoneBody": "Agora você pode entrar com a sua nova senha.",
 		"moreProviders": "Mais formas de entrar",
-		"fewerProviders": "Menos opções"
+		"fewerProviders": "Menos opções",
+		"orContinueWith": "ou continuar com",
+		"codeIntro": "Entra com o teu e-mail: vais receber uma ligação de acesso."
 	},
 	"welcome": {
 		"title": "Bem-vindo",
@@ -1598,7 +1600,13 @@
 		"deleteErrorLastAdmin": "É o único administrador. Nomeie outra pessoa antes de sair, caso contrário ninguém poderá validar as inscrições.",
 		"deleteErrorDemo": "A conta de demonstração não pode ser eliminada.",
 		"deleteErrorSecondFactor": "Confirme o seu segundo fator antes de eliminar a conta.",
-		"deleteErrorUnknown": "A eliminação não foi concluída. Nada foi apagado."
+		"deleteErrorUnknown": "A eliminação não foi concluída. Nada foi apagado.",
+		"passwordCurrentHint": "Deixa vazio se entras com uma ligação mágica ou com Google ou Apple: vais receber um código por e-mail.",
+		"passwordSendCode": "Receber um código por e-mail",
+		"passwordCodeSent": "Acabámos de te enviar um código de seis dígitos por e-mail. Introduz-o para confirmar a nova palavra-passe.",
+		"passwordRules": {
+			"length": "Pelo menos 8 caracteres"
+		}
 	},
 	"bugReport": {
 		"button": "Reportar um problema",

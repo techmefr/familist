@@ -31,7 +31,7 @@ test.describe('accessibilite', () => {
 	test('connexion', { tag: '@critical' }, async ({ page }) => {
 		await presetAppearance(page);
 		await page.goto('/auth');
-		await expect(page.getByTestId('auth-submit')).toBeVisible({ timeout: 15_000 });
+		await expect(page.getByTestId('auth-code-submit')).toBeVisible({ timeout: 15_000 });
 
 		await expectNoNewViolations(page, 'connexion');
 	});

@@ -1143,9 +1143,9 @@
 		"rejectedTitle": "Acceso denegado",
 		"rejectedBody": "Tu solicitud no ha sido aceptada.",
 		"passwordless": "Entrar sin contraseña",
-		"usePassword": "Usar mi contraseña",
-		"sendCode": "Enviarme un código",
-		"codeSent": "Se ha enviado un código a {email}.",
+		"usePassword": "Iniciar sesión con contraseña",
+		"sendCode": "Recibir un enlace",
+		"codeSent": "Un correo con un enlace y un código va de camino a {email}.",
 		"code": "Código recibido",
 		"codeHint": "Seis cifras. El correo también trae un enlace, que sirve igual.",
 		"verify": "Validar",
@@ -1166,7 +1166,9 @@
 		"resetDoneTitle": "Contraseña actualizada",
 		"resetDoneBody": "Ya puedes iniciar sesión con tu nueva contraseña.",
 		"moreProviders": "Más formas de acceder",
-		"fewerProviders": "Menos opciones"
+		"fewerProviders": "Menos opciones",
+		"orContinueWith": "o continuar con",
+		"codeIntro": "Inicia sesión con tu correo: recibirás un enlace de acceso."
 	},
 	"welcome": {
 		"title": "Bienvenido",
@@ -1602,7 +1604,13 @@
 		"deleteErrorLastAdmin": "Usted es el único administrador. Nombre a otra persona antes de irse; si no, nadie podrá validar los registros.",
 		"deleteErrorDemo": "La cuenta de demostración no se puede eliminar.",
 		"deleteErrorSecondFactor": "Confirme su segundo factor antes de eliminar la cuenta.",
-		"deleteErrorUnknown": "La eliminación no se ha completado. No se ha borrado nada."
+		"deleteErrorUnknown": "La eliminación no se ha completado. No se ha borrado nada.",
+		"passwordCurrentHint": "Déjalo vacío si inicias sesión con un enlace mágico o con Google o Apple: te enviaremos un código por correo.",
+		"passwordSendCode": "Recibir un código por correo",
+		"passwordCodeSent": "Te acabamos de enviar un código de seis dígitos por correo. Introdúcelo para confirmar la nueva contraseña.",
+		"passwordRules": {
+			"length": "Al menos 8 caracteres"
+		}
 	},
 	"bugReport": {
 		"button": "Informar de un error",
