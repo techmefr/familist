@@ -1129,9 +1129,9 @@
 		"rejectedTitle": "访问被拒绝",
 		"rejectedBody": "您的申请未被接受。",
 		"passwordless": "不用密码登录",
-		"usePassword": "改用密码",
-		"sendCode": "给我发个验证码",
-		"codeSent": "验证码已发往 {email}。",
+		"usePassword": "使用密码登录",
+		"sendCode": "发送登录链接",
+		"codeSent": "带有链接和验证码的邮件已发送至 {email}。",
 		"code": "收到的验证码",
 		"codeHint": "六位数字。邮件里也有一个链接，点开一样能进。",
 		"verify": "确认",
@@ -1152,7 +1152,9 @@
 		"resetDoneTitle": "密码已更新",
 		"resetDoneBody": "您现在可以使用新密码登录。",
 		"moreProviders": "更多登录方式",
-		"fewerProviders": "收起"
+		"fewerProviders": "收起",
+		"orContinueWith": "或继续使用",
+		"codeIntro": "使用邮箱登录：你将收到一个登录链接。"
 	},
 	"welcome": {
 		"title": "欢迎",
@@ -1583,7 +1585,13 @@
 		"deleteErrorLastAdmin": "您是唯一的管理员。离开前请先指定另一位，否则将无人能够审核新的注册。",
 		"deleteErrorDemo": "演示账户无法删除。",
 		"deleteErrorSecondFactor": "请先确认第二重验证，再删除账户。",
-		"deleteErrorUnknown": "删除未能完成。没有任何内容被抹去。"
+		"deleteErrorUnknown": "删除未能完成。没有任何内容被抹去。",
+		"passwordCurrentHint": "如果你通过魔法链接或 Google、Apple 登录，请留空：验证码将发送到你的邮箱。",
+		"passwordSendCode": "通过邮件获取验证码",
+		"passwordCodeSent": "六位数验证码已发送到你的邮箱。输入后即可确认新密码。",
+		"passwordRules": {
+			"length": "至少 8 个字符"
+		}
 	},
 	"bugReport": {
 		"button": "报告问题",

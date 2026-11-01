@@ -74,6 +74,10 @@
 		providersDialog?.close();
 	}
 
+	function closeOnBackdrop(event: MouseEvent) {
+		if (event.target === providersDialog) closeProviders();
+	}
+
 	async function chooseProvider(id: ProviderId) {
 		closeProviders();
 		await continueWith(id);
@@ -295,6 +299,12 @@
 			class="fl-auth-card mt-4 space-y-5"
 			data-test-id="auth-code-form"
 		>
+			{#if !codeSent}
+				<p class="text-muted-foreground text-label" data-test-id="auth-code-intro">
+					{t('auth.codeIntro')}
+				</p>
+			{/if}
+
 			<div>
 				<Label for="auth-otp-email">{t('auth.email')}</Label>
 				<IconField icon={Mail}>
@@ -549,6 +559,7 @@
 	class="fl-providers-dialog bg-card text-card-foreground border-border m-auto w-[min(32rem,calc(100vw-2rem))]
 		max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border p-5 shadow-xl"
 	aria-labelledby="auth-providers-title"
+	onclick={closeOnBackdrop}
 	data-test-id="auth-providers-dialog"
 >
 	<div class="mb-4 flex items-center justify-between gap-3">

@@ -30,7 +30,7 @@ test.afterEach(async ({ page }) => {
 
 	// The email field rather than the "sign in" choice to recognise the form: the latter is a box reserved
 	// for screen readers, one pixel across, whose visibility does not mean much.
-	const email = page.getByTestId('auth-email');
+	const email = page.getByTestId('auth-otp-email');
 	const codeForm = page.getByTestId('mfa-form');
 	const visible = page.getByTestId('nav-create');
 
@@ -42,7 +42,8 @@ test.afterEach(async ({ page }) => {
 
 	if (await email.isVisible()) {
 		await page.getByTestId('mode-signin').check();
-		await email.fill(FIXTURE_EMAIL);
+		await page.getByTestId('auth-use-password').click();
+		await page.getByTestId('auth-email').fill(FIXTURE_EMAIL);
 		await page.getByTestId('auth-password').fill(FIXTURE_PASSWORD);
 		await page.getByTestId('auth-submit').click();
 		await expect(codeForm.or(visible).first()).toBeVisible({ timeout: 15_000 });
@@ -95,6 +96,7 @@ test('activer la 2FA, se reconnecter avec un code, puis la retirer', { tag: '@cr
 
 	await page.goto('/auth');
 	await page.getByTestId('mode-signin').check();
+	await page.getByTestId('auth-use-password').click();
 	await page.getByTestId('auth-email').fill(FIXTURE_EMAIL);
 	await page.getByTestId('auth-password').fill(FIXTURE_PASSWORD);
 	await page.getByTestId('auth-submit').click();

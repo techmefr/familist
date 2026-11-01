@@ -1152,8 +1152,8 @@
 		"rejectedBody": "Your request was not accepted.",
 		"passwordless": "Sign in without a password",
 		"usePassword": "Sign in with a password",
-		"sendCode": "Send me a code",
-		"codeSent": "A code is on its way to {email}.",
+		"sendCode": "Email me a link",
+		"codeSent": "An email is on its way to {email}, with a link and a code.",
 		"code": "Code received",
 		"codeHint": "Six digits. The email also holds a link, which works just as well.",
 		"verify": "Confirm",
@@ -1174,7 +1174,8 @@
 		"resetDoneTitle": "Password updated",
 		"resetDoneBody": "You can now sign in with your new password.",
 		"moreProviders": "More sign-in options",
-		"fewerProviders": "Fewer options"
+		"fewerProviders": "Fewer options",
+		"codeIntro": "Sign in with your email: you will receive a sign-in link."
 	},
 	"welcome": {
 		"title": "Welcome",
@@ -1564,7 +1565,9 @@
 		"passwordCurrentHint": "Leave empty if you sign in with a magic link or with Google or Apple: a code will be emailed to you.",
 		"passwordSendCode": "Email me a code",
 		"passwordCodeSent": "A six-digit code has just been emailed to you. Enter it to confirm the new password.",
-		"passwordRules": { "length": "At least 8 characters" },
+		"passwordRules": {
+			"length": "At least 8 characters"
+		},
 		"passwordCurrent": "Current password",
 		"passwordNext": "New password",
 		"passwordSubmit": "Change password",

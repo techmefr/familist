@@ -25,6 +25,7 @@ async function signInOnLocalhost(
 	await presetAppearance(page, appearance);
 	await page.goto(onLocalhost('/auth'));
 	await page.getByTestId('mode-signin').check();
+	await page.getByTestId('auth-use-password').click();
 	await page.getByTestId('auth-email').fill(email);
 	await page.getByTestId('auth-password').fill(password);
 	await page.getByTestId('auth-submit').click();

@@ -91,7 +91,7 @@ export async function signBackInAndRemoveSecondStep(page: Page, secret: string) 
 	const act = { timeout: 15_000 };
 	const status = page.getByTestId('totp-state');
 	const codeForm = page.getByTestId('mfa-form');
-	const email = page.getByTestId('auth-email');
+	const email = page.getByTestId('auth-otp-email');
 
 	await page.context().setOffline(false);
 	await page.goto('/profile/security');
@@ -99,7 +99,8 @@ export async function signBackInAndRemoveSecondStep(page: Page, secret: string) 
 
 	if (await email.isVisible()) {
 		await page.getByTestId('mode-signin').check(act);
-		await email.fill(FIXTURE_EMAIL, act);
+		await page.getByTestId('auth-use-password').click(act);
+		await page.getByTestId('auth-email').fill(FIXTURE_EMAIL, act);
 		await page.getByTestId('auth-password').fill(FIXTURE_PASSWORD, act);
 		await page.getByTestId('auth-submit').click(act);
 		await expect(codeForm.or(page.getByTestId('nav-create')).first()).toBeVisible(act);

@@ -1137,9 +1137,9 @@
 		"rejectedTitle": "Accesso rifiutato",
 		"rejectedBody": "La tua richiesta non è stata accettata.",
 		"passwordless": "Accedere senza password",
-		"usePassword": "Usare la mia password",
-		"sendCode": "Inviami un codice",
-		"codeSent": "Un codice sta arrivando a {email}.",
+		"usePassword": "Accedi con una password",
+		"sendCode": "Ricevi un link",
+		"codeSent": "Un'e-mail con un link e un codice sta arrivando a {email}.",
 		"code": "Codice ricevuto",
 		"codeHint": "Sei cifre. Il messaggio contiene anche un collegamento, che vale altrettanto.",
 		"verify": "Convalidare",
@@ -1160,7 +1160,9 @@
 		"resetDoneTitle": "Password aggiornata",
 		"resetDoneBody": "Ora puoi accedere con la tua nuova password.",
 		"moreProviders": "Altri modi di accedere",
-		"fewerProviders": "Meno opzioni"
+		"fewerProviders": "Meno opzioni",
+		"orContinueWith": "oppure continua con",
+		"codeIntro": "Accedi con la tua e-mail: riceverai un link di accesso."
 	},
 	"welcome": {
 		"title": "Benvenuto",
@@ -1596,7 +1598,13 @@
 		"deleteErrorLastAdmin": "Lei è l'unico amministratore. Ne nomini un altro prima di andarsene, altrimenti nessuno potrà più convalidare le iscrizioni.",
 		"deleteErrorDemo": "Il account di dimostrazione non si elimina.",
 		"deleteErrorSecondFactor": "Confermi il suo secondo fattore prima di eliminare il suo account.",
-		"deleteErrorUnknown": "Eliminazione non riuscita. Non è stato cancellato nulla."
+		"deleteErrorUnknown": "Eliminazione non riuscita. Non è stato cancellato nulla.",
+		"passwordCurrentHint": "Lascia vuoto se accedi con un link magico o con Google o Apple: riceverai un codice via e-mail.",
+		"passwordSendCode": "Ricevi un codice via e-mail",
+		"passwordCodeSent": "Ti abbiamo appena inviato un codice di sei cifre via e-mail. Inseriscilo per confermare la nuova password.",
+		"passwordRules": {
+			"length": "Almeno 8 caratteri"
+		}
 	},
 	"bugReport": {
 		"button": "Segnala un problema",

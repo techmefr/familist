@@ -1184,8 +1184,8 @@
 		"rejectedBody": "Votre demande n'a pas été retenue.",
 		"passwordless": "Se connecter sans mot de passe",
 		"usePassword": "Se connecter avec un mot de passe",
-		"sendCode": "Recevoir un code",
-		"codeSent": "Un code est parti vers {email}.",
+		"sendCode": "Recevoir un lien",
+		"codeSent": "Un e-mail est parti vers {email}, avec un lien et un code.",
 		"code": "Code reçu",
 		"codeHint": "Six chiffres. Le courriel contient aussi un lien, qui marche tout autant.",
 		"verify": "Valider",
@@ -1206,7 +1206,8 @@
 		"resetDoneTitle": "Mot de passe mis à jour",
 		"resetDoneBody": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
 		"moreProviders": "Autres moyens de connexion",
-		"fewerProviders": "Moins d’options"
+		"fewerProviders": "Moins d’options",
+		"codeIntro": "Connectez-vous avec votre e-mail : vous recevrez un lien de connexion."
 	},
 	"welcome": {
 		"title": "Bienvenue",
@@ -1596,7 +1597,9 @@
 		"passwordCurrentHint": "Laissez vide si vous vous connectez par lien magique ou avec Google ou Apple : un code vous sera envoyé par e-mail.",
 		"passwordSendCode": "Recevoir un code par e-mail",
 		"passwordCodeSent": "Un code à six chiffres vient de vous être envoyé par e-mail. Saisissez-le pour confirmer le nouveau mot de passe.",
-		"passwordRules": { "length": "8 caractères au minimum" },
+		"passwordRules": {
+			"length": "8 caractères au minimum"
+		},
 		"passwordCurrent": "Mot de passe actuel",
 		"passwordNext": "Nouveau mot de passe",
 		"passwordSubmit": "Changer le mot de passe",
