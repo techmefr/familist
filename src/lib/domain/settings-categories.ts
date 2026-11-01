@@ -57,6 +57,20 @@ export const SETTINGS_CATEGORIES: SettingsCategory[] = [
 		]
 	},
 	{
+		id: 'security',
+		route: '/profile/security',
+		title: 'security.title',
+		...keys('security'),
+		settings: [
+			{ anchor: 'setting-password', label: 'security.passwordTitle' },
+			{ anchor: 'setting-device-unlock', label: 'deviceUnlock.title', hint: 'deviceUnlock.body' },
+			{ anchor: 'setting-two-factor', label: 'security.twoFactor' },
+			{ anchor: 'setting-sessions', label: 'security.sessionsTitle' },
+			{ anchor: 'setting-data', label: 'security.dataTitle' },
+			{ anchor: 'setting-delete', label: 'security.deleteTitle' }
+		]
+	},
+	{
 		id: 'household',
 		route: '/household',
 		title: 'profile.categories.household.title',
@@ -103,20 +117,6 @@ export const SETTINGS_CATEGORIES: SettingsCategory[] = [
 			{ anchor: 'setting-notification-types', label: 'notifications.typesTitle' },
 			{ anchor: 'setting-notification-lists', label: 'notifications.listsTitle' },
 			{ anchor: 'setting-quiet-hours', label: 'notifications.quietTitle', hint: 'notifications.quietHint' }
-		]
-	},
-	{
-		id: 'security',
-		route: '/profile/security',
-		title: 'security.title',
-		...keys('security'),
-		settings: [
-			{ anchor: 'setting-password', label: 'security.passwordTitle' },
-			{ anchor: 'setting-device-unlock', label: 'deviceUnlock.title', hint: 'deviceUnlock.body' },
-			{ anchor: 'setting-two-factor', label: 'security.twoFactor' },
-			{ anchor: 'setting-sessions', label: 'security.sessionsTitle' },
-			{ anchor: 'setting-data', label: 'security.dataTitle' },
-			{ anchor: 'setting-delete', label: 'security.deleteTitle' }
 		]
 	},
 	{

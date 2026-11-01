@@ -4,6 +4,7 @@ test.describe('connexion', () => {
 	test('un mot de passe erroné affiche une erreur et ne connecte pas', { tag: '@critical' }, async ({ page }) => {
 		await page.goto('/auth');
 		await page.getByTestId('mode-signin').check();
+		await page.getByTestId('auth-use-password').click();
 		await page.getByTestId('auth-email').fill(FIXTURE_EMAIL);
 		await page.getByTestId('auth-password').fill('un-mot-de-passe-qui-ne-marche-pas');
 		await page.getByTestId('auth-submit').click();
@@ -15,6 +16,7 @@ test.describe('connexion', () => {
 	test('un compte valide arrive sur ses listes', { tag: '@critical' }, async ({ page }) => {
 		await page.goto('/auth');
 		await page.getByTestId('mode-signin').check();
+		await page.getByTestId('auth-use-password').click();
 		await page.getByTestId('auth-email').fill(FIXTURE_EMAIL);
 		await page.getByTestId('auth-password').fill(FIXTURE_PASSWORD);
 		await page.getByTestId('auth-submit').click();
@@ -23,13 +25,15 @@ test.describe('connexion', () => {
 		await expect(page).toHaveURL('/');
 	});
 
-	test('le chemin sans mot de passe demande un code plutôt que le mot de passe', { tag: '@critical' }, async ({ page }) => {
+	test('le lien par e-mail est proposé en premier, le mot de passe ensuite', { tag: '@critical' }, async ({ page }) => {
 		await page.goto('/auth');
 		await page.getByTestId('mode-signin').check();
-		await page.getByTestId('auth-passwordless').click();
 
 		await expect(page.getByTestId('auth-code-form')).toBeVisible();
 		await expect(page.getByTestId('auth-password')).toHaveCount(0);
+
+		await page.getByTestId('auth-use-password').click();
+		await expect(page.getByTestId('auth-password')).toBeVisible();
 	});
 });
 
