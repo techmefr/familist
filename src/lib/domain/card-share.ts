@@ -38,19 +38,25 @@ export const shareStatusOf = (
 export const acceptedShareCount = (shares: readonly CardShareRow[], cardId: string): number =>
 	shares.filter((share) => share.cardId === cardId && share.status === 'accepted').length;
 
-/** Owned by the active circle, or shared into it and accepted there. A pending share shows nothing yet. */
+/**
+ * Every card of every circle the account belongs to, plus those accepted into the active circle. Joining
+ * another family must never hide a card: the circle is a filter the person chooses, not a gate.
+ */
 export const visibleCards = <T extends CircleScopedCard>(
 	cards: readonly T[],
 	shares: readonly CardShareRow[],
-	circle: string
+	circle: string,
+	ownCircles: readonly string[] = [circle]
 ): T[] => {
 	if (circle === '') return [];
+	const mine = new Set(ownCircles);
+	mine.add(circle);
 	const acceptedIds = new Set(
 		shares
 			.filter((share) => share.householdId === circle && share.status === 'accepted')
 			.map((share) => share.cardId)
 	);
-	return cards.filter((card) => card.householdId === circle || acceptedIds.has(card.id));
+	return cards.filter((card) => mine.has(card.householdId) || acceptedIds.has(card.id));
 };
 
 export type AccountRevealGate = 'allowed' | 'second-factor' | 'enrol';

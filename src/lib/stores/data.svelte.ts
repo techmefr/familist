@@ -221,7 +221,12 @@ class DataStore {
 
 	shops = $derived(ofCircle(this.cachedShops, this.circle));
 	aisles = $derived(ofCircle(this.cachedAisles, this.circle));
-	cards = $derived(visibleCards(this.cachedCards, this.cardShares, this.circle));
+	cards = $derived(visibleCards(
+		this.cachedCards,
+		this.cardShares,
+		this.circle,
+		this.circles.map((circle) => circle.id)
+	));
 	members = $derived(ofCircle(this.cachedMembers, this.circle));
 	prices = $derived(ofCircle(this.cachedPrices, this.circle));
 	recipes = $derived(visibleRecipes(this.cachedRecipes, this.recipeShares, this.circle));
@@ -1015,7 +1020,7 @@ class DataStore {
 
 	/** A card shared into this circle is read here, never rewritten: only its own household edits it. */
 	isOwnCard(card: LoyaltyCard) {
-		return card.householdId === this.circle;
+		return this.circles.some((circle) => circle.id === card.householdId);
 	}
 
 	cardShareStatus(cardId: string, householdId: string) {

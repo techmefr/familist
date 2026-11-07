@@ -178,6 +178,8 @@
 	let barHeight = $state(0);
 	let scopeFilter = $state<'all' | 'own' | 'shared'>('all');
 	let brandFilter = $state('');
+	/** Empty keeps every household: the default, so no card is ever left out of sight. */
+	let householdFilter = $state('');
 
 	/** Every enseigne actually carried by a card today, cumulated across own and shared cards alike. */
 	const cardBrands = $derived(
@@ -190,6 +192,7 @@
 		data.cards.filter((card) => {
 			if (scopeFilter === 'own' && !data.isOwnCard(card)) return false;
 			if (scopeFilter === 'shared' && data.isOwnCard(card)) return false;
+			if (householdFilter && card.householdId !== householdFilter) return false;
 			if (brandFilter && card.brand.trim() !== brandFilter) return false;
 
 			const query = searchQuery.trim().toLowerCase();
@@ -200,13 +203,14 @@
 	);
 
 	const filtersActive = $derived(
-		scopeFilter !== 'all' || brandFilter !== '' || searchQuery.trim() !== ''
+		scopeFilter !== 'all' || brandFilter !== '' || householdFilter !== '' || searchQuery.trim() !== ''
 	);
-	const activeFilterCount = $derived((scopeFilter !== 'all' ? 1 : 0) + (brandFilter !== '' ? 1 : 0));
+	const activeFilterCount = $derived((scopeFilter !== 'all' ? 1 : 0) + (brandFilter !== '' ? 1 : 0) + (householdFilter !== '' ? 1 : 0));
 
 	function resetFilters() {
 		scopeFilter = 'all';
 		brandFilter = '';
+		householdFilter = '';
 	}
 
 	function openFilters() {
@@ -783,6 +787,25 @@
 				{/each}
 			</div>
 		</fieldset>
+
+		{#if data.circles.length > 1}
+			<div class="mt-4">
+				<Label for="cards-filter-household">{t('cards.filterHousehold')}</Label>
+				<IconField icon={Users}>
+					<select
+						id="cards-filter-household"
+						bind:value={householdFilter}
+						data-test-id="cards-filter-household"
+						class="border-input bg-background min-h-[max(2.75rem,44px)] w-full rounded-md border"
+					>
+						<option value="">{t('cards.filterHouseholdAll')}</option>
+						{#each data.circles as circle (circle.id)}
+							<option value={circle.id}>{circle.name}</option>
+						{/each}
+					</select>
+				</IconField>
+			</div>
+		{/if}
 
 		<div class="mt-4">
 			<Label for="cards-filter-brand">{t('cards.filterBrand')}</Label>
