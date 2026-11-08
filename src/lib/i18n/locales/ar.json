@@ -234,6 +234,8 @@
 		"imageFailed": "تعذّرت قراءة هذه الصورة."
 	},
 	"cards": {
+		"filterHousehold": "الأسرة",
+		"filterHouseholdAll": "كل الأسر",
 		"title": "البطاقات",
 		"empty": "لا توجد بطاقات محفوظة.",
 		"points": "نقاط الولاء",

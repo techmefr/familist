@@ -229,6 +229,8 @@
 		"imageFailed": "无法读取这张图片。"
 	},
 	"cards": {
+		"filterHousehold": "家庭",
+		"filterHouseholdAll": "所有家庭",
 		"title": "会员卡",
 		"empty": "未保存会员卡。",
 		"points": "积分",

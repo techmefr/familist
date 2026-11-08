@@ -230,6 +230,8 @@
 		"imageFailed": "Tsy voavaky io sary io."
 	},
 	"cards": {
+		"filterHousehold": "Fianakaviana",
+		"filterHouseholdAll": "Ny fianakaviana rehetra",
 		"title": "Karatra",
 		"empty": "Tsy misy karatra voatahiry.",
 		"points": "isa fahatokisana",

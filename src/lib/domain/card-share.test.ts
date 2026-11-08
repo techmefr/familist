@@ -67,6 +67,11 @@ describe('shareStatusOf', () => {
 });
 
 describe('visibleCards', () => {
+	it('garde les cartes de tous les foyers de la personne, quel que soit le foyer actif', () => {
+		const ids = visibleCards(cards, [], 'family', ['family', 'work']).map((card) => card.id);
+		expect(ids).toEqual(['own', 'accepted', 'pending', 'declined']);
+	});
+
 	it('montre les cartes du cercle et celles dont le partage est accepté', () => {
 		expect(visibleCards(cards, shares, 'family').map((card) => card.id)).toEqual(['own', 'accepted']);
 	});

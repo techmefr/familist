@@ -315,6 +315,8 @@
 		"filterScopeShared": "Partagées avec moi",
 		"filterBrand": "Enseigne",
 		"filterBrandAll": "Toutes les enseignes",
+		"filterHousehold": "Foyer",
+		"filterHouseholdAll": "Tous les foyers",
 		"filterApply": "Voir les résultats",
 		"filterReset": "Réinitialiser",
 		"filterActive": "Filtres actifs",

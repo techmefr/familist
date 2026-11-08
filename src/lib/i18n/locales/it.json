@@ -230,6 +230,8 @@
 		"imageFailed": "Impossibile leggere questa immagine."
 	},
 	"cards": {
+		"filterHousehold": "Nucleo",
+		"filterHouseholdAll": "Tutti i nuclei",
 		"title": "Carte",
 		"empty": "Nessuna carta salvata.",
 		"points": "punti fedeltà",

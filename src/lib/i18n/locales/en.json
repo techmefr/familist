@@ -230,6 +230,8 @@
 		"imageFailed": "That image could not be read."
 	},
 	"cards": {
+		"filterHousehold": "Household",
+		"filterHouseholdAll": "All households",
 		"title": "Cards",
 		"empty": "No cards saved.",
 		"points": "loyalty points",
