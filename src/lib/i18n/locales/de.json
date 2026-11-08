@@ -230,6 +230,8 @@
 		"imageFailed": "Dieses Bild konnte nicht gelesen werden."
 	},
 	"cards": {
+		"filterHousehold": "Haushalt",
+		"filterHouseholdAll": "Alle Haushalte",
 		"title": "Karten",
 		"empty": "Keine Karten gespeichert.",
 		"points": "Treuepunkte",

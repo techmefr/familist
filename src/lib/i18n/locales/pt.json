@@ -230,6 +230,8 @@
 		"imageFailed": "Não foi possível ler esta imagem."
 	},
 	"cards": {
+		"filterHousehold": "Lar",
+		"filterHouseholdAll": "Todos os lares",
 		"title": "Cartões",
 		"empty": "Nenhum cartão guardado.",
 		"points": "pontos de fidelidade",

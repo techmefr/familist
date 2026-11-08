@@ -232,6 +232,8 @@
 		"imageFailed": "Не удалось прочитать это изображение."
 	},
 	"cards": {
+		"filterHousehold": "Семья",
+		"filterHouseholdAll": "Все семьи",
 		"title": "Карты",
 		"empty": "Карты не сохранены.",
 		"points": "бонусных баллов",
