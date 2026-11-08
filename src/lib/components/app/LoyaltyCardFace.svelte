@@ -18,11 +18,13 @@
 	let {
 		card,
 		shopName,
+		householdName,
 		shareCount = 0,
 		actions = false
 	}: {
 		card: Pick<LoyaltyCard, 'name' | 'brand' | 'tint'>;
 		shopName?: string;
+		householdName?: string;
 		shareCount?: number;
 		actions?: boolean;
 	} = $props();
@@ -55,6 +57,9 @@
 		<h2 class="text-product font-semibold hyphens-auto wrap-anywhere">{card.name}</h2>
 		{#if shopName}
 			<p class="text-caption text-white/80">{shopName}</p>
+		{/if}
+		{#if householdName}
+			<p class="text-caption text-white/70" data-test-class="card-household">{householdName}</p>
 		{/if}
 	</div>
 </article>
