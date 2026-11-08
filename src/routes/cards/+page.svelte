@@ -398,6 +398,7 @@
 						<LoyaltyCardFace
 							{card}
 							shopName={data.shops.find((shop) => shop.id === card.shopId)?.name}
+							householdName={data.circles.length > 1 ? data.circleName(card.householdId) : undefined}
 							shareCount={acceptedShareCount(data.cardShares, card.id)}
 							actions={own}
 						/>
