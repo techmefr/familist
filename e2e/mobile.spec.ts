@@ -157,12 +157,12 @@ test('glisser une ligne du doigt la coche, sans passer par son bouton', { tag: '
 	await expect(row.locator('[data-test-class="item-check"]')).toBeChecked({ timeout: 15_000 });
 });
 
-test('le menu profil propose la deconnexion en premier', { tag: '@critical' }, async ({ signedInPage: page }) => {
- await page.getByTestId('header-profile').click();
- const sheet = page.locator('dialog[open][data-test-id="action-sheet"]');
- await expect(sheet).toBeVisible();
- await expect(sheet.locator('button').first()).toHaveAttribute('data-test-id', 'action-sheet-sign-out');
- await sheet.getByTestId('action-sheet-profile').click();
- await expect(page).toHaveURL(/\/profile$/);
- await expect(page.getByTestId('profile-sign-out')).toBeVisible();
+test('le profil du header donne acces a la deconnexion', { tag: '@critical' }, async ({ signedInPage: page }) => {
+	const link = page.getByTestId('header-profile');
+	await expect(link).toHaveAttribute('href', '/profile');
+	await link.click();
+	await expect(page).toHaveURL(/\/profile$/);
+	await expect(page.locator('dialog[open][data-test-id="action-sheet"]')).toHaveCount(0);
+	await expect(page.getByTestId('profile-sign-out')).toBeVisible();
+	await expect(page.getByTestId('profile-sign-out')).toBeEnabled();
 });
