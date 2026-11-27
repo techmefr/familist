@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { t } from '$i18n/index.svelte';
 import { clampDuration } from '$domain/step-duration';
 import { extendedEnd, isRinging, parseStoredTimers, remainingSeconds, timerLabel, type Timer } from '$domain/timers';

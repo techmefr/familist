@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { supabase } from '$db/supabase';
 import { db, type OutboxEntry, type Rejection } from '$db/schema';
 import { describeError, isPermanent } from './errors';

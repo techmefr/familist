@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHeading from '$components/app/PageHeading.svelte';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';

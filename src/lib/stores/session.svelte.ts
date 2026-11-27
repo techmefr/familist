@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { supabase } from '$db/supabase';
 import { OAUTH_PROVIDERS, type ProviderId } from '$domain/oauth';
 import type { KnownFactor } from '$domain/device-unlock';

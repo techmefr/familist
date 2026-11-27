@@ -5,7 +5,7 @@ export default defineConfig({
 	// through these paths, and the tests must resolve exactly what the application resolves.
 	resolve: {
 		alias: {
-			"$app/environment": new URL("./src/lib/native/test-environment.ts", import.meta.url).pathname,
+			"$app/env": new URL("./src/lib/native/test-environment.ts", import.meta.url).pathname,
 			$components: new URL("./src/lib/components", import.meta.url).pathname,
 			$domain: new URL("./src/lib/domain", import.meta.url).pathname,
 			$sync: new URL("./src/lib/sync", import.meta.url).pathname,

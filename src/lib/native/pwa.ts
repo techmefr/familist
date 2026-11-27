@@ -1,5 +1,5 @@
 import { Capacitor } from '@capacitor/core';
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 import { db } from '$db/schema';
 import { sync } from '$sync/index.svelte';
 import { pwaUpdate } from '$stores/pwa-update.svelte';

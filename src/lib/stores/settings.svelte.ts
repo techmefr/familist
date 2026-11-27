@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import type { Json } from '$db/types';
 import { localWins as arbitrate, type AppearanceRow } from '$domain/appearance';
 import {

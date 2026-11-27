@@ -3,7 +3,7 @@ import { flagForLocale } from './flags';
 import type { Locale } from './index.svelte';
 
 /**
- * The list is copied rather than imported from `index.svelte.ts`, which pulls `$app/environment` and does
+ * The list is copied rather than imported from `index.svelte.ts`, which pulls `$app/env` and does
  * not load outside the browser. A language added there and forgotten here will fall out of the typing.
  */
 const CODES: Locale[] = ['fr', 'en', 'es', 'de', 'it', 'pt', 'ru', 'ar', 'zh', 'mg'];

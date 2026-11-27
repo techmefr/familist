@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import fr from './locales/fr.json';
 
 export type Locale = 'fr' | 'en' | 'es' | 'de' | 'it' | 'ru' | 'ar' | 'zh' | 'mg' | 'pt';
