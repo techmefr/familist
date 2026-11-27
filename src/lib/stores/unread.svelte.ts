@@ -1,5 +1,5 @@
 import { untrack } from 'svelte';
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { supabase } from '$db/supabase';
 import { data } from '$stores/data.svelte';
 import { unreadIds, type ConversationTip, type LastRead } from '$domain/unread';

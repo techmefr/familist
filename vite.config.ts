@@ -74,6 +74,7 @@ export default defineConfig(({ mode }) => ({
 			// `$lib/db/supabase` for the same file: a half-declared table gives two spellings for one module,
 			// and a search for the callers of something then only turns up half of them.
 			alias: {
+				$lib: 'src/lib',
 				$components: 'src/lib/components',
 				$domain: 'src/lib/domain',
 				$stores: 'src/lib/stores',

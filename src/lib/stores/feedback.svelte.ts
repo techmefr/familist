@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { hapticFor, toneFor, type Cue } from '$domain/cue';
 import { vibrate } from '$native/haptics';
 import { settings } from './settings.svelte';

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import MagnifierModes from '$components/app/MagnifierModes.svelte';
 	import { onDestroy, tick } from 'svelte';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { t } from '$i18n/index.svelte';
 	import { session } from '$stores/session.svelte';
 	import {

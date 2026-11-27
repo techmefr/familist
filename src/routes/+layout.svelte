@@ -3,7 +3,7 @@
 	import { onMount, tick } from 'svelte';
 	import { Capacitor } from '@capacitor/core';
 	import LaunchScreen from '$components/app/LaunchScreen.svelte';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { keyboardAction } from '$domain/keyboard';
 	import { page } from '$app/state';
 	import { goto, onNavigate, afterNavigate } from '$app/navigation';

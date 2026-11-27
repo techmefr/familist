@@ -1,7 +1,11 @@
 /// <reference types="@sveltejs/kit" />
 /// <reference lib="webworker" />
 
-import { base, build, files, version } from '$service-worker';
+import { assets, immutable } from '$app/manifest';
+import { version } from '$app/env';
+
+const build = immutable.map(entry => `/${entry.path}`);
+const files = assets.map(entry => `/${entry.path}`);
 
 /**
  * Offline shell.
@@ -20,11 +24,11 @@ const CACHE = `familist-${version}`;
 
 // The entry page is in neither `build` nor `files`: adapter-static produces it as `fallback`, and the host
 // returns it for any route. It is the one to keep.
-const ENTRY = `${base}/`;
+const ENTRY = `/`;
 // The recipe scanner's engine (#312) is 20 MB of worker, core and language models: precaching it would
 // charge every install for a screen few people open. The worker and core are kept on first use; the models
 // are cached by Tesseract itself, in IndexedDB.
-const OCR = `${base}/tesseract/`;
+const OCR = `/tesseract/`;
 const OCR_MODELS = `${OCR}lang/`;
 const PRECACHE = [ENTRY, ...build, ...files.filter(file => !file.startsWith(OCR))];
 
@@ -98,7 +102,7 @@ worker.addEventListener('push', event => {
  event.waitUntil((async () => {
   await worker.registration.showNotification('Familiste', {
    body: typeof payload.body === 'string' ? payload.body : '',
-   icon: `${base}/icon-192.png`,
+   icon: `/icon-192.png`,
    tag: typeof payload.path === 'string' ? payload.path : 'familiste',
    data: { path: typeof payload.path === 'string' ? payload.path : '/' }
   });
@@ -110,7 +114,7 @@ worker.addEventListener('notificationclick', event => {
  event.notification.close();
  event.waitUntil((async () => {
   const path = event.notification.data?.path;
-  let target = new URL(`${base}/`, worker.location.origin);
+  let target = new URL(`/`, worker.location.origin);
   if (typeof path === 'string' && path.startsWith('/')) {
    const candidate = new URL(path, worker.location.origin);
    if (candidate.origin === worker.location.origin) target = candidate;

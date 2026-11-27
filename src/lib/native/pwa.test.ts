@@ -5,7 +5,7 @@ const state = vi.hoisted(() => ({
  pwa: { blocker: null as string | null, offer: vi.fn(), apply: vi.fn(), reset: vi.fn() }
 }));
 vi.mock('@capacitor/core', () => ({ Capacitor: { isNativePlatform: () => false } }));
-vi.mock('$app/environment', () => ({ dev: false }));
+vi.mock('$app/env', () => ({ dev: false }));
 vi.mock('$db/schema', () => ({ db: { outbox: { count: state.count } } }));
 vi.mock('$sync/index.svelte', () => ({ sync: state.sync }));
 vi.mock('$stores/pwa-update.svelte', () => ({ pwaUpdate: state.pwa }));

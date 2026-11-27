@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, type Snippet } from 'svelte';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { page } from '$app/state';
 	import { User, Keyboard } from '@lucide/svelte';
 	import NotificationCenter from '$components/app/NotificationCenter.svelte';
